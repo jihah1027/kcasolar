@@ -36,8 +36,25 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
 .bg-navy { background-color: var(--kca-navy) !important; color: #ffffff; }
 .bg-charcoal { background-color: var(--kca-charcoal) !important; color: #ffffff; }
 .bg-kca-grey { background-color: var(--kca-grey) !important; }
-.bg-tnb-blue { background-color: var(--tnb-blue) !important; color: #ffffff; }
-.bg-tnb-red { background-color: var(--tnb-red-orange) !important; color: #ffffff; }
+
+/* Navbar Enhancements */
+.brand-accent-bar {
+    height: 5px;
+    width: 100%;
+    background: linear-gradient(90deg, var(--tnb-blue) 0%, var(--tnb-blue) 50%, var(--tnb-red-orange) 50%, var(--tnb-red-orange) 100%);
+}
+
+.custom-nav-shadow {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.active-nav-link {
+    border-bottom: 2px solid var(--tnb-red-orange);
+}
+
+.hover-blue:hover {
+    color: var(--tnb-blue) !important;
+}
 
 /* Custom Button Styles */
 .btn-kca-red {
@@ -52,6 +69,16 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
     color: white;
 }
 
+/* Service Cards */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
 /* UI Elements */
 .accent-line {
     width: 80px;
@@ -61,7 +88,7 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
     border-radius: 2px;
 }
 
-/* Custom CSS for the full-screen slider effect */
+/* Hero Carousel Styles */
 .hero-carousel, 
 .carousel-inner, 
 .carousel-item {
@@ -69,14 +96,13 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
     min-height: 500px;
 }
 
-/* Overlay using the charcoal color with opacity */
 .carousel-image-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(32, 30, 30, 0.6); 
+    background-color: rgba(32, 30, 30, 0.65); /* Charcoal overlay */
 }
 
 .carousel-caption {
