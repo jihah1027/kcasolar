@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kejuruteraan Cahaya Abadi Sdn. Bhd. | KCA</title>
+    
+    <!-- Google Fonts: Inter (Headings) and Open Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm py-1">
+    <div class="container">
+        <!-- Added p-0 to remove extra margin around the logo -->
+        <a class="navbar-brand p-0" href="index.html">
+            <img src="img/logo.png" alt="KCA Logo" style="height: 60px;">
+        </a>
+
+            <!-- Right Side: Links and Hamburger -->
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav d-none d-md-flex flex-row me-4 gap-4">
+                    <li class="nav-item">
+                        <a class="nav-link active fw-semibold text-tnb-blue" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold" href="about.html">About Us</a>
+                    </li>
+                </ul>
+                
+                <!-- Hamburger Icon -->
+                <button class="navbar-toggler d-block border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+        <div class="offcanvas-header border-bottom">
+            <h5 class="offcanvas-title text-tnb-blue fw-bold" id="offcanvasNavLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav flex-column gap-3 fs-5">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">Our Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Automatic Sliding Hero Section -->
+    <header id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+
+        <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="carousel-item active bg-kca-grey">
+                <img src="img/index_about.png" class="d-block w-100 h-100 object-fit-cover" alt="KOSMA Solar Farm">
+                <div class="carousel-image-overlay"></div>
+                <div class="carousel-caption d-md-block text-white mb-5">
+                    <h1 class="display-4 fw-bold">Kejuruteraan Cahaya Abadi</h1>
+                    <p class="lead mb-4">Through innovative approaches and strong values of integrity.</p>
+                    <a href="about.html" class="btn btn-kca-red btn-lg px-5 rounded-pill shadow">Discover KCA</a>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item bg-kca-charcoal">
+                <img src="images/electrical-systems.jpg" class="d-block w-100 h-100 object-fit-cover" alt="Electrical Systems">
+                <div class="carousel-image-overlay"></div>
+                <div class="carousel-caption d-md-block text-white mb-5">
+                    <h1 class="display-4 fw-bold">Comprehensive Engineering</h1>
+                    <p class="lead mb-4">Specializing in high and low voltage power systems and utility infrastructure.</p>
+                    <a href="#services" class="btn btn-kca-red btn-lg px-5 rounded-pill shadow">Our Services</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item bg-kca-grey">
+                <img src="images/kca-team.jpg" class="d-block w-100 h-100 object-fit-cover" alt="KCA Team">
+                <div class="carousel-image-overlay"></div>
+                <div class="carousel-caption d-md-block text-white mb-5">
+                    <h1 class="display-4 fw-bold">Trusted by Industry Leaders</h1>
+                    <p class="lead mb-4">Delivering high-quality, safe technical services for TNB and MATRADE projects.</p>
+                    <a href="#contact" class="btn btn-kca-red btn-lg px-5 rounded-pill shadow">Contact Us</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </header>
+
+    <!-- Core Services Preview Section -->
+    <main class="flex-grow-1" id="services">
+        <section class="py-5 bg-light">
+            <div class="container py-4">
+                <div class="text-center mb-5">
+                    <h2 class="fw-bold text-tnb-blue display-6">Our Core Services</h2>
+                    <div class="accent-line"></div>
+                </div>
+                
+                <div class="row g-4 justify-content-center">
+                    <!-- Service Card 1 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4 transition-hover">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h1 class="text-tnb-red">⚡</h1>
+                                </div>
+                                <h4 class="text-tnb-blue fw-bold mb-3">Electrical Systems</h4>
+                                <p class="text-muted mb-4">Installation and maintenance of low-voltage electrical systems, substations, and standby generator systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Service Card 2 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4 transition-hover">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h1 class="text-tnb-red">🏢</h1>
+                                </div>
+                                <h4 class="text-tnb-blue fw-bold mb-3">Building Management</h4>
+                                <p class="text-muted mb-4">Comprehensive Mechanical & Electrical (M&E) services, general maintenance, and facility cleaning.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Card 3 -->
+                    <div class="col-md-4">
+                        <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4 transition-hover">
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <h1 class="text-tnb-red">☀️</h1>
+                                </div>
+                                <h4 class="text-tnb-blue fw-bold mb-3">Solar Systems</h4>
+                                <p class="text-muted mb-4">Specialized provision and installation of sustainable solar PV energy systems.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Area -->
+    <footer id="contact" class="bg-navy py-5 mt-auto">
+        <div class="container text-center text-white">
+            <h5 class="fw-bold mb-3">Kejuruteraan Cahaya Abadi Sdn. Bhd.</h5>
+            <p class="mb-2 text-kca-grey">30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
+            <p class="mb-0 mt-3 text-tnb-orange-light">
+                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Email:</strong> info@kcasolar.com
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

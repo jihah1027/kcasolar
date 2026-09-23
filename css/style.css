@@ -1,0 +1,85 @@
+/* Color Palette & Font Variables */
+:root {
+    /* Colors */
+    --tnb-blue: #0563c1;
+    --tnb-red-orange: #f66530;
+    --tnb-orange-light: #e37e4a;
+    --tnb-orange-bright: #f67d30;
+    --tnb-orange-deep: #e1803c;
+    --kca-grey: #c0c0c0;
+    --kca-charcoal: #201e1e;
+    --kca-navy: #03045a;
+    --kca-black: #000000;
+    
+    /* Fonts */
+    --font-headings: 'Inter', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
+}
+
+/* Global Font Application */
+body {
+    font-family: var(--font-body);
+    color: var(--kca-charcoal);
+}
+
+h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
+    font-family: var(--font-headings);
+}
+
+/* Custom Text Color Classes */
+.text-tnb-blue { color: var(--tnb-blue) !important; }
+.text-tnb-red { color: var(--tnb-red-orange) !important; }
+.text-kca-grey { color: var(--kca-grey) !important; }
+.text-tnb-orange-light { color: var(--tnb-orange-light) !important; }
+
+/* Custom Background Color Classes */
+.bg-navy { background-color: var(--kca-navy) !important; color: #ffffff; }
+.bg-charcoal { background-color: var(--kca-charcoal) !important; color: #ffffff; }
+.bg-kca-grey { background-color: var(--kca-grey) !important; }
+.bg-tnb-blue { background-color: var(--tnb-blue) !important; color: #ffffff; }
+.bg-tnb-red { background-color: var(--tnb-red-orange) !important; color: #ffffff; }
+
+/* Custom Button Styles */
+.btn-kca-red {
+    background-color: var(--tnb-red-orange);
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-kca-red:hover {
+    background-color: var(--tnb-orange-deep);
+    color: white;
+}
+
+/* UI Elements */
+.accent-line {
+    width: 80px;
+    height: 4px;
+    background-color: var(--tnb-red-orange);
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* Custom CSS for the full-screen slider effect */
+.hero-carousel, 
+.carousel-inner, 
+.carousel-item {
+    height: 80vh;
+    min-height: 500px;
+}
+
+/* Overlay using the charcoal color with opacity */
+.carousel-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(32, 30, 30, 0.6); 
+}
+
+.carousel-caption {
+    bottom: 30%;
+    z-index: 10;
+}
