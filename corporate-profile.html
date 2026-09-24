@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate Profile | Kejuruteraan Cahaya Abadi Sdn. Bhd.</title>
+    
+    <!-- Google Fonts: Inter (Headings) and Open Sans (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-white">
+
+    <!-- Brand Accent Line -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-2 custom-nav-shadow">
+        <div class="container">
+            <!-- Left Side: Logo & Company Name -->
+            <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
+                <img src="img/logo.png" alt="KCA Logo" style="height: 55px;" class="me-2">
+                <div class="d-none d-sm-block lh-1">
+                    <span class="fw-bold text-tnb-blue d-block" style="font-size: 0.85rem;">Kejuruteraan Cahaya Abadi</span>
+                </div>
+            </a>
+
+            <!-- Right Side: Clean links (Home & About Us only) + Persistent Hamburger -->
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav d-none d-md-flex flex-row me-4 gap-4">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold text-secondary hover-blue" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold text-secondary hover-blue" href="about.html">About Us</a>
+                    </li>
+                </ul>
+                
+                <!-- Hamburger Icon (Always Visible) -->
+                <button class="navbar-toggler d-block border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Offcanvas Mobile/Side Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
+        <div class="offcanvas-header border-bottom">
+            <div class="d-flex align-items-center">
+                <img src="img/logo.png" alt="KCA Logo" style="height: 40px;" class="me-2">
+                <div class="lh-1">
+                    <span class="fw-bold text-tnb-blue d-block" style="font-size: 0.85rem;">Kejuruteraan Cahaya Abadi</span>
+                </div>
+            </div>
+            <button type="button" class="btn-close mb-auto mt-2 shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="navbar-nav flex-column gap-3 fs-5 mt-3">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-bold text-tnb-blue" href="corporate-profile.html">Corporate Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html#services">Our Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main Content Sections -->
+    <main class="flex-grow-1 pt-4 pb-5">
+        
+        <!-- Section 1: Company Information Card -->
+        <section class="container py-5">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold text-tnb-blue mb-2">Company Information</h2>
+                <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="card border-0 shadow rounded-4 p-4 p-md-5 position-relative overflow-hidden" style="border-top: 5px solid var(--tnb-red-orange) !important; background-color: #ffffff;">
+                        
+                        <div class="row g-4 align-items-start">
+                            <!-- Left Column Details -->
+                            <div class="col-md-6 border-end-md">
+                                <ul class="list-unstyled mb-0 d-flex flex-column gap-4">
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Name of Company</span>
+                                        <strong class="text-dark fs-5">Kejuruteraan Cahaya Abadi Sdn. Bhd.</strong>
+                                    </li>
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Registration No.</span>
+                                        <span class="text-dark fw-semibold fs-6">200901031186 (874294-D)</span>
+                                    </li>
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Date of Inc. with ROC</span>
+                                        <span class="text-dark fw-semibold fs-6">7th October 2009</span>
+                                    </li>
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Office Address</span>
+                                        <span class="text-dark fs-6" style="line-height: 1.6;">30, Persiaran Perindustrian Pengkalan 2,<br>Kawasan Perindustrian Pengkalan,<br>31500 Lahat, Perak</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Right Column Details -->
+                            <div class="col-md-6 ps-md-4">
+                                <ul class="list-unstyled mb-0 d-flex flex-column gap-4">
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Authorized Capital</span>
+                                        <strong class="text-dark fs-5">RM 1,000,000.00</strong>
+                                    </li>
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Paid-up Capital</span>
+                                        <strong class="text-dark fs-5">RM 1,000,000.00</strong>
+                                    </li>
+                                    <li>
+                                        <span class="d-block fw-bold text-tnb-blue text-uppercase" style="font-size: 0.82rem; letter-spacing: 0.5px;">Directors / Shareholders</span>
+                                        <ul class="list-unstyled text-dark mb-0 ps-0 mt-2 d-flex flex-column gap-2">
+                                            <li class="d-flex align-items-center">
+                                                <span class="me-2 text-tnb-red-orange fw-bold">•</span>
+                                                <span><strong>Hisham bin Mokhtar</strong> <span class="badge bg-light text-tnb-blue border ms-2">Managing Director</span></span>
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                                <span class="me-2 text-tnb-red-orange fw-bold">•</span>
+                                                <span><strong>Nurul Farisha binti Hisham</strong> <span class="badge bg-light text-dark border ms-2">Director</span></span>
+                                            </li>
+                                            <li class="d-flex align-items-center">
+                                                <span class="me-2 text-tnb-red-orange fw-bold">•</span>
+                                                <span><strong>Abu Zarhan bin Mohamed Satar</strong> <span class="badge bg-light text-dark border ms-2">Director</span></span>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Vision & Mission -->
+        <section class="container py-5 mt-2 border-top">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold text-tnb-blue mb-2">Vision & Mission</h2>
+                <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- Vision Card -->
+                <div class="col-lg-5">
+                    <div class="card h-100 border-0 shadow rounded-4 p-4 p-md-5" style="border-top: 4px solid var(--tnb-blue) !important; background-color: #ffffff;">
+                        <span class="badge bg-primary text-white fw-bold px-3 py-2 rounded-pill mb-4 align-self-start" style="font-size: 0.9rem; background-color: var(--tnb-blue) !important;">VISION</span>
+                        <ul class="list-unstyled d-flex flex-column gap-3 text-dark mb-0" style="line-height: 1.8; font-size: 1.05rem;">
+                            <li class="d-flex align-items-start">
+                                <span class="text-tnb-blue me-2 fw-bold">✓</span>
+                                <span>To emerge as a global benchmark in delivering excellent and high-quality services.</span>
+                            </li>
+                            <li class="d-flex align-items-start">
+                                <span class="text-tnb-blue me-2 fw-bold">✓</span>
+                                <span>To become a premier, dynamic, and competitive resource organization through strong and effective teamwork.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mission Card -->
+                <div class="col-lg-5">
+                    <div class="card h-100 border-0 shadow rounded-4 p-4 p-md-5" style="border-top: 4px solid var(--tnb-red-orange) !important; background-color: #ffffff;">
+                        <span class="badge bg-danger text-white fw-bold px-3 py-2 rounded-pill mb-4 align-self-start" style="font-size: 0.9rem; background-color: var(--tnb-red-orange) !important;">MISSION</span>
+                        <ul class="list-unstyled d-flex flex-column gap-3 text-dark mb-0" style="line-height: 1.8; font-size: 1.05rem;">
+                            <li class="d-flex align-items-start">
+                                <span class="text-tnb-red-orange me-2 fw-bold">✓</span>
+                                <span>Empowering development through innovative approaches and strong values of integrity.</span>
+                            </li>
+                            <li class="d-flex align-items-start">
+                                <span class="text-tnb-red-orange me-2 fw-bold">✓</span>
+                                <span>To provide services that are high-quality, fast, and flexible in order to achieve one hundred percent customer satisfaction.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+<!-- Section 3: Our Objectives -->
+        <section class="container py-5 mt-2 border-top">
+            <div class="text-center mb-5">
+                <h2 class="display-6 fw-bold text-tnb-blue mb-2">Our Objectives</h2>
+                <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
+            </div>
+
+            <!-- Introductory Statement Box -->
+            <div class="row justify-content-center mb-4">
+                <div class="col-lg-10">
+                    <div class="p-4 rounded-4 shadow-sm" style="background-color: #f8fafc; border-left: 4px solid var(--tnb-blue);">
+                        <p class="mb-0 text-dark" style="font-size: 1rem; line-height: 1.7;">
+                            This objective is in line with the Malaysian government’s efforts to develop a generation of entrepreneurs who are both dynamic and conscientious, contributing to sustainable industry advancement and strengthening the national engineering ecosystem.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standardized Objectives List -->
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="d-flex flex-column gap-3">
+                        
+                        <!-- Objective 01 -->
+                        <div class="card border-0 shadow-sm rounded-3 p-3 p-md-4" style="background-color: #ffffff; border-left: 4px solid var(--tnb-red-orange) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold text-tnb-red-orange text-nowrap" style="font-size: 1.25rem; min-width: 42px; font-family: var(--font-headings);">01.</span>
+                                <p class="mb-0 text-dark" style="font-size: 1rem; line-height: 1.6;">
+                                    To engage with customers more efficiently and professionally.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Objective 02 -->
+                        <div class="card border-0 shadow-sm rounded-3 p-3 p-md-4" style="background-color: #ffffff; border-left: 4px solid var(--tnb-blue) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold text-tnb-blue text-nowrap" style="font-size: 1.25rem; min-width: 42px; font-family: var(--font-headings);">02.</span>
+                                <p class="mb-0 text-dark" style="font-size: 1rem; line-height: 1.6;">
+                                    Handling all matters in accordance with the company’s procedures through proper work ethics and the cultivation of noble values between suppliers and customers.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Objective 03 -->
+                        <div class="card border-0 shadow-sm rounded-3 p-3 p-md-4" style="background-color: #ffffff; border-left: 4px solid var(--tnb-red-orange) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold text-tnb-red-orange text-nowrap" style="font-size: 1.25rem; min-width: 42px; font-family: var(--font-headings);">03.</span>
+                                <p class="mb-0 text-dark" style="font-size: 1rem; line-height: 1.6;">
+                                    To deliver quality services by applying various effective marketing techniques in order to achieve maximum customer satisfaction.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Objective 04 -->
+                        <div class="card border-0 shadow-sm rounded-3 p-3 p-md-4" style="background-color: #ffffff; border-left: 4px solid var(--tnb-blue) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold text-tnb-blue text-nowrap" style="font-size: 1.25rem; min-width: 42px; font-family: var(--font-headings);">04.</span>
+                                <p class="mb-0 text-dark" style="font-size: 1rem; line-height: 1.6;">
+                                    To remain alert and prepared for every change that occurs in order to continuously improve the quality of services.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Objective 05 -->
+                        <div class="card border-0 shadow-sm rounded-3 p-3 p-md-4" style="background-color: #ffffff; border-left: 4px solid var(--tnb-red-orange) !important;">
+                            <div class="d-flex align-items-center gap-3">
+                                <span class="fw-bold text-tnb-red-orange text-nowrap" style="font-size: 1.25rem; min-width: 42px; font-family: var(--font-headings);">05.</span>
+                                <p class="mb-0 text-dark" style="font-size: 1rem; line-height: 1.6;">
+                                    To be consistent in handling orders and supply procurement so that product delivery can be promptly fulfilled to customers.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Area -->
+    <footer id="contact" class="bg-navy py-5 mt-auto">
+        <div class="container text-center text-white">
+            <h5 class="fw-bold mb-3" style="font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi Sdn. Bhd.</h5>
+            <p class="mb-2 text-white-50">30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
+            <p class="mb-0 mt-3 text-tnb-orange-light">
+                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Email:</strong> info@kcasolar.com
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

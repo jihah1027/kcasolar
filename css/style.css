@@ -106,6 +106,37 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
 }
 
 .carousel-caption {
-    bottom: 30%;
+    top: 0;
+    bottom: 0;
     z-index: 10;
+}
+
+/* Left-aligned accent line for inner pages for about us*/
+.accent-line-left {
+    width: 60px;
+    height: 4px;
+    background-color: var(--tnb-red-orange);
+    border-radius: 2px;
+}
+
+/* Custom Brand Text & Background Utilities */
+.text-tnb-red-orange {
+    color: var(--tnb-red-orange, #e35205) !important;
+}
+
+.bg-tnb-red-orange {
+    background-color: var(--tnb-red-orange, #e35205) !important;
+}
+
+/* Reusable Personnel Badges */
+.badge-kca-orange {
+    color: var(--tnb-red-orange, #e35205) !important;
+    background-color: #fff5f0 !important;
+    border: 1px solid rgba(227, 82, 5, 0.35) !important;
+}
+
+.badge-kca-blue {
+    color: var(--tnb-blue, #005b94) !important;
+    background-color: #f0f7fc !important;
+    border: 1px solid rgba(0, 91, 148, 0.35) !important;
 }
