@@ -140,3 +140,49 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
     background-color: #f0f7fc !important;
     border: 1px solid rgba(0, 91, 148, 0.35) !important;
 }
+
+/* --- PREMIUM VISUAL UPGRADES --- */
+
+/* 1. Sleek Gradient Overlay for Hero Images */
+.carousel-image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(3, 4, 90, 0.3) 0%, rgba(32, 30, 30, 0.85) 100%);
+}
+
+/* 2. Engineering Dot-Grid Background Pattern */
+.bg-light-pattern {
+    background-color: #f8f9fa;
+    background-image: radial-gradient(rgba(192, 192, 192, 0.4) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+/* 3. Interactive Service Card Hovers */
+.service-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border-bottom: 4px solid transparent;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(5, 99, 193, 0.1) !important;
+    border-bottom: 4px solid var(--tnb-blue);
+}
+
+.service-card i {
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.service-card:hover i {
+    transform: scale(1.15) translateY(-5px);
+    color: var(--tnb-blue) !important;
+}
+
+/* 4. Highlight Numbers Glow */
+.highlight-number {
+    text-shadow: 2px 4px 10px rgba(0,0,0,0.08);
+}

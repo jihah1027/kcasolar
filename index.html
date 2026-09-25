@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kejuruteraan Cahaya Abadi Sdn. Bhd. | KCA</title>
     
-    <!-- Google Fonts: Inter (Headings) and Open Sans (Body) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -81,14 +85,14 @@
         <div class="carousel-inner">
             <!-- Slide 1 -->
             <div class="carousel-item active bg-kca-charcoal">
-                <img src="img/about.png" class="d-block w-100 h-100 object-fit-cover" alt="KCA Engineering">
+                <img src="img/about_us.png" class="d-block w-100 h-100 object-fit-cover" alt="KCA Engineering">
                 <div class="carousel-image-overlay"></div>
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3">
-                    <h1 class="fw-bold mb-3 display-4">Powering Malaysia's Infrastructure</h1>
-                    <p class="mb-4 fs-5 text-center" style="max-width: 800px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);">
-                        Delivering high-quality electrical, mechanical, and solar PV solutions supported by experienced technical expertise.
+                    <h1 class="fw-bold mb-3 display-4" data-aos="fade-up" data-aos-duration="1000">Powering Malaysia's Infrastructure</h1>
+                    <p class="mb-4 fs-5 text-center" data-aos="fade-up" data-aos-delay="200" style="max-width: 800px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);">
+                       Delivering high-quality electrical, mechanical, and solar PV solutions supported by experienced technical expertise.
                     </p>
-                    <div class="d-flex gap-3 flex-wrap justify-content-center">
+                    <div class="d-flex gap-3 flex-wrap justify-content-center" data-aos="fade-up" data-aos-delay="400">
                         <a href="corporate-profile.html" class="btn btn-kca-red btn-lg px-4 rounded-pill shadow">View Corporate Profile</a>
                         <a href="#contact" class="btn btn-outline-light btn-lg px-4 rounded-pill shadow">Get in Touch</a>
                     </div>
@@ -122,93 +126,95 @@
     </header>
 
     <!-- 2. Core Highlights Section -->
-    <section class="py-5 border-bottom">
+    <section class="py-5 border-bottom bg-white">
         <div class="container py-3">
             <div class="row g-4 text-center">
-                <div class="col-md-4">
-                    <h1 class="display-5 fw-bold text-tnb-blue mb-2">2009</h1>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <h1 class="display-4 fw-bold text-tnb-blue mb-2 highlight-number">2009</h1>
                     <h5 class="fw-bold text-kca-charcoal">Established</h5>
-                    <p class="text-muted small">Established in Malaysia with expertise in electrical engineering, substation works, power systems and utility infrastructure maintenance.</p>
+                    <p class="text-muted small px-3">Established in Malaysia with expertise in electrical engineering, substation works, power systems and utility infrastructure maintenance.</p>
                 </div>
-                <div class="col-md-4">
-                    <h1 class="display-5 fw-bold text-tnb-red mb-2">G7</h1>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <h1 class="display-4 fw-bold text-tnb-red mb-2 highlight-number">G7</h1>
                     <h5 class="fw-bold text-kca-charcoal">CIDB Certified</h5>
-                    <p class="text-muted small">Registered with the Construction Industry Development Board (CIDB) with G7 certification.</p>
+                    <p class="text-muted small px-3">Registered with the Construction Industry Development Board (CIDB) with G7 certification.</p>
                 </div>
-                <div class="col-md-4">
-                    <h1 class="display-5 fw-bold text-tnb-blue mb-2">TNB</h1>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <h1 class="display-4 fw-bold text-tnb-blue mb-2 highlight-number">TNB</h1>
                     <h5 class="fw-bold text-kca-charcoal">Registered Vendor</h5>
-                    <p class="text-muted small">Registered with Tenaga Nasional Berhad (TNB) for electrical and energy infrastructure projects.</p>
+                    <p class="text-muted small px-3">Registered with Tenaga Nasional Berhad (TNB) for electrical and energy infrastructure projects.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- 3. Services Snapshot Teaser -->
-    <section class="py-5 bg-light" id="services-teaser">
+    <section class="py-5 bg-light-pattern" id="services-teaser">
         <div class="container py-4">
-            <div class="text-center mb-5">
+            <div class="text-center mb-5" data-aos="fade-up">
                 <h2 class="fw-bold text-tnb-blue display-6">Our Capabilities</h2>
                 <div class="accent-line"></div>
                 <p class="text-muted mt-3 max-w-75 mx-auto">Providing high-quality, fast, and flexible services to meet customer needs.</p>
             </div>
             
             <div class="row g-4 justify-content-center">
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card">
+                <!-- Electrical -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white">
                         <div class="card-body text-center">
-                            <h1 class="text-tnb-red mb-3">⚡</h1>
+                            <i class="bi bi-lightning-charge-fill text-tnb-red-orange display-4 mb-3 d-block"></i>
                             <h5 class="text-tnb-blue fw-bold mb-3">Electrical Systems</h5>
                             <p class="text-muted small mb-0">Scheduled installation and maintenance of low-voltage electrical systems, including cabling, street lighting, overhead lines, and standby generator systems.</p>
                         </div>
                     </div>
                 </div>
                 
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card">
+                <!-- Solar -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white">
                         <div class="card-body text-center">
-                            <h1 class="text-tnb-red mb-3">☀️</h1>
+                            <i class="bi bi-sun-fill text-tnb-red-orange display-4 mb-3 d-block"></i>
                             <h5 class="text-tnb-blue fw-bold mb-3">Solar PV Solutions</h5>
                             <p class="text-muted small mb-0">Installation and provision of solar systems, supported by KCA's RPVSP and SEDA-related certifications.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card">
+                <!-- Building M&E -->
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white">
                         <div class="card-body text-center">
-                            <h1 class="text-tnb-red mb-3">🏢</h1>
+                            <i class="bi bi-buildings-fill text-tnb-red-orange display-4 mb-3 d-block"></i>
                             <h5 class="text-tnb-blue fw-bold mb-3">Building Management</h5>
                             <p class="text-muted small mb-0">Mechanical & Electrical (M&E) services, air conditioning and ventilation systems, building renovation, general maintenance, and area cleaning.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-5">
-                <a href="services.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-semibold">View All Services</a>
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+                <a href="services.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-semibold shadow-sm">View All Services</a>
             </div>
         </div>
     </section>
 
-<!-- 4. Featured Project Teaser -->
-    <section class="py-5">
+    <!-- 4. Featured Project Teaser -->
+    <section class="py-5 bg-white">
         <div class="container py-5">
-            <!-- Removed align-items-center and added g-0 (zero gutters) -->
-            <div class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden border">
+            <div class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden border" data-aos="fade-up">
                 
+                <!-- Left Image side -->
                 <div class="col-lg-5">
-                    <!-- The image will now stretch fully from top to bottom -->
-                    <img src="img/project-kosma-solar-farm.png" alt="KOSMA Solar Farm" class="img-fluid w-100 h-100 object-fit-cover">
+                    <img src="img/project-kosma-solar-farm.png" alt="KOSMA Solar Farm" class="img-fluid w-100 h-100 object-fit-cover" onerror="this.src='img/about_us.png'">
                 </div>
                 
-                <!-- Added d-flex flex-column justify-content-center so ONLY the text centers vertically -->
+                <!-- Right Text side -->
                 <div class="col-lg-7 p-5 d-flex flex-column justify-content-center align-items-start">
                     <div>
                         <span class="badge badge-kca-orange mb-3 px-3 py-2 rounded-pill">Featured Project</span>
                         <h2 class="fw-bold text-tnb-blue mb-3">KOSMA Solar Farm</h2>
                         <h5 class="text-tnb-red fw-bold mb-4">1MW PV & 4 MW BESS</h5>
                         <p class="text-muted mb-4">
-                            A solar energy project featuring a 1 Megawatt Photovoltaic (PV) system and a 4 Megawatt Battery Energy Storage System (BESS).
+                            A renewable energy project integrating a 1 Megawatt Photovoltaic (PV) system with a 4 Megawatt Battery Energy Storage System (BESS).
                         </p>
                         <a href="projects.html" class="btn btn-kca-red px-4 py-2 rounded-pill shadow-sm">View Project Credentials</a>
                     </div>
@@ -220,11 +226,11 @@
 
     <!-- 5. Contact Footer -->
     <footer id="contact" class="bg-navy py-5 mt-auto">
-        <div class="container text-center text-white">
+        <div class="container text-center text-white" data-aos="fade-up">
             <h5 class="fw-bold mb-3" style="font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi Sdn. Bhd.</h5>
             <p class="mb-2 text-kca-grey">No. 30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
             <p class="mb-0 mt-3 text-tnb-orange-light">
-                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Fax:</strong> 05-3217108<br class="d-md-none">
+                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Fax:</strong> 05-3217108 <br class="d-md-none">
                 <span class="d-none d-md-inline">&nbsp;|&nbsp;</span>
                 <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp; <strong>Website:</strong> www.kcasolar.com
             </p>
@@ -233,5 +239,16 @@
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800, 
+            once: false,   // Allows repeat animations
+            mirror: true,  // Animates elements out while scrolling past them
+            offset: 50     
+        });
+    </script>
 </body>
 </html>
