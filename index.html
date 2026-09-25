@@ -21,10 +21,9 @@
     <!-- Brand Accent Line -->
     <div class="brand-accent-bar"></div>
 
-<!-- Navigation Bar -->
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-2 custom-nav-shadow">
         <div class="container">
-            <!-- Left Side: Logo & Company Name -->
             <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
                 <img src="img/logo.png" alt="KCA Logo" style="height: 55px;" class="me-2">
                 <div class="d-none d-sm-block lh-1">
@@ -32,7 +31,6 @@
                 </div>
             </a>
 
-            <!-- Right Side: Clean links (Home & About Us only) + Hamburger -->
             <div class="d-flex align-items-center">
                 <ul class="navbar-nav d-none d-md-flex flex-row me-4 gap-4">
                     <li class="nav-item">
@@ -43,7 +41,6 @@
                     </li>
                 </ul>
                 
-                <!-- Hamburger Icon (Always Visible) -->
                 <button class="navbar-toggler d-block border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -51,7 +48,7 @@
         </div>
     </nav>
 
-    <!-- Offcanvas Menu (Includes Corporate Profile) -->
+    <!-- Offcanvas Menu -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNav" aria-labelledby="offcanvasNavLabel">
         <div class="offcanvas-header border-bottom">
             <div class="d-flex align-items-center">
@@ -67,52 +64,48 @@
                 <li class="nav-item"><a class="nav-link fw-bold text-tnb-blue" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
                 <li class="nav-item"><a class="nav-link" href="corporate-profile.html">Corporate Profile</a></li>
-                <li class="nav-item"><a class="nav-link" href="#services">Our Services</a></li>
-                <li class="nav-item"><a class="nav-link" href="#projects.html">Projects & Credentials</a></li>
+                <li class="nav-item"><a class="nav-link" href="services.html">Our Services</a></li>
+                <li class="nav-item"><a class="nav-link" href="projects.html">Projects & Credentials</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
         </div>
     </div>
 
-    <!-- Automatic Sliding Hero Section -->
-    <header id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
+    <!-- 1. Hero Section -->
+    <header id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="6000">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         </div>
 
         <div class="carousel-inner">
-            <!-- Slide 1: About Us -->
-            <div class="carousel-item active bg-kca-grey">
-                <img src="img/index_about.png" class="d-block w-100 h-100 object-fit-cover" alt="KCA Engineering">
+            <!-- Slide 1 -->
+            <div class="carousel-item active bg-kca-charcoal">
+                <img src="img/about.png" class="d-block w-100 h-100 object-fit-cover" alt="KCA Engineering">
                 <div class="carousel-image-overlay"></div>
-                <div class="carousel-caption d-flex flex-column justify-content-center text-white px-3">
-                    
-                    <h1 class="fw-bold mb-3 fs-2 fs-md-1">Trusted Engineering Solutions</h1>
-                    
-                    <p class="mb-4 mx-auto fs-6 fs-md-5" style="max-width: 850px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);">
-                        Kejuruteraan Cahaya Abadi Sdn. Bhd. (KCA) is an engineering company specializing in electrical substation works, high and low voltage power systems, and utility maintenance. Trusted by Tenaga Nasional Berhad (TNB), we view every project as a responsibility to safeguard the continuity of the nation’s energy supply.
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3">
+                    <h1 class="fw-bold mb-3 display-4">Powering Malaysia's Infrastructure</h1>
+                    <p class="mb-4 fs-5 text-center" style="max-width: 800px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);">
+                        Delivering high-quality electrical, mechanical, and solar PV solutions supported by experienced technical expertise.
                     </p>
-
-                    <div>
-                        <a href="about.html" class="btn btn-kca-red btn-lg px-4 px-md-5 rounded-pill shadow">Discover KCA</a>
+                    <div class="d-flex gap-3 flex-wrap justify-content-center">
+                        <a href="corporate-profile.html" class="btn btn-kca-red btn-lg px-4 rounded-pill shadow">View Corporate Profile</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg px-4 rounded-pill shadow">Get in Touch</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 2: Core Expertise -->
-            <div class="carousel-item bg-kca-charcoal">
-                <img src="img/about_us.png" class="d-block w-100 h-100 object-fit-cover" alt="Electrical Systems">
+            <!-- Slide 2 -->
+            <div class="carousel-item bg-navy">
+                <img src="img/index_about.png" class="d-block w-100 h-100 object-fit-cover" alt="Electrical Systems">
                 <div class="carousel-image-overlay"></div>
-                <div class="carousel-caption d-flex flex-column justify-content-center text-white px-3">
-                    
-                    <h1 class="fw-bold mb-3 fs-2 fs-md-1">Comprehensive Engineering</h1>
-                    
-                    <p class="mb-4 mx-auto fs-6 fs-md-5" style="max-width: 800px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);">
-                        Delivering high-quality and safe technical services that meet industry standards. Specializing in high and low voltage power systems and utility infrastructure.
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3">
+                    <h1 class="fw-bold mb-3 display-4">Registered TNB Contractor</h1>
+                    <p class="mb-4 fs-5 text-center" style="max-width: 800px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);">
+                        Providing electrical and utility infrastructure services for projects related to Tenaga Nasional Berhad (TNB).
                     </p>
-                    
                     <div>
-                        <a href="#services" class="btn btn-kca-red btn-lg px-4 px-md-5 rounded-pill shadow">Our Services</a>
+                        <a href="services.html" class="btn btn-kca-red btn-lg px-4 px-md-5 rounded-pill shadow">Explore All Capabilities</a>
                     </div>
                 </div>
             </div>
@@ -128,66 +121,112 @@
         </button>
     </header>
 
-    <!-- Core Services Preview Section -->
-    <main class="flex-grow-1" id="services">
-        <section class="py-5 bg-light">
-            <div class="container py-4">
-                <div class="text-center mb-5">
-                    <h2 class="fw-bold text-tnb-blue display-6">Our Core Services</h2>
-                    <div class="accent-line"></div>
+    <!-- 2. Core Highlights Section -->
+    <section class="py-5 border-bottom">
+        <div class="container py-3">
+            <div class="row g-4 text-center">
+                <div class="col-md-4">
+                    <h1 class="display-5 fw-bold text-tnb-blue mb-2">2009</h1>
+                    <h5 class="fw-bold text-kca-charcoal">Established</h5>
+                    <p class="text-muted small">Established in Malaysia with expertise in electrical engineering, substation works, power systems and utility infrastructure maintenance.</p>
+                </div>
+                <div class="col-md-4">
+                    <h1 class="display-5 fw-bold text-tnb-red mb-2">G7</h1>
+                    <h5 class="fw-bold text-kca-charcoal">CIDB Certified</h5>
+                    <p class="text-muted small">Registered with the Construction Industry Development Board (CIDB) with G7 certification.</p>
+                </div>
+                <div class="col-md-4">
+                    <h1 class="display-5 fw-bold text-tnb-blue mb-2">TNB</h1>
+                    <h5 class="fw-bold text-kca-charcoal">Registered Vendor</h5>
+                    <p class="text-muted small">Registered with Tenaga Nasional Berhad (TNB) for electrical and energy infrastructure projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Services Snapshot Teaser -->
+    <section class="py-5 bg-light" id="services-teaser">
+        <div class="container py-4">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold text-tnb-blue display-6">Our Capabilities</h2>
+                <div class="accent-line"></div>
+                <p class="text-muted mt-3 max-w-75 mx-auto">Providing high-quality, fast, and flexible services to meet customer needs.</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card">
+                        <div class="card-body text-center">
+                            <h1 class="text-tnb-red mb-3">⚡</h1>
+                            <h5 class="text-tnb-blue fw-bold mb-3">Electrical Systems</h5>
+                            <p class="text-muted small mb-0">Scheduled installation and maintenance of low-voltage electrical systems, including cabling, street lighting, overhead lines, and standby generator systems.</p>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="row g-4 justify-content-center">
-                    <!-- Service Card 1 -->
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4 service-card">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <h1 class="text-tnb-red">⚡</h1>
-                                </div>
-                                <h4 class="text-tnb-blue fw-bold mb-3">Electrical Systems</h4>
-                                <p class="text-muted mb-4">Installation and maintenance of low-voltage electrical systems, substations, and standby generator systems.</p>
-                            </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card">
+                        <div class="card-body text-center">
+                            <h1 class="text-tnb-red mb-3">☀️</h1>
+                            <h5 class="text-tnb-blue fw-bold mb-3">Solar PV Solutions</h5>
+                            <p class="text-muted small mb-0">Installation and provision of solar systems, supported by KCA's RPVSP and SEDA-related certifications.</p>
                         </div>
                     </div>
-                    
-                    <!-- Service Card 2 -->
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4 service-card">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <h1 class="text-tnb-red">🏢</h1>
-                                </div>
-                                <h4 class="text-tnb-blue fw-bold mb-3">Building Management</h4>
-                                <p class="text-muted mb-4">Comprehensive Mechanical & Electrical (M&E) services, general maintenance, and facility cleaning.</p>
-                            </div>
-                        </div>
-                    </div>
+                </div>
 
-                    <!-- Service Card 3 -->
-                    <div class="col-md-4">
-                        <div class="card h-100 border-0 shadow-sm text-center p-4 rounded-4 service-card">
-                            <div class="card-body">
-                                <div class="mb-3">
-                                    <h1 class="text-tnb-red">☀️</h1>
-                                </div>
-                                <h4 class="text-tnb-blue fw-bold mb-3">Solar Systems</h4>
-                                <p class="text-muted mb-4">Specialized provision and installation of sustainable solar PV energy systems.</p>
-                            </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card">
+                        <div class="card-body text-center">
+                            <h1 class="text-tnb-red mb-3">🏢</h1>
+                            <h5 class="text-tnb-blue fw-bold mb-3">Building Management</h5>
+                            <p class="text-muted small mb-0">Mechanical & Electrical (M&E) services, air conditioning and ventilation systems, building renovation, general maintenance, and area cleaning.</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
+            <div class="text-center mt-5">
+                <a href="services.html" class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-semibold">View All Services</a>
+            </div>
+        </div>
+    </section>
 
-    <!-- Footer Area -->
+<!-- 4. Featured Project Teaser -->
+    <section class="py-5">
+        <div class="container py-5">
+            <!-- Removed align-items-center and added g-0 (zero gutters) -->
+            <div class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden border">
+                
+                <div class="col-lg-5">
+                    <!-- The image will now stretch fully from top to bottom -->
+                    <img src="img/project-kosma-solar-farm.png" alt="KOSMA Solar Farm" class="img-fluid w-100 h-100 object-fit-cover">
+                </div>
+                
+                <!-- Added d-flex flex-column justify-content-center so ONLY the text centers vertically -->
+                <div class="col-lg-7 p-5 d-flex flex-column justify-content-center align-items-start">
+                    <div>
+                        <span class="badge badge-kca-orange mb-3 px-3 py-2 rounded-pill">Featured Project</span>
+                        <h2 class="fw-bold text-tnb-blue mb-3">KOSMA Solar Farm</h2>
+                        <h5 class="text-tnb-red fw-bold mb-4">1MW PV & 4 MW BESS</h5>
+                        <p class="text-muted mb-4">
+                            A solar energy project featuring a 1 Megawatt Photovoltaic (PV) system and a 4 Megawatt Battery Energy Storage System (BESS).
+                        </p>
+                        <a href="projects.html" class="btn btn-kca-red px-4 py-2 rounded-pill shadow-sm">View Project Credentials</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Contact Footer -->
     <footer id="contact" class="bg-navy py-5 mt-auto">
         <div class="container text-center text-white">
             <h5 class="fw-bold mb-3" style="font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi Sdn. Bhd.</h5>
-            <p class="mb-2 text-kca-grey">30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
+            <p class="mb-2 text-kca-grey">No. 30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
             <p class="mb-0 mt-3 text-tnb-orange-light">
-                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp; <strong>Website:</strong> www.kcasolar.com
+                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Fax:</strong> 05-3217108<br class="d-md-none">
+                <span class="d-none d-md-inline">&nbsp;|&nbsp;</span>
+                <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp; <strong>Website:</strong> www.kcasolar.com
             </p>
         </div>
     </footer>
