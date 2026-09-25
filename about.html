@@ -5,13 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Kejuruteraan Cahaya Abadi Sdn. Bhd.</title>
     
-    <!-- Google Fonts: Inter (Headings) and Open Sans (Body) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -21,10 +25,9 @@
     <!-- Brand Accent Line -->
     <div class="brand-accent-bar"></div>
 
-<!-- Navigation Bar -->
+    <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-2 custom-nav-shadow">
         <div class="container">
-            <!-- Left Side: Logo & Company Name -->
             <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
                 <img src="img/logo.png" alt="KCA Logo" style="height: 55px;" class="me-2">
                 <div class="d-none d-sm-block lh-1">
@@ -32,7 +35,6 @@
                 </div>
             </a>
 
-            <!-- Right Side: Clean Desktop Links & Persistent Hamburger -->
             <div class="d-flex align-items-center">
                 <ul class="navbar-nav d-none d-md-flex flex-row me-4 gap-4">
                     <li class="nav-item">
@@ -43,7 +45,6 @@
                     </li>
                 </ul>
                 
-                <!-- Persistent Hamburger Icon -->
                 <button class="navbar-toggler d-block border-0 shadow-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav" aria-controls="offcanvasNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -75,32 +76,45 @@
     </div>
 
     <!-- Main Content Sections -->
-    <main class="flex-grow-1 pt-4 pb-5">
+    <main class="flex-grow-1 pb-5">
         
+        <!-- Page Header (Mini Hero) -->
+        <section class="bg-navy py-5 position-relative overflow-hidden">
+            <!-- Optional: You can add a background image here later, currently uses your sleek navy color -->
+            <div class="container position-relative z-1 text-center text-white py-4">
+                <h1 class="display-5 fw-bold mb-3" data-aos="fade-down">Who We Are</h1>
+                <div class="accent-line mx-auto mb-3"></div>
+                <p class="lead text-white-50 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
+                    Safeguarding the continuity of the nation's energy supply through engineering excellence.
+                </p>
+            </div>
+        </section>
+
         <!-- Section 1: About Us -->
-        <section class="container py-5">
+        <section class="container py-5 mt-4">
             <div class="row g-5 align-items-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-right">
                     <div class="position-relative p-3 p-md-0">
                         <div class="position-absolute d-none d-md-block rounded" style="top: 20px; left: -20px; bottom: -20px; right: 20px; border: 2px solid var(--tnb-blue); z-index: 0;"></div>
                         <img src="img/about_us.png" alt="KCA Engineering Operations" class="img-fluid rounded shadow-sm position-relative z-1 w-100" style="object-fit: cover; min-height: 400px;">
                     </div>
                 </div>
 
-                <div class="col-lg-6 ps-lg-5">
+                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
                     <h2 class="display-6 fw-bold text-tnb-blue mb-3">About Us</h2>
                     <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mb-4 rounded"></div>
                     
-                    <p class="text-dark mb-4" style="font-size: 1rem; line-height: 1.8; max-width: 90%;">
+                    <p class="text-dark mb-4" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
                         <strong class="text-dark">Kejuruteraan Cahaya Abadi Sdn. Bhd. (KCA)</strong> is an engineering company registered and operating in Malaysia, with expertise in electrical substation works, high and low voltage power systems, and utility infrastructure maintenance, particularly for projects under <strong class="text-tnb-blue">Tenaga Nasional Berhad (TNB).</strong>
                     </p>
                     
-                    <p class="text-dark mb-4" style="font-size: 1rem; line-height: 1.8; max-width: 90%;">
+                    <p class="text-dark mb-4" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
                         Since its establishment, KCA has remained committed to delivering high-quality and safe technical services that meet industry standards.
                     </p>
                     
-                    <div class="p-4 shadow-sm rounded-3" style="background-color: #f8fafc; border-left: 4px solid var(--tnb-red-orange);">
-                        <p class="mb-0 fw-semibold text-dark fst-italic" style="font-size: 0.95rem; line-height: 1.7;">
+                    <div class="p-4 shadow-sm rounded-3 position-relative overflow-hidden" style="background-color: #f8fafc; border-left: 4px solid var(--tnb-red-orange);">
+                        <i class="bi bi-quote position-absolute text-black-50" style="font-size: 6rem; top: -30px; right: -10px; opacity: 0.05;"></i>
+                        <p class="mb-0 fw-semibold text-dark fst-italic position-relative z-1" style="font-size: 1rem; line-height: 1.7;">
                             "We believe that every project is not merely a technical task, but a responsibility entrusted to us to safeguard the continuity of the nation’s energy supply."
                         </p>
                     </div>
@@ -109,55 +123,61 @@
         </section>
 
         <!-- Section 2: Managing Director Profile -->
-        <section class="container py-5 mt-4 border-top">
-            <div class="row g-5 align-items-center">
-                <div class="col-lg-6 pe-lg-5">
-                    <h2 class="display-6 fw-bold text-tnb-blue mb-3">About Our Managing Director</h2>
-                    <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mb-4 rounded"></div>
-                    
-                    <p class="text-dark mb-4" style="font-size: 1rem; line-height: 1.8; max-width: 90%;">
-                        <strong class="text-dark">HISHAM MOKHTAR</strong> is the Managing Director of Kejuruteraan Cahaya Abadi Sdn. Bhd., with nearly 30 years of experience in the electrical engineering industry. He has extensive expertise in installation, maintenance, and development of electrical systems, particularly in substation projects and energy infrastructure that require advanced technical skills and strict adherence to safety standards.
-                    </p>
-                    
-                    <p class="text-dark mb-0" style="font-size: 1rem; line-height: 1.8; max-width: 90%;">
-                        Under his leadership, Kejuruteraan Cahaya Abadi Sdn. Bhd. has grown into a company that emphasizes professionalism, quality workmanship, and full compliance with safe work procedures, especially in projects involving <strong class="text-tnb-blue">Tenaga Nasional Berhad (TNB).</strong> His strategic approach and meticulous focus on ensuring efficient operations and a disciplined work culture have been the foundation of the company's strong reputation in the industry.
-                    </p>
-                </div>
+        <section class="bg-light-pattern py-5 mt-4 border-top border-bottom">
+            <div class="container py-4">
+                <div class="row g-5 align-items-center">
+                    <div class="col-lg-6 pe-lg-5 order-2 order-lg-1" data-aos="fade-right">
+                        <h2 class="display-6 fw-bold text-tnb-blue mb-3">About Our Managing Director</h2>
+                        <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mb-4 rounded"></div>
+                        
+                        <p class="text-dark mb-4" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
+                            <strong class="text-tnb-red-orange fs-5 d-block mb-2">HISHAM MOKHTAR</strong>
+                            With nearly 30 years of experience in the electrical engineering industry, he has extensive expertise in installation, maintenance, and development of electrical systems, particularly in substation projects and energy infrastructure that require advanced technical skills and strict adherence to safety standards.
+                        </p>
+                        
+                        <p class="text-dark mb-0" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
+                            Under his leadership, KCA has grown into a company that emphasizes professionalism, quality workmanship, and full compliance with safe work procedures, especially in projects involving <strong class="text-tnb-blue">Tenaga Nasional Berhad (TNB).</strong> His strategic approach and meticulous focus on ensuring efficient operations and a disciplined work culture have been the foundation of the company’s strong reputation in the industry.
+                        </p>
+                    </div>
 
-                <div class="col-lg-6">
-                    <div class="position-relative p-3 p-md-0">
-                        <div class="position-absolute d-none d-md-block rounded" style="top: 20px; right: -20px; bottom: -20px; left: 20px; border: 2px solid var(--tnb-red-orange); z-index: 0;"></div>
-                        <img src="img/director.png" alt="Hisham Mokhtar - Managing Director" class="img-fluid rounded shadow-sm position-relative z-1 w-100" style="object-fit: cover; min-height: 400px;" onerror="this.src='img/about_us.png'">
+                    <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
+                        <div class="position-relative p-3 p-md-0">
+                            <div class="position-absolute d-none d-md-block rounded" style="top: 20px; right: -20px; bottom: -20px; left: 20px; border: 2px solid var(--tnb-red-orange); z-index: 0;"></div>
+                            <img src="img/director.png" alt="Hisham Mokhtar - Managing Director" class="img-fluid rounded shadow-sm position-relative z-1 w-100" style="object-fit: cover; min-height: 400px;" onerror="this.src='img/about_us.png'">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Section 3: TVET Development -->
-        <section class="container py-5 mt-4 border-top">
+        <section class="container py-5 mt-4">
             <div class="row g-5 align-items-center">
-                <!-- Left: MOU Photo Treatment -->
-                <div class="col-lg-6 order-2 order-lg-1">
+                <div class="col-lg-6" data-aos="fade-right">
                     <div class="position-relative p-3 p-md-0">
                         <div class="position-absolute d-none d-md-block rounded" style="top: 20px; left: -20px; bottom: -20px; right: 20px; border: 2px solid var(--tnb-blue); z-index: 0;"></div>
                         <img src="img/tvet.png" alt="TVET Development MOU Signing" class="img-fluid rounded shadow-sm position-relative z-1 w-100" style="object-fit: cover; min-height: 380px;" onerror="this.src='img/about_us.png'">
                     </div>
                 </div>
 
-                <!-- Right: TVET Narrative -->
-                <div class="col-lg-6 ps-lg-5 order-1 order-lg-2">
+                <div class="col-lg-6 ps-lg-5" data-aos="fade-left">
                     <h2 class="display-6 fw-bold text-tnb-blue mb-3">TVET Talent Development</h2>
                     <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mb-4 rounded"></div>
                     
-                    <p class="text-dark mb-3" style="font-size: 1rem; line-height: 1.8; max-width: 90%;">
-                        KCA plays an active role in developing young national talent by providing structured industrial training specifically designed for <strong class="text-tnb-blue">TVET graduates.</strong> This initiative delivers technical students genuine hands-on exposure at active project sites, instilling rigorous safe work procedures and energy industry engineering standards.
+                    <p class="text-dark mb-3" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
+                        KCA plays an active role in developing young national talent by providing structured industrial training specifically designed for <strong class="text-tnb-blue">TVET graduates.</strong> This initiative offers technical students real exposure at project sites, enabling them to learn safe work procedures and understand the engineering standards practiced in the energy industry.
                     </p>
                     
-                    <p class="text-dark mb-4" style="font-size: 1rem; line-height: 1.8; max-width: 90%;">
-                        Guided directly by seasoned engineering personnel, this program fosters competent, job-ready technicians equipped to meet high-demand industry environments.
+                    <p class="text-dark mb-4" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
+                        With guidance from highly experienced technical personnel, this program helps shape a new generation of technicians who are more prepared, competent and competitive to meet industry demands.
                     </p>
 
-                    <div class="p-3 rounded-3" style="background-color: #f8fafc; border-left: 4px solid var(--tnb-blue);">
+                    <p class="text-dark mb-4" style="font-size: 1.05rem; line-height: 1.8; max-width: 95%;">
+                       The combination of technical expertise and strong commitment to human capital development positions KCA as a progressive, trusted and relevant company within Malaysia’s electrical engineering sector.
+                    </p>
+
+                    <div class="p-3 rounded-3 shadow-sm d-flex align-items-center gap-3" style="background-color: #ffffff; border: 1px solid #e2e8f0; border-left: 4px solid var(--tnb-blue);">
+                        <i class="bi bi-mortarboard-fill fs-3 text-tnb-blue"></i>
                         <p class="mb-0 text-dark small fw-medium" style="line-height: 1.6;">
                             Strategic Partnership: In collaboration with <strong>Kolej Vokasional Seri Manjung</strong> under the Ministry of Education Malaysia.
                         </p>
@@ -166,112 +186,123 @@
             </div>
         </section>
 
-<!-- Section 4: Our Team Structure -->
-        <section class="container py-5 mt-4 border-top">
-            <div class="text-center mb-5">
-                <h2 class="display-6 fw-bold text-tnb-blue mb-2">Our Team Capacity</h2>
-                <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
-                <p class="text-dark mt-3 mx-auto" style="max-width: 720px; font-size: 1rem; line-height: 1.7;">
-                    Our operations are driven by three synchronized teams ensuring safety, operational excellence, and technical precision from administration to on-site implementation.
-                </p>
-            </div>
-
-            <div class="row g-4 justify-content-center">
-                <!-- Management Team -->
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center" style="border-top: 4px solid var(--tnb-blue) !important; background-color: #ffffff;">
-                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px; background-color: rgba(0, 91, 148, 0.08);">
-                            <span class="fs-2 fw-bold text-tnb-blue">08</span>
-                        </div>
-                        <h4 class="fw-bold text-tnb-blue mb-2">Management Team</h4>
-                        <span class="badge badge-kca-blue mb-3 mx-auto px-3 py-1 fw-semibold">8 Personnel</span>
-                        <p class="text-dark mb-0 small" style="line-height: 1.7;">
-                            Directs corporate vision, strategic development, and ensures strict corporate governance and regulatory compliance across all contracts.
-                        </p>
-                    </div>
+        <!-- Section 4: Our Team Structure -->
+        <section class="bg-light-pattern py-5 mt-5 border-top">
+            <div class="container py-4">
+                <div class="text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-6 fw-bold text-tnb-blue mb-2">Our Team Capacity</h2>
+                    <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
+                    <p class="text-dark mt-3 mx-auto" style="max-width: 720px; font-size: 1.05rem; line-height: 1.7;">
+                        Our operations are driven by three synchronized teams ensuring safety, operational excellence, and technical precision from administration to on-site implementation.
+                    </p>
                 </div>
 
-                <!-- Office Team -->
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center" style="border-top: 4px solid var(--tnb-red-orange) !important; background-color: #ffffff;">
-                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px; background-color: rgba(227, 82, 5, 0.08);">
-                            <span class="fs-2 fw-bold text-tnb-red-orange">10</span>
+                <div class="row g-4 justify-content-center">
+                    <!-- Management Team -->
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center service-card" style="background-color: #ffffff;">
+                            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px; background-color: rgba(0, 91, 148, 0.08);">
+                                <i class="bi bi-briefcase-fill fs-2 text-tnb-blue"></i>
+                            </div>
+                            <h4 class="fw-bold text-tnb-blue mb-2">Management</h4>
+                            <span class="badge badge-kca-blue mb-3 mx-auto px-3 py-1 fw-semibold fs-6">08 Personnel</span>
+                            <p class="text-dark mb-0 small" style="line-height: 1.7;">
+                                Leads strategy and ensures industry compliance.
+                            </p>
                         </div>
-                        <h4 class="fw-bold text-tnb-blue mb-2">Office Team</h4>
-                        <span class="badge badge-kca-orange mb-3 mx-auto px-3 py-1 fw-semibold">10 Personnel</span>
-                        <p class="text-dark mb-0 small" style="line-height: 1.7;">
-                            Oversees essential enterprise operations, procurement workflows, project accounting, human resources, and official documentation.
-                        </p>
                     </div>
-                </div>
 
-                <!-- Operation Team -->
-                <div class="col-md-4">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center" style="border-top: 4px solid var(--tnb-blue) !important; background-color: #ffffff;">
-                        <div class="rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px; background-color: rgba(0, 91, 148, 0.08);">
-                            <span class="fs-2 fw-bold text-tnb-blue">40</span>
+                    <!-- Office Team -->
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center service-card" style="background-color: #ffffff;">
+                            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px; background-color: rgba(227, 82, 5, 0.08);">
+                                <i class="bi bi-laptop-fill fs-2 text-tnb-red-orange"></i>
+                            </div>
+                            <h4 class="fw-bold text-tnb-blue mb-2">Office Team</h4>
+                            <span class="badge badge-kca-orange mb-3 mx-auto px-3 py-1 fw-semibold fs-6">10 Personnel</span>
+                            <p class="text-dark mb-0 small" style="line-height: 1.7;">
+                                Manages internal operations such as finance, human resources, and documentation.
+                            </p>
                         </div>
-                        <h4 class="fw-bold text-tnb-blue mb-2">Operation Team</h4>
-                        <span class="badge badge-kca-blue mb-3 mx-auto px-3 py-1 fw-semibold">40 Personnel</span>
-                        <p class="text-dark mb-0 small" style="line-height: 1.7;">
-                            Executes technical engineering operations, on-site substation work, maintenance regimes, electrical installations, and emergency field responses.
-                        </p>
+                    </div>
+
+                    <!-- Operation Team -->
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 text-center service-card" style="background-color: #ffffff;">
+                            <div class="rounded-circle d-inline-flex align-items-center justify-content-center mx-auto mb-3" style="width: 70px; height: 70px; background-color: rgba(0, 91, 148, 0.08);">
+                                <i class="bi bi-tools fs-2 text-tnb-blue"></i>
+                            </div>
+                            <h4 class="fw-bold text-tnb-blue mb-2">Operations</h4>
+                            <span class="badge badge-kca-blue mb-3 mx-auto px-3 py-1 fw-semibold fs-6">40 Personnel</span>
+                            <p class="text-dark mb-0 small" style="line-height: 1.7;">
+                                Carries out technical work on-site, including installation and maintenance.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- =========================================================
-         OUR OFFICE / OPERATIONAL HEADQUARTERS
-    ========================================================= -->
-    <section class="container py-5 border-top">
-        <div class="text-center mb-5">
-            <span class="text-uppercase fw-semibold text-secondary small d-block mb-1" style="letter-spacing: 2px;">HEADQUARTERS</span>
-            <h2 class="display-5 fw-bold text-tnb-blue mb-3">OUR OFFICE</h2>
-            <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
-        </div>
+        <!-- Section 5: Our Office -->
+        <section class="container py-5 mt-4">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="text-uppercase fw-semibold text-secondary small d-block mb-1" style="letter-spacing: 2px;">HEADQUARTERS</span>
+                <h2 class="display-5 fw-bold text-tnb-blue mb-3">Our Office</h2>
+                <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
+            </div>
 
-        <!-- 3 Office Facility Photos -->
-        <div class="row g-4 justify-content-center mb-4">
-            <div class="col-md-4">
-                <div class="border rounded-3 shadow-sm bg-white overflow-hidden p-0 h-100">
-                    <img src="img/office-exterior.png" alt="KCA Office Exterior - Pengkalan 2" class="img-fluid w-100 d-block m-0" style="height: 250px; object-fit: cover;" onerror="this.src='img/office-exterior.png'">
+            <div class="row g-4 justify-content-center mb-5">
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="border rounded-4 shadow-sm bg-white overflow-hidden p-0 h-100 service-card">
+                        <img src="img/office-exterior.png" alt="KCA Office Exterior - Pengkalan 2" class="img-fluid w-100 d-block m-0" style="height: 250px; object-fit: cover;" onerror="this.src='img/about_us.png'">
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="border rounded-4 shadow-sm bg-white overflow-hidden p-0 h-100 service-card">
+                        <img src="img/office-interior-workstation.png" alt="KCA Office Workstations" class="img-fluid w-100 d-block m-0" style="height: 250px; object-fit: cover;" onerror="this.src='img/about_us.png'">
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="border rounded-4 shadow-sm bg-white overflow-hidden p-0 h-100 service-card">
+                        <img src="img/office-meeting-room.png" alt="KCA Executive Meeting Room" class="img-fluid w-100 d-block m-0" style="height: 250px; object-fit: cover;" onerror="this.src='img/about_us.png'">
+                    </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="border rounded-3 shadow-sm bg-white overflow-hidden p-0 h-100">
-                    <img src="img/office-interior-workstation.png" alt="KCA Office Workstations" class="img-fluid w-100 d-block m-0" style="height: 250px; object-fit: cover;" onerror="this.src='img/office-interior-workstation.png'">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="border rounded-3 shadow-sm bg-white overflow-hidden p-0 h-100">
-                    <img src="img/office-meeting-room.png" alt="KCA Executive Meeting Room" class="img-fluid w-100 d-block m-0" style="height: 250px; object-fit: cover;" onerror="this.src='img/office-meeting-room.png'">
-                </div>
-            </div>
-        </div>
 
-        <!-- Registered Office Address -->
-        <div class="text-center mt-4">
-            <p class="fs-6 fw-bold text-dark text-uppercase mb-0 tracking-wide">
-                NO. 30, PERSIARAN PERINDUSTRIAN PENGKALAN 2, KAWASAN PERINDUSTRIAN PENGKALAN, 31500 LAHAT, IPOH, PERAK.
-            </p>
-        </div>
-    </section>
+            <div class="text-center bg-navy text-white rounded-4 p-4 shadow" data-aos="fade-up">
+                <i class="bi bi-geo-alt-fill fs-2 text-tnb-red-orange mb-2 d-block"></i>
+                <p class="fs-6 fw-bold text-uppercase mb-0 tracking-wide" style="letter-spacing: 1px;">
+                    No. 30, Persiaran Perindustrian Pengkalan 2, Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak.
+                </p>
+            </div>
+        </section>
 
     </main>
 
     <!-- Footer Area -->
-    <footer id="contact" class="bg-navy py-5 mt-auto">
+    <footer id="contact" class="bg-navy py-5 mt-auto border-top border-secondary">
         <div class="container text-center text-white">
             <h5 class="fw-bold mb-3" style="font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi Sdn. Bhd.</h5>
             <p class="mb-2 text-white-50">30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
             <p class="mb-0 mt-3 text-tnb-orange-light">
-                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp; <strong>Website:</strong> www.kcasolar.com
+                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Fax:</strong> 05-3217108 <br class="d-md-none">
+                <span class="d-none d-md-inline">&nbsp;|&nbsp;</span>
+                <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp; <strong>Website:</strong> www.kcasolar.com
             </p>
         </div>
     </footer>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
 </body>
 </html>
