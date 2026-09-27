@@ -153,13 +153,6 @@ h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
     background: linear-gradient(to bottom, rgba(3, 4, 90, 0.3) 0%, rgba(32, 30, 30, 0.85) 100%);
 }
 
-/* 2. Engineering Dot-Grid Background Pattern */
-.bg-light-pattern {
-    background-color: #f8f9fa;
-    background-image: radial-gradient(rgba(192, 192, 192, 0.4) 1px, transparent 1px);
-    background-size: 20px 20px;
-}
-
 /* 3. Interactive Service Card Hovers */
 .service-card {
     transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
