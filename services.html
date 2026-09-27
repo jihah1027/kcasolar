@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services | Kejuruteraan Cahaya Abadi Sdn. Bhd.</title>
     
-    <!-- Google Fonts: Inter (Headings) and Open Sans (Body) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,6 +13,9 @@
     <!-- Bootstrap 5 CSS & Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -75,170 +78,172 @@
         </div>
     </div>
 
+
     <!-- Main Content -->
-    <main class="flex-grow-1 pt-4 pb-5">
+    <main class="flex-grow-1">
         
-        <!-- Header Banner Section -->
-        <section class="container py-4 text-center">
-            <h1 class="display-6 fw-bold text-tnb-blue mb-2">Our Comprehensive Services</h1>
-            <div style="width: 60px; height: 4px; background-color: var(--tnb-red-orange);" class="mx-auto rounded"></div>
-            <p class="text-dark mt-3 mx-auto" style="max-width: 760px; font-size: 1.05rem; line-height: 1.7;">
-                Delivering engineering excellence across utility infrastructure, power systems, facility management, and critical supply operations to support national energy reliability.
-            </p>
+        <!-- Page Header (Mini Hero) -->
+        <section class="bg-navy text-white py-5 text-center position-relative overflow-hidden">
+            <div class="container py-4 position-relative z-1">
+                <h1 class="display-5 fw-bold mb-3" data-aos="fade-down">Our Comprehensive Services</h1>
+                <div class="accent-line mx-auto mb-4"></div>
+                <p class="lead text-kca-grey mb-0 mx-auto" style="max-width: 760px;" data-aos="fade-up" data-aos-delay="100">
+                    Delivering engineering excellence across utility infrastructure, power systems, facility management, and critical supply operations to support national energy reliability.
+                </p>
+            </div>
+            <div class="position-absolute top-0 start-0 w-100 h-100 bg-navy opacity-50 z-0"></div>
         </section>
 
         <!-- Services Grid Section -->
-        <section class="container py-4">
-            <div class="row g-4">
+        <section class="bg-light-pattern py-5">
+            <div class="container py-4">
+                <div class="row g-4">
 
-                <!-- 1. Building Management -->
-                <div class="col-lg-6">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5" style="border-top: 4px solid var(--tnb-blue) !important; background-color: #ffffff;">
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(0, 91, 148, 0.1);">
-                                <i class="bi bi-buildings fs-3 text-tnb-blue"></i>
+                    <!-- 1. Building Management -->
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5 service-card" style="background-color: #ffffff;">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(0, 91, 148, 0.1);">
+                                    <i class="bi bi-buildings fs-3 text-tnb-blue"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Building Management</h3>
+                                    <span class="badge badge-kca-blue mt-1">Facility Operations</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Building Management</h3>
-                                <span class="badge badge-kca-blue mt-1">Facility Operations</span>
-                            </div>
+                            <ul class="list-unstyled d-flex flex-column gap-3 text-secondary mb-0" style="line-height: 1.6; font-size: 0.98rem;">
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
+                                    <span><strong>Mechanical and Electrical (M&E)</strong></span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
+                                    <span><strong>Electrical Systems</strong></span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
+                                    <span><strong>Air Conditioning Systems</strong></span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
+                                    <span><strong>Building Renovation / General Maintenance</strong></span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
+                                    <span><strong>Building Cleaning and Area Maintenance Services</strong></span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="list-unstyled d-flex flex-column gap-3 text-dark mb-0" style="line-height: 1.6; font-size: 0.98rem;">
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
-                                <span><strong>Mechanical & Electrical (M&E):</strong> Comprehensive maintenance and operational management.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
-                                <span><strong>Electrical Systems:</strong> Diagnostics, regular inspection, and scheduled servicing.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
-                                <span><strong>Air Conditioning Systems:</strong> Facility climate and environmental airflow regulation.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
-                                <span><strong>Building Renovation & Maintenance:</strong> General structural upgrades, repairs, and refurbishment.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i>
-                                <span><strong>Cleaning & Area Maintenance:</strong> Commercial facility cleaning and landscape preservation services.</span>
-                            </li>
-                        </ul>
                     </div>
-                </div>
 
-                <!-- 2. Mechanical Systems -->
-                <div class="col-lg-6">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5" style="border-top: 4px solid var(--tnb-red-orange) !important; background-color: #ffffff;">
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(227, 82, 5, 0.1);">
-                                <i class="bi bi-gear-wide-connected fs-3 text-tnb-red-orange"></i>
+                    <!-- 2. Mechanical Systems -->
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5 service-card" style="background-color: #ffffff;">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(227, 82, 5, 0.1);">
+                                    <i class="bi bi-gear-wide-connected fs-3 text-tnb-red-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Mechanical Systems</h3>
+                                    <span class="badge badge-kca-orange mt-1">Engineering & HVAC</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Mechanical Systems</h3>
-                                <span class="badge badge-kca-orange mt-1">Engineering & HVAC</span>
-                            </div>
+                            <ul class="list-unstyled d-flex flex-column gap-3 text-secondary mb-0" style="line-height: 1.6; font-size: 0.98rem;">
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
+                                    <span><strong>Air Conditioning & Ventilation:</strong> Installation and maintenance of air conditioning and ventilation systems, including work on split air conditioners, chillers, AHUs, and cooling towers.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
+                                    <span><strong>Pumping Systems:</strong> Installation and maintenance of pumping systems, including work on switchboard panels and mechanical components.</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="list-unstyled d-flex flex-column gap-3 text-dark mb-0" style="line-height: 1.6; font-size: 0.98rem;">
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Air Conditioning & Ventilation:</strong> Professional installation and maintenance for split air units, commercial chillers, Air Handling Units (AHUs), and cooling towers.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Pumping Systems:</strong> Full installation, repairs, and routine servicing of commercial and industrial water pump stations.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Control Interfaces:</strong> Switchboard panel servicing, mechanical component overhauls, and distribution upkeep.</span>
-                            </li>
-                        </ul>
                     </div>
-                </div>
 
-                <!-- 3. Electrical & Solar Systems -->
-                <div class="col-lg-6">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5" style="border-top: 4px solid var(--tnb-red-orange) !important; background-color: #ffffff;">
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(227, 82, 5, 0.1);">
-                                <i class="bi bi-lightning-charge-fill fs-3 text-tnb-red-orange"></i>
+                    <!-- 3. Electrical & Solar Systems -->
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5 service-card" style="background-color: #ffffff;">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(227, 82, 5, 0.1);">
+                                    <i class="bi bi-lightning-charge-fill fs-3 text-tnb-red-orange"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Electrical & Solar Systems</h3>
+                                    <span class="badge badge-kca-orange mt-1">Core Expertise</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Electrical & Solar Systems</h3>
-                                <span class="badge badge-kca-orange mt-1">Core Expertise</span>
-                            </div>
+                            <ul class="list-unstyled d-flex flex-column gap-3 text-secondary mb-0" style="line-height: 1.6; font-size: 0.98rem;">
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
+                                    <span><strong>Low Voltage (LV) Systems:</strong> Scheduled installation and maintenance of low-voltage electrical systems such as wiring, P.A. systems, and telephone systems.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
+                                    <span><strong>Infrastructure & Lines:</strong> Scheduled installation and maintenance of low-voltage electrical systems including cabling work, electrical equipment, street lighting, and overhead lines.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
+                                    <span><strong>Standby Generator Systems:</strong> Scheduled installation and maintenance of standby generator systems, including Automatic Main Failure Board (A.M.F.B) panels and associated cabling work.</span>
+                                </li>
+                                <li class="d-flex align-items-start gap-2">
+                                    <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
+                                    <span><strong>Solar Photovoltaic (PV):</strong> Installation and provision of solar systems.</span>
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="list-unstyled d-flex flex-column gap-3 text-dark mb-0" style="line-height: 1.6; font-size: 0.98rem;">
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Low Voltage (LV) Systems:</strong> Scheduled installation and maintenance of electrical wiring, public address (P.A.) systems, and communications.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Infrastructure & Lines:</strong> Cabling work, electrical equipment installation, municipal street lighting, and overhead distribution lines.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Standby Generator Systems:</strong> Scheduled servicing, cabling, and Automatic Main Failure Board (A.M.F.B) panels.</span>
-                            </li>
-                            <li class="d-flex align-items-start gap-2">
-                                <i class="bi bi-check-circle-fill text-tnb-red-orange mt-1"></i>
-                                <span><strong>Solar Photovoltaic (PV):</strong> Provision, assembly, testing, and commissioning of on-grid and off-grid solar systems.</span>
-                            </li>
-                        </ul>
                     </div>
-                </div>
 
-                <!-- 4. Supply & Contract -->
-                <div class="col-lg-6">
-                    <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5" style="border-top: 4px solid var(--tnb-blue) !important; background-color: #ffffff;">
-                        <div class="d-flex align-items-center gap-3 mb-4">
-                            <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(0, 91, 148, 0.1);">
-                                <i class="bi bi-box-seam-fill fs-3 text-tnb-blue"></i>
+                    <!-- 4. Supply & Contract -->
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="card h-100 border-0 shadow-sm rounded-4 p-4 p-md-5 service-card" style="background-color: #ffffff;">
+                            <div class="d-flex align-items-center gap-3 mb-4">
+                                <div class="rounded-3 d-flex align-items-center justify-content-center" style="width: 52px; height: 52px; background-color: rgba(0, 91, 148, 0.1);">
+                                    <i class="bi bi-box-seam-fill fs-3 text-tnb-blue"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Supply & Contract</h3>
+                                    <span class="badge badge-kca-blue mt-1">Procurement & Trading</span>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="fw-bold text-tnb-blue fs-4 mb-0">Supply & Contract</h3>
-                                <span class="badge badge-kca-blue mt-1">Procurement & Trading</span>
-                            </div>
-                        </div>
-                        <div class="row g-2 text-dark" style="font-size: 0.95rem; line-height: 1.6;">
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Building Materials
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Air Conditioning Equipment
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Pumps, Pipes & Components
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Electrical Tools & Hardware
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="col-sm-6">
-                                <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Motors & Replacement Parts
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Commercial Lighting Fixtures
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Public Utility Facilities
-                                    </li>
-                                    <li class="d-flex align-items-center gap-2">
-                                        <i class="bi bi-check-circle-fill text-tnb-blue"></i> Power Station & Genset Spares
-                                    </li>
-                                </ul>
+                            <div class="row g-2 text-secondary" style="font-size: 0.95rem; line-height: 1.6;">
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Building Materials</span>
+                                        </li>
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Air Conditioning Equipment</span>
+                                        </li>
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Pumps / Pipes and Components</span>
+                                        </li>
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Tools / Electrical Systems</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-6">
+                                    <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Motors and Spare Parts (including replacements)</span>
+                                        </li>
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Lighting and Fixtures</span>
+                                        </li>
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Public Facilities and Equipment</span>
+                                        </li>
+                                        <li class="d-flex align-items-start gap-2">
+                                            <i class="bi bi-check-circle-fill text-tnb-blue mt-1"></i> <span>Power Station and Generator Equipment / Spare Parts</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </section>
 
@@ -250,12 +255,22 @@
             <h5 class="fw-bold mb-3" style="font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi Sdn. Bhd.</h5>
             <p class="mb-2 text-white-50">30, Persiaran Perindustrian Pengkalan 2, <br>Kawasan Perindustrian Pengkalan, 31500 Lahat, Ipoh, Perak</p>
             <p class="mb-0 mt-3 text-tnb-orange-light">
-                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp; <strong>Website:</strong> www.kcasolar.com
+                <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp; <strong>Email:</strong> info@kcasolar.com
             </p>
         </div>
     </footer>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 50
+        });
+    </script>
 </body>
 </html>
