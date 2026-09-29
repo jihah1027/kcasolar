@@ -16,6 +16,11 @@
     --font-body: 'Open Sans', sans-serif;
 }
 
+/* Global Layout Fix for Mobile Zoom/Scroll */
+body {
+    overflow-x: hidden;
+}
+
 /* Global Font Application */
 body {
     font-family: var(--font-body);
