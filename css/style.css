@@ -1,186 +1,289 @@
 /* Color Palette & Font Variables */
 :root {
-    /* Colors */
-    --tnb-blue: #0563c1;
-    --tnb-red-orange: #f66530;
-    --tnb-orange-light: #e37e4a;
-    --tnb-orange-bright: #f67d30;
-    --tnb-orange-deep: #e1803c;
-    --kca-grey: #c0c0c0;
-    --kca-charcoal: #201e1e;
-    --kca-navy: #03045a;
-    --kca-black: #000000;
-    
-    /* Fonts */
-    --font-headings: 'Inter', sans-serif;
-    --font-body: 'Open Sans', sans-serif;
+  /* Colors */
+  --tnb-blue: #0563c1;
+  --tnb-red-orange: #f66530;
+  --tnb-orange-light: #e37e4a;
+  --tnb-orange-bright: #f67d30;
+  --tnb-orange-deep: #e1803c;
+  --kca-grey: #c0c0c0;
+  --kca-charcoal: #201e1e;
+  --kca-navy: #03045a;
+  --kca-black: #000000;
+
+  /* Fonts */
+  --font-headings: "Inter", sans-serif;
+  --font-body: "Open Sans", sans-serif;
 }
 
 /* Global Layout Fix for Mobile Zoom/Scroll */
 body {
-    overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 /* Global Font Application */
 body {
-    font-family: var(--font-body);
-    color: var(--kca-charcoal);
+  font-family: var(--font-body);
+  color: var(--kca-charcoal);
 }
 
-h1, h2, h3, h4, h5, h6, .navbar-brand, .nav-link, .btn {
-    font-family: var(--font-headings);
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand,
+.nav-link,
+.btn {
+  font-family: var(--font-headings);
 }
 
 /* Custom Text Color Classes */
-.text-tnb-blue { color: var(--tnb-blue) !important; }
-.text-tnb-red { color: var(--tnb-red-orange) !important; }
-.text-kca-grey { color: var(--kca-grey) !important; }
-.text-tnb-orange-light { color: var(--tnb-orange-light) !important; }
+.text-tnb-blue {
+  color: var(--tnb-blue) !important;
+}
+.text-tnb-red {
+  color: var(--tnb-red-orange) !important;
+}
+.text-kca-grey {
+  color: var(--kca-grey) !important;
+}
+.text-tnb-orange-light {
+  color: var(--tnb-orange-light) !important;
+}
 
 /* Custom Background Color Classes */
-.bg-navy { background-color: var(--kca-navy) !important; color: #ffffff; }
-.bg-charcoal { background-color: var(--kca-charcoal) !important; color: #ffffff; }
-.bg-kca-grey { background-color: var(--kca-grey) !important; }
+.bg-navy {
+  background-color: var(--kca-navy) !important;
+  color: #ffffff;
+}
+.bg-charcoal {
+  background-color: var(--kca-charcoal) !important;
+  color: #ffffff;
+}
+.bg-kca-grey {
+  background-color: var(--kca-grey) !important;
+}
 
 /* Navbar Enhancements */
 .brand-accent-bar {
-    height: 5px;
-    width: 100%;
-    background: linear-gradient(90deg, var(--tnb-blue) 0%, var(--tnb-blue) 50%, var(--tnb-red-orange) 50%, var(--tnb-red-orange) 100%);
+  height: 5px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--tnb-blue) 0%,
+    var(--tnb-blue) 50%,
+    var(--tnb-red-orange) 50%,
+    var(--tnb-red-orange) 100%
+  );
 }
 
 .custom-nav-shadow {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .active-nav-link {
-    border-bottom: 2px solid var(--tnb-red-orange);
+  border-bottom: 2px solid var(--tnb-red-orange);
 }
 
 .hover-blue:hover {
-    color: var(--tnb-blue) !important;
+  color: var(--tnb-blue) !important;
 }
 
 /* Custom Button Styles */
 .btn-kca-red {
-    background-color: var(--tnb-red-orange);
-    color: white;
-    border: none;
-    transition: background-color 0.3s ease-in-out;
+  background-color: var(--tnb-red-orange);
+  color: white;
+  border: none;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .btn-kca-red:hover {
-    background-color: var(--tnb-orange-deep);
-    color: white;
+  background-color: var(--tnb-orange-deep);
+  color: white;
 }
 
 /* Service Cards */
 .service-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* UI Elements */
 .accent-line {
-    width: 80px;
-    height: 4px;
-    background-color: var(--tnb-red-orange);
-    margin: 0 auto;
-    border-radius: 2px;
+  width: 80px;
+  height: 4px;
+  background-color: var(--tnb-red-orange);
+  margin: 0 auto;
+  border-radius: 2px;
 }
 
 /* Hero Carousel Styles */
-.hero-carousel, 
-.carousel-inner, 
+.hero-carousel,
+.carousel-inner,
 .carousel-item {
-    height: 80vh;
-    min-height: 500px;
+  height: 80vh;
+  min-height: 500px;
 }
 
 .carousel-image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(32, 30, 30, 0.65); /* Charcoal overlay */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(32, 30, 30, 0.65); /* Charcoal overlay */
 }
 
 .carousel-caption {
-    top: 0;
-    bottom: 0;
-    z-index: 10;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
 }
 
 /* Left-aligned accent line for inner pages for about us*/
 .accent-line-left {
-    width: 60px;
-    height: 4px;
-    background-color: var(--tnb-red-orange);
-    border-radius: 2px;
+  width: 60px;
+  height: 4px;
+  background-color: var(--tnb-red-orange);
+  border-radius: 2px;
 }
 
 /* Custom Brand Text & Background Utilities */
 .text-tnb-red-orange {
-    color: var(--tnb-red-orange, #e35205) !important;
+  color: var(--tnb-red-orange, #e35205) !important;
 }
 
 .bg-tnb-red-orange {
-    background-color: var(--tnb-red-orange, #e35205) !important;
+  background-color: var(--tnb-red-orange, #e35205) !important;
 }
 
 /* Reusable Personnel Badges */
 .badge-kca-orange {
-    color: var(--tnb-red-orange, #e35205) !important;
-    background-color: #fff5f0 !important;
-    border: 1px solid rgba(227, 82, 5, 0.35) !important;
+  color: var(--tnb-red-orange, #e35205) !important;
+  background-color: #fff5f0 !important;
+  border: 1px solid rgba(227, 82, 5, 0.35) !important;
 }
 
 .badge-kca-blue {
-    color: var(--tnb-blue, #005b94) !important;
-    background-color: #f0f7fc !important;
-    border: 1px solid rgba(0, 91, 148, 0.35) !important;
+  color: var(--tnb-blue, #005b94) !important;
+  background-color: #f0f7fc !important;
+  border: 1px solid rgba(0, 91, 148, 0.35) !important;
 }
 
 /* --- PREMIUM VISUAL UPGRADES --- */
 
 /* 1. Sleek Gradient Overlay for Hero Images */
 .carousel-image-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(3, 4, 90, 0.3) 0%, rgba(32, 30, 30, 0.85) 100%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(3, 4, 90, 0.3) 0%,
+    rgba(32, 30, 30, 0.85) 100%
+  );
 }
 
 /* 3. Interactive Service Card Hovers */
 .service-card {
-    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    border-bottom: 4px solid transparent;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  border-bottom: 4px solid transparent;
 }
 
 .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(5, 99, 193, 0.1) !important;
-    border-bottom: 4px solid var(--tnb-blue);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(5, 99, 193, 0.1) !important;
+  border-bottom: 4px solid var(--tnb-blue);
 }
 
 .service-card i {
-    transition: transform 0.3s ease;
-    display: inline-block;
+  transition: transform 0.3s ease;
+  display: inline-block;
 }
 
 .service-card:hover i {
-    transform: scale(1.15) translateY(-5px);
-    color: var(--tnb-blue) !important;
+  transform: scale(1.15) translateY(-5px);
+  color: var(--tnb-blue) !important;
 }
 
 /* 4. Highlight Numbers Glow */
 .highlight-number {
-    text-shadow: 2px 4px 10px rgba(0,0,0,0.08);
+  text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.contact-hero {
+  background-color: var(--kca-navy);
+  color: #ffffff;
+  padding: 45px 16px;
+  text-align: center;
+}
+
+.contact-hero h1 {
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 2.1rem;
+  margin-bottom: 6px;
+}
+
+/* Matching the clean card styling from other pages */
+.contact-card-clean {
+  background: #ffffff;
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  border-radius: 16px;
+  padding: 36px 32px;
+  height: 100%;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.contact-card-clean:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(5, 99, 193, 0.08);
+}
+
+.contact-label {
+  font-family: var(--font-headings);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--kca-charcoal);
+  margin-bottom: 5px;
+  display: block;
+}
+
+.contact-form-control {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 9px 13px;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+  color: var(--kca-charcoal);
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+.contact-form-control:focus {
+  background-color: #ffffff;
+  border-color: var(--tnb-blue);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(5, 99, 193, 0.14);
+}
+
+.contact-map-preview {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  max-width: 190px;
 }

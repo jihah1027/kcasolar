@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Kejuruteraan Cahaya Abadi Sdn. Bhd.</title>
+
+    <!-- Google Fonts: Inter & Open Sans (Matches corporate-profile.html) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Open+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Brand Accent Line -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-2 custom-nav-shadow"
+    >
+      <div class="container">
+        <!-- Left Side: Logo & Company Name -->
+        <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
+          <img
+            src="img/logo.png"
+            alt="KCA Logo"
+            style="height: 55px"
+            class="me-2"
+            onerror="this.src = 'img/about_us.png'"
+          />
+          <div class="d-none d-sm-block lh-1">
+            <span
+              class="fw-bold text-tnb-blue d-block"
+              style="font-size: 0.85rem"
+              >Kejuruteraan Cahaya Abadi Sdn. Bhd.</span
+            >
+          </div>
+        </a>
+
+        <!-- Right Side: Links, Desktop Login + Persistent Hamburger -->
+        <div class="d-flex align-items-center">
+          <!-- Desktop Links (Home & About Us) -->
+          <ul
+            class="navbar-nav d-none d-md-flex flex-row me-3 gap-4 align-items-center"
+          >
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue"
+                href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue"
+                href="about.html"
+                >About Us</a
+              >
+            </li>
+          </ul>
+
+          <!-- Desktop KCAConnect Login Button (Hidden on Mobile) -->
+          <a
+            href="login.html"
+            class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold d-none d-md-inline-flex align-items-center gap-1 me-3"
+            style="border-color: var(--tnb-blue); color: var(--tnb-blue)"
+          >
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </a>
+
+          <!-- Hamburger Icon (Always Visible) -->
+          <button
+            class="navbar-toggler d-block border-0 shadow-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNav"
+            aria-controls="offcanvasNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Offcanvas Mobile/Side Menu -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="offcanvasNav"
+      aria-labelledby="offcanvasNavLabel"
+      style="width: 300px"
+    >
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="img/logo.png"
+            alt="KCA Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = 'img/about_us.png'"
+          />
+          <div class="lh-1">
+            <span
+              class="fw-bold text-tnb-blue d-block"
+              style="font-size: 0.85rem"
+              >Kejuruteraan Cahaya Abadi Sdn. Bhd.</span
+            >
+          </div>
+        </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body d-flex flex-column justify-content-between">
+        <ul class="navbar-nav flex-column gap-3 mt-3">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="corporate-profile.html"
+              >Corporate Profile</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="services.html">Our Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="projects.html"
+              >Projects &amp; Credentials</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link fw-bold text-tnb-blue active" href="contact.html"
+              >Contact Us</a
+            >
+          </li>
+        </ul>
+
+        <!-- Mobile Only KCAConnect Login (Hidden on Desktop via d-md-none) -->
+        <div class="d-md-none border-top pt-3 pb-2 mt-auto">
+          <a
+            href="login.html"
+            class="btn btn-kca-red w-100 py-2 d-flex align-items-center justify-content-center gap-2 rounded-3 shadow-sm fw-semibold text-white"
+          >
+            <i class="bi bi-box-arrow-in-right"></i> KCAConnect Login
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corporate Navy Hero Header (Animated) -->
+    <section
+      class="bg-navy py-5 text-center text-white position-relative overflow-hidden"
+    >
+      <div class="container py-4 position-relative z-1">
+        <h1
+          class="display-5 fw-bold mb-3 text-white"
+          data-aos="fade-down"
+          data-aos-duration="700"
+        >
+          Get In Touch
+        </h1>
+        <div
+          class="accent-line mx-auto mb-4"
+          data-aos="zoom-in"
+          data-aos-delay="100"
+        ></div>
+        <p
+          class="lead text-white-50 mb-0"
+          data-aos="fade-up"
+          data-aos-delay="200"
+        >
+          Have a project inquiry, collaboration proposal, or internship query?
+        </p>
+      </div>
+      <div
+        class="position-absolute top-0 start-0 w-100 h-100 bg-navy opacity-50 z-0"
+      ></div>
+    </section>
+
+    <!-- Main Content Area: Side-by-Side Cards (Stacked on Mobile) -->
+    <main class="flex-grow-1 py-5">
+      <div class="container">
+        <div class="row g-4 g-lg-5 justify-content-center align-items-stretch">
+          <!-- LEFT CARD: Contact Information -->
+          <div
+            class="col-12 col-lg-5"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <div
+              class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white h-100"
+              style="border-top: 4px solid var(--tnb-blue) !important"
+            >
+              <h4
+                class="fw-bold text-tnb-blue mb-4"
+                style="font-family: var(--font-headings)"
+              >
+                KCA Contact Information
+              </h4>
+
+              <div class="d-flex flex-column gap-4">
+                <!-- Office Address -->
+                <div class="d-flex align-items-start">
+                  <div
+                    class="rounded-circle d-flex align-items-center justify-content-center text-white me-3"
+                    style="
+                      width: 46px;
+                      height: 46px;
+                      background-color: var(--tnb-blue);
+                      flex-shrink: 0;
+                    "
+                  >
+                    <i class="bi bi-geo-alt-fill fs-5"></i>
+                  </div>
+                  <div class="flex-grow-1">
+                    <h6 class="fw-bold text-tnb-red mb-1">Office Address</h6>
+                    <p class="text-dark fw-semibold small mb-2 lh-base">
+                      No. 30, Persiaran Perindustrian Pengkalan 2,<br />
+                      Kawasan Perindustrian Pengkalan,<br />
+                      31500 Lahat, Perak
+                    </p>
+
+                    <!-- Google Map Embed -->
+                    <div
+                      class="border rounded-3 overflow-hidden shadow-sm mb-2"
+                      style="height: 120px; width: 100%"
+                    >
+                      <iframe
+                        src="https://maps.google.com/maps?q=No.+30,+Persiaran+Perindustrian+Pengkalan+2,+Kawasan+Perindustrian+Pengkalan,+31500+Lahat,+Perak&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        width="100%"
+                        height="100%"
+                        style="border: 0"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                      >
+                      </iframe>
+                    </div>
+
+                    <!-- Navigation Action Buttons -->
+                    <div class="d-flex gap-2">
+                      <a
+                        href="https://maps.google.com/?q=No.+30,+Persiaran+Perindustrian+Pengkalan+2,+Kawasan+Perindustrian+Pengkalan,+31500+Lahat,+Perak"
+                        target="_blank"
+                        class="btn btn-sm btn-outline-primary border py-1 px-2 fw-semibold"
+                        style="font-size: 0.78rem"
+                      >
+                        <i class="bi bi-geo-alt me-1"></i> Google Maps
+                      </a>
+                      <a
+                        href="https://waze.com/ul?q=No.+30,+Persiaran+Perindustrian+Pengkalan+2,+Kawasan+Perindustrian+Pengkalan,+31500+Lahat,+Perak"
+                        target="_blank"
+                        class="btn btn-sm btn-outline-secondary border py-1 px-2 fw-semibold"
+                        style="font-size: 0.78rem"
+                      >
+                        <i class="bi bi-cursor-fill me-1"></i> Waze
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Phone -->
+                <div class="d-flex align-items-start">
+                  <div
+                    class="rounded-circle d-flex align-items-center justify-content-center text-white me-3"
+                    style="
+                      width: 46px;
+                      height: 46px;
+                      background-color: var(--tnb-blue);
+                      flex-shrink: 0;
+                    "
+                  >
+                    <i class="bi bi-telephone-fill fs-5"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-tnb-red mb-1">Phone</h6>
+                    <a
+                      href="tel:053217108"
+                      class="text-dark fw-bold text-decoration-none small"
+                      >05-3217108</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Email -->
+                <div class="d-flex align-items-start">
+                  <div
+                    class="rounded-circle d-flex align-items-center justify-content-center text-white me-3"
+                    style="
+                      width: 46px;
+                      height: 46px;
+                      background-color: var(--tnb-blue);
+                      flex-shrink: 0;
+                    "
+                  >
+                    <i class="bi bi-envelope-fill fs-5"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-tnb-red mb-1">Email</h6>
+                    <a
+                      href="mailto:info@kcasolar.com"
+                      class="text-dark fw-bold text-decoration-none small"
+                      >info@kcasolar.com</a
+                    >
+                  </div>
+                </div>
+
+                <!-- Operating Hours -->
+                <div class="d-flex align-items-start">
+                  <div
+                    class="rounded-circle d-flex align-items-center justify-content-center text-white me-3"
+                    style="
+                      width: 46px;
+                      height: 46px;
+                      background-color: var(--tnb-blue);
+                      flex-shrink: 0;
+                    "
+                  >
+                    <i class="bi bi-clock-fill fs-5"></i>
+                  </div>
+                  <div>
+                    <h6 class="fw-bold text-tnb-red mb-1">Operating Hour</h6>
+                    <span class="text-dark fw-bold small"
+                      >Mon-Fri 8.00 am - 5.00 pm</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT CARD: Keep In Touch with Us (Form) -->
+          <div
+            class="col-12 col-lg-7"
+            data-aos="fade-left"
+            data-aos-duration="800"
+          >
+            <div
+              class="card border-0 shadow-sm rounded-4 p-4 p-md-5 bg-white h-100"
+              style="border-top: 4px solid var(--tnb-red-orange) !important"
+            >
+              <h4
+                class="fw-bold text-tnb-red mb-4"
+                style="font-family: var(--font-headings)"
+              >
+                Keep In Touch with Us
+              </h4>
+
+              <form action="#" method="POST" enctype="multipart/form-data">
+                <!-- Full Name & Email -->
+                <div class="row g-3 mb-3">
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label small fw-bold text-tnb-blue"
+                      >Full Name<span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="text"
+                      name="full_name"
+                      class="form-control rounded-2 border shadow-none"
+                      placeholder="Your full name"
+                      required
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label small fw-bold text-tnb-blue"
+                      >Email Address<span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="email"
+                      name="email"
+                      class="form-control rounded-2 border shadow-none"
+                      placeholder="name@email.com"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Contact Number & Category -->
+                <div class="row g-3 mb-3">
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label small fw-bold text-tnb-blue"
+                      >Contact Number<span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="tel"
+                      name="contact_number"
+                      class="form-control rounded-2 border shadow-none"
+                      placeholder="e.g. 012-3456789"
+                      required
+                    />
+                  </div>
+                  <div class="col-12 col-sm-6">
+                    <label class="form-label small fw-bold text-tnb-blue"
+                      >Inquiry Category<span class="text-danger">*</span></label
+                    >
+                    <select
+                      name="category"
+                      class="form-select rounded-2 border shadow-none"
+                      required
+                    >
+                      <option value="" disabled selected></option>
+                      <option value="Project Inquiry">Project Inquiry</option>
+                      <option value="Collaboration Proposal">
+                        Collaboration Proposal
+                      </option>
+                      <option value="Internship Query">Internship Query</option>
+                      <option value="General Question">General Question</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                  <label class="form-label small fw-bold text-tnb-blue"
+                    >Description<span class="text-danger">*</span></label
+                  >
+                  <textarea
+                    name="description"
+                    class="form-control rounded-2 border shadow-none"
+                    rows="4"
+                    placeholder="Briefly write your inquiry or proposal details..."
+                    required
+                  ></textarea>
+                </div>
+
+                <!-- File Attachment & Submit -->
+                <div
+                  class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 pt-2"
+                >
+                  <div>
+                    <label
+                      class="form-label small fw-bold text-dark d-block mb-1"
+                      >Attach File</label
+                    >
+                    <div class="d-flex align-items-center gap-2">
+                      <input
+                        type="file"
+                        id="attachFileInput"
+                        name="attachment"
+                        class="d-none"
+                        accept=".pdf,.doc,.docx"
+                      />
+                      <label
+                        for="attachFileInput"
+                        class="btn btn-sm btn-light border px-3 py-1 fw-semibold text-secondary"
+                        style="cursor: pointer"
+                      >
+                        Choose File
+                      </label>
+                      <span class="text-muted small fw-semibold"
+                        >Pdf/Doc/Docx (Max 10MB)</span
+                      >
+                    </div>
+                  </div>
+
+                  <div>
+                    <button
+                      type="submit"
+                      class="btn btn-kca-red rounded-pill px-5 py-2 fw-bold text-uppercase shadow-sm"
+                    >
+                      SUBMIT
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Area -->
+    <footer id="contact" class="bg-navy py-5 mt-auto">
+      <div class="container text-center text-white" data-aos="fade-up">
+        <h5 class="fw-bold mb-3" style="font-family: var(--font-headings)">
+          Kejuruteraan Cahaya Abadi Sdn. Bhd.
+        </h5>
+        <p class="mb-2 text-kca-grey">
+          No. 30, Persiaran Perindustrian Pengkalan 2, <br />Kawasan
+          Perindustrian Pengkalan, 31500 Lahat, Perak
+        </p>
+        <p class="mb-0 mt-3 text-tnb-orange-light">
+          <strong>Tel:</strong> 05-3218269 &nbsp;|&nbsp;
+          <strong>Fax:</strong> 05-3217108 <br class="d-md-none" />
+          <span class="d-none d-md-inline">&nbsp;|&nbsp;</span>
+          <strong>Email:</strong> info@kcasolar.com &nbsp;|&nbsp;
+          <strong>Website:</strong> www.kcasolar.com
+        </p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 80,
+      });
+    </script>
+  </body>
+</html>
