@@ -68,7 +68,7 @@ h6,
 
 /* Navbar Enhancements */
 .brand-accent-bar {
-  height: 5px;
+  height: 12px;
   width: 100%;
   background: linear-gradient(
     90deg,
@@ -178,7 +178,6 @@ h6,
   border: 1px solid rgba(0, 91, 148, 0.35) !important;
 }
 
-/* --- PREMIUM VISUAL UPGRADES --- */
 
 /* 1. Sleek Gradient Overlay for Hero Images */
 .carousel-image-overlay {
@@ -235,7 +234,7 @@ h6,
   margin-bottom: 6px;
 }
 
-/* Matching the clean card styling from other pages */
+/* Contact Cards */
 .contact-card-clean {
   background: #ffffff;
   border: 1px solid rgba(5, 99, 193, 0.12);
@@ -286,4 +285,155 @@ h6,
   overflow: hidden;
   border: 1px solid #e2e8f0;
   max-width: 190px;
+}
+
+/* KCAConnect login */
+
+/* 1. BG */
+.login-wrapper {
+    min-height: calc(100vh - 71px);
+    background: url('../img/login_bg.png') center center / cover no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. Left Welcome Text */
+.login-welcome-text h1 {
+    font-family: var(--font-headings);
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: var(--kca-navy);
+    line-height: 1.1;
+}
+
+.login-welcome-bar {
+    width: 65px;
+    height: 4px;
+    background-color: var(--tnb-red-orange);
+    border-radius: 4px;
+}
+
+.login-welcome-desc {
+    font-family: var(--font-body);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    line-height: 1.45;
+    max-width: 440px;
+}
+
+/* 3. Right Partition: The frosted/translucent glass panel behind the card */
+.login-partition {
+    background: rgba(255, 255, 255, 0.42);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-left: 1px solid rgba(255, 255, 255, 0.6);
+    min-height: calc(100vh - 71px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+}
+
+/* 4. White Login Card with Curved Top Blue Crest */
+.login-card {
+    background: #ffffff;
+    border-radius: 32px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    
+    border: none;
+    
+    border-top: 8px solid #0563c1;
+    
+    max-width: 430px;
+    width: 100%;
+    padding: 40px 36px;
+}
+
+.login-card-title {
+    font-family: var(--font-headings);
+    font-weight: 800;
+    color: #d92525;
+    font-size: 1.55rem;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-field-label {
+    font-family: var(--font-headings);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #0563c1;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.login-field-label .req {
+    color: #d92525;
+}
+
+.login-input {
+    background-color: #f1f3f5;
+    border: 1.5px solid #dcdfe4;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    width: 100%;
+    color: #201e1e;
+    transition: all 0.2s ease;
+}
+
+.login-input:focus {
+    background-color: #ffffff;
+    border-color: #0563c1;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(5, 99, 193, 0.18);
+}
+
+.btn-signin-navy {
+    background-color: #000f6b;
+    color: #ffffff;
+    font-family: var(--font-headings);
+    font-weight: 700;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    border-radius: 10px;
+    padding: 11px;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-signin-navy:hover {
+    background-color: #00083a;
+    color: #ffffff;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 991.98px) {
+    .login-partition {
+        min-height: auto;
+        border-left: none;
+        background: transparent;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        padding: 10px 16px 40px;
+    }
+    
+    .login-card {
+        padding: 30px 24px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+    }
+}
+
+.btn-outline-kca-orange {
+    color: var(--tnb-red-orange);
+    border: 1.5px solid var(--tnb-red-orange);
+    background-color: transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-kca-orange:hover {
+    background-color: var(--tnb-red-orange);
+    color: #ffffff;
+    border-color: var(--tnb-red-orange);
 }
