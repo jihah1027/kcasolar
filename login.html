@@ -103,7 +103,7 @@
             >
               <h3 class="login-card-title">Sign in to your account</h3>
 
-              <form action="staff-attendance.html" method="POST">
+              <form id="loginForm">
                 <!-- Staff ID -->
                 <div class="mb-3">
                   <label class="login-field-label"
@@ -111,9 +111,10 @@
                   >
                   <input
                     type="text"
+                    id="staffIdInput"
                     name="staff_id"
                     class="login-input"
-                    placeholder="e.g. KCA-004"
+                    placeholder="e.g. KCA-004 or admin"
                     required
                     autofocus
                   />
@@ -178,12 +179,12 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init({
-        duration: 700, // Snappy entrance speed
-        once: true, // Run once on page load
+        duration: 700,
+        once: true,
       });
     </script>
 
-    <!-- Toggle pwd -->
+    <!-- Toggle Password Visibility -->
     <script>
       function togglePasswordVisibility() {
         const passwordField = document.getElementById("passwordInput");
@@ -199,6 +200,41 @@
           eyeIcon.classList.add("bi-eye");
         }
       }
+    </script>
+
+    <!-- Role-Based Local Mock Routing (Admin vs Staff) -->
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const rawId = document.getElementById("staffIdInput").value.trim();
+        const idLower = rawId.toLowerCase();
+
+        // 1. Check for Admin role accounts
+        if (idLower === "admin" || idLower === "kca-adm" || idLower === "hisham") {
+          sessionStorage.setItem(
+            "kca_user",
+            JSON.stringify({
+              id: rawId.toUpperCase(),
+              name: "Hisham Mokhtar (Managing Director)",
+              role: "admin",
+            })
+          );
+          window.location.href = "admin-home.html";
+        } 
+        // 2. Default to Field Technical Staff role
+        else {
+          sessionStorage.setItem(
+            "kca_user",
+            JSON.stringify({
+              id: rawId.toUpperCase(),
+              name: "Field Technician",
+              role: "staff",
+            })
+          );
+          window.location.href = "staff-attendance.html";
+        }
+      });
     </script>
   </body>
 </html>

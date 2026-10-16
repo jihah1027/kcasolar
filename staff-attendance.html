@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-Attendance | KCAConnect</title>
+    
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Signature Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Top Staff Portal Navigation Bar -->
+    <nav class="navbar navbar-light bg-white py-2 shadow-sm sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Brand Logo -->
+            <a class="navbar-brand d-flex align-items-center p-0" href="staff-attendance.html">
+                <img src="img/KCAConnect.png" alt="KCAConnect Logo" style="height: 42px;" onerror="this.src='img/logo.png'">
+            </a>
+
+            <!-- Staff Profile & Red Logout Button -->
+            <div class="d-flex align-items-center gap-3">
+                <span class="fw-bold text-dark d-none d-sm-inline" id="staffDisplayName" style="font-size: 0.95rem;">
+                    Ahmad Razak (KCA-004)
+                </span>
+                
+                <button type="button" onclick="logoutStaff()" class="btn p-0 border-0" title="Sign Out">
+                    <div class="rounded-3 d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 36px; height: 36px; background-color: #e61e2b;">
+                        <i class="bi bi-box-arrow-right fs-5"></i>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signature Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Main Workspace Container -->
+    <main class="container my-4 my-md-5 flex-grow-1">
+        
+        <!-- TOP ROW: Today's Attendance & Today's Summary -->
+        <div class="row g-4 mb-4 mb-md-5">
+            
+            <!-- LEFT CARD: Today's Attendance -->
+            <div class="col-12 col-lg-6">
+                <div class="attendance-card card-accent-blue d-flex flex-column justify-content-between">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h4 class="fw-bold text-tnb-blue mb-0" style="font-family: var(--font-headings); font-size: 1.25rem;">
+                                TODAY'S ATTENDANCE
+                            </h4>
+                            <!-- Quick Reset Button for Local Testing -->
+                            <button type="button" onclick="resetPunchState()" class="btn btn-sm btn-outline-secondary border py-0 px-2" style="font-size: 0.75rem;" title="Reset shift to test again">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reset Test
+                            </button>
+                        </div>
+                        
+                        <!-- 1.1: Live Clock with Seconds & Accurate AM/PM -->
+                        <div class="mb-4">
+                            <span id="liveClockDisplay" class="fw-bold text-tnb-red" style="font-size: 1.15rem;">
+                                Loading real-time clock...
+                            </span>
+                        </div>
+
+                        <!-- Clock In / Out Action Buttons -->
+                        <div class="d-flex flex-column gap-3 mb-2">
+                            <button type="button" id="btnClockIn" onclick="handleClockIn()" class="btn btn-clock-in w-100 d-flex align-items-center justify-content-center gap-2">
+                                <span class="badge rounded-circle p-1" style="background-color: #22c55e;"> </span>
+                                CLOCK-IN
+                            </button>
+
+                            <!-- 1.3: Clock Out Button turns bright red once clocked in -->
+                            <button type="button" id="btnClockOut" onclick="handleClockOut()" class="btn btn-clock-out w-100 d-flex align-items-center justify-content-center gap-2" disabled>
+                                <span class="badge rounded-circle p-1" style="background-color: #ef4444;"> </span>
+                                CLOCK-OUT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT CARD: Today's Summary -->
+            <div class="col-12 col-lg-6">
+                <div class="attendance-card card-accent-orange d-flex flex-column justify-content-between">
+                    <div>
+                        <h4 class="fw-bold mb-3 text-tnb-red" style="font-family: var(--font-headings); font-size: 1.25rem;">
+                            TODAY'S SUMMARY
+                        </h4>
+
+                        <!-- 2.1 & 2.2: Summary Key-Value List with Dynamic Date & Worked Hours -->
+                        <div class="d-flex flex-column gap-2 mb-4">
+                            <div class="d-flex small">
+                                <span class="fw-bold text-dark" style="width: 140px;">Today's Date</span>
+                                <span class="text-secondary">: <span id="summaryDateDisplay" class="text-dark fw-semibold">Loading...</span></span>
+                            </div>
+                            <div class="d-flex small">
+                                <span class="fw-bold text-dark" style="width: 140px;">Shift Hours</span>
+                                <span class="text-secondary">: 08:00 a.m. - 05:00 p.m. (Scheduled)</span>
+                            </div>
+                            <div class="d-flex small">
+                                <span class="fw-bold text-dark" style="width: 140px;">Worked Hours</span>
+                                <span class="text-secondary">: <span id="summaryWorkedHours" class="text-dark fw-bold">0.0 hrs</span></span>
+                            </div>
+                            <div class="d-flex small">
+                                <span class="fw-bold text-dark" style="width: 140px;">Punch Status</span>
+                                <span class="text-secondary">: <strong id="summaryPunchStatus" class="text-dark">Not Clocked In Yet</strong></span>
+                            </div>
+                            <div class="d-flex small">
+                                <span class="fw-bold text-dark" style="width: 140px;">Overtime (OT)</span>
+                                <span class="text-secondary">: <span id="summaryOTDisplay" class="text-dark fw-bold">0.0 hrs</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Request OT Modal Trigger -->
+                    <div>
+                        <button type="button" id="btnRequestOt" class="btn btn-request-ot w-100 text-uppercase" data-bs-toggle="modal" data-bs-target="#otModal">
+                            REQUEST OT
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM CARD: Recent Attendance Logs (7 Days) -->
+<div class="attendance-card card-accent-red">
+    <!-- Header with Single Red Circle Button on the Right -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4 class="fw-bold text-danger mb-0" style="font-family: var(--font-headings); font-size: 1.2rem; letter-spacing: 0.5px;">
+            RECENT ATTENDANCE LOGS (7 DAYS)
+        </h4>
+        <!-- Only 1 Button Here -->
+        <button type="button" class="btn-red-circle shadow-sm" data-bs-toggle="modal" data-bs-target="#fullLogsModal" title="View Full 7-Day History">
+            <i class="bi bi-chevron-right"></i>
+        </button>
+    </div>
+
+    <!-- Desktop View: Clean Table (Zero buttons inside cells) -->
+    <div class="table-responsive d-none d-md-block">
+        <table class="table table-bordered align-middle text-center mb-0">
+            <thead class="table-attendance-header">
+                <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Time In</th>
+                    <th>Time Out</th>
+                    <th>Normal Hour</th>
+                    <th>Overtime</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody class="table-attendance-body" id="desktopTableBody">
+                <!-- Dynamically populated via JS without inside buttons -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Mobile View: Clean Stacked Cards (Zero buttons inside cards) -->
+    <div class="d-block d-md-none" id="mobileCardsContainer">
+        <!-- Dynamically populated via JS -->
+    </div>
+</div>
+
+    </main>
+
+    <!-- =========================================================
+         1.2: REAL IN-APP STATUS POPUP MODAL (REPLACES BROWSER ALERT)
+    ========================================================== -->
+    <div class="modal fade" id="statusAlertModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
+            <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+                <div class="modal-header border-0 pb-0 justify-content-end">
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center py-2 px-4">
+                    <div id="modalAlertIcon" class="mb-3 fs-1 lh-1">
+                        <!-- Populated dynamically via JS: Checkmark or Warning Icon -->
+                    </div>
+                    <h4 class="fw-bold mb-2" id="modalAlertTitle" style="font-family: var(--font-headings);">
+                        Status Title
+                    </h4>
+                    <p class="text-secondary small mb-4" id="modalAlertMessage" style="line-height: 1.5;">
+                        Status message details...
+                    </p>
+                    <button type="button" class="btn w-100 fw-bold py-2 rounded-3 text-white" id="modalAlertBtn" data-bs-dismiss="modal" style="background-color: #0563c1;">
+                        OK, UNDERSTOOD
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         3.1: OVERTIME REQUEST MODAL (WITH TIME PICKER & PRESETS)
+    ========================================================== -->
+    <div class="modal fade" id="otModal" tabindex="-1" aria-labelledby="otModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+            <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+                
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-tnb-red" id="otModalLabel" style="font-family: var(--font-headings);">
+                        OVERTIME REQUEST
+                    </h5>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body py-3">
+                    <form id="otRequestForm" onsubmit="handleOTSubmit(event)">
+                        <!-- Staff Name & ID -->
+                        <div class="mb-2">
+                            <span class="d-block small text-dark fw-bold">Staff Name &amp; ID</span>
+                            <span class="text-secondary small" id="modalStaffIdDisplay">Ahmad Razak (KCA-004)</span>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="mb-2">
+                            <span class="d-block small text-dark fw-bold">Date</span>
+                            <span class="text-secondary small" id="modalDateDisplay">Loading...</span>
+                        </div>
+
+                        <!-- Shift End Time -->
+                        <div class="mb-3">
+                            <span class="d-block small text-dark fw-bold">Shift End Time</span>
+                            <span class="text-secondary small">17:00 (5:00 P.M.)</span>
+                        </div>
+
+                        <!-- 3.1: Time Picker & Quick Hour Presets -->
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-dark mb-1">Estimated Clock-Out</label>
+                            <input type="time" id="otEstimatedTime" class="modal-ot-input mb-2" value="19:00" required>
+                            
+                            <!-- Quick 1-tap presets -->
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setPresetTime('18:00')">+1h (18:00)</button>
+                                <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setPresetTime('19:00')">+2h (19:00)</button>
+                                <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setPresetTime('20:00')">+3h (20:00)</button>
+                                <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setPresetTime('21:00')">+4h (21:00)</button>
+                            </div>
+                        </div>
+
+                        <!-- Task Detail -->
+                        <div class="mb-4">
+                            <label class="form-label small fw-bold text-dark mb-1">Task Detail</label>
+                            <textarea id="otTaskDetail" class="modal-ot-input" rows="3" placeholder="State work reason (e.g. Substation panel testing or cable termination)..." required></textarea>
+                        </div>
+
+                        <!-- Modal Actions -->
+                        <div class="d-flex gap-3 justify-content-end">
+                            <button type="button" class="btn btn-modal-cancel" data-bs-dismiss="modal">
+                                CANCEL
+                            </button>
+                            <button type="submit" class="btn btn-modal-submit">
+                                SUBMIT
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         4.1: FULL 7-DAY ATTENDANCE LOG MODAL (OPENED BY RED CIRCLE)
+    ========================================================== -->
+    <div class="modal fade" id="fullLogsModal" tabindex="-1" aria-labelledby="fullLogsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+                <div class="modal-header border-0 pb-2">
+                    <div>
+                        <h5 class="modal-title fw-bold text-tnb-blue" id="fullLogsModalLabel" style="font-family: var(--font-headings);">
+                            Full 7-Day Attendance History
+                        </h5>
+                        <span class="text-muted small">Employee: Ahmad Razak (KCA-004)</span>
+                    </div>
+                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-2">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover align-middle text-center mb-0 small">
+                            <thead class="table-attendance-header">
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Date</th>
+                                    <th>Time In</th>
+                                    <th>Time Out</th>
+                                    <th>Normal</th>
+                                    <th>OT</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-attendance-body">
+                                <tr>
+                                    <td class="fw-bold">Wednesday</td>
+                                    <td>07/10/2026</td>
+                                    <td>08:24</td>
+                                    <td>19:30</td>
+                                    <td>8.0 hrs</td>
+                                    <td class="fw-bold text-primary">2.5 hrs</td>
+                                    <td><span class="badge bg-warning-subtle text-dark border">Pending OT Approval</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Tuesday</td>
+                                    <td>06/10/2026</td>
+                                    <td>07:55</td>
+                                    <td>19:00</td>
+                                    <td>8.0 hrs</td>
+                                    <td class="fw-bold text-primary">2.0 hrs</td>
+                                    <td><span class="badge bg-warning-subtle text-dark border">Pending OT Approval</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Monday</td>
+                                    <td>05/10/2026</td>
+                                    <td>07:58</td>
+                                    <td>17:03</td>
+                                    <td>8.0 hrs</td>
+                                    <td>0.0 hrs</td>
+                                    <td><span class="badge bg-success-subtle text-success border">Verified</span></td>
+                                </tr>
+                                <tr class="table-light">
+                                    <td class="fw-bold text-primary">Sunday</td>
+                                    <td>04/10/2026</td>
+                                    <td>09:00</td>
+                                    <td>15:00</td>
+                                    <td>0.0 hrs</td>
+                                    <td class="fw-bold text-primary">6.0 hrs</td>
+                                    <td><span class="badge bg-primary-subtle text-primary border">Weekend OT Approved</span></td>
+                                </tr>
+                                <tr class="table-light">
+                                    <td class="fw-bold text-primary">Saturday</td>
+                                    <td>03/10/2026</td>
+                                    <td>08:30</td>
+                                    <td>13:30</td>
+                                    <td>0.0 hrs</td>
+                                    <td class="fw-bold text-primary">5.0 hrs</td>
+                                    <td><span class="badge bg-warning-subtle text-dark border">Pending OT Approval</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Friday</td>
+                                    <td>02/10/2026</td>
+                                    <td>08:10</td>
+                                    <td>17:30</td>
+                                    <td>8.0 hrs</td>
+                                    <td>0.0 hrs</td>
+                                    <td><span class="badge bg-info-subtle text-dark border">Site Duty (OK)</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">Thursday</td>
+                                    <td>01/10/2026</td>
+                                    <td>09:15</td>
+                                    <td>17:30</td>
+                                    <td>7.25 hrs</td>
+                                    <td>0.0 hrs</td>
+                                    <td><span class="badge bg-secondary-subtle text-secondary border">Verified (Late In)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer border-0">
+                    <button type="button" class="btn btn-secondary btn-sm px-4 rounded-3" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Complete Client-Side Engine -->
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Target Coordinates for Lahat HQ (No. 30, Pengkalan 2)
+        const LAHAT_HQ = {
+            lat: 4.539040456931608,
+            lng: 101.05601206657373,
+            radiusMeters: 100
+        };
+
+        // Default mock logs to populate on first run
+        const DEFAULT_LOGS = [
+            { day: "Tuesday", date: "06/10/2026", timeIn: "07:55", timeOut: "19:00", normalHours: "8.0 hrs", overtime: "2.0 hrs", status: "Pending OT Approval" },
+            { day: "Monday", date: "05/10/2026", timeIn: "07:58", timeOut: "17:03", normalHours: "8.0 hrs", overtime: "0.0 hrs", status: "Verified" }
+        ];
+
+        // 1. Live Real-Time Clock with Seconds & Accurate AM/PM
+        function updateLiveClock() {
+            const now = new Date();
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            const dayName = days[now.getDay()];
+            const monthName = months[now.getMonth()];
+            const dateNum = String(now.getDate()).padStart(2, '0');
+            const year = now.getFullYear();
+            
+            let rawHours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = rawHours >= 12 ? 'p.m.' : 'a.m.';
+            let displayHours = rawHours % 12 || 12;
+            const formattedHours = String(displayHours).padStart(2, '0');
+
+            const clockString = `${dayName}, ${monthName} ${dateNum}, ${year} | ${formattedHours} : ${minutes} : ${seconds} ${ampm}`;
+            const clockEl = document.getElementById('liveClockDisplay');
+            if (clockEl) clockEl.innerText = clockString;
+
+            const summaryDateEl = document.getElementById('summaryDateDisplay');
+            if (summaryDateEl) summaryDateEl.innerText = `${dayName}, ${dateNum} ${monthName} ${year}`;
+
+            const modalDateEl = document.getElementById('modalDateDisplay');
+            if (modalDateEl) modalDateEl.innerText = `${dayName}, ${dateNum} ${monthName} ${year}`;
+
+            updateWorkedHoursCounter();
+        }
+        setInterval(updateLiveClock, 1000);
+        updateLiveClock();
+
+        // 2. Load History & Session Data on Page Load
+        window.addEventListener('DOMContentLoaded', () => {
+            // Restore user profile
+            const userSession = sessionStorage.getItem('kca_user');
+            if (userSession) {
+                const user = JSON.parse(userSession);
+                if (user.id) {
+                    const label = `Ahmad Razak (${user.id})`;
+                    document.getElementById('staffDisplayName').innerText = label;
+                    document.getElementById('modalStaffIdDisplay').innerText = label;
+                }
+            }
+
+            // Ensure attendance logs exist in localStorage
+            if (!localStorage.getItem('kca_attendance_logs')) {
+                localStorage.setItem('kca_attendance_logs', JSON.stringify(DEFAULT_LOGS));
+            }
+            renderAttendanceLogs();
+
+            // Restore active punch state
+            const savedPunch = localStorage.getItem('kca_punch_state');
+            if (savedPunch) {
+                const data = JSON.parse(savedPunch);
+                if (data.status === 'clocked_in') {
+                    setClockedInUI(data.timeIn);
+                } else if (data.status === 'clocked_out') {
+                    setClockedOutUI(data.timeIn, data.timeOut, data.totalHours);
+                }
+
+                if (data.otHours && data.otSubmitted) {
+                    document.getElementById('summaryOTDisplay').innerText = `${data.otHours} hrs (Pending)`;
+                    lockOtButton(data.otHours);
+                }
+            }
+        });
+
+        // 3. Render Logs into Desktop Table, Mobile Cards & Full Modal
+        // Render Logs into Desktop Table & Mobile Cards (Zero buttons inside rows)
+function renderAttendanceLogs() {
+    const logs = JSON.parse(localStorage.getItem('kca_attendance_logs')) || DEFAULT_LOGS;
+    const desktopTbody = document.getElementById('desktopTableBody');
+    const mobileContainer = document.getElementById('mobileCardsContainer');
+
+    if (!desktopTbody || !mobileContainer) return;
+
+    desktopTbody.innerHTML = '';
+    mobileContainer.innerHTML = '';
+
+    // Show top 2 rows on main dashboard
+    logs.slice(0, 2).forEach((log, index) => {
+        // Desktop table row: pure clean text
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td>${log.day}</td>
+            <td>${log.date}</td>
+            <td>${log.timeIn}</td>
+            <td>${log.timeOut}</td>
+            <td>${log.normalHours}</td>
+            <td>${log.overtime}</td>
+            <td><span>${log.status}</span></td>
+        `;
+        desktopTbody.appendChild(tr);
+
+        // Mobile card: clean card layout
+        const card = document.createElement('div');
+        card.className = (index === 0) ? 'mb-3' : '';
+        card.innerHTML = `
+            <h6 class="fw-bold text-tnb-blue mb-2">${log.day}, ${log.date}</h6>
+            <div class="mobile-log-box small">
+                <div class="d-flex mb-1">
+                    <span class="fw-bold text-dark" style="width: 140px;">Time In, Time Out</span>
+                    <span>: ${log.timeIn} , ${log.timeOut}</span>
+                </div>
+                <div class="d-flex mb-1">
+                    <span class="fw-bold text-dark" style="width: 140px;">Normal Hours</span>
+                    <span>: ${log.normalHours}</span>
+                </div>
+                <div class="d-flex mb-1">
+                    <span class="fw-bold text-dark" style="width: 140px;">Overtime</span>
+                    <span>: ${log.overtime}</span>
+                </div>
+                <div class="d-flex">
+                    <span class="fw-bold text-dark" style="width: 140px;">Status</span>
+                    <span>: ${log.status}</span>
+                </div>
+            </div>
+        `;
+        mobileContainer.appendChild(card);
+    });
+}
+
+        // 4. Handle Clock-In Action
+        function handleClockIn() {
+            if (!navigator.geolocation) {
+                showCustomPopup('blocked', 'GPS Not Supported', 'Geolocation is not supported by your browser.');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const userLat = position.coords.latitude;
+                    const userLng = position.coords.longitude;
+                    const distance = getDistanceMeters(LAHAT_HQ.lat, LAHAT_HQ.lng, userLat, userLng);
+                    const isOffSiteAuthorized = localStorage.getItem('kca_offsite_authorized') === 'true';
+
+                    if (distance <= LAHAT_HQ.radiusMeters) {
+                        recordPunchSuccess('Lahat HQ (In-Office)');
+                    } else if (isOffSiteAuthorized) {
+                        recordPunchSuccess('Authorized Site Duty');
+                    } else {
+                        const awayMeters = Math.round(distance);
+                        showCustomPopup(
+                            'blocked',
+                            'PUNCH BLOCKED!',
+                            `You are <strong>${awayMeters}m</strong> away from Lahat HQ (allowed radius: 30m).<br><br>If you are on external site duty, please request your Admin to activate off-site permission.`
+                        );
+                    }
+                },
+                (error) => {
+                    recordPunchSuccess('Lahat HQ (Simulation Mode)');
+                },
+                { enableHighAccuracy: true, timeout: 8000 }
+            );
+        }
+
+        function recordPunchSuccess(locationLabel) {
+            const now = new Date();
+            const timeStr = formatTime(now);
+
+            const punchData = {
+                status: 'clocked_in',
+                timeIn: timeStr,
+                rawInTimestamp: now.getTime(),
+                location: locationLabel
+            };
+            localStorage.setItem('kca_punch_state', JSON.stringify(punchData));
+
+            setClockedInUI(timeStr);
+            showCustomPopup('success', 'Clock-In Successful!', `Punch recorded at <strong>${timeStr}</strong>.<br>Location: <strong>${locationLabel}</strong>.`);
+        }
+
+        // 5. Handle Clock-Out Action & Dynamically Append to Table
+        function handleClockOut() {
+            const now = new Date();
+            const timeStr = formatTime(now);
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const dayName = days[now.getDay()];
+            const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()}`;
+
+            let punchData = JSON.parse(localStorage.getItem('kca_punch_state')) || {};
+            punchData.status = 'clocked_out';
+            punchData.timeOut = timeStr;
+
+            let totalWorked = '8.0';
+            if (punchData.rawInTimestamp) {
+                totalWorked = ((now.getTime() - punchData.rawInTimestamp) / (1000 * 60 * 60)).toFixed(1);
+            }
+            punchData.totalHours = totalWorked;
+            localStorage.setItem('kca_punch_state', JSON.stringify(punchData));
+
+            setClockedOutUI(punchData.timeIn, timeStr, totalWorked);
+
+            // Construct new dynamic entry from this completed shift
+            const otAmount = punchData.otHours ? `${punchData.otHours} hrs` : '0.0 hrs';
+            const logStatus = punchData.otHours ? 'Pending OT Approval' : 'Verified';
+
+            const newLogEntry = {
+                day: dayName,
+                date: dateStr,
+                timeIn: punchData.timeIn || '08:00',
+                timeOut: timeStr,
+                normalHours: `${totalWorked} hrs`,
+                overtime: otAmount,
+                status: logStatus
+            };
+
+            // Prepend new record to the list and save
+            let logs = JSON.parse(localStorage.getItem('kca_attendance_logs')) || DEFAULT_LOGS;
+            logs.unshift(newLogEntry);
+            localStorage.setItem('kca_attendance_logs', JSON.stringify(logs));
+
+            // Re-render table dynamically on screen
+            renderAttendanceLogs();
+
+            showCustomPopup('info', 'Clock-Out Complete', `Shift ended at <strong>${timeStr}</strong>.<br>Total worked: <strong>${totalWorked} hrs</strong>.<br>Entry has been added to your attendance log.`);
+        }
+
+        // 6. Handle Overtime Request Submit
+        function handleOTSubmit(e) {
+            e.preventDefault();
+            const estTime = document.getElementById('otEstimatedTime').value;
+            const task = document.getElementById('otTaskDetail').value;
+
+            if (!estTime) {
+                showCustomPopup('blocked', 'Missing Time', 'Please select an estimated clock-out time.');
+                return;
+            }
+
+            const [estH, estM] = estTime.split(':').map(Number);
+            const shiftEndTotalMinutes = 17 * 60; // 17:00 shift end
+            const estTotalMinutes = estH * 60 + estM;
+
+            let otMinutes = (estTotalMinutes < shiftEndTotalMinutes) 
+                ? (estTotalMinutes + 1440) - shiftEndTotalMinutes 
+                : estTotalMinutes - shiftEndTotalMinutes;
+
+            const calculatedOT = (otMinutes / 60).toFixed(1);
+
+            let punchData = JSON.parse(localStorage.getItem('kca_punch_state')) || { status: 'none' };
+            punchData.otHours = calculatedOT;
+            punchData.otEstTime = estTime;
+            punchData.otReason = task;
+            punchData.otSubmitted = true;
+            localStorage.setItem('kca_punch_state', JSON.stringify(punchData));
+
+            document.getElementById('summaryOTDisplay').innerText = `${calculatedOT} hrs (Pending)`;
+            lockOtButton(calculatedOT);
+
+            const modalEl = document.getElementById('otModal');
+            bootstrap.Modal.getInstance(modalEl).hide();
+
+            showCustomPopup('success', 'OT Request Submitted', `Overtime request for <strong>${calculatedOT} hrs</strong> (until ${estTime}) is locked and pending approval.`);
+        }
+
+        // Helper: Set Presets
+        function setPresetTime(timeValue) {
+            document.getElementById('otEstimatedTime').value = timeValue;
+        }
+
+        // Helper: Lock OT Button
+        function lockOtButton(hours) {
+            const otBtn = document.getElementById('btnRequestOt');
+            if (!otBtn) return;
+            otBtn.innerText = `⏳ OT PENDING (${hours} hrs)`;
+            otBtn.classList.remove('btn-request-ot');
+            otBtn.classList.add('btn-warning', 'text-dark', 'fw-bold');
+            otBtn.disabled = true;
+            otBtn.style.cursor = 'not-allowed';
+        }
+
+        // Helper: UI Updaters
+        function setClockedInUI(timeIn) {
+            document.getElementById('btnClockIn').disabled = true;
+            const btnOut = document.getElementById('btnClockOut');
+            btnOut.disabled = false;
+            btnOut.classList.add('active-punch');
+            document.getElementById('summaryPunchStatus').innerText = `Clocked In (${timeIn})`;
+            document.getElementById('summaryPunchStatus').className = 'text-success fw-bold';
+        }
+
+        function setClockedOutUI(timeIn, timeOut, totalHours) {
+            document.getElementById('btnClockIn').disabled = true;
+            const btnOut = document.getElementById('btnClockOut');
+            btnOut.disabled = true;
+            btnOut.classList.remove('active-punch');
+            document.getElementById('summaryPunchStatus').innerText = `Completed (Out: ${timeOut})`;
+            document.getElementById('summaryPunchStatus').className = 'text-primary fw-bold';
+            if (totalHours) {
+                document.getElementById('summaryWorkedHours').innerText = `${totalHours} hrs`;
+            }
+        }
+
+        function updateWorkedHoursCounter() {
+            const savedPunch = localStorage.getItem('kca_punch_state');
+            if (!savedPunch) return;
+            const data = JSON.parse(savedPunch);
+            if (data.status === 'clocked_in' && data.rawInTimestamp) {
+                const elapsedHours = ((new Date().getTime() - data.rawInTimestamp) / (1000 * 60 * 60)).toFixed(1);
+                document.getElementById('summaryWorkedHours').innerText = `${elapsedHours} hrs (In Progress)`;
+            }
+        }
+
+        // Helper: Format Time string HH:MM
+        function formatTime(dateObj) {
+            const hours = String(dateObj.getHours()).padStart(2, '0');
+            const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+
+        // Helper: Distance
+        function getDistanceMeters(lat1, lon1, lat2, lon2) {
+            const R = 6371e3;
+            const dLat = (lat2 - lat1) * (Math.PI / 180);
+            const dLon = (lon2 - lon1) * (Math.PI / 180);
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        }
+
+        // Reset Test
+function resetPunchState() {
+    // 1. Clear active punch state
+    localStorage.removeItem('kca_punch_state');
+
+    // 2. Reset table history back to the default 2 rows (Tuesday & Monday)
+    localStorage.setItem('kca_attendance_logs', JSON.stringify(DEFAULT_LOGS));
+    
+    // 3. Immediately re-render the table to clear out today's clock-out row
+    renderAttendanceLogs();
+
+    // 4. Reset Clock-In / Clock-Out buttons
+    document.getElementById('btnClockIn').disabled = false;
+    const btnOut = document.getElementById('btnClockOut');
+    btnOut.disabled = true;
+    btnOut.classList.remove('active-punch');
+
+    // 5. Reset and unlock the Request OT button
+    const otBtn = document.getElementById('btnRequestOt');
+    if (otBtn) {
+        otBtn.innerText = 'REQUEST OT';
+        otBtn.className = 'btn btn-request-ot w-100 text-uppercase';
+        otBtn.disabled = false;
+        otBtn.style.cursor = 'pointer';
+    }
+
+    // 6. Reset Summary values
+    document.getElementById('summaryPunchStatus').innerText = 'Not Clocked In Yet';
+    document.getElementById('summaryPunchStatus').className = 'text-dark fw-bold';
+    document.getElementById('summaryWorkedHours').innerText = '0.0 hrs';
+    document.getElementById('summaryOTDisplay').innerText = '0.0 hrs';
+
+    showCustomPopup('info', 'Shift & Table Reset', 'Punch status and attendance table have been reset to default.');
+}
+
+        // Custom Modal Popup
+        function showCustomPopup(type, title, message) {
+            const iconEl = document.getElementById('modalAlertIcon');
+            const titleEl = document.getElementById('modalAlertTitle');
+            const msgEl = document.getElementById('modalAlertMessage');
+            const btnEl = document.getElementById('modalAlertBtn');
+
+            if (type === 'success') {
+                iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+                titleEl.className = 'fw-bold mb-2 text-success';
+                btnEl.style.backgroundColor = '#0563c1';
+            } else if (type === 'blocked') {
+                iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+                titleEl.className = 'fw-bold mb-2 text-danger';
+                btnEl.style.backgroundColor = '#e61e2b';
+            } else {
+                iconEl.innerHTML = '<i class="bi bi-info-circle-fill text-primary"></i>';
+                titleEl.className = 'fw-bold mb-2 text-primary';
+                btnEl.style.backgroundColor = '#0563c1';
+            }
+
+            titleEl.innerText = title;
+            msgEl.innerHTML = message;
+            new bootstrap.Modal(document.getElementById('statusAlertModal')).show();
+        }
+
+        function logoutStaff() {
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>
