@@ -1,0 +1,1111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Off-Site Dispatch | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Signature Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <!-- Brand Logo & Name -->
+        <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
+          <img
+            src="img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = 'img/about_us.png'"
+          />
+        </a>
+
+        <!-- Right Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
+            </a>
+
+            <!-- e-Attendance Dropdown Menu -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item active d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
+                    <i class="bi bi-geo-alt-fill text-tnb-red"></i>
+                    <span>Staff Off-Site</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
+                    <i class="bi bi-clock-history text-secondary"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Red Logout Button -->
+          <a href="login.html" class="btn p-0 border-0" title="Sign Out">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+              style="width: 38px; height: 38px; background-color: #e61e2b"
+            >
+              <i class="bi bi-box-arrow-right fs-5"></i>
+            </div>
+          </a>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Signature Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div
+      class="offcanvas offcanvas-end"
+      tabindex="-1"
+      id="adminDrawer"
+      style="width: 300px"
+    >
+      <div class="offcanvas-header border-bottom">
+        <h5
+          class="offcanvas-title fw-bold text-tnb-blue"
+          style="font-family: var(--font-headings)"
+        >
+          Admin Menu
+        </h5>
+        <button
+          type="button"
+          class="btn-close shadow-none"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul
+          class="navbar-nav flex-column gap-3 fs-5 mt-2"
+          style="font-family: var(--font-headings)"
+        >
+          <li class="nav-item">
+            <a class="nav-link" href="admin-inquiries.html">Inquiries</a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link fw-bold text-tnb-blue active"
+              href="admin-staff.html"
+              >Staff Off-Site Dispatch</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin-ot.html">Overtime Approvals</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="admin-attendance.html">Attendance Logs</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Main Website</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      <!-- Page Title -->
+      <h4 class="page-header-title">STAFF OFF-SITE</h4>
+
+      <div class="dispatch-frame-container">
+        <div class="dispatch-offset-border d-none d-lg-block"></div>
+
+        <!-- Main Card Container with Signature Orange Border -->
+        <div class="dispatch-card">
+          <!-- Filters & Search Toolbar -->
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+          >
+            <!-- Filter Pills -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <button
+                type="button"
+                id="pillAll"
+                onclick="filterStaff('all')"
+                class="dispatch-pill-btn active-all"
+              >
+                All Staff (<span id="countAll">40</span>)
+              </button>
+              <button
+                type="button"
+                id="pillOffsite"
+                onclick="filterStaff('offsite')"
+                class="dispatch-pill-btn"
+              >
+                <i class="bi bi-geo-alt-fill text-danger me-1"></i> Off-Site
+                Authorized (<span id="countOffsite">14</span>)
+              </button>
+              <button
+                type="button"
+                id="pillOffice"
+                onclick="filterStaff('office')"
+                class="dispatch-pill-btn"
+              >
+                <i class="bi bi-building-fill text-warning me-1"></i> Main
+                Office (<span id="countOffice">26</span>)
+              </button>
+            </div>
+
+            <!-- Search Input Box -->
+            <div class="position-relative" style="width: 240px">
+              <input
+                type="text"
+                id="staffSearchInput"
+                onkeyup="handleSearch()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Search staff name or ID..."
+                style="font-family: var(--font-body)"
+              />
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
+            </div>
+          </div>
+
+          <!-- DESKTOP VIEW: Table Format (Top 5 rows visible on main card) -->
+          <div class="table-responsive d-none d-md-block">
+            <table class="table align-middle text-center mb-0">
+              <thead class="dispatch-table-head">
+                <tr>
+                  <th class="text-start ps-4">Name</th>
+                  <th>Punch Mode</th>
+                  <th>Location</th>
+                  <th>Contact</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="dispatch-table-body" id="staffTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- MOBILE VIEW: Stacked Cards (Top 5 cards visible on main card) -->
+          <div class="d-block d-md-none">
+            <h5
+              class="fw-bold text-danger mb-3"
+              style="font-size: 1.1rem; font-family: var(--font-headings)"
+            >
+              STAFF LIST
+            </h5>
+            <div id="staffMobileContainer">
+              <!-- Populated dynamically via JavaScript -->
+            </div>
+          </div>
+
+          <!-- Red Circle Button (Opens Modal Displaying ALL Staff Matching the Filter) -->
+          <button
+            type="button"
+            onclick="openFilteredDirectoryModal()"
+            class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+            title="View All Staff in Active Filter"
+          >
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <div
+      class="modal fade"
+      id="permissionModal"
+      tabindex="-1"
+      aria-labelledby="permissionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <!-- Modal Header -->
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="permissionModalLabel"
+              style="color: #f66530; font-family: var(--font-headings)"
+            >
+              OFF-SITE PERMISSION
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="modal-body py-3">
+            <form id="permissionForm" onsubmit="saveStaffPermission(event)">
+              <input type="hidden" id="modalStaffId" />
+
+              <!-- Staff Name & ID Display -->
+              <div class="mb-3">
+                <span class="d-block small text-muted fw-bold"
+                  >Staff Name &amp; ID</span
+                >
+                <span
+                  class="fw-bold text-dark fs-6"
+                  id="modalStaffNameDisplay"
+                  style="font-family: var(--font-headings)"
+                  >Ahmad Razak (KCA-004)</span
+                >
+              </div>
+
+              <!-- Location Input -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">
+                  Location<span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="modalLocationInput"
+                  class="form-control rounded-2 border shadow-none"
+                  placeholder="e.g. Simpang Pulai Substation"
+                  required
+                  style="font-family: var(--font-body)"
+                />
+              </div>
+
+              <!-- Task/Details Textarea -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">
+                  Task/Details<span class="text-danger">*</span>
+                </label>
+                <textarea
+                  id="modalTaskInput"
+                  class="form-control rounded-2 border shadow-none"
+                  rows="3"
+                  placeholder="State task details or job scope..."
+                  required
+                  style="font-family: var(--font-body)"
+                ></textarea>
+              </div>
+
+              <!-- Date & Validity Row -->
+              <div class="row g-2 mb-4">
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Effective Date<span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="date"
+                    id="modalDateInput"
+                    class="form-control rounded-2 border shadow-none small"
+                    required
+                    style="font-family: var(--font-body)"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Validity<span class="text-danger">*</span></label
+                  >
+                  <select
+                    id="modalValiditySelect"
+                    class="form-select shadow-none small"
+                    required
+                    style="font-family: var(--font-body)"
+                  >
+                    <option value="Today (Exp 23:59 pm)" selected>
+                      Today (Exp 23:59 pm)
+                    </option>
+                    <option value="2 Days (Project Shift)">
+                      2 Days (Project Shift)
+                    </option>
+                    <option value="1 Week (Outstation)">
+                      1 Week (Outstation)
+                    </option>
+                    <option value="Until Revoked">Until Revoked</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-2 justify-content-end">
+                <button
+                  type="button"
+                  id="btnRevokeAction"
+                  onclick="revokeStaffPermission()"
+                  class="btn btn-outline-danger px-3 rounded-2 fw-bold d-none"
+                  style="font-family: var(--font-headings)"
+                >
+                  Revoke Permission
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                  style="font-family: var(--font-headings)"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-primary px-3 rounded-2 fw-bold"
+                  style="
+                    background-color: var(--tnb-blue);
+                    border-color: var(--tnb-blue);
+                    font-family: var(--font-headings);
+                  "
+                >
+                  Save Permission
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         FULL FILTERED STAFF DIRECTORY MODAL (OPENED BY RED BUTTON)
+    ========================================================== -->
+    <div
+      class="modal fade"
+      id="fullStaffModal"
+      tabindex="-1"
+      aria-labelledby="fullStaffModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <!-- Dynamic Title matching the active filter -->
+              <h5
+                class="modal-title fw-bold text-tnb-blue"
+                id="fullStaffModalTitle"
+                style="font-family: var(--font-headings)"
+              >
+                All Staff Directory
+              </h5>
+              <span class="text-muted small" id="fullStaffModalSubtitle"
+                >Displaying filtered personnel</span
+              >
+            </div>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Search within modal -->
+          <div class="pt-3 px-1">
+            <div class="position-relative mb-2" style="max-width: 320px">
+              <input
+                type="text"
+                id="modalSearchInput"
+                onkeyup="handleModalSearch()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Filter this list by name or ID..."
+              />
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
+            </div>
+          </div>
+
+          <div class="modal-body py-2">
+            <div
+              class="table-responsive"
+              style="max-height: 520px; overflow-y: auto"
+            >
+              <table
+                class="table table-bordered table-hover align-middle text-center mb-0 small"
+              >
+                <thead class="dispatch-table-head sticky-top">
+                  <tr>
+                    <th class="text-start ps-3">Name</th>
+                    <th>Punch Mode</th>
+                    <th>Task/Destination</th>
+                    <th>Contact</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody class="dispatch-table-body" id="fullDirectoryTableBody">
+                  <!-- Populated dynamically based on current filter -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm px-4 rounded-3"
+              data-bs-dismiss="modal"
+              style="font-family: var(--font-headings)"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine -->
+    <script>
+      // Baseline 40 Real Technical Staff Records matching company data
+      const INITIAL_STAFF = [
+        {
+          id: "KCA-004",
+          name: "Ahmad Razak",
+          mode: "offsite",
+          destination: "Simpang Pulai",
+          contact: "+6012-458 1190",
+        },
+        {
+          id: "KCA-006",
+          name: "Mohd Syafiq",
+          mode: "office",
+          destination: "Office",
+          contact: "+6013-667 8090",
+        },
+        {
+          id: "KCA-021",
+          name: "Daniel Hakim",
+          mode: "office",
+          destination: "Office",
+          contact: "+6017-882 1092",
+        },
+        {
+          id: "KCA-024",
+          name: "Khairul Anuar",
+          mode: "offsite",
+          destination: "Ipoh",
+          contact: "+6011-203 8832",
+        },
+        {
+          id: "KCA-003",
+          name: "Hafizuddin Ramli",
+          mode: "office",
+          destination: "Office",
+          contact: "+6019 289 7764",
+        },
+        {
+          id: "KCA-001",
+          name: "Azhar Rashid",
+          mode: "office",
+          destination: "Office",
+          contact: "+6012-334 1122",
+        },
+        {
+          id: "KCA-002",
+          name: "Daniel Saad",
+          mode: "offsite",
+          destination: "Batu Gajah Substation",
+          contact: "+6013-445 2233",
+        },
+        {
+          id: "KCA-005",
+          name: "Muhammad Isa",
+          mode: "offsite",
+          destination: "Pusing Substation",
+          contact: "+6017-556 3344",
+        },
+        {
+          id: "KCA-007",
+          name: "Zulkhairi Mansor",
+          mode: "office",
+          destination: "Office",
+          contact: "+6019-667 4455",
+        },
+        {
+          id: "KCA-008",
+          name: "Mohd Ridzuan",
+          mode: "offsite",
+          destination: "Gopeng 33kV Line",
+          contact: "+6011-778 5566",
+        },
+        {
+          id: "KCA-009",
+          name: "Suresh Kumar",
+          mode: "office",
+          destination: "Office",
+          contact: "+6012-889 6677",
+        },
+        {
+          id: "KCA-010",
+          name: "Tan Chin Wah",
+          mode: "office",
+          destination: "Office",
+          contact: "+6013-990 7788",
+        },
+        {
+          id: "KCA-011",
+          name: "Shamsul Bahari",
+          mode: "offsite",
+          destination: "Kampar Solar Plant",
+          contact: "+6017-101 8899",
+        },
+        {
+          id: "KCA-012",
+          name: "Nor Azman",
+          mode: "office",
+          destination: "Office",
+          contact: "+6019-212 9900",
+        },
+        {
+          id: "KCA-013",
+          name: "Kamarul Zaman",
+          mode: "offsite",
+          destination: "Batu Gajah Substation",
+          contact: "+6011-323 1011",
+        },
+        {
+          id: "KCA-014",
+          name: "Faizal Tahir",
+          mode: "office",
+          destination: "Office",
+          contact: "+6012-434 2122",
+        },
+        {
+          id: "KCA-015",
+          name: "Haris Fadhilah",
+          mode: "offsite",
+          destination: "Bidor Switching Station",
+          contact: "+6013-545 3233",
+        },
+        {
+          id: "KCA-016",
+          name: "Iskandar Zulkarnain",
+          mode: "office",
+          destination: "Office",
+          contact: "+6017-656 4344",
+        },
+        {
+          id: "KCA-017",
+          name: "Zulhilmi Zaki",
+          mode: "offsite",
+          destination: "Tapah Substation",
+          contact: "+6019-767 5455",
+        },
+        {
+          id: "KCA-018",
+          name: "Syed Alwi",
+          mode: "office",
+          destination: "Office",
+          contact: "+6011-878 6566",
+        },
+        {
+          id: "KCA-019",
+          name: "Razali Othman",
+          mode: "offsite",
+          destination: "Simpang Pulai",
+          contact: "+6012-989 7677",
+        },
+        {
+          id: "KCA-020",
+          name: "Megat Aris",
+          mode: "office",
+          destination: "Office",
+          contact: "+6013-090 8788",
+        },
+        {
+          id: "KCA-022",
+          name: "Amirul Hisham",
+          mode: "offsite",
+          destination: "Manjung 132kV Line",
+          contact: "+6017-202 9899",
+        },
+        {
+          id: "KCA-023",
+          name: "Farhan Naim",
+          mode: "office",
+          destination: "Office",
+          contact: "+6019-313 0900",
+        },
+        {
+          id: "KCA-025",
+          name: "Luqman Hakim",
+          mode: "offsite",
+          destination: "Lumut PMU Substation",
+          contact: "+6011-424 1011",
+        },
+        {
+          id: "KCA-026",
+          name: "Badrul Amin",
+          mode: "office",
+          destination: "Office",
+          contact: "+6012-535 2122",
+        },
+        {
+          id: "KCA-027",
+          name: "Hairi Anuar",
+          mode: "offsite",
+          destination: "Seri Manjung Solar Site",
+          contact: "+6013-646 3233",
+        },
+        {
+          id: "KCA-028",
+          name: "Nazmi Rosli",
+          mode: "office",
+          destination: "Office",
+          contact: "+6017-757 4344",
+        },
+        {
+          id: "KCA-029",
+          name: "Wan Firdaus",
+          mode: "offsite",
+          destination: "Changkat Jering PMU",
+          contact: "+6019-868 5455",
+        },
+        {
+          id: "KCA-030",
+          name: "Haziq Danial",
+          mode: "office",
+          destination: "Office",
+          contact: "+6011-979 6566",
+        },
+        {
+          id: "KCA-031",
+          name: "Alif Haikal",
+          mode: "office",
+          destination: "Office",
+          contact: "+6012-080 7677",
+        },
+        {
+          id: "KCA-032",
+          name: "Muhaimin Yusof",
+          mode: "office",
+          destination: "Office",
+          contact: "+6013-191 8788",
+        },
+        {
+          id: "KCA-033",
+          name: "Zainal Abidin",
+          mode: "office",
+          destination: "Office",
+          contact: "+6017-292 9899",
+        },
+        {
+          id: "KCA-034",
+          name: "Nazirul Mubin",
+          mode: "office",
+          destination: "Office",
+          contact: "+6019-393 0900",
+        },
+        {
+          id: "KCA-035",
+          name: "Afiq Ikmal",
+          mode: "office",
+          destination: "Office",
+          contact: "+6011-494 1011",
+        },
+        {
+          id: "KCA-036",
+          name: "Ashraf Muslim",
+          mode: "office",
+          destination: "Office",
+          contact: "+6012-595 2122",
+        },
+        {
+          id: "KCA-037",
+          name: "Syakir Zufayri",
+          mode: "office",
+          destination: "Office",
+          contact: "+6013-696 3233",
+        },
+        {
+          id: "KCA-038",
+          name: "Arif Farhan",
+          mode: "office",
+          destination: "Office",
+          contact: "+6017-797 4344",
+        },
+        {
+          id: "KCA-039",
+          name: "Ikram Hakimi",
+          mode: "office",
+          destination: "Office",
+          contact: "+6019-898 5455",
+        },
+        {
+          id: "KCA-040",
+          name: "Danial Asyraf",
+          mode: "office",
+          destination: "Office",
+          contact: "+6011-999 6566",
+        },
+      ];
+
+      let currentFilter = "all";
+
+      // 1. Initialize State
+      window.addEventListener("DOMContentLoaded", () => {
+        const existingList = JSON.parse(
+          localStorage.getItem("kca_admin_staff_list"),
+        );
+        if (!existingList || existingList.length < 40) {
+          localStorage.setItem(
+            "kca_admin_staff_list",
+            JSON.stringify(INITIAL_STAFF),
+          );
+        }
+        renderStaffTable();
+      });
+
+      // 2. Render Main Table (Top 5 rows only to prevent oversized scrolling on main screen)
+      function renderStaffTable() {
+        const staffList =
+          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
+          INITIAL_STAFF;
+        const tableBody = document.getElementById("staffTableBody");
+        const mobileContainer = document.getElementById("staffMobileContainer");
+        const searchQuery = document
+          .getElementById("staffSearchInput")
+          .value.toLowerCase();
+
+        tableBody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        let offsiteCount = 0;
+        let officeCount = 0;
+
+        staffList.forEach((s) => {
+          if (s.mode === "offsite") offsiteCount++;
+          else officeCount++;
+        });
+
+        // Filter by active pill
+        const filteredStaff = staffList.filter((staff) => {
+          if (currentFilter === "offsite" && staff.mode !== "offsite")
+            return false;
+          if (currentFilter === "office" && staff.mode !== "office")
+            return false;
+
+          const matchesSearch =
+            staff.name.toLowerCase().includes(searchQuery) ||
+            staff.id.toLowerCase().includes(searchQuery) ||
+            staff.destination.toLowerCase().includes(searchQuery);
+          return matchesSearch;
+        });
+
+        // Render top 5 rows on main card
+        filteredStaff.slice(0, 5).forEach((staff) => {
+          const isOffsite = staff.mode === "offsite";
+          const badgeHtml = isOffsite
+            ? `<span class="badge-offsite">Off-Site Authorized</span>`
+            : `<span class="badge-office">Main Office</span>`;
+
+          const btnHtml = isOffsite
+            ? `<button type="button" onclick="openPermissionModal('${staff.id}')" class="btn-change-site">Edit/Revoke</button>`
+            : `<button type="button" onclick="openPermissionModal('${staff.id}')" class="btn-allow-site">Grant Access</button>`;
+
+          // Desktop Row
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td class="text-start ps-4 fw-bold text-dark">${staff.id} ${staff.name}</td>
+                    <td>${badgeHtml}</td>
+                    <td>${staff.destination}</td>
+                    <td>${staff.contact}</td>
+                    <td>${btnHtml}</td>
+                `;
+          tableBody.appendChild(tr);
+
+          // Mobile Card
+          const mobileCard = document.createElement("div");
+          mobileCard.className = "mb-3";
+          mobileCard.innerHTML = `
+                    <div class="mb-1">${badgeHtml}</div>
+                    <div class="dispatch-mobile-card position-relative">
+                        <div class="fw-bold text-dark fs-6 mb-1">${staff.id} ${staff.name}</div>
+                        <div class="small text-secondary mb-1"><strong>Contact :</strong> ${staff.contact}</div>
+                        <div class="small text-secondary mb-3"><strong>Task/Destination :</strong> ${staff.destination}</div>
+                        <div>${btnHtml}</div>
+                    </div>
+                `;
+          mobileContainer.appendChild(mobileCard);
+        });
+
+        // Update Counts in UI
+        document.getElementById("countAll").innerText = staffList.length;
+        document.getElementById("countOffsite").innerText = offsiteCount;
+        document.getElementById("countOffice").innerText = officeCount;
+      }
+
+      // 3. Filter Switching
+      function filterStaff(filterType) {
+        currentFilter = filterType;
+        document.getElementById("pillAll").className =
+          "dispatch-pill-btn" + (filterType === "all" ? " active-all" : "");
+        document.getElementById("pillOffsite").className =
+          "dispatch-pill-btn" +
+          (filterType === "offsite" ? " active-offsite" : "");
+        document.getElementById("pillOffice").className =
+          "dispatch-pill-btn" +
+          (filterType === "office" ? " active-office" : "");
+        renderStaffTable();
+      }
+
+      function handleSearch() {
+        renderStaffTable();
+      }
+
+      // Opens modal and dynamically adjusts title and data based on active tab
+      function openFilteredDirectoryModal() {
+        const staffList =
+          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
+          INITIAL_STAFF;
+        const titleEl = document.getElementById("fullStaffModalTitle");
+        const subtitleEl = document.getElementById("fullStaffModalSubtitle");
+
+        if (currentFilter === "offsite") {
+          const count = staffList.filter((s) => s.mode === "offsite").length;
+          titleEl.innerText = `Off-Site Authorized Staff (${count} Personnel)`;
+          subtitleEl.innerText = "All technicians authorized for site duty";
+        } else if (currentFilter === "office") {
+          const count = staffList.filter((s) => s.mode === "office").length;
+          titleEl.innerText = `Main Office Staff (${count} Personnel)`;
+          subtitleEl.innerText = "All personnel bound to Lahat HQ perimeter";
+        } else {
+          titleEl.innerText = `All Staff Directory (${staffList.length} Personnel)`;
+          subtitleEl.innerText = "Full technical roster";
+        }
+
+        renderModalStaffTable();
+        new bootstrap.Modal(document.getElementById("fullStaffModal")).show();
+      }
+
+      function renderModalStaffTable() {
+        const staffList =
+          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
+          INITIAL_STAFF;
+        const fullTableBody = document.getElementById("fullDirectoryTableBody");
+        fullTableBody.innerHTML = "";
+
+        const filtered = staffList.filter((staff) => {
+          if (currentFilter === "offsite" && staff.mode !== "offsite")
+            return false;
+          if (currentFilter === "office" && staff.mode !== "office")
+            return false;
+          return true;
+        });
+
+        filtered.forEach((staff) => {
+          const isOffsite = staff.mode === "offsite";
+          const badgeHtml = isOffsite
+            ? `<span class="badge-offsite">Off-Site Authorized</span>`
+            : `<span class="badge-office">Main Office</span>`;
+
+          const btnHtml = isOffsite
+            ? `<button type="button" onclick="openPermissionModal('${staff.id}')" class="btn-change-site">Edit/Revoke</button>`
+            : `<button type="button" onclick="openPermissionModal('${staff.id}')" class="btn-allow-site">Grant Access</button>`;
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-3 fw-bold text-dark">${staff.id} ${staff.name}</td>
+            <td>${badgeHtml}</td>
+            <td>${staff.destination}</td>
+            <td>${staff.contact}</td>
+            <td>${btnHtml}</td>
+        `;
+          fullTableBody.appendChild(tr);
+        });
+      }
+
+      function handleModalSearch() {
+        renderModalStaffTable();
+      }
+
+      // 5. Open Permission Modal
+      function openPermissionModal(staffId) {
+        const staffList =
+          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
+          INITIAL_STAFF;
+        const staff = staffList.find((s) => s.id === staffId);
+        if (!staff) return;
+
+        document.getElementById("modalStaffId").value = staff.id;
+        document.getElementById("modalStaffNameDisplay").innerText =
+          `${staff.name} (${staff.id})`;
+
+        const isOffsite = staff.mode === "offsite";
+        document.getElementById("modalLocationInput").value = isOffsite
+          ? staff.destination
+          : "";
+        document.getElementById("modalTaskInput").value = isOffsite
+          ? staff.taskDetails || "Maintenance inspection"
+          : "";
+
+        // Set date
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        document.getElementById("modalDateInput").value =
+          staff.effectiveDate || `${year}-${month}-${day}`;
+
+        const revokeBtn = document.getElementById("btnRevokeAction");
+        if (isOffsite) {
+          revokeBtn.classList.remove("d-none");
+        } else {
+          revokeBtn.classList.add("d-none");
+        }
+
+        // Close directory modal if it was open
+        const fullModalEl = document.getElementById("fullStaffModal");
+        const fullModal = bootstrap.Modal.getInstance(fullModalEl);
+        if (fullModal) fullModal.hide();
+
+        new bootstrap.Modal(document.getElementById("permissionModal")).show();
+      }
+
+      // 6. Save Permission
+      function saveStaffPermission(e) {
+        e.preventDefault();
+        const staffId = document.getElementById("modalStaffId").value;
+        const locationVal = document
+          .getElementById("modalLocationInput")
+          .value.trim();
+        const taskVal = document.getElementById("modalTaskInput").value.trim();
+        const dateVal = document.getElementById("modalDateInput").value;
+        const validityVal = document.getElementById(
+          "modalValiditySelect",
+        ).value;
+
+        let staffList =
+          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
+          INITIAL_STAFF;
+        const staffIndex = staffList.findIndex((s) => s.id === staffId);
+
+        if (staffIndex !== -1) {
+          staffList[staffIndex].mode = "offsite";
+          staffList[staffIndex].destination = locationVal;
+          staffList[staffIndex].taskDetails = taskVal;
+          staffList[staffIndex].effectiveDate = dateVal;
+          staffList[staffIndex].validity = validityVal;
+
+          localStorage.setItem(
+            "kca_admin_staff_list",
+            JSON.stringify(staffList),
+          );
+
+          if (staffId === "KCA-004") {
+            localStorage.setItem("kca_offsite_authorized", "true");
+          }
+
+          bootstrap.Modal.getInstance(
+            document.getElementById("permissionModal"),
+          ).hide();
+          renderStaffTable();
+          alert(
+            `✅ Permission Saved!\n${staffList[staffIndex].name} is authorized for site duty at ${locationVal}.`,
+          );
+        }
+      }
+
+      // 7. Revoke Permission
+      function revokeStaffPermission() {
+        const staffId = document.getElementById("modalStaffId").value;
+        let staffList =
+          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
+          INITIAL_STAFF;
+        const staffIndex = staffList.findIndex((s) => s.id === staffId);
+
+        if (staffIndex !== -1) {
+          if (
+            confirm(
+              `Revoke off-site permission for ${staffList[staffIndex].name}?`,
+            )
+          ) {
+            staffList[staffIndex].mode = "office";
+            staffList[staffIndex].destination = "Office";
+            delete staffList[staffIndex].taskDetails;
+            delete staffList[staffIndex].effectiveDate;
+
+            localStorage.setItem(
+              "kca_admin_staff_list",
+              JSON.stringify(staffList),
+            );
+
+            if (staffId === "KCA-004") {
+              localStorage.setItem("kca_offsite_authorized", "false");
+            }
+
+            bootstrap.Modal.getInstance(
+              document.getElementById("permissionModal"),
+            ).hide();
+            renderStaffTable();
+            alert(`🔒 Permission revoked. Staff assigned back to Main Office.`);
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
