@@ -1,6 +1,8 @@
-/* Color Palette & Font Variables */
+/* =========================================================
+   1. COLOR PALETTE & FONT VARIABLES
+========================================================= */
 :root {
-  /* Colors */
+  /* Brand Colors */
   --tnb-blue: #0563c1;
   --tnb-red-orange: #f66530;
   --tnb-orange-light: #e37e4a;
@@ -11,18 +13,17 @@
   --kca-navy: #03045a;
   --kca-black: #000000;
 
-  /* Fonts */
+  /* Typography */
   --font-headings: "Inter", sans-serif;
   --font-body: "Open Sans", sans-serif;
 }
 
-/* Global Layout Fix for Mobile Zoom/Scroll */
+/* =========================================================
+   2. GLOBAL LAYOUT & TYPOGRAPHY
+========================================================= */
+html,
 body {
   overflow-x: hidden;
-}
-
-/* Global Font Application */
-body {
   font-family: var(--font-body);
   color: var(--kca-charcoal);
 }
@@ -35,40 +36,43 @@ h5,
 h6,
 .navbar-brand,
 .nav-link,
-.btn {
+.btn,
+.dispatch-pill-btn,
+.page-header-title {
   font-family: var(--font-headings);
 }
 
-/* Custom Text Color Classes */
-.text-tnb-blue {
-  color: var(--tnb-blue) !important;
-}
-.text-tnb-red {
+/* Text Color Utilities */
+.text-tnb-blue { color: var(--tnb-blue) !important; }
+.text-tnb-red { color: var(--tnb-red-orange) !important; }
+.text-kca-grey { color: var(--kca-grey) !important; }
+.text-tnb-orange-light { color: var(--tnb-orange-light) !important; }
+.text-tnb-red-orange { color: var(--tnb-red-orange) !important; }
+
+/* Background Color Utilities */
+.bg-navy { background-color: var(--kca-navy) !important; color: #ffffff; }
+.bg-charcoal { background-color: var(--kca-charcoal) !important; color: #ffffff; }
+.bg-kca-grey { background-color: var(--kca-grey) !important; }
+.bg-tnb-red-orange { background-color: var(--tnb-red-orange) !important; }
+
+/* Brand Badges */
+.badge-kca-orange {
   color: var(--tnb-red-orange) !important;
-}
-.text-kca-grey {
-  color: var(--kca-grey) !important;
-}
-.text-tnb-orange-light {
-  color: var(--tnb-orange-light) !important;
+  background-color: #fff5f0 !important;
+  border: 1px solid rgba(227, 82, 5, 0.35) !important;
 }
 
-/* Custom Background Color Classes */
-.bg-navy {
-  background-color: var(--kca-navy) !important;
-  color: #ffffff;
-}
-.bg-charcoal {
-  background-color: var(--kca-charcoal) !important;
-  color: #ffffff;
-}
-.bg-kca-grey {
-  background-color: var(--kca-grey) !important;
+.badge-kca-blue {
+  color: var(--tnb-blue) !important;
+  background-color: #f0f7fc !important;
+  border: 1px solid rgba(0, 91, 148, 0.35) !important;
 }
 
-/* Navbar Enhancements */
+/* =========================================================
+   3. WEBSITE NAVIGATION & HERO COMPONENTS
+========================================================= */
 .brand-accent-bar {
-  height: 12px;
+  height: 10px; 
   width: 100%;
   background: linear-gradient(
     90deg,
@@ -91,7 +95,6 @@ h6,
   color: var(--tnb-blue) !important;
 }
 
-/* Custom Button Styles */
 .btn-kca-red {
   background-color: var(--tnb-red-orange);
   color: white;
@@ -104,19 +107,6 @@ h6,
   color: white;
 }
 
-/* Service Cards */
-.service-card {
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-.service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
-}
-
-/* UI Elements */
 .accent-line {
   width: 80px;
   height: 4px;
@@ -125,7 +115,14 @@ h6,
   border-radius: 2px;
 }
 
-/* Hero Carousel Styles */
+.accent-line-left {
+  width: 60px;
+  height: 4px;
+  background-color: var(--tnb-red-orange);
+  border-radius: 2px;
+}
+
+/* Hero Carousel */
 .hero-carousel,
 .carousel-inner,
 .carousel-item {
@@ -139,7 +136,11 @@ h6,
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(32, 30, 30, 0.65); /* Charcoal overlay */
+  background: linear-gradient(
+    to bottom,
+    rgba(3, 4, 90, 0.3) 0%,
+    rgba(32, 30, 30, 0.85) 100%
+  );
 }
 
 .carousel-caption {
@@ -148,51 +149,7 @@ h6,
   z-index: 10;
 }
 
-/* Left-aligned accent line for inner pages for about us*/
-.accent-line-left {
-  width: 60px;
-  height: 4px;
-  background-color: var(--tnb-red-orange);
-  border-radius: 2px;
-}
-
-/* Custom Brand Text & Background Utilities */
-.text-tnb-red-orange {
-  color: var(--tnb-red-orange, #e35205) !important;
-}
-
-.bg-tnb-red-orange {
-  background-color: var(--tnb-red-orange, #e35205) !important;
-}
-
-/* Reusable Personnel Badges */
-.badge-kca-orange {
-  color: var(--tnb-red-orange, #e35205) !important;
-  background-color: #fff5f0 !important;
-  border: 1px solid rgba(227, 82, 5, 0.35) !important;
-}
-
-.badge-kca-blue {
-  color: var(--tnb-blue, #005b94) !important;
-  background-color: #f0f7fc !important;
-  border: 1px solid rgba(0, 91, 148, 0.35) !important;
-}
-
-/* 1. Sleek Gradient Overlay for Hero Images */
-.carousel-image-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    rgba(3, 4, 90, 0.3) 0%,
-    rgba(32, 30, 30, 0.85) 100%
-  );
-}
-
-/* 3. Interactive Service Card Hovers */
+/* Service Cards */
 .service-card {
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   border-bottom: 4px solid transparent;
@@ -214,11 +171,13 @@ h6,
   color: var(--tnb-blue) !important;
 }
 
-/* 4. Highlight Numbers Glow */
 .highlight-number {
   text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.08);
 }
 
+/* =========================================================
+   4. CONTACT PAGE
+========================================================= */
 .contact-hero {
   background-color: var(--kca-navy);
   color: #ffffff;
@@ -233,7 +192,6 @@ h6,
   margin-bottom: 6px;
 }
 
-/* Contact Cards */
 .contact-card-clean {
   background: #ffffff;
   border: 1px solid rgba(5, 99, 193, 0.12);
@@ -241,9 +199,7 @@ h6,
   padding: 36px 32px;
   height: 100%;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .contact-card-clean:hover {
@@ -286,9 +242,9 @@ h6,
   max-width: 190px;
 }
 
-/* KCAConnect login */
-
-/* 1. BG */
+/* =========================================================
+   5. KCACONNECT AUTHENTICATION (LOGIN.HTML)
+========================================================= */
 .login-wrapper {
   min-height: calc(100vh - 71px);
   background: url("../img/login_bg.png") center center / cover no-repeat;
@@ -296,7 +252,6 @@ h6,
   overflow: hidden;
 }
 
-/* 2. Left Welcome Text */
 .login-welcome-text h1 {
   font-family: var(--font-headings);
   font-weight: 800;
@@ -321,7 +276,6 @@ h6,
   max-width: 440px;
 }
 
-/* 3. Right Partition: The frosted/translucent glass panel behind the card */
 .login-partition {
   background: rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(8px);
@@ -334,16 +288,12 @@ h6,
   padding: 40px 24px;
 }
 
-/* 4. White Login Card with Curved Top Blue Crest */
 .login-card {
   background: #ffffff;
   border-radius: 32px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-
   border: none;
-
   border-top: 8px solid #0563c1;
-
   max-width: 430px;
   width: 100%;
   padding: 40px 36px;
@@ -358,6 +308,7 @@ h6,
   margin-bottom: 24px;
 }
 
+/* Fixed syntax block for Login Field Labels */
 .login-field-label {
   font-family: var(--font-headings);
   font-weight: 700;
@@ -407,27 +358,9 @@ h6,
   color: #ffffff;
 }
 
-/* Mobile responsive adjustments */
-@media (max-width: 991.98px) {
-  .login-partition {
-    min-height: auto;
-    border-left: none;
-    background: transparent;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    padding: 10px 16px 40px;
-  }
-
-  .login-card {
-    padding: 30px 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
-  }
-
-  .dispatch-offset-border {
-    display: none;
-  }
-}
-
+/* =========================================================
+   6. STAFF ATTENDANCE PORTAL (STAFF-ATTENDANCE.HTML)
+========================================================= */
 .btn-outline-kca-orange {
   color: var(--tnb-red-orange);
   border: 1.5px solid var(--tnb-red-orange);
@@ -441,27 +374,51 @@ h6,
   border-color: var(--tnb-red-orange);
 }
 
+/* Staff Attendance Card (Now identical to .dispatch-card) */
 .attendance-card {
   background: #ffffff;
   border-radius: 28px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  padding: 30px 26px;
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  padding: 28px 24px;
   height: 100%;
   position: relative;
-  border: 3.5px solid #d9e2ec;
+  z-index: 1;
 }
 
-.attendance-card.card-accent-blue {
-  border-color: #0563c1;
-}
-.attendance-card.card-accent-orange {
-  border-color: #f66530;
-}
-.attendance-card.card-accent-red {
-  border-color: #e61e2b;
+/* Floating Frame Wrapper for Individual Attendance Cards */
+.card-frame-container {
+  position: relative;
+  margin-bottom: 2rem;
+  height: 100%;
 }
 
-/* Clock In Button */
+/* Base floating frame */
+.card-offset-border {
+  position: absolute;
+  top: 14px;
+  right: -10px;
+  bottom: -10px;
+  left: 10px;
+  border: 3.5px solid var(--tnb-red-orange, #f66530);
+  border-radius: 32px;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Card-Specific Floating Frame Colors */
+.card-offset-border.frame-blue {
+  border-color: var(--tnb-blue, #0563c1) !important;
+}
+
+.card-offset-border.frame-orange {
+  border-color: var(--tnb-red-orange, #f66530) !important;
+}
+
+.card-offset-border.frame-red {
+  border-color: #e61e2b !important;
+}
+
 .btn-clock-in {
   background-color: #0563c1;
   color: #ffffff;
@@ -473,10 +430,12 @@ h6,
   border: none;
   transition: all 0.2s ease;
 }
+
 .btn-clock-in:hover:not(:disabled) {
   background-color: #034689;
   color: #ffffff;
 }
+
 .btn-clock-in:disabled {
   background-color: #cbd5e1;
   color: #64748b;
@@ -484,7 +443,6 @@ h6,
   cursor: not-allowed;
 }
 
-/* Clock Out Button: Dimmed Pink initially, Bright Red when Active */
 .btn-clock-out {
   background-color: #fca5a5;
   color: #ffffff;
@@ -496,15 +454,18 @@ h6,
   border: none;
   transition: all 0.25s ease;
 }
+
 .btn-clock-out.active-punch {
   background-color: #e61e2b !important;
   opacity: 1 !important;
   cursor: pointer !important;
   box-shadow: 0 4px 15px rgba(230, 30, 43, 0.35);
 }
+
 .btn-clock-out.active-punch:hover {
   background-color: #b8141f !important;
 }
+
 .btn-clock-out:disabled:not(.active-punch) {
   background-color: #fecdd3;
   color: #fda4af;
@@ -521,12 +482,12 @@ h6,
   border: none;
   transition: background-color 0.2s ease;
 }
+
 .btn-request-ot:hover {
   background-color: #d84b16;
   color: #ffffff;
 }
 
-/* Table Styling */
 .table-attendance-header th {
   background-color: #ece7e1 !important;
   color: #2b2b2b;
@@ -535,6 +496,7 @@ h6,
   padding: 14px 12px;
   border: 1px solid #dcd7d0;
 }
+
 .table-attendance-body td {
   padding: 14px 12px;
   font-size: 0.92rem;
@@ -543,7 +505,6 @@ h6,
   border: 1px solid #e9ecef;
 }
 
-/* Mobile Log Card */
 .mobile-log-box {
   background-color: #f1f3f5;
   border-radius: 12px;
@@ -551,29 +512,6 @@ h6,
   border: 1px solid #e2e8f0;
 }
 
-/* Red Circular View All Button */
-.btn-red-circle {
-  width: 28px;
-  height: 28px;
-  background-color: #e61e2b;
-  color: #ffffff;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  border: none;
-  cursor: pointer;
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
-}
-.btn-red-circle:hover {
-  background-color: #b8141f;
-  transform: scale(1.1);
-}
-
-/* Overtime Modal Inputs */
 .modal-ot-input {
   background-color: #f8fafc;
   border: 1.5px solid #cbd5e1;
@@ -582,6 +520,7 @@ h6,
   font-size: 0.92rem;
   width: 100%;
 }
+
 .modal-ot-input:focus {
   background-color: #ffffff;
   border-color: #0563c1;
@@ -589,8 +528,10 @@ h6,
   box-shadow: 0 0 0 3px rgba(5, 99, 193, 0.15);
 }
 
+/* =========================================================
+   7. ADMIN PORTAL (DISPATCH & DIRECTORY)
+========================================================= */
 .page-header-title {
-  font-family: var(--font-headings, "Inter", sans-serif);
   font-weight: 700;
   font-size: 1.25rem;
   color: var(--tnb-blue, #0563c1);
@@ -627,7 +568,6 @@ h6,
 
 /* Filter Pills */
 .dispatch-pill-btn {
-  font-family: var(--font-headings, "Inter", sans-serif);
   border-radius: 12px;
   padding: 7px 16px;
   font-size: 0.9rem;
@@ -660,7 +600,6 @@ h6,
 .badge-offsite {
   background-color: #5eead4;
   color: #0f172a;
-  font-family: var(--font-headings, "Inter", sans-serif);
   font-weight: 700;
   border-radius: 50px;
   padding: 6px 16px;
@@ -671,7 +610,6 @@ h6,
 .badge-office {
   background-color: #86efac;
   color: #064e3b;
-  font-family: var(--font-headings, "Inter", sans-serif);
   font-weight: 700;
   border-radius: 50px;
   padding: 6px 20px;
@@ -683,7 +621,6 @@ h6,
 .btn-allow-site {
   background-color: var(--tnb-blue, #0563c1);
   color: #ffffff;
-  font-family: var(--font-headings, "Inter", sans-serif);
   font-weight: 700;
   border-radius: 6px;
   padding: 7px 16px;
@@ -701,7 +638,6 @@ h6,
   background-color: transparent;
   color: var(--tnb-blue, #0563c1);
   border: 2px solid var(--tnb-blue, #0563c1);
-  font-family: var(--font-headings, "Inter", sans-serif);
   font-weight: 700;
   border-radius: 6px;
   padding: 5px 14px;
@@ -714,11 +650,10 @@ h6,
   color: #ffffff;
 }
 
-/* Table Header & Rows */
+/* Dispatch Tables */
 .dispatch-table-head th {
   background-color: #ece7e1 !important;
   color: #262626;
-  font-family: var(--font-headings, "Inter", sans-serif);
   font-weight: 700;
   padding: 14px 12px;
   border: none;
@@ -726,7 +661,6 @@ h6,
 }
 
 .dispatch-table-body td {
-  font-family: var(--font-body, "Open Sans", sans-serif);
   padding: 16px 12px;
   vertical-align: middle;
   font-size: 0.92rem;
@@ -734,17 +668,15 @@ h6,
   border-top: 1px solid #f1f5f9;
 }
 
-/* Mobile Stacked Card */
 .dispatch-mobile-card {
   background-color: #f8fafc;
   border-radius: 14px;
   padding: 16px;
   border: 1px solid #e2e8f0;
   margin-bottom: 12px;
-  font-family: var(--font-body, "Open Sans", sans-serif);
 }
 
-/* Red Circular View All Button */
+/* Consolidated Red Circular View All Button */
 .btn-red-circle {
   width: 32px;
   height: 32px;
@@ -758,9 +690,7 @@ h6,
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(230, 30, 43, 0.35);
-  transition:
-    transform 0.2s ease,
-    background-color 0.2s ease;
+  transition: transform 0.2s ease, background-color 0.2s ease;
 }
 
 .btn-red-circle:hover {
@@ -769,48 +699,202 @@ h6,
 }
 
 /* =========================================================
-   Admin Navigation Dropdown (KCA Corporate Theme)
+   8. ADMIN HEADER & DROPDOWN NAVIGATION
 ========================================================= */
 .nav-link.dropdown-toggle:focus,
 .nav-link.dropdown-toggle:active {
-    box-shadow: none !important;
-    outline: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .dropdown-menu.admin-dropdown-menu {
-    border-radius: 12px;
-    border: 1px solid rgba(5, 99, 193, 0.12);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-    padding: 8px;
-    min-width: 230px;
+  border-radius: 12px;
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 8px;
+  min-width: 230px;
 }
 
-/* Default item text */
 .dropdown-menu.admin-dropdown-menu .dropdown-item {
-    font-family: var(--font-headings);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--kca-charcoal);
-    padding: 9px 14px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--kca-charcoal);
+  padding: 9px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
-/* Hover: soft blue background tint + TNB Blue text */
 .dropdown-menu.admin-dropdown-menu .dropdown-item:hover {
-    color: var(--tnb-blue) !important;
-    background-color: #f0f7fc;
+  color: var(--tnb-blue) !important;
+  background-color: #f0f7fc;
 }
 
 .dropdown-menu.admin-dropdown-menu .dropdown-item:hover i {
-    color: var(--tnb-blue) !important;
+  color: var(--tnb-blue) !important;
 }
 
-/* Active State: Clean branded accent border instead of solid blue block */
 .dropdown-menu.admin-dropdown-menu .dropdown-item.active {
-    color: var(--tnb-blue) !important;
-    font-weight: 700;
-    background-color: #f0f7fc !important;
-    border-left: 3px solid var(--tnb-red-orange);
-    border-radius: 4px 8px 8px 4px;
+  color: var(--tnb-blue) !important;
+  font-weight: 700;
+  background-color: #f0f7fc !important;
+  border-left: 3px solid var(--tnb-red-orange);
+  border-radius: 4px 8px 8px 4px;
+}
+
+/* =========================================================
+   9. ADMIN MOBILE OFFCANVAS DRAWER
+========================================================= */
+.admin-drawer {
+  width: 300px !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.admin-drawer-header {
+  background: #ffffff;
+  border-bottom: 1px solid #edf2f7;
+  padding: 1.2rem 1.25rem;
+}
+
+.admin-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.admin-drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.admin-drawer-link i {
+  font-size: 1.15rem;
+  color: #94a3b8;
+  transition: color 0.2s ease;
+}
+
+.admin-drawer-link:hover {
+  background-color: #f1f5f9;
+  color: var(--tnb-blue, #0563c1);
+}
+
+.admin-drawer-link:hover i {
+  color: var(--tnb-blue, #0563c1);
+}
+
+.admin-drawer-link.active {
+  background-color: #e8f2fc;
+  color: var(--tnb-blue, #0563c1);
+  font-weight: 700;
+  border-left: 3.5px solid var(--tnb-red-orange, #f66530);
+  border-radius: 4px 10px 10px 4px;
+}
+
+.admin-drawer-link.active i {
+  color: var(--tnb-blue, #0563c1);
+}
+
+/* =========================================================
+   10. UNIVERSAL ANIMATION & TACTILE ENGINE
+   (Works for Staff Attendance, Admin Staff, OT & Attendance Logs)
+========================================================= */
+
+/* Tactile Press (All buttons across staff & admin) */
+.btn:active,
+.btn-press:active,
+.dispatch-pill-btn:active,
+.btn-red-circle:active,
+.btn-allow-site:active,
+.btn-change-site:active,
+#btnClockIn:active,
+#btnClockOut:active,
+#btnSubmitOT:active {
+  transform: scale(0.96) !important;
+  transition: transform 0.12s ease !important;
+}
+
+/* Smooth Table Row Fade-In */
+.table-animated tbody tr,
+#staffTableBody tr,
+#historyTableBody tr:first-child {
+  animation: kcaFadeIn 0.2s ease-in-out;
+}
+
+@keyframes kcaFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Live Radar Pulse (Site Badges & GPS Dot) */
+.badge-offsite {
+  position: relative;
+  padding-left: 1.4rem !important;
+}
+
+.badge-offsite::before,
+.pulse-green,
+.dot-online {
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  animation: kcaPulse 1.8s infinite;
+}
+
+.badge-offsite::before {
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #dc3545;
+}
+
+@keyframes kcaPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 7px rgba(220, 53, 69, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .login-partition {
+    min-height: auto;
+    border-left: none;
+    background: transparent;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    padding: 10px 16px 40px;
+  }
+
+  .login-card {
+    padding: 30px 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .dispatch-offset-border,
+  .card-offset-border {
+    display: none !important;
+  }
 }

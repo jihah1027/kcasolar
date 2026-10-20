@@ -35,7 +35,6 @@
       class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
     >
       <div class="container-fluid px-lg-5">
-        <!-- Brand Logo & Name -->
         <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
           <img
             src="img/KCAConnect.png"
@@ -103,7 +102,7 @@
             </div>
           </div>
 
-          <!-- Red Logout Button -->
+          <!-- Logout Button -->
           <a href="login.html" class="btn p-0 border-0" title="Sign Out">
             <div
               class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
@@ -126,54 +125,83 @@
       </div>
     </nav>
 
-    <!-- Signature Brand Accent Line (Bottom of Navbar) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Mobile Offcanvas Menu -->
     <div
-      class="offcanvas offcanvas-end"
+      class="offcanvas offcanvas-end admin-drawer"
       tabindex="-1"
       id="adminDrawer"
-      style="width: 300px"
     >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+
       <div class="offcanvas-header border-bottom">
-        <h5
-          class="offcanvas-title fw-bold text-tnb-blue"
-          style="font-family: var(--font-headings)"
-        >
-          Admin Menu
-        </h5>
+        <div class="d-flex align-items-center">
+          <img
+            src="img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = 'img/about_us.png'"
+          />
+        </div>
         <button
           type="button"
-          class="btn-close shadow-none"
+          class="btn-close mb-auto mt-2 shadow-none"
           data-bs-dismiss="offcanvas"
+          aria-label="Close"
         ></button>
       </div>
-      <div class="offcanvas-body">
-        <ul
-          class="navbar-nav flex-column gap-3 fs-5 mt-2"
-          style="font-family: var(--font-headings)"
-        >
-          <li class="nav-item">
-            <a class="nav-link" href="admin-inquiries.html">Inquiries</a>
+
+      <!-- Offcanvas Body -->
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <!-- Section 1: Inquiries -->
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <a
-              class="nav-link fw-bold text-tnb-blue active"
-              href="admin-staff.html"
-              >Staff Off-Site Dispatch</a
+
+          <!-- Section 2: e-Attendance Module -->
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
             >
+              e-Attendance
+            </span>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admin-ot.html">Overtime Approvals</a>
+          <li>
+            <a class="admin-drawer-link active" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="admin-attendance.html">Attendance Logs</a>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Main Website</a>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
           </li>
         </ul>
+
+        <!-- Sign-out -->
+        <div class="pt-3 border-top">
+          <a href="login.html" class="admin-drawer-link text-danger">
+            <i class="bi bi-box-arrow-right text-danger"></i>
+            <span>Sign Out</span>
+          </a>
+        </div>
       </div>
     </div>
 
@@ -185,7 +213,7 @@
       <div class="dispatch-frame-container">
         <div class="dispatch-offset-border d-none d-lg-block"></div>
 
-        <!-- Main Card Container with Signature Orange Border -->
+        <!-- Main Card Container  -->
         <div class="dispatch-card">
           <!-- Filters & Search Toolbar -->
           <div
@@ -221,7 +249,7 @@
               </button>
             </div>
 
-            <!-- Search Input Box -->
+            <!-- Search Input -->
             <div class="position-relative" style="width: 240px">
               <input
                 type="text"
@@ -266,7 +294,7 @@
             </div>
           </div>
 
-          <!-- Red Circle Button (Opens Modal Displaying ALL Staff Matching the Filter) -->
+          <!-- Red Circle Button (Opens Modal Displaying All Staff Matching the Filter) -->
           <button
             type="button"
             onclick="openFilteredDirectoryModal()"
@@ -514,6 +542,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Custom In-App Alert / Confirmation Modal -->
+<div class="modal fade" id="statusAlertModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 420px;">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+            <div class="modal-header border-0 pb-0 justify-content-end">
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-2 px-4">
+                <div id="modalAlertIcon" class="mb-3 fs-1 lh-1"></div>
+                <h4 class="fw-bold mb-2" id="modalAlertTitle" style="font-family: var(--font-headings);">
+                    Status Title
+                </h4>
+                <p class="text-secondary small mb-4" id="modalAlertMessage" style="line-height: 1.5;">
+                    Status message details...
+                </p>
+                <div class="d-flex gap-2 justify-content-center" id="modalAlertActions">
+                    <button type="button" class="btn w-100 fw-bold py-2 rounded-3 text-white" id="modalAlertBtn" data-bs-dismiss="modal" style="background-color: var(--tnb-blue);">
+                        OKAY
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -1026,86 +1079,127 @@
         new bootstrap.Modal(document.getElementById("permissionModal")).show();
       }
 
-      // 6. Save Permission
-      function saveStaffPermission(e) {
-        e.preventDefault();
-        const staffId = document.getElementById("modalStaffId").value;
-        const locationVal = document
-          .getElementById("modalLocationInput")
-          .value.trim();
-        const taskVal = document.getElementById("modalTaskInput").value.trim();
-        const dateVal = document.getElementById("modalDateInput").value;
-        const validityVal = document.getElementById(
-          "modalValiditySelect",
-        ).value;
+      // Helper: Show Styled In-App Modal (replaces window.alert & window.confirm)
+let pendingRevokeStaffId = null;
 
-        let staffList =
-          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
-          INITIAL_STAFF;
-        const staffIndex = staffList.findIndex((s) => s.id === staffId);
+function showCustomPopup(type, title, message, isConfirm = false, onConfirmCallback = null) {
+    const iconEl = document.getElementById('modalAlertIcon');
+    const titleEl = document.getElementById('modalAlertTitle');
+    const msgEl = document.getElementById('modalAlertMessage');
+    const actionsEl = document.getElementById('modalAlertActions');
 
-        if (staffIndex !== -1) {
-          staffList[staffIndex].mode = "offsite";
-          staffList[staffIndex].destination = locationVal;
-          staffList[staffIndex].taskDetails = taskVal;
-          staffList[staffIndex].effectiveDate = dateVal;
-          staffList[staffIndex].validity = validityVal;
+    if (type === 'success') {
+        iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+        titleEl.className = 'fw-bold mb-2 text-success';
+    } else if (type === 'warning') {
+        iconEl.innerHTML = '<i class="bi bi-exclamation-triangle-fill text-warning"></i>';
+        titleEl.className = 'fw-bold mb-2 text-warning';
+    } else {
+        iconEl.innerHTML = '<i class="bi bi-info-circle-fill text-primary"></i>';
+        titleEl.className = 'fw-bold mb-2 text-primary';
+    }
 
-          localStorage.setItem(
-            "kca_admin_staff_list",
-            JSON.stringify(staffList),
-          );
+    titleEl.innerText = title;
+    msgEl.innerHTML = message;
 
-          if (staffId === "KCA-004") {
-            localStorage.setItem("kca_offsite_authorized", "true");
-          }
+    if (isConfirm) {
+        actionsEl.innerHTML = `
+            <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-3 fw-semibold flex-fill" data-bs-dismiss="modal">
+                Cancel
+            </button>
+            <button type="button" class="btn btn-danger px-3 py-2 rounded-3 fw-bold flex-fill" id="btnModalConfirmAction">
+                Yes, Revoke
+            </button>
+        `;
+        document.getElementById('btnModalConfirmAction').onclick = () => {
+            bootstrap.Modal.getInstance(document.getElementById('statusAlertModal')).hide();
+            if (onConfirmCallback) onConfirmCallback();
+        };
+    } else {
+        actionsEl.innerHTML = `
+            <button type="button" class="btn w-100 fw-bold py-2 rounded-3 text-white" data-bs-dismiss="modal" style="background-color: var(--tnb-blue);">
+                OKAY
+            </button>
+        `;
+    }
 
-          bootstrap.Modal.getInstance(
-            document.getElementById("permissionModal"),
-          ).hide();
-          renderStaffTable();
-          alert(
-            `✅ Permission Saved!\n${staffList[staffIndex].name} is authorized for site duty at ${locationVal}.`,
-          );
+    new bootstrap.Modal(document.getElementById('statusAlertModal')).show();
+}
+
+// 6. Save Permission (replaces window.alert)
+function saveStaffPermission(e) {
+    e.preventDefault();
+    const staffId = document.getElementById('modalStaffId').value;
+    const locationVal = document.getElementById('modalLocationInput').value.trim();
+    const taskVal = document.getElementById('modalTaskInput').value.trim();
+    const dateVal = document.getElementById('modalDateInput').value;
+    const validityVal = document.getElementById('modalValiditySelect').value;
+
+    let staffList = JSON.parse(localStorage.getItem('kca_admin_staff_list')) || INITIAL_STAFF;
+    const staffIndex = staffList.findIndex(s => s.id === staffId);
+
+    if (staffIndex !== -1) {
+        staffList[staffIndex].mode = 'offsite';
+        staffList[staffIndex].destination = locationVal;
+        staffList[staffIndex].taskDetails = taskVal;
+        staffList[staffIndex].effectiveDate = dateVal;
+        staffList[staffIndex].validity = validityVal;
+
+        localStorage.setItem('kca_admin_staff_list', JSON.stringify(staffList));
+
+        if (staffId === 'KCA-004') {
+            localStorage.setItem('kca_offsite_authorized', 'true');
         }
-      }
 
-      // 7. Revoke Permission
-      function revokeStaffPermission() {
-        const staffId = document.getElementById("modalStaffId").value;
-        let staffList =
-          JSON.parse(localStorage.getItem("kca_admin_staff_list")) ||
-          INITIAL_STAFF;
-        const staffIndex = staffList.findIndex((s) => s.id === staffId);
+        bootstrap.Modal.getInstance(document.getElementById('permissionModal')).hide();
+        renderStaffTable();
 
-        if (staffIndex !== -1) {
-          if (
-            confirm(
-              `Revoke off-site permission for ${staffList[staffIndex].name}?`,
-            )
-          ) {
-            staffList[staffIndex].mode = "office";
-            staffList[staffIndex].destination = "Office";
+        showCustomPopup(
+            'success',
+            'Permission Saved!',
+            `<strong>${staffList[staffIndex].name}</strong> is authorized for site duty at <strong>${locationVal}</strong>.`
+        );
+    }
+}
+
+// 7. Revoke Permission (replaces window.confirm)
+function revokeStaffPermission() {
+    const staffId = document.getElementById('modalStaffId').value;
+    let staffList = JSON.parse(localStorage.getItem('kca_admin_staff_list')) || INITIAL_STAFF;
+    const staff = staffList.find(s => s.id === staffId);
+    if (!staff) return;
+
+    // Close the edit modal first
+    bootstrap.Modal.getInstance(document.getElementById('permissionModal')).hide();
+
+    // Show styled confirmation modal
+    showCustomPopup(
+        'warning',
+        'Revoke Permission?',
+        `Are you sure you want to revoke off-site permission for <strong>${staff.name}</strong>? They will be reassigned back to Main Office.`,
+        true,
+        () => {
+            const staffIndex = staffList.findIndex(s => s.id === staffId);
+            staffList[staffIndex].mode = 'office';
+            staffList[staffIndex].destination = 'Office';
             delete staffList[staffIndex].taskDetails;
             delete staffList[staffIndex].effectiveDate;
 
-            localStorage.setItem(
-              "kca_admin_staff_list",
-              JSON.stringify(staffList),
-            );
+            localStorage.setItem('kca_admin_staff_list', JSON.stringify(staffList));
 
-            if (staffId === "KCA-004") {
-              localStorage.setItem("kca_offsite_authorized", "false");
+            if (staffId === 'KCA-004') {
+                localStorage.setItem('kca_offsite_authorized', 'false');
             }
 
-            bootstrap.Modal.getInstance(
-              document.getElementById("permissionModal"),
-            ).hide();
             renderStaffTable();
-            alert(`🔒 Permission revoked. Staff assigned back to Main Office.`);
-          }
+            showCustomPopup(
+                'info',
+                'Permission Revoked',
+                `<strong>${staff.name}</strong> has been reassigned to Main Office.`
+            );
         }
-      }
+    );
+}
     </script>
   </body>
 </html>
