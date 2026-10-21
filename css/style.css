@@ -804,12 +804,6 @@ h6,
   color: var(--tnb-blue, #0563c1);
 }
 
-/* =========================================================
-   10. UNIVERSAL ANIMATION & TACTILE ENGINE
-   (Works for Staff Attendance, Admin Staff, OT & Attendance Logs)
-========================================================= */
-
-/* Tactile Press (All buttons across staff & admin) */
 .btn:active,
 .btn-press:active,
 .dispatch-pill-btn:active,
@@ -897,4 +891,173 @@ h6,
   .card-offset-border {
     display: none !important;
   }
+}
+
+.btn-ot-approve {
+  background-color: #5cb85c;
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-ot-approve:hover {
+  background-color: #4cae4c;
+  color: #ffffff;
+}
+
+.btn-ot-adjust {
+  background-color: var(--tnb-blue, #0563c1);
+  color: #ffffff;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-ot-adjust:hover {
+  background-color: #034891;
+  color: #ffffff;
+}
+
+.btn-ot-reject {
+  background-color: #ffffff;
+  color: #e61e2b;
+  border: 2px solid #e61e2b;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 5px 14px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.btn-ot-reject:hover {
+  background-color: #e61e2b;
+  color: #ffffff;
+}
+
+/* 3. Claim Type Filter Dropdown Menu */
+.claim-type-menu {
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  padding: 12px 14px !important;
+  min-width: 220px;
+}
+
+.claim-type-menu .dropdown-item {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: background-color 0.15s ease;
+}
+
+.claim-type-menu .dropdown-item:hover {
+  background-color: #f1f5f9;
+}
+
+.ot-clean-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(5, 99, 193, 0.15);
+  border-top: 8px solid var(--tnb-blue);
+  padding: 32px 28px;
+  position: relative;
+}
+
+/* =========================================================
+   12. ATTENDANCE LOGS MODULE (ADMIN-ATTENDANCE.HTML)
+========================================================= */
+
+/* Clean Card with Red/Orange Accent Top Crest */
+.log-clean-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(230, 30, 43, 0.18);
+  border-top: 8px solid var(--tnb-red-orange, #f66530);
+  padding: 32px 28px;
+  position: relative;
+}
+
+/* Green CSV Export Button */
+.btn-export-csv {
+  background-color: #4cae4c;
+  color: #ffffff;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-export-csv:hover {
+  background-color: #3d8b3d;
+  color: #ffffff;
+}
+
+/* Action 'More' Button */
+.btn-more-action {
+  color: var(--tnb-blue, #0563c1);
+  border: 1.5px solid var(--tnb-blue, #0563c1);
+  background-color: #ffffff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 4px 14px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-more-action:hover {
+  background-color: var(--tnb-blue, #0563c1);
+  color: #ffffff;
+}
+
+/* GPS Inspection Card in Modal */
+.gps-punch-box {
+  background-color: #e8f2fc;
+  border: 1px solid #d0e4f7;
+  border-radius: 14px;
+  padding: 16px;
+  height: 100%;
+}
+
+.gps-punch-title {
+  font-family: var(--font-headings);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--tnb-red-orange, #f66530);
+  margin-bottom: 10px;
+}
+
+.btn-view-maps {
+  background-color: var(--tnb-blue, #0563c1);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  padding: 8px 12px;
+  width: 100%;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.btn-view-maps:hover {
+  background-color: #034891;
+  color: #ffffff;
 }
