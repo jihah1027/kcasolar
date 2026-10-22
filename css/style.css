@@ -1079,3 +1079,341 @@ h6,
   background-color: #034891;
   color: #ffffff;
 }
+
+/* =========================================================
+   13. WEBSITE INQUIRIES MODULE (ADMIN-INQUIRIES.HTML)
+========================================================= */
+
+/* Top KPI Stat Cards */
+.inquiry-kpi-card {
+  border-radius: 14px;
+  padding: 12px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 72px;
+  text-decoration: none !important;
+}
+
+.inquiry-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.inquiry-kpi-card.active-kpi {
+  box-shadow: 0 0 0 3px rgba(5, 99, 193, 0.25);
+}
+
+.kpi-title {
+  font-family: var(--font-headings);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.kpi-count {
+  font-family: var(--font-headings);
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.kpi-icon {
+  font-size: 1.75rem;
+  opacity: 0.9;
+}
+
+/* Card 1: Total Inquiries (Solid Navy) */
+.kpi-card-total {
+  background-color: var(--kca-navy, #002b5c) !important;
+  color: #ffffff !important;
+  border-color: var(--kca-navy, #002b5c);
+}
+
+/* Card 2: New / Unread (Amber) */
+.kpi-card-new {
+  border-color: #f59e0b;
+  color: #b45309;
+}
+.kpi-card-new .kpi-count { color: #1e293b; }
+
+/* Card 3: Under Review (Orange) */
+.kpi-card-review {
+  border-color: var(--tnb-red-orange, #f66530);
+  color: var(--tnb-red-orange, #f66530);
+}
+.kpi-card-review .kpi-count { color: #1e293b; }
+
+/* Card 4: Replied (Green) */
+.kpi-card-replied {
+  border-color: #22c55e;
+  color: #15803d;
+}
+.kpi-card-replied .kpi-count { color: #1e293b; }
+
+/* Card 5: Resolved (Maroon / Red) */
+.kpi-card-resolved {
+  border-color: #dc2626;
+  color: #b91c1c;
+}
+.kpi-card-resolved .kpi-count { color: #1e293b; }
+
+/* Inquiries Main Clean Card (Solid single card with top blue crest) */
+.inquiry-clean-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  border-top: 8px solid var(--tnb-blue, #0563c1);
+  padding: 30px 24px;
+  position: relative;
+}
+
+/* Status Badges with Colored Dots */
+.badge-inquiry-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 0.82rem;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.badge-status-new {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+.badge-status-new .status-dot { background-color: #f59e0b; }
+
+.badge-status-review {
+  background-color: #ffedd5;
+  color: #9a3412;
+}
+.badge-status-review .status-dot { background-color: #ea580c; }
+
+.badge-status-replied {
+  background-color: #dcfce7;
+  color: #166534;
+}
+.badge-status-replied .status-dot { background-color: #16a34a; }
+
+.badge-status-resolved {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+.badge-status-resolved .status-dot { background-color: #64748b; }
+
+/* Category Colored Dots */
+.cat-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.cat-dot-internship { background-color: #8b5cf6; } /* Purple */
+.cat-dot-project { background-color: #06b6d4; }    /* Cyan */
+.cat-dot-proposal { background-color: #f97316; }   /* Orange */
+.cat-dot-general { background-color: #eab308; }    /* Gold */
+
+/* Attachment Link Pill */
+.attachment-link {
+  color: #0f172a;
+  text-decoration: underline;
+  font-weight: 600;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: color 0.15s ease;
+}
+.attachment-link:hover {
+  color: var(--tnb-blue);
+}
+
+/* =========================================================
+   14. MODERN EXECUTIVE DASHBOARD (OPTION B)
+========================================================= */
+
+/* Top 4 Hero Metric Cards */
+.metric-hero-card {
+  background: #ffffff;
+  border-radius: 20px;
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  height: 100%;
+}
+
+.metric-hero-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(5, 99, 193, 0.09);
+  border-color: var(--tnb-blue);
+}
+
+.metric-icon-tile {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  margin-bottom: 14px;
+}
+
+.metric-tile-blue { background-color: #e0f2fe; color: #0284c7; }
+.metric-tile-orange { background-color: #ffedd5; color: #ea580c; }
+.metric-tile-red { background-color: #fee2e2; color: #dc2626; }
+.metric-tile-amber { background-color: #fef3c7; color: #d97706; }
+
+.metric-label-text {
+  font-family: var(--font-headings);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+
+.metric-number-display {
+  font-family: var(--font-headings);
+  font-size: 1.85rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #0f172a;
+}
+
+/* Bottom Feeds: Live Widget Containers */
+.feed-widget-card {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 24px 22px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.feed-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.feed-widget-title {
+  font-family: var(--font-headings);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.feed-view-all-link {
+  font-family: var(--font-headings);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--tnb-blue);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.feed-view-all-link:hover {
+  text-decoration: underline;
+}
+
+/* Feed List Items */
+.feed-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 10px;
+  border-radius: 12px;
+  transition: background-color 0.15s ease;
+  text-decoration: none !important;
+  color: inherit !important;
+}
+
+.feed-item-row:hover {
+  background-color: #f8fafc;
+}
+
+.feed-item-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: #f1f5f9;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--tnb-blue);
+  flex-shrink: 0;
+}
+
+.feed-widget-card {
+  background: #ffffff;
+  border-radius: 24px;
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  padding: 24px 22px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Signature Top Crest (Matches login.html, zero floating borders) */
+.feed-widget-card.crest-blue {
+  border-top: 7px solid var(--tnb-blue, #0563c1);
+}
+
+.feed-widget-card.crest-orange {
+  border-top: 7px solid var(--tnb-red-orange, #f66530);
+}
+
+/* Top Crest Color Variants (from login.html) */
+.dash-hybrid-card.crest-blue {
+  border-top: 7px solid var(--tnb-blue, #0563c1);
+}
+
+.dash-hybrid-card.crest-orange {
+  border-top: 7px solid var(--tnb-red-orange, #f66530);
+}
+
+/* Hide offset border on mobile so no horizontal scroll */
+@media (max-width: 991.98px) {
+  .dash-offset-border {
+    display: none !important;
+  }
+}

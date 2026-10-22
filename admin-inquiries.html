@@ -1,0 +1,1798 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Inquiries | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Signature Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <!-- Brand Logo -->
+        <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
+          <img
+            src="img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = 'img/KCAConnect.png'"
+          />
+          <span
+            class="fw-bold text-tnb-blue d-none d-sm-inline"
+            style="font-size: 0.95rem; font-family: var(--font-headings)"
+          >
+        </a>
+
+        <!-- Right Nav Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <!-- Inquiries Link (Active) -->
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-bold text-tnb-blue"
+              style="
+                font-family: var(--font-headings);
+                border-bottom: 2px solid var(--tnb-red-orange);
+              "
+            >
+              Inquiries
+            </a>
+
+            <!-- e-Attendance Dropdown -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
+                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                    <span>Staff Off-Site Dispatch</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
+                    <i class="bi bi-clock-history text-secondary"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Red Logout Button -->
+          <a href="login.html" class="btn p-0 border-0" title="Sign Out">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+              style="width: 38px; height: 38px; background-color: #e61e2b"
+            >
+              <i class="bi bi-box-arrow-right fs-5"></i>
+            </div>
+          </a>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Signature Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="img/KCAConnect.png"
+            alt="KCA Connect Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = 'img/KCAConnect.png'"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link active" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+              >e-Attendance</span
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li class="my-2 border-top"></li>
+        </ul>
+        <div class="pt-3 border-top">
+          <a href="login.html" class="admin-drawer-link text-danger">
+            <i class="bi bi-box-arrow-right text-danger"></i>
+            <span>Sign Out</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      <!-- Header Title & Export Button -->
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+      >
+        <h4
+          class="fw-bold mb-0 text-tnb-blue"
+          style="
+            font-family: var(--font-headings);
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+          "
+        >
+          WEBSITE INQUIRIES
+        </h4>
+
+        <button
+          type="button"
+          class="btn btn-export-csv shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#exportInquiriesModal"
+        >
+          <i class="bi bi-file-earmark-spreadsheet-fill fs-5"></i>
+          <span>EXPORT INQUIRIES CSV</span>
+        </button>
+      </div>
+
+      <!-- Top 5 Interactive KPI Stat Cards (Clickable Quick-Filters) -->
+      <div class="row g-3 mb-4">
+        <!-- 1. Total Inquiries -->
+        <div class="col-6 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-total active-kpi"
+            id="kpiCardTotal"
+            onclick="filterByKpi('all')"
+          >
+            <div>
+              <div class="kpi-title text-white-50">Total Inquiries</div>
+              <div class="kpi-count text-white" id="countTotal">24</div>
+            </div>
+            <i class="bi bi-question-diamond-fill kpi-icon text-white-50"></i>
+          </div>
+        </div>
+
+        <!-- 2. New (Unread) -->
+        <div class="col-6 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-new"
+            id="kpiCardNew"
+            onclick="filterByKpi('new')"
+          >
+            <div>
+              <div class="kpi-title">New (Unread)</div>
+              <div class="kpi-count" id="countNew">4</div>
+            </div>
+            <i class="bi bi-bell-fill kpi-icon text-warning"></i>
+          </div>
+        </div>
+
+        <!-- 3. Under Review -->
+        <div class="col-4 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-review"
+            id="kpiCardReview"
+            onclick="filterByKpi('review')"
+          >
+            <div>
+              <div class="kpi-title">Under Review</div>
+              <div class="kpi-count" id="countReview">5</div>
+            </div>
+            <i class="bi bi-search kpi-icon text-danger"></i>
+          </div>
+        </div>
+
+        <!-- 4. Replied -->
+        <div class="col-4 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-replied"
+            id="kpiCardReplied"
+            onclick="filterByKpi('replied')"
+          >
+            <div>
+              <div class="kpi-title">Replied</div>
+              <div class="kpi-count" id="countReplied">5</div>
+            </div>
+            <i class="bi bi-chat-dots-fill kpi-icon text-success"></i>
+          </div>
+        </div>
+
+        <!-- 5. Resolved -->
+        <div class="col-4 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-resolved"
+            id="kpiCardResolved"
+            onclick="filterByKpi('resolved')"
+          >
+            <div>
+              <div class="kpi-title">Resolved</div>
+              <div class="kpi-count" id="countResolved">10</div>
+            </div>
+            <i class="bi bi-check2-circle kpi-icon text-danger"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Inquiries Clean Card (Solid card with top blue crest) -->
+      <div class="inquiry-clean-card">
+        <h5
+          class="fw-bold mb-3 text-danger"
+          style="font-family: var(--font-headings); font-size: 1.15rem"
+        >
+          INQUIRY CATEGORY
+        </h5>
+
+        <!-- Toolbar: Category Dropdown & Live Search -->
+        <div class="row g-3 align-items-center justify-content-between mb-4">
+          <!-- Category Dropdown Filter -->
+          <div class="col-12 col-md-auto">
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2"
+                type="button"
+                id="categoryDropdownBtn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="min-width: 200px"
+              >
+                <span id="selectedCategoryLabel">All Categories</span>
+              </button>
+              <ul
+                class="dropdown-menu shadow-sm border rounded-3 p-2"
+                aria-labelledby="categoryDropdownBtn"
+                style="min-width: 230px"
+              >
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setCategoryFilter('all', 'All Categories')"
+                  >
+                    <i class="bi bi-circle-fill me-2 text-dark small"></i> All
+                    Categories
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter('Internship Query', 'Internship Query')
+                    "
+                  >
+                    <span class="cat-dot cat-dot-internship me-2"></span>
+                    Internship Query
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter('Project Inquiry', 'Project Inquiry')
+                    "
+                  >
+                    <span class="cat-dot cat-dot-project me-2"></span> Project
+                    Inquiry
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter(
+                        'Collaboration Proposal',
+                        'Collaboration Proposal',
+                      )
+                    "
+                  >
+                    <span class="cat-dot cat-dot-proposal me-2"></span>
+                    Collaboration Proposal
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter('General Question', 'General Question')
+                    "
+                  >
+                    <span class="cat-dot cat-dot-general me-2"></span> General
+                    Question
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Search Input Box -->
+          <div class="col-12 col-md-5 col-lg-4">
+            <div class="position-relative">
+              <input
+                type="text"
+                id="inquirySearchInput"
+                onkeyup="handleSearchChange()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Search sender, email, or keywords..."
+              />
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESKTOP VIEW: Inquiries Table -->
+        <div class="table-responsive d-none d-md-block">
+          <table class="table align-middle text-start mb-0 table-animated">
+            <thead class="dispatch-table-head text-center">
+              <tr>
+                <th class="text-start ps-4" style="width: 240px">Sender</th>
+                <th>Category</th>
+                <th>Attachment</th>
+                <th>Receive Date</th>
+                <th>Status</th>
+                <th class="text-center" style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody class="dispatch-table-body" id="inquiriesTableBody">
+              <!-- Populated dynamically via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MOBILE VIEW: Stacked Cards -->
+        <div class="d-block d-md-none" id="inquiriesMobileContainer">
+          <!-- Populated dynamically via JavaScript -->
+        </div>
+
+        <!-- Red Circle Button (Opens Full Archive Modal) -->
+        <button
+          type="button"
+          onclick="openFullInquiriesModal()"
+          class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+          title="View Full Inquiries Directory"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- =========================================================
+         SENDER PROFILE & STATUS INSPECTION MODAL
+    ========================================================== -->
+    <div
+      class="modal fade"
+      id="inquiryDetailModal"
+      tabindex="-1"
+      aria-labelledby="inquiryDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-lg"
+        style="max-width: 680px"
+      >
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <!-- Modal Header -->
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold text-tnb-blue"
+              id="inquiryDetailModalLabel"
+              style="font-family: var(--font-headings); font-size: 1.15rem"
+            >
+              SENDER PROFILE &amp; STATUS
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <input type="hidden" id="currentInquiryId" />
+
+            <!-- 1. Sender Contact Info Box (Plain text, no links or underlines) -->
+            <div class="p-3 rounded-3 bg-light border mb-3">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-person-fill text-warning fs-5"></i>
+                    <span class="fw-bold text-dark fs-6" id="modalSenderName"
+                      >--</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center gap-2 mb-2 text-dark small"
+                  >
+                    <i class="bi bi-telephone-fill text-danger"></i>
+                    <span class="fw-semibold" id="modalSenderPhone">--</span>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 text-dark small">
+                    <i class="bi bi-envelope-at-fill text-primary"></i>
+                    <span class="fw-semibold" id="modalSenderEmail">--</span>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6 small">
+                  <div class="mb-2">
+                    <span class="text-secondary fw-semibold">Category:</span>
+                    <span class="fw-bold text-dark ms-1" id="modalCategoryBadge"
+                      >--</span
+                    >
+                  </div>
+                  <div class="mb-2">
+                    <span class="text-secondary fw-semibold">Received:</span>
+                    <span class="text-dark ms-1" id="modalReceivedDate"
+                      >--</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-secondary fw-semibold">Status:</span>
+                    <span class="ms-1" id="modalCurrentStatusBadge">--</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Inquiry Description -->
+            <div class="mb-3">
+              <label
+                class="form-label small fw-bold text-tnb-blue text-uppercase mb-1"
+                style="letter-spacing: 0.5px"
+              >
+                Description
+              </label>
+              <div
+                class="p-3 rounded-3 bg-light border text-dark small"
+                id="modalDescription"
+                style="min-height: 100px; line-height: 1.6"
+              >
+                <!-- Message text inserted here -->
+              </div>
+            </div>
+
+            <!-- 3. Attached Document Box & Action Buttons -->
+            <div>
+              <label
+                class="form-label small fw-bold text-tnb-blue text-uppercase mb-1"
+                style="letter-spacing: 0.5px"
+              >
+                Attached Document (PDF/DOC/DOCX)
+              </label>
+              <div
+                class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+              >
+                <!-- Attachment Pill -->
+                <div
+                  class="p-2 px-3 rounded-2 bg-light border d-flex align-items-center gap-2 flex-grow-1"
+                  style="max-width: 420px"
+                >
+                  <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
+                  <span
+                    class="small fw-semibold text-dark"
+                    id="modalAttachmentName"
+                    >No attachment</span
+                  >
+                </div>
+
+                <!-- Progression Action Buttons -->
+                <div
+                  class="d-flex align-items-center gap-2"
+                  id="modalActionButtons"
+                >
+                  <!-- Rendered dynamically based on state -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         EXPORT INQUIRIES MODAL (REAL CSV DOWNLOAD)
+    ========================================================== -->
+    <div
+      class="modal fade"
+      id="exportInquiriesModal"
+      tabindex="-1"
+      aria-labelledby="exportInquiriesModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 520px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="exportInquiriesModalLabel"
+              style="
+                color: #4cae4c;
+                font-family: var(--font-headings);
+                font-size: 1.15rem;
+              "
+            >
+              EXPORT INQUIRIES
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <form id="exportInquiriesForm" onsubmit="handleExportCSV(event)">
+              <!-- 1. Export Period -->
+              <div class="mb-3">
+                <label
+                  class="form-label small fw-bold text-dark text-uppercase mb-2"
+                  >Select Export Period</label
+                >
+
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="expPeriodMonthly"
+                    value="monthly"
+                    checked
+                    onchange="toggleExportPeriodInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="expPeriodMonthly"
+                    >Monthly</label
+                  >
+                  <input
+                    type="month"
+                    id="exportMonthSelect"
+                    class="form-control form-control-sm mt-1 border shadow-none small"
+                    value="2026-10"
+                  />
+                </div>
+
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="expPeriodCustom"
+                    value="custom"
+                    onchange="toggleExportPeriodInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="expPeriodCustom"
+                    >Custom Date Range</label
+                  >
+                  <div class="row g-2 mt-1">
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportStartRange"
+                        class="form-control form-control-sm border shadow-none small"
+                        value="2026-10-01"
+                        disabled
+                      />
+                    </div>
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportEndRange"
+                        class="form-control form-control-sm border shadow-none small"
+                        value="2026-10-12"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="expPeriodAll"
+                    value="all"
+                    onchange="toggleExportPeriodInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="expPeriodAll"
+                    >All Records</label
+                  >
+                </div>
+              </div>
+
+              <!-- 2. Inquiry Category Checkboxes -->
+              <div class="mb-3">
+                <label
+                  class="form-label small fw-bold text-dark text-uppercase mb-1"
+                  >Inquiry Category</label
+                >
+                <div class="row g-2 small">
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-cat"
+                        type="checkbox"
+                        value="Project Inquiry"
+                        id="catCheckProject"
+                        checked
+                      />
+                      <label class="form-check-label" for="catCheckProject"
+                        >Project Inquiry</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-cat"
+                        type="checkbox"
+                        value="Internship Query"
+                        id="catCheckIntern"
+                        checked
+                      />
+                      <label class="form-check-label" for="catCheckIntern"
+                        >Internship Query</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-cat"
+                        type="checkbox"
+                        value="Collaboration Proposal"
+                        id="catCheckCollab"
+                        checked
+                      />
+                      <label class="form-check-label" for="catCheckCollab"
+                        >Collaboration Proposal</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-cat"
+                        type="checkbox"
+                        value="General Question"
+                        id="catCheckGeneral"
+                        checked
+                      />
+                      <label class="form-check-label" for="catCheckGeneral"
+                        >General Question</label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Inquiry Status Checkboxes -->
+              <div class="mb-4">
+                <label
+                  class="form-label small fw-bold text-dark text-uppercase mb-1"
+                  >Inquiry Status</label
+                >
+                <div class="row g-2 small">
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-status"
+                        type="checkbox"
+                        value="new"
+                        id="statCheckNew"
+                        checked
+                      />
+                      <label class="form-check-label" for="statCheckNew"
+                        >New (Unread)</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-status"
+                        type="checkbox"
+                        value="review"
+                        id="statCheckReview"
+                        checked
+                      />
+                      <label class="form-check-label" for="statCheckReview"
+                        >Under Review</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-status"
+                        type="checkbox"
+                        value="replied"
+                        id="statCheckReplied"
+                        checked
+                      />
+                      <label class="form-check-label" for="statCheckReplied"
+                        >Replied</label
+                      >
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input check-status"
+                        type="checkbox"
+                        value="resolved"
+                        id="statCheckResolved"
+                        checked
+                      />
+                      <label class="form-check-label" for="statCheckResolved"
+                        >Resolved</label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="d-flex gap-2 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success px-4 py-2 rounded-2 fw-bold"
+                  style="background-color: #4cae4c; border-color: #4cae4c"
+                >
+                  EXPORT (.CSV)
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         FULL INQUIRIES DIRECTORY MODAL (OPENED BY RED BUTTON)
+    ========================================================== -->
+    <div
+      class="modal fade"
+      id="fullInquiriesModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <h5
+                class="modal-title fw-bold text-tnb-blue"
+                style="font-family: var(--font-headings)"
+              >
+                Full Inquiries Archive
+              </h5>
+              <span class="text-muted small"
+                >Complete log of all website communication records</span
+              >
+            </div>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <div
+              class="table-responsive"
+              style="max-height: 520px; overflow-y: auto"
+            >
+              <table
+                class="table table-bordered table-hover align-middle text-start mb-0 small"
+              >
+                <thead class="dispatch-table-head sticky-top text-center">
+                  <tr>
+                    <th class="text-start ps-3">Sender</th>
+                    <th>Category</th>
+                    <th>Attachment</th>
+                    <th>Receive Date</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="fullInquiriesTableBody">
+                  <!-- JS inserts all rows here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm px-4 rounded-3"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- =========================================================
+         CUSTOM IN-APP STATUS POPUP (REPLACES BROWSER ALERT)
+    ========================================================== -->
+    <div
+      class="modal fade"
+      id="statusAlertModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3 text-center">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body py-2 px-3">
+            <div id="statusAlertIcon" class="mb-3 fs-1 lh-1"></div>
+            <h5
+              class="fw-bold mb-2"
+              id="statusAlertTitle"
+              style="font-family: var(--font-headings)"
+            >
+              Notice
+            </h5>
+            <p
+              class="text-secondary small mb-4"
+              id="statusAlertMessage"
+              style="line-height: 1.5"
+            ></p>
+            <button
+              type="button"
+              class="btn w-100 fw-bold py-2 rounded-3 text-white"
+              data-bs-dismiss="modal"
+              style="background-color: var(--tnb-blue)"
+            >
+              OK, UNDERSTOOD
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine -->
+    <script>
+      // Baseline Inquiries Suite matching your wireframe counts (24 Total, 4 New, 5 Review, 5 Replied, 10 Resolved)
+      const INITIAL_INQUIRIES = [
+        /* --- NEW (UNREAD) --- */
+        {
+          id: "INQ-001",
+          senderName: "Amirul Haziq Bin Razali",
+          phone: "013-456 7890",
+          email: "amirul@gmail.com",
+          category: "Internship Query",
+          date: "2026-10-12",
+          time: "11:20 AM",
+          attachmentName: "Resume.pdf",
+          attachmentSize: "2.4 MB",
+          status: "new",
+          message:
+            "Final year Diploma in Electrical Engineering student from UiTM Pulau Pinang Permatang Pauh looking for a 3-month industrial training placement starting December 2026. Very interested in hands-on substation wiring and solar PV installations under KCA engineers. Resume and university confirmation letter attached.",
+        },
+        {
+          id: "INQ-002",
+          senderName: "Nurul Izzati",
+          phone: "017-334 9081",
+          email: "izzati.poly@gmail.com",
+          category: "Internship Query",
+          date: "2026-10-12",
+          time: "09:45 AM",
+          attachmentName: "Transcript_Izzati.pdf",
+          attachmentSize: "1.8 MB",
+          status: "new",
+          message:
+            "Applying for electrical engineering internship position at KCA Lahat HQ. Available from November 2026 to February 2027.",
+        },
+        {
+          id: "INQ-003",
+          senderName: "Siti Aminah Binti Yusof",
+          phone: "019-881 2345",
+          email: "aminah.yusof@gmail.com",
+          category: "General Question",
+          date: "2026-10-12",
+          time: "08:15 AM",
+          attachmentName: null,
+          attachmentSize: null,
+          status: "new",
+          message:
+            "Hi KCA team, do you provide testing and calibration services for high-voltage switchgear breakers in the Batu Gajah industrial area?",
+        },
+        {
+          id: "INQ-004",
+          senderName: "David Chong",
+          phone: "016-554 2190",
+          email: "david.chong@megapower.com.my",
+          category: "Project Inquiry",
+          date: "2026-10-11",
+          time: "16:30 PM",
+          attachmentName: "Transformer_Specs.pdf",
+          attachmentSize: "5.2 MB",
+          status: "new",
+          message:
+            "Requesting a formal quotation for the supply and termination of 33kV XLPE cables for a new factory substation in Gopeng.",
+        },
+
+        /* --- UNDER REVIEW --- */
+        {
+          id: "INQ-005",
+          senderName: "Chong Wei Lun",
+          phone: "014-998 1234",
+          email: "weilun@gmail.com",
+          category: "Project Inquiry",
+          date: "2026-10-11",
+          time: "14:10 PM",
+          attachmentName: "Site_Plan_Kampar.pdf",
+          attachmentSize: "3.7 MB",
+          status: "review",
+          message:
+            "Inquiry regarding solar PV farm electrical balance of system (BOS) contractor works in Kampar, Perak.",
+        },
+        {
+          id: "INQ-006",
+          senderName: "Mohd Fauzi",
+          phone: "012-345 6789",
+          email: "fauzi@perakinfra.com.my",
+          category: "Collaboration Proposal",
+          date: "2026-10-10",
+          time: "11:00 AM",
+          attachmentName: "JV_Proposal_KCA.pdf",
+          attachmentSize: "6.1 MB",
+          status: "review",
+          message:
+            "Joint venture proposal for TNB distribution substation maintenance tender in Perak region.",
+        },
+        {
+          id: "INQ-007",
+          senderName: "Kavitha Rajan",
+          phone: "011-234 5678",
+          email: "kavitha@utp.edu.my",
+          category: "Internship Query",
+          date: "2026-10-10",
+          time: "10:30 AM",
+          attachmentName: "Kavitha_Resume.docx",
+          attachmentSize: "1.2 MB",
+          status: "review",
+          message:
+            "Undergraduate student from Universiti Teknologi PETRONAS seeking 8-month internship in electrical power transmission systems.",
+        },
+        {
+          id: "INQ-008",
+          senderName: "Lim Kok Seong",
+          phone: "018-776 5432",
+          email: "limks@ksheavy.com.my",
+          category: "Project Inquiry",
+          date: "2026-10-09",
+          time: "15:45 PM",
+          attachmentName: "Quarry_Electrical_Audit.pdf",
+          attachmentSize: "4.5 MB",
+          status: "review",
+          message:
+            "Simpang Pulai quarry plant requires electrical maintenance, earth resistance testing, and safety audit certification.",
+        },
+        {
+          id: "INQ-009",
+          senderName: "Ahmad Zaki",
+          phone: "013-776 1122",
+          email: "zaki@gmail.com",
+          category: "General Question",
+          date: "2026-10-09",
+          time: "09:00 AM",
+          attachmentName: null,
+          attachmentSize: null,
+          status: "review",
+          message:
+            "Enquiring about KCA CIDB grade and Suruhanjaya Tenaga electrical contractor class registration status.",
+        },
+
+        /* --- REPLIED --- */
+        {
+          id: "INQ-010",
+          senderName: "Ir. Tan Kek Leong",
+          phone: "012-987 0045",
+          email: "applastic@gmail.com",
+          category: "Project Inquiry",
+          date: "2026-10-11",
+          time: "10:20 AM",
+          attachmentName: "Site_BOQ.pdf",
+          attachmentSize: "4.1 MB",
+          status: "replied",
+          message:
+            "Attached is the bill of quantities (BOQ) for our 11kV substation expansion in Lahat industrial park. Please provide your tender estimate.",
+        },
+        {
+          id: "INQ-011",
+          senderName: "Wan Azlan",
+          phone: "019-332 1098",
+          email: "azlan@lumutmaritime.com.my",
+          category: "Project Inquiry",
+          date: "2026-10-08",
+          time: "14:15 PM",
+          attachmentName: "Port_Elect_Specs.pdf",
+          attachmentSize: "3.2 MB",
+          status: "replied",
+          message:
+            "Quotation sent by En. Azhar on 09/10/2026 for high voltage cable fault finding service at Lumut Port.",
+        },
+        {
+          id: "INQ-012",
+          senderName: "Sarah Wong",
+          phone: "017-889 0123",
+          email: "sarah.wong@solartech.com",
+          category: "Collaboration Proposal",
+          date: "2026-10-07",
+          time: "16:00 PM",
+          attachmentName: "Inverter_Catalog.pdf",
+          attachmentSize: "8.4 MB",
+          status: "replied",
+          message:
+            "Introducing commercial string inverters and medium voltage transformer stations for utility-scale solar projects.",
+        },
+        {
+          id: "INQ-013",
+          senderName: "Hafizul Hakim",
+          phone: "011-334 5566",
+          email: "hafizul@politeknik.edu.my",
+          category: "Internship Query",
+          date: "2026-10-06",
+          time: "11:30 AM",
+          attachmentName: "Hafizul_CV.pdf",
+          attachmentSize: "2.1 MB",
+          status: "replied",
+          message: "Interview arranged for 14/10/2026 at Lahat HQ office.",
+        },
+        {
+          id: "INQ-014",
+          senderName: "Ng Chee Keong",
+          phone: "012-445 7788",
+          email: "ngck@ipohfoundry.com",
+          category: "General Question",
+          date: "2026-10-05",
+          time: "13:20 PM",
+          attachmentName: null,
+          attachmentSize: null,
+          status: "replied",
+          message:
+            "Clarified 33kV switchgear replacement timeline. Client requested official proposal submission by next Monday.",
+        },
+
+        /* --- RESOLVED (10 Historical Records) --- */
+        {
+          id: "INQ-015",
+          senderName: "Zulkifli Hassan",
+          phone: "019-223 4455",
+          email: "zul@gmail.com",
+          category: "Project Inquiry",
+          date: "2026-10-04",
+          attachmentName: "BOQ_Taiping.pdf",
+          attachmentSize: "1.9 MB",
+          status: "resolved",
+          message:
+            "Quotation accepted, PO issued for Taiping substation maintenance.",
+        },
+        {
+          id: "INQ-016",
+          senderName: "Teh Boon Kheng",
+          phone: "016-778 9900",
+          email: "bk.teh@bercham.com.my",
+          category: "Project Inquiry",
+          date: "2026-10-03",
+          attachmentName: "Factory_Panel.pdf",
+          attachmentSize: "2.7 MB",
+          status: "resolved",
+          message: "Substation commissioning completed and certified.",
+        },
+        {
+          id: "INQ-017",
+          senderName: "Nur Sabrina",
+          phone: "013-889 0011",
+          email: "sabrina@uniten.edu.my",
+          category: "Internship Query",
+          date: "2026-10-02",
+          attachmentName: "Resume_Sabrina.pdf",
+          attachmentSize: "1.5 MB",
+          status: "resolved",
+          message: "Offer letter issued and student accepted placement.",
+        },
+        {
+          id: "INQ-018",
+          senderName: "Kumaravelu",
+          phone: "014-223 9988",
+          email: "velu@perakpower.com",
+          category: "Project Inquiry",
+          date: "2026-10-01",
+          attachmentName: "Cable_Test_Report.pdf",
+          attachmentSize: "3.4 MB",
+          status: "resolved",
+          message: "Testing job completed and invoice paid.",
+        },
+        {
+          id: "INQ-019",
+          senderName: "Jason Low",
+          phone: "018-990 1122",
+          email: "jason@lowelectric.com",
+          category: "Collaboration Proposal",
+          date: "2026-09-29",
+          attachmentName: "Subcon_Agreement.pdf",
+          attachmentSize: "4.0 MB",
+          status: "resolved",
+          message: "Subcontractor registration approved by management.",
+        },
+        {
+          id: "INQ-020",
+          senderName: "Fatimah Zahra",
+          phone: "012-334 8877",
+          email: "fatimah@gmail.com",
+          category: "General Question",
+          date: "2026-09-28",
+          attachmentName: null,
+          attachmentSize: null,
+          status: "resolved",
+          message: "Inquiry on street lighting installation answered.",
+        },
+        {
+          id: "INQ-021",
+          senderName: "Leong Mun Choong",
+          phone: "017-556 1234",
+          email: "leong@manjungsolar.com",
+          category: "Project Inquiry",
+          date: "2026-09-26",
+          attachmentName: "Manjung_Specs.pdf",
+          attachmentSize: "2.9 MB",
+          status: "resolved",
+          message: "Project inspection completed and closed.",
+        },
+        {
+          id: "INQ-022",
+          senderName: "Razif Abdullah",
+          phone: "019-445 6677",
+          email: "razif@gmail.com",
+          category: "Internship Query",
+          date: "2026-09-25",
+          attachmentName: "Resume_Razif.pdf",
+          attachmentSize: "1.7 MB",
+          status: "resolved",
+          message: "Application processed and filed.",
+        },
+        {
+          id: "INQ-023",
+          senderName: "Goh Eng Hock",
+          phone: "016-221 4433",
+          email: "ehgoh@peraksteel.com",
+          category: "Project Inquiry",
+          date: "2026-09-24",
+          attachmentName: "Steel_Mill_Elect.pdf",
+          attachmentSize: "6.5 MB",
+          status: "resolved",
+          message: "HV breaker service job finalized.",
+        },
+        {
+          id: "INQ-024",
+          senderName: "Azhar Marzuki",
+          phone: "013-998 7766",
+          email: "azhar.m@gmail.com",
+          category: "General Question",
+          date: "2026-09-22",
+          attachmentName: null,
+          attachmentSize: null,
+          status: "resolved",
+          message: "Provided company profile and credentials brochure.",
+        },
+      ];
+
+      let activeKpiFilter = "all"; // 'all' | 'new' | 'review' | 'replied' | 'resolved'
+      let activeCategoryFilter = "all";
+
+      // 1. Initialize State
+      window.addEventListener("DOMContentLoaded", () => {
+        const existing = JSON.parse(localStorage.getItem("kca_inquiries_list"));
+        if (!existing || existing.length < 15) {
+          localStorage.setItem(
+            "kca_inquiries_list",
+            JSON.stringify(INITIAL_INQUIRIES),
+          );
+        }
+        renderInquiriesUI();
+      });
+
+      // 2. Render Engine
+      function renderInquiriesUI() {
+        const inquiries =
+          JSON.parse(localStorage.getItem("kca_inquiries_list")) ||
+          INITIAL_INQUIRIES;
+        const desktopTbody = document.getElementById("inquiriesTableBody");
+        const mobileContainer = document.getElementById(
+          "inquiriesMobileContainer",
+        );
+        const searchQuery = document
+          .getElementById("inquirySearchInput")
+          .value.toLowerCase()
+          .trim();
+
+        desktopTbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        // Calculate Live Counts
+        let countTotal = inquiries.length;
+        let countNew = 0;
+        let countReview = 0;
+        let countReplied = 0;
+        let countResolved = 0;
+
+        inquiries.forEach((item) => {
+          if (item.status === "new") countNew++;
+          else if (item.status === "review") countReview++;
+          else if (item.status === "replied") countReplied++;
+          else if (item.status === "resolved") countResolved++;
+        });
+
+        document.getElementById("countTotal").innerText = countTotal;
+        document.getElementById("countNew").innerText = countNew;
+        document.getElementById("countReview").innerText = countReview;
+        document.getElementById("countReplied").innerText = countReplied;
+        document.getElementById("countResolved").innerText = countResolved;
+
+        // Apply Filters
+        const filtered = inquiries.filter((item) => {
+          // KPI Filter
+          if (activeKpiFilter !== "all" && item.status !== activeKpiFilter)
+            return false;
+
+          // Category Filter
+          if (
+            activeCategoryFilter !== "all" &&
+            item.category !== activeCategoryFilter
+          )
+            return false;
+
+          // Search Filter
+          if (searchQuery) {
+            const matchText =
+              `${item.senderName} ${item.email} ${item.phone} ${item.category} ${item.message}`.toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted small">No inquiries found matching current filter.</td></tr>`;
+          mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No inquiries found matching current filter.</div>`;
+          return;
+        }
+
+        // Desktop Table: Top 5 rows on main card
+        filtered.slice(0, 5).forEach((item) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+                    <td class="text-start ps-4">
+                        <div class="fw-bold text-dark">${item.senderName}</div>
+                        <div class="small text-secondary">${item.phone}</div>
+                        <div class="small text-muted">${item.email}</div>
+                    </td>
+                    <td>
+                        <span class="d-inline-flex align-items-center gap-2 fw-semibold text-dark small">
+                            ${getCategoryDot(item.category)} ${item.category}
+                        </span>
+                    </td>
+                    <td>
+                        ${
+                          item.attachmentName
+                            ? `
+                            <a href="javascript:void(0)" onclick="openInquiryModal('${item.id}')" class="attachment-link">
+                                <i class="bi bi-file-earmark-pdf-fill text-danger"></i>
+                                <span>${item.attachmentName}</span>
+                                <span class="text-muted small">(${item.attachmentSize || "PDF"})</span>
+                            </a>
+                        `
+                            : `<span class="text-muted small">--</span>`
+                        }
+                    </td>
+                    <td class="small fw-semibold text-dark">${formatDisplayDate(item.date)}</td>
+                    <td>${getStatusBadgeHtml(item.status)}</td>
+                    <td class="text-center">
+                        <button type="button" onclick="openInquiryModal('${item.id}')" class="btn btn-more-action">
+                            More
+                        </button>
+                    </td>
+                `;
+          desktopTbody.appendChild(tr);
+
+          // Mobile Card Layout
+          const card = document.createElement("div");
+          card.className = "dispatch-mobile-card mb-3 p-3";
+          card.innerHTML = `
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        ${getStatusBadgeHtml(item.status)}
+                        <span class="small text-muted">${formatDisplayDate(item.date)}</span>
+                    </div>
+                    <div class="fw-bold text-dark fs-6 mb-1">${item.senderName}</div>
+                    <div class="small text-secondary mb-1">${item.phone} • ${item.email}</div>
+                    <div class="small mb-1"><strong>Category:</strong> ${item.category}</div>
+                    <div class="small mb-3"><strong>File:</strong> ${item.attachmentName ? `${item.attachmentName} (${item.attachmentSize})` : "None"}</div>
+                    <button type="button" onclick="openInquiryModal('${item.id}')" class="btn btn-more-action w-100">
+                        More Details
+                    </button>
+                `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      // 3. Status Badges & Dots Helpers
+      function getStatusBadgeHtml(status) {
+        if (status === "new") {
+          return `<span class="badge-inquiry-status badge-status-new"><span class="status-dot"></span> New / Unread</span>`;
+        } else if (status === "review") {
+          return `<span class="badge-inquiry-status badge-status-review"><span class="status-dot"></span> Under Review</span>`;
+        } else if (status === "replied") {
+          return `<span class="badge-inquiry-status badge-status-replied"><span class="status-dot"></span> Replied</span>`;
+        } else {
+          return `<span class="badge-inquiry-status badge-status-resolved"><span class="status-dot"></span> Resolved</span>`;
+        }
+      }
+
+      function getCategoryDot(category) {
+        if (category === "Internship Query")
+          return '<span class="cat-dot cat-dot-internship"></span>';
+        if (category === "Project Inquiry")
+          return '<span class="cat-dot cat-dot-project"></span>';
+        if (category === "Collaboration Proposal")
+          return '<span class="cat-dot cat-dot-proposal"></span>';
+        return '<span class="cat-dot cat-dot-general"></span>';
+      }
+
+      function formatDisplayDate(isoDateStr) {
+        if (!isoDateStr) return "-";
+        const [y, m, d] = isoDateStr.split("-");
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        return `${d} ${months[parseInt(m, 10) - 1]} ${y}`;
+      }
+
+      // 4. Quick-Filter by KPI Stat Cards
+      function filterByKpi(kpiType) {
+        activeKpiFilter = kpiType;
+
+        // Remove active glow from all KPI cards
+        document
+          .querySelectorAll(".inquiry-kpi-card")
+          .forEach((el) => el.classList.remove("active-kpi"));
+
+        if (kpiType === "all")
+          document.getElementById("kpiCardTotal").classList.add("active-kpi");
+        else if (kpiType === "new")
+          document.getElementById("kpiCardNew").classList.add("active-kpi");
+        else if (kpiType === "review")
+          document.getElementById("kpiCardReview").classList.add("active-kpi");
+        else if (kpiType === "replied")
+          document.getElementById("kpiCardReplied").classList.add("active-kpi");
+        else if (kpiType === "resolved")
+          document
+            .getElementById("kpiCardResolved")
+            .classList.add("active-kpi");
+
+        renderInquiriesUI();
+      }
+
+      function setCategoryFilter(categoryVal, label) {
+        activeCategoryFilter = categoryVal;
+        document.getElementById("selectedCategoryLabel").innerText = label;
+        renderInquiriesUI();
+      }
+
+      function handleSearchChange() {
+        renderInquiriesUI();
+      }
+
+      // 5. Open Inquiry Modal (Auto-transitions New -> Under Review)
+      function openInquiryModal(inquiryId) {
+        let inquiries =
+          JSON.parse(localStorage.getItem("kca_inquiries_list")) ||
+          INITIAL_INQUIRIES;
+        const index = inquiries.findIndex((item) => item.id === inquiryId);
+        if (index === -1) return;
+
+        const item = inquiries[index];
+        document.getElementById("currentInquiryId").value = item.id;
+
+        // 1. AUTOMATIC TRANSITION: New -> Under Review
+        if (item.status === "new") {
+          item.status = "review";
+          localStorage.setItem("kca_inquiries_list", JSON.stringify(inquiries));
+          renderInquiriesUI(); // Update KPI counts & background table instantly
+        }
+
+        // 2. Populate Profile Info (Plain text, no links or underlines)
+        document.getElementById("modalSenderName").innerText = item.senderName;
+        document.getElementById("modalSenderPhone").innerText = item.phone;
+        document.getElementById("modalSenderEmail").innerText = item.email;
+        document.getElementById("modalCategoryBadge").innerHTML =
+          `${getCategoryDot(item.category)} ${item.category}`;
+        document.getElementById("modalReceivedDate").innerText =
+          `${formatDisplayDate(item.date)}, ${item.time || "10:00 AM"}`;
+        document.getElementById("modalCurrentStatusBadge").innerHTML =
+          getStatusBadgeHtml(item.status);
+        document.getElementById("modalDescription").innerText = item.message;
+
+        // Attachment Pill
+        const attachEl = document.getElementById("modalAttachmentName");
+        if (item.attachmentName) {
+          attachEl.innerText = `${item.attachmentName} (${item.attachmentSize || "PDF"})`;
+        } else {
+          attachEl.innerText = "No attachment provided";
+        }
+
+        // 3. Render Actions (Mark as Replied & RESOLVED)
+        renderModalActions(item);
+
+        // Close full directory modal if open
+        const fullModal = bootstrap.Modal.getInstance(
+          document.getElementById("fullInquiriesModal"),
+        );
+        if (fullModal) fullModal.hide();
+
+        new bootstrap.Modal(
+          document.getElementById("inquiryDetailModal"),
+        ).show();
+      }
+
+      function renderModalActions(item) {
+        const btnContainer = document.getElementById("modalActionButtons");
+        btnContainer.innerHTML = "";
+
+        if (item.status === "review") {
+          btnContainer.innerHTML = `
+                    <button type="button" onclick="updateInquiryStatus('replied')" class="btn btn-outline-primary btn-sm fw-bold px-3 py-2 rounded-2">
+                        Mark as Replied
+                    </button>
+                    <button type="button" onclick="updateInquiryStatus('resolved')" class="btn btn-success fw-bold px-4 py-2 rounded-2" style="background-color: #4cae4c; border-color: #4cae4c;">
+                        RESOLVED
+                    </button>
+                `;
+        } else if (item.status === "replied") {
+          btnContainer.innerHTML = `
+                    <button type="button" onclick="updateInquiryStatus('resolved')" class="btn btn-success fw-bold px-4 py-2 rounded-2" style="background-color: #4cae4c; border-color: #4cae4c;">
+                        RESOLVED
+                    </button>
+                `;
+        } else if (item.status === "resolved") {
+          btnContainer.innerHTML = `
+                    <span class="badge bg-success-subtle text-success border px-3 py-2 fw-bold me-2">Case Resolved</span>
+                    <button type="button" onclick="updateInquiryStatus('review')" class="btn btn-sm btn-outline-secondary rounded-2">
+                        Reopen
+                    </button>
+                `;
+        }
+      }
+
+      function updateInquiryStatus(newStatus) {
+        const id = document.getElementById("currentInquiryId").value;
+        let inquiries =
+          JSON.parse(localStorage.getItem("kca_inquiries_list")) ||
+          INITIAL_INQUIRIES;
+        const index = inquiries.findIndex((i) => i.id === id);
+
+        if (index !== -1) {
+          inquiries[index].status = newStatus;
+          localStorage.setItem("kca_inquiries_list", JSON.stringify(inquiries));
+
+          bootstrap.Modal.getInstance(
+            document.getElementById("inquiryDetailModal"),
+          ).hide();
+          renderInquiriesUI();
+
+          const statusTitles = {
+            replied: "Marked as Replied",
+            resolved: "Inquiry Resolved",
+            review: "Inquiry Reopened",
+          };
+          showCustomPopup(
+            "success",
+            statusTitles[newStatus],
+            `Inquiry from <strong>${inquiries[index].senderName}</strong> has been updated.`,
+          );
+        }
+      }
+
+      // 6. Open Full Directory Modal (Red Button `>`)
+      function openFullInquiriesModal() {
+        const inquiries =
+          JSON.parse(localStorage.getItem("kca_inquiries_list")) ||
+          INITIAL_INQUIRIES;
+        const fullTbody = document.getElementById("fullInquiriesTableBody");
+        fullTbody.innerHTML = "";
+
+        const filtered = inquiries.filter((item) => {
+          if (activeKpiFilter !== "all" && item.status !== activeKpiFilter)
+            return false;
+          if (
+            activeCategoryFilter !== "all" &&
+            item.category !== activeCategoryFilter
+          )
+            return false;
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          fullTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No inquiries found in this view.</td></tr>`;
+        } else {
+          filtered.forEach((item) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+                        <td class="fw-bold ps-3">${item.senderName}<br><span class="text-secondary small fw-normal">${item.phone} • ${item.email}</span></td>
+                        <td>${getCategoryDot(item.category)} ${item.category}</td>
+                        <td>${item.attachmentName ? item.attachmentName : "--"}</td>
+                        <td>${formatDisplayDate(item.date)}</td>
+                        <td>${getStatusBadgeHtml(item.status)}</td>
+                        <td class="text-center">
+                            <button type="button" onclick="openInquiryModal('${item.id}')" class="btn btn-sm btn-more-action py-0 px-2 small">
+                                More
+                            </button>
+                        </td>
+                    `;
+            fullTbody.appendChild(tr);
+          });
+        }
+
+        new bootstrap.Modal(
+          document.getElementById("fullInquiriesModal"),
+        ).show();
+      }
+
+      // 7. Toggle Export Inputs
+      function toggleExportPeriodInputs() {
+        const isMonthly = document.getElementById("expPeriodMonthly").checked;
+        const isCustom = document.getElementById("expPeriodCustom").checked;
+
+        document.getElementById("exportMonthSelect").disabled = !isMonthly;
+        document.getElementById("exportStartRange").disabled = !isCustom;
+        document.getElementById("exportEndRange").disabled = !isCustom;
+      }
+
+      // 8. Client-Side CSV Generator
+      function handleExportCSV(e) {
+        e.preventDefault();
+        const inquiries =
+          JSON.parse(localStorage.getItem("kca_inquiries_list")) ||
+          INITIAL_INQUIRIES;
+        const period = document.querySelector(
+          'input[name="exportPeriod"]:checked',
+        ).value;
+
+        // Selected Categories & Statuses
+        const selectedCategories = Array.from(
+          document.querySelectorAll(".check-cat:checked"),
+        ).map((cb) => cb.value);
+        const selectedStatuses = Array.from(
+          document.querySelectorAll(".check-status:checked"),
+        ).map((cb) => cb.value);
+
+        let filtered = inquiries.filter((item) => {
+          // Category match
+          if (!selectedCategories.includes(item.category)) return false;
+          // Status match
+          if (!selectedStatuses.includes(item.status)) return false;
+
+          // Date match
+          if (period === "monthly") {
+            const monthVal = document.getElementById("exportMonthSelect").value; // e.g. "2026-10"
+            if (!item.date.startsWith(monthVal)) return false;
+          } else if (period === "custom") {
+            const start = document.getElementById("exportStartRange").value;
+            const end = document.getElementById("exportEndRange").value;
+            if (item.date < start || item.date > end) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          showCustomPopup(
+            "warning",
+            "No Records Found",
+            "No inquiries match your selected export period and filter criteria.",
+          );
+          return;
+        }
+
+        // Build CSV
+        let csvContent =
+          "Inquiry ID,Sender Name,Phone,Email,Category,Date,Time,Status,Attachment,Message\n";
+        filtered.forEach((row) => {
+          const cleanMsg = `"${row.message.replace(/"/g, '""')}"`;
+          const cleanAttach = `"${row.attachmentName ? `${row.attachmentName} (${row.attachmentSize})` : "None"}"`;
+          csvContent += `${row.id},"${row.senderName}","${row.phone}","${row.email}","${row.category}",${row.date},"${row.time || ""}","${row.status}",${cleanAttach},${cleanMsg}\n`;
+        });
+
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const downloadLink = document.createElement("a");
+        const timestamp = new Date().toISOString().slice(0, 10);
+        const fileName = `KCA_Website_Inquiries_${timestamp}.csv`;
+
+        downloadLink.href = url;
+        downloadLink.setAttribute("download", fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        bootstrap.Modal.getInstance(
+          document.getElementById("exportInquiriesModal"),
+        ).hide();
+        showCustomPopup(
+          "success",
+          "Inquiries Exported!",
+          `File downloaded successfully:<br><strong>${fileName}</strong>`,
+        );
+      }
+
+      // Custom In-App Status Popup (Replaces browser alert)
+      function showCustomPopup(type, title, message) {
+        const iconEl = document.getElementById("statusAlertIcon");
+        const titleEl = document.getElementById("statusAlertTitle");
+        const msgEl = document.getElementById("statusAlertMessage");
+
+        if (type === "success") {
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
+          titleEl.className = "fw-bold mb-2 text-success";
+        } else if (type === "warning") {
+          iconEl.innerHTML =
+            '<i class="bi bi-exclamation-triangle-fill text-warning"></i>';
+          titleEl.className = "fw-bold mb-2 text-warning";
+        } else {
+          iconEl.innerHTML =
+            '<i class="bi bi-info-circle-fill text-primary"></i>';
+          titleEl.className = "fw-bold mb-2 text-primary";
+        }
+
+        titleEl.innerText = title;
+        msgEl.innerHTML = message;
+        new bootstrap.Modal(document.getElementById("statusAlertModal")).show();
+      }
+    </script>
+  </body>
+</html>

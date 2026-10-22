@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Executive Dashboard | KCAConnect</title>
+    
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Signature Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
+                <img src="img/logo.png" alt="KCA Logo" style="height: 48px;" class="me-2" onerror="this.src='img/about_us.png'">
+                <span class="fw-bold text-tnb-blue d-none d-sm-inline" style="font-size: 0.95rem; font-family: var(--font-headings);">
+                    Kejuruteraan Cahaya Abadi Sdn Bhd
+                </span>
+            </a>
+
+            <!-- Right Controls -->
+            <div class="d-flex align-items-center gap-4">
+                <div class="d-none d-md-flex align-items-center gap-4">
+                    <a href="admin-inquiries.html" class="nav-link fw-semibold text-secondary hover-blue" style="font-family: var(--font-headings);">
+                        Inquiries
+                    </a>
+
+                    <!-- e-Attendance Dropdown Menu -->
+                    <div class="dropdown">
+                        <a class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: var(--font-headings);">
+                            e-Attendance
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html">
+                                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                                    <span>Staff Off-Site Dispatch</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-ot.html">
+                                    <i class="bi bi-check2-circle text-secondary"></i>
+                                    <span>Overtime Approvals</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-attendance.html">
+                                    <i class="bi bi-clock-history text-secondary"></i>
+                                    <span>Attendance Logs</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Red Logout Button -->
+                <a href="login.html" class="btn p-0 border-0" title="Sign Out">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b;">
+                        <i class="bi bi-box-arrow-right fs-5"></i>
+                    </div>
+                </a>
+
+                <!-- Mobile Hamburger Toggle -->
+                <button class="navbar-toggler border-0 shadow-none d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminDrawer">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signature Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end admin-drawer" tabindex="-1" id="adminDrawer">
+        <div class="brand-accent-bar" style="height: 3px;"></div>
+        <div class="offcanvas-header border-bottom">
+            <div class="d-flex align-items-center">
+                <img src="img/logo.png" alt="KCA Logo" style="height: 40px;" class="me-2" onerror="this.src='img/about_us.png'">
+                <div class="lh-1">
+                    <span class="fw-bold text-tnb-blue d-block" style="font-size: 0.85rem; font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi</span>
+                </div>
+            </div>
+            <button type="button" class="btn-close mb-auto mt-2 shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
+            <ul class="admin-drawer-nav">
+                <li>
+                    <a class="admin-drawer-link" href="admin-inquiries.html">
+                        <i class="bi bi-inbox-fill"></i>
+                        <span>Inquiries</span>
+                    </a>
+                </li>
+                <li class="pt-3 pb-1 border-top mt-2">
+                    <span class="text-uppercase text-muted fw-bold ps-2" style="font-size: 0.7rem; letter-spacing: 1px;">e-Attendance</span>
+                </li>
+                <li>
+                    <a class="admin-drawer-link" href="admin-staff.html">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        <span>Staff Off-Site Dispatch</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="admin-drawer-link" href="admin-ot.html">
+                        <i class="bi bi-check2-circle"></i>
+                        <span>Overtime Approvals</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="admin-drawer-link" href="admin-attendance.html">
+                        <i class="bi bi-clock-history"></i>
+                        <span>Attendance Logs</span>
+                    </a>
+                </li>
+                <li class="my-2 border-top"></li>
+                <li>
+                    <a class="admin-drawer-link text-muted" href="index.html">
+                        <i class="bi bi-box-arrow-up-right"></i>
+                        <span>Main Website</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="pt-3 border-top">
+                <a href="login.html" class="admin-drawer-link text-danger">
+                    <i class="bi bi-box-arrow-right text-danger"></i>
+                    <span>Sign Out</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+   <!-- Main Workspace Container -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+        
+        <!-- Header Welcome & Status -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+            <div>
+                <h4 class="fw-bold mb-1 text-tnb-blue" style="font-family: var(--font-headings); font-size: 1.45rem;">
+                    EXECUTIVE OVERVIEW
+                </h4>
+                <span class="text-muted small">Daily Operations &amp; Communications</span>
+            </div>
+            <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill small">
+                <i class="bi bi-broadcast me-1"></i> Operations Online
+            </span>
+        </div>
+
+        <!-- 1. TOP ROW: 4 HERO KPI METRIC CARDS -->
+        <div class="row g-3 g-lg-4 mb-4">
+            <!-- Card 1: Today's Attendance -->
+            <div class="col-6 col-lg-3">
+                <a href="admin-attendance.html" class="metric-hero-card">
+                    <div>
+                        <div class="metric-icon-tile metric-tile-blue">
+                            <i class="bi bi-calendar2-check-fill"></i>
+                        </div>
+                        <div class="metric-label-text">Today's Attendance</div>
+                    </div>
+                    <div class="metric-number-display" id="dashAttendanceTotal">40</div>
+                </a>
+            </div>
+
+            <!-- Card 2: Staff On-Site -->
+            <div class="col-6 col-lg-3">
+                <a href="admin-staff.html" class="metric-hero-card">
+                    <div>
+                        <div class="metric-icon-tile metric-tile-orange">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div class="metric-label-text">Staff On-Site</div>
+                    </div>
+                    <div class="metric-number-display text-warning-emphasis" id="dashOnSiteTotal">14</div>
+                </a>
+            </div>
+
+            <!-- Card 3: Pending Overtime -->
+            <div class="col-6 col-lg-3">
+                <a href="admin-ot.html" class="metric-hero-card">
+                    <div>
+                        <div class="metric-icon-tile metric-tile-red">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+                        <div class="metric-label-text">Pending Overtime</div>
+                    </div>
+                    <div class="metric-number-display text-danger" id="dashPendingOTTotal">4</div>
+                </a>
+            </div>
+
+            <!-- Card 4: Unread Inquiries -->
+            <div class="col-6 col-lg-3">
+                <a href="admin-inquiries.html" class="metric-hero-card">
+                    <div>
+                        <div class="metric-icon-tile metric-tile-amber">
+                            <i class="bi bi-bell-fill"></i>
+                        </div>
+                        <div class="metric-label-text">Unread Inquiries</div>
+                    </div>
+                    <div class="metric-number-display" id="dashUnreadInqTotal">0</div>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2. BOTTOM ROW: 2 LIVE OPERATIONAL FEEDS (CLEAN CREST ONLY) -->
+        <div class="row g-4">
+            
+            <!-- LEFT FEED: Latest Attendance Logs (Blue Top Crest) -->
+            <div class="col-12 col-lg-6">
+                <div class="feed-widget-card crest-blue">
+                    <div>
+                        <div class="feed-widget-header">
+                            <h5 class="feed-widget-title">
+                                <i class="bi bi-clock me-2 text-tnb-blue"></i>Latest Attendance Logs
+                            </h5>
+                            <a href="admin-attendance.html" class="feed-view-all-link">
+                                View Master Logs <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+
+                        <!-- Live Attendance Roster List -->
+                        <div class="d-flex flex-column gap-1" id="dashAttendanceFeedList"></div>
+                    </div>
+
+                    <div class="pt-3 border-top mt-3 text-center">
+                        <a href="admin-attendance.html" class="btn btn-sm btn-outline-primary fw-semibold px-4 rounded-3">
+                            Open Full Timesheet Ledger
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT FEED: Recent Web Inquiries (Orange Top Crest) -->
+            <div class="col-12 col-lg-6">
+                <div class="feed-widget-card crest-orange">
+                    <div>
+                        <div class="feed-widget-header">
+                            <h5 class="feed-widget-title">
+                                <i class="bi bi-chat-left-text me-2" style="color: var(--tnb-red-orange);"></i>Recent Web Inquiries
+                            </h5>
+                            <a href="admin-inquiries.html" class="feed-view-all-link">
+                                View Inbox <i class="bi bi-arrow-right"></i>
+                            </a>
+                        </div>
+
+                        <!-- Live Inquiries List -->
+                        <div class="d-flex flex-column gap-1" id="dashInquiriesFeedList"></div>
+                    </div>
+
+                    <div class="pt-3 border-top mt-3 text-center">
+                        <a href="admin-inquiries.html" class="btn btn-sm btn-outline-secondary fw-semibold px-4 rounded-3">
+                            Manage All Inquiries &amp; Export
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine (Option B Data Aggregator) -->
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            renderDashboardOptionB();
+        });
+
+        function renderDashboardOptionB() {
+            // 1. Staff Dispatch Metrics (admin-staff.html)
+            const staffList = JSON.parse(localStorage.getItem('kca_admin_staff_list')) || [];
+            if (staffList.length > 0) {
+                const onSiteCount = staffList.filter(s => s.mode === 'offsite').length;
+                document.getElementById('dashOnSiteTotal').innerText = onSiteCount;
+            } else {
+                document.getElementById('dashOnSiteTotal').innerText = "14";
+            }
+
+            // 2. Pending Overtime Claims (admin-ot.html)
+            const otList = JSON.parse(localStorage.getItem('kca_ot_claims_list')) || [];
+            if (otList.length > 0) {
+                const pendingOT = otList.filter(c => c.status === 'pending').length;
+                document.getElementById('dashPendingOTTotal').innerText = pendingOT;
+            } else {
+                document.getElementById('dashPendingOTTotal').innerText = "4";
+            }
+
+            // 3. Web Inquiries Metrics (admin-inquiries.html)
+            const inqList = JSON.parse(localStorage.getItem('kca_inquiries_list')) || [];
+            if (inqList.length > 0) {
+                const unreadCount = inqList.filter(i => i.status === 'new').length;
+                document.getElementById('dashUnreadInqTotal').innerText = unreadCount;
+            } else {
+                document.getElementById('dashUnreadInqTotal').innerText = "0";
+            }
+
+            // 4. Master Attendance Logs Feed
+            const attendanceList = JSON.parse(localStorage.getItem('kca_master_attendance_logs')) || [];
+            const attendanceFeedEl = document.getElementById('dashAttendanceFeedList');
+            attendanceFeedEl.innerHTML = '';
+
+            document.getElementById('dashAttendanceTotal').innerText = attendanceList.length > 0 ? attendanceList.length : "40";
+
+            const recentLogs = attendanceList.slice(0, 5);
+            if (recentLogs.length === 0) {
+                attendanceFeedEl.innerHTML = `<div class="text-muted small py-3 text-center">No attendance logged yet today.</div>`;
+            } else {
+                recentLogs.forEach(log => {
+                    let badgeClass = 'bg-success text-white';
+                    if (log.badgeColor === 'primary') badgeClass = 'bg-primary-subtle text-primary border';
+                    else if (log.badgeColor === 'warning') badgeClass = 'bg-warning text-dark';
+                    else if (log.badgeColor === 'danger') badgeClass = 'bg-danger text-white';
+
+                    const row = document.createElement('a');
+                    row.href = 'admin-attendance.html';
+                    row.className = 'feed-item-row';
+                    row.innerHTML = `
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="feed-item-avatar">${log.staffId.replace('KCA-', '')}</div>
+                            <div>
+                                <div class="fw-bold text-dark small">${log.name} (${log.staffId})</div>
+                                <div class="text-muted" style="font-size: 0.76rem;">In: ${log.clockInTime} • Out: ${log.clockOutTime}</div>
+                            </div>
+                        </div>
+                        <span class="badge ${badgeClass} px-2 py-1 small rounded-pill" style="font-size: 0.75rem;">
+                            ${log.statusBadge}
+                        </span>
+                    `;
+                    attendanceFeedEl.appendChild(row);
+                });
+            }
+
+            // 5. Recent Inquiries Feed
+            const inqFeedEl = document.getElementById('dashInquiriesFeedList');
+            inqFeedEl.innerHTML = '';
+
+            const recentInquiries = inqList.slice(0, 5);
+            if (recentInquiries.length === 0) {
+                inqFeedEl.innerHTML = `<div class="text-muted small py-3 text-center">No recent inquiries in inbox.</div>`;
+            } else {
+                recentInquiries.forEach(inq => {
+                    let statusBadge = '<span class="badge bg-warning-subtle text-warning-emphasis border">New</span>';
+                    if (inq.status === 'review') statusBadge = '<span class="badge bg-danger-subtle text-danger border">Under Review</span>';
+                    else if (inq.status === 'replied') statusBadge = '<span class="badge bg-success-subtle text-success border">Replied</span>';
+                    else if (inq.status === 'resolved') statusBadge = '<span class="badge bg-light text-muted border">Resolved</span>';
+
+                    const row = document.createElement('a');
+                    row.href = 'admin-inquiries.html';
+                    row.className = 'feed-item-row';
+                    row.innerHTML = `
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="feed-item-avatar text-secondary">
+                                <i class="bi bi-person"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark small">${inq.senderName}</div>
+                                <div class="text-muted" style="font-size: 0.76rem;">${inq.category} • ${inq.date}</div>
+                            </div>
+                        </div>
+                        ${statusBadge}
+                    `;
+                    inqFeedEl.appendChild(row);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
