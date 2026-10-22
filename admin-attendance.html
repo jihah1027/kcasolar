@@ -1,620 +1,1199 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Attendance Logs | KCAConnect Admin</title>
-    
-    <!-- Google Fonts: Inter & Open Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <!-- Main Style -->
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body class="bg-light d-flex flex-column min-vh-100">
 
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
     <!-- Signature Brand Accent Line (Top) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Admin Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
-        <div class="container-fluid px-lg-5">
-            <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
-                <img src="img/logo.png" alt="KCA Logo" style="height: 48px;" class="me-2" onerror="this.src='img/about_us.png'">
-                <span class="fw-bold text-tnb-blue d-none d-sm-inline" style="font-size: 0.95rem; font-family: var(--font-headings);">
-                    Kejuruteraan Cahaya Abadi Sdn Bhd
-                </span>
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
+          <img
+            src="img/logo.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = 'img/about_us.png'"
+          />
+          <span
+            class="fw-bold text-tnb-blue d-none d-sm-inline"
+            style="font-size: 0.95rem; font-family: var(--font-headings)"
+          >
+            Kejuruteraan Cahaya Abadi Sdn Bhd
+          </span>
+        </a>
+
+        <!-- Right Nav Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
             </a>
 
-            <!-- Right Nav Controls -->
-            <div class="d-flex align-items-center gap-4">
-                <div class="d-none d-md-flex align-items-center gap-4">
-                    <a href="admin-inquiries.html" class="nav-link fw-semibold text-secondary hover-blue" style="font-family: var(--font-headings);">
-                        Inquiries
-                    </a>
-
-                    <!-- e-Attendance Dropdown -->
-                    <div class="dropdown">
-                        <a class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: var(--font-headings);">
-                            e-Attendance
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html">
-                                    <i class="bi bi-geo-alt-fill text-secondary"></i>
-                                    <span>Staff Off-Site Dispatch</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-ot.html">
-                                    <i class="bi bi-check2-circle text-secondary"></i>
-                                    <span>Overtime Approvals</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item active d-flex align-items-center gap-2" href="admin-attendance.html">
-                                    <i class="bi bi-clock-history text-tnb-red"></i>
-                                    <span>Attendance Logs</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Red Logout Button -->
-                <a href="login.html" class="btn p-0 border-0" title="Sign Out">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b;">
-                        <i class="bi bi-box-arrow-right fs-5"></i>
-                    </div>
-                </a>
-
-                <!-- Mobile Hamburger Toggle -->
-                <button class="navbar-toggler border-0 shadow-none d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminDrawer">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <!-- e-Attendance Dropdown -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
+                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                    <span>Staff Off-Site Dispatch</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item active d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
+                    <i class="bi bi-clock-history text-tnb-red"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+              </ul>
             </div>
+          </div>
+
+          <!-- Red Logout Button -->
+          <a href="login.html" class="btn p-0 border-0" title="Sign Out">
+            <div
+              class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+              style="width: 38px; height: 38px; background-color: #e61e2b"
+            >
+              <i class="bi bi-box-arrow-right fs-5"></i>
+            </div>
+          </a>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
+      </div>
     </nav>
 
     <!-- Signature Brand Accent Line (Bottom of Navbar) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Mobile Offcanvas Menu -->
-    <div class="offcanvas offcanvas-end admin-drawer" tabindex="-1" id="adminDrawer">
-        <div class="brand-accent-bar" style="height: 3px;"></div>
-        <div class="offcanvas-header border-bottom">
-            <div class="d-flex align-items-center">
-                <img src="img/logo.png" alt="KCA Logo" style="height: 40px;" class="me-2" onerror="this.src='img/about_us.png'">
-                <div class="lh-1">
-                    <span class="fw-bold text-tnb-blue d-block" style="font-size: 0.85rem; font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi</span>
-                </div>
-            </div>
-            <button type="button" class="btn-close mb-auto mt-2 shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="img/logo.png"
+            alt="KCA Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = 'img/about_us.png'"
+          />
+          <div class="lh-1">
+            <span
+              class="fw-bold text-tnb-blue d-block"
+              style="font-size: 0.85rem; font-family: var(--font-headings)"
+              >Kejuruteraan Cahaya Abadi</span
+            >
+          </div>
         </div>
-        <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
-            <ul class="admin-drawer-nav">
-                <li>
-                    <a class="admin-drawer-link" href="admin-inquiries.html">
-                        <i class="bi bi-inbox-fill"></i>
-                        <span>Inquiries</span>
-                    </a>
-                </li>
-                <li class="pt-3 pb-1 border-top mt-2">
-                    <span class="text-uppercase text-muted fw-bold ps-2" style="font-size: 0.7rem; letter-spacing: 1px;">e-Attendance</span>
-                </li>
-                <li>
-                    <a class="admin-drawer-link" href="admin-staff.html">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        <span>Staff Off-Site Dispatch</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="admin-drawer-link" href="admin-ot.html">
-                        <i class="bi bi-check2-circle"></i>
-                        <span>Overtime Approvals</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="admin-drawer-link active" href="admin-attendance.html">
-                        <i class="bi bi-clock-history"></i>
-                        <span>Attendance Logs</span>
-                    </a>
-                </li>
-                <li class="my-2 border-top"></li>
-                <li>
-                    <a class="admin-drawer-link text-muted" href="index.html">
-                        <i class="bi bi-box-arrow-up-right"></i>
-                        <span>Main Website</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="pt-3 border-top">
-                <a href="login.html" class="admin-drawer-link text-danger">
-                    <i class="bi bi-box-arrow-right text-danger"></i>
-                    <span>Sign Out</span>
-                </a>
-            </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+              >e-Attendance</span
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link active" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li class="my-2 border-top"></li>
+          <li>
+            <a class="admin-drawer-link text-muted" href="index.html">
+              <i class="bi bi-box-arrow-up-right"></i>
+              <span>Main Website</span>
+            </a>
+          </li>
+        </ul>
+        <div class="pt-3 border-top">
+          <a href="login.html" class="admin-drawer-link text-danger">
+            <i class="bi bi-box-arrow-right text-danger"></i>
+            <span>Sign Out</span>
+          </a>
         </div>
+      </div>
     </div>
 
     <!-- Main Workspace Container -->
     <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
-        
-        <!-- Top Row: Page Title & Export Action -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
-            <h4 class="fw-bold mb-0 text-tnb-red" style="font-family: var(--font-headings); font-size: 1.35rem; letter-spacing: 0.5px;">
-                ATTENDANCE LOGS
-            </h4>
+      <!-- Top Row: Page Title & Export Action -->
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+      >
+        <h4
+          class="fw-bold mb-0 text-tnb-red"
+          style="
+            font-family: var(--font-headings);
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+          "
+        >
+          ATTENDANCE LOGS
+        </h4>
 
-            <!-- Top Right Export CSV Button -->
-            <button type="button" class="btn btn-export-csv shadow-sm" data-bs-toggle="modal" data-bs-target="#exportModal">
-                <i class="bi bi-file-earmark-spreadsheet-fill fs-5"></i>
-                <span>EXPORT TIMESHEET CSV</span>
-            </button>
+        <!-- Top Right Export CSV Button -->
+        <button
+          type="button"
+          class="btn btn-export-csv shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#exportModal"
+        >
+          <i class="bi bi-file-earmark-spreadsheet-fill fs-5"></i>
+          <span>EXPORT TIMESHEET CSV</span>
+        </button>
+      </div>
+
+      <!-- Solid Card Container with Top Red Crest -->
+      <div class="log-clean-card">
+        <!-- Filters & Search Toolbar -->
+        <div class="row g-3 align-items-center mb-4">
+          <!-- Date Filter -->
+          <div class="col-12 col-md-auto">
+            <label class="form-label small fw-bold text-primary mb-1"
+              >Date</label
+            >
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2"
+                type="button"
+                id="dateFilterDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span id="selectedDateLabel">Today: 09 October 2026</span>
+              </button>
+              <ul
+                class="dropdown-menu shadow-sm border rounded-3 p-2"
+                aria-labelledby="dateFilterDropdown"
+                style="min-width: 240px"
+              >
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('today', 'Today: 09 October 2026')"
+                    >Today</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setDatePreset('yesterday', 'Yesterday: 08 October 2026')
+                    "
+                    >Yesterday</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('week', 'This Week (Past 7 Days)')"
+                    >This Week (Past 7 Days)</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('all', 'All Recorded Dates')"
+                    >All Recorded Dates</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider my-1" /></li>
+                <li class="px-2 py-1">
+                  <label
+                    class="form-label text-muted small mb-1"
+                    style="font-size: 0.75rem; font-weight: 600"
+                    >Pick Specific Date:</label
+                  >
+                  <input
+                    type="date"
+                    id="calendarDatePick"
+                    class="form-control form-control-sm border shadow-none"
+                    onchange="handleSpecificDate(this.value)"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Status Filter Dropdown -->
+          <div class="col-12 col-md-auto">
+            <label class="form-label small fw-bold text-primary mb-1"
+              >Status</label
+            >
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2"
+                type="button"
+                id="statusFilterDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span id="selectedStatusLabel">All Status</span>
+              </button>
+              <ul
+                class="dropdown-menu shadow-sm border rounded-3 p-2"
+                aria-labelledby="statusFilterDropdown"
+                style="min-width: 230px"
+              >
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setStatusFilter('all', 'All Status')"
+                    >All Status</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold text-primary"
+                    href="javascript:void(0)"
+                    onclick="
+                      setStatusFilter('active', 'On Duty (Active Shifts)')
+                    "
+                    >On Duty (Active Shifts)</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold text-success"
+                    href="javascript:void(0)"
+                    onclick="
+                      setStatusFilter(
+                        'completed_office',
+                        'Completed (Main Office)',
+                      )
+                    "
+                    >Completed (Main Office)</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold text-success"
+                    href="javascript:void(0)"
+                    onclick="
+                      setStatusFilter('completed_site', 'Completed (Site)')
+                    "
+                    >Completed (Site)</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold text-warning"
+                    href="javascript:void(0)"
+                    onclick="setStatusFilter('left_early', 'Left Early')"
+                    >Left Early</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold text-danger"
+                    href="javascript:void(0)"
+                    onclick="
+                      setStatusFilter(
+                        'outside_area',
+                        'Outside Area (Unverified)',
+                      )
+                    "
+                    >Outside Area (Unverified)</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Search Input Box -->
+          <div class="col-12 col-md ms-md-auto" style="max-width: 320px">
+            <label
+              class="form-label small fw-bold text-transparent mb-1 d-none d-md-block"
+              >Search</label
+            >
+            <div class="position-relative">
+              <input
+                type="text"
+                id="logSearchInput"
+                onkeyup="handleFilterSearch()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Search staff name or ID..."
+              />
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
+            </div>
+          </div>
         </div>
 
-        <!-- Solid Card Container with Top Red Crest -->
-        <div class="log-clean-card">
-            
-            <!-- Filters & Search Toolbar -->
-            <div class="row g-3 align-items-center mb-4">
-                
-                <!-- Date Filter -->
-                <div class="col-12 col-md-auto">
-                    <label class="form-label small fw-bold text-primary mb-1">Date</label>
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2" type="button" id="dateFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="selectedDateLabel">Today: 09 October 2026</span>
-                        </button>
-                        <ul class="dropdown-menu shadow-sm border rounded-3 p-2" aria-labelledby="dateFilterDropdown">
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setDateFilter('today', 'Today: 09 October 2026')">Today: 09 October 2026</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setDateFilter('yesterday', 'Yesterday: 08 October 2026')">Yesterday: 08 October 2026</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setDateFilter('all', 'All Recorded Dates')">All Recorded Dates</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Status Filter -->
-                <div class="col-12 col-md-auto">
-                    <label class="form-label small fw-bold text-primary mb-1">Status</label>
-                    <div class="dropdown">
-                        <button class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2" type="button" id="statusFilterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span id="selectedStatusLabel">All Status</span>
-                        </button>
-                        <ul class="dropdown-menu shadow-sm border rounded-3 p-2" aria-labelledby="statusFilterDropdown" style="min-width: 220px;">
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setStatusFilter('all', 'All Status')">All Status</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setStatusFilter('main_office', 'Within Radius (Main Office)')">Within Radius (Main Office)</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setStatusFilter('offsite', 'Authorized Off-Site')">Authorized Off-Site</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setStatusFilter('site_verified', 'Within Radius (Site)')">Within Radius (Site)</a></li>
-                            <li><a class="dropdown-item py-2" href="javascript:void(0)" onclick="setStatusFilter('left_early', 'Early Departure')">Early Departure</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Search Input Box -->
-                <div class="col-12 col-md ms-md-auto" style="max-width: 320px;">
-                    <label class="form-label small fw-bold text-transparent mb-1 d-none d-md-block">Search</label>
-                    <div class="position-relative">
-                        <input type="text" id="logSearchInput" onkeyup="handleFilterSearch()" class="form-control form-control-sm border rounded-2 ps-4" placeholder="Search staff name or ID...">
-                        <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"></i>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- DESKTOP VIEW: Master Attendance Logs Table -->
-            <div class="table-responsive d-none d-md-block">
-                <table class="table align-middle text-start mb-0 table-animated">
-                    <thead class="dispatch-table-head text-center">
-                        <tr>
-                            <th class="text-start ps-4" style="width: 220px;">Name</th>
-                            <th>Clock In</th>
-                            <th>Clock Out</th>
-                            <th>Work Hours</th>
-                            <th>Status</th>
-                            <th class="text-center" style="width: 100px;">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="dispatch-table-body" id="attendanceTableBody">
-                        <!-- Populated dynamically via JavaScript -->
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- MOBILE VIEW: Stacked Cards -->
-            <div class="d-block d-md-none" id="attendanceMobileContainer">
-                <!-- Populated dynamically via JavaScript -->
-            </div>
-
-            <!-- Red Circle Button (Opens Modal with All Logs) -->
-            <button type="button" 
-                    onclick="openFullLogsModal()"
-                    class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow" 
-                    title="View Full Directory">
-                <i class="bi bi-chevron-right"></i>
-            </button>
-
+        <!-- DESKTOP VIEW: Master Attendance Logs Table -->
+        <div class="table-responsive d-none d-md-block">
+          <table class="table align-middle text-start mb-0 table-animated">
+            <thead class="dispatch-table-head text-center">
+              <tr>
+                <th class="text-start ps-4" style="width: 220px">Name</th>
+                <th>Clock In</th>
+                <th>Clock Out</th>
+                <th>Work Hours</th>
+                <th>Status</th>
+                <th class="text-center" style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody class="dispatch-table-body" id="attendanceTableBody">
+              <!-- Populated dynamically via JavaScript -->
+            </tbody>
+          </table>
         </div>
 
+        <!-- MOBILE VIEW: Stacked Cards -->
+        <div class="d-block d-md-none" id="attendanceMobileContainer">
+          <!-- Populated dynamically via JavaScript -->
+        </div>
+
+        <!-- Red Circle Button (Opens Modal with All Logs) -->
+        <button
+          type="button"
+          onclick="openFullLogsModal()"
+          class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+          title="View Full Directory"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
     </main>
 
     <!-- =========================================================
          ATTENDANCE STATUS & GPS VERIFICATION MODAL
     ========================================================== -->
-    <div class="modal fade" id="statusDetailModal" tabindex="-1" aria-labelledby="statusDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 680px;">
-            <div class="modal-content rounded-4 border-0 shadow-lg p-3">
-                
-                <!-- Modal Header -->
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="statusDetailModalLabel" style="color: #f66530; font-family: var(--font-headings); font-size: 1.25rem;">
-                        ATTENDANCE STATUS
-                    </h5>
-                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
+    <div
+      class="modal fade"
+      id="statusDetailModal"
+      tabindex="-1"
+      aria-labelledby="statusDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-lg"
+        style="max-width: 680px"
+      >
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <!-- Modal Header -->
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="statusDetailModalLabel"
+              style="
+                color: #f66530;
+                font-family: var(--font-headings);
+                font-size: 1.25rem;
+              "
+            >
+              ATTENDANCE STATUS
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
 
-                <!-- Modal Body -->
-                <div class="modal-body py-3">
-                    
-                    <!-- Staff Header Profile & Site Permission Status -->
-                    <div class="mb-3">
-                        <div class="fw-bold text-dark fs-6" id="detailStaffName">Staff Name (KCA-000)</div>
-                        <div class="d-flex align-items-center gap-2 mt-1">
-                            <span class="fs-5">👷</span>
-                            <span class="fw-bold text-secondary small" id="detailStaffMode">Authorized Off-Site</span>
-                        </div>
-                    </div>
-
-                    <!-- Task Scope & Validity Details -->
-                    <div class="d-flex align-items-start gap-2 p-2 rounded-2 bg-light border mb-4">
-                        <i class="bi bi-info-circle-fill text-dark fs-5 mt-1"></i>
-                        <div class="small text-secondary" style="line-height: 1.45;">
-                            <div><strong>Task / Details:</strong> <span id="detailTaskDescription">Substation Breaker and Relay Inspection</span></div>
-                            <div><strong>Validity / Date:</strong> <span id="detailValidityDate">09/10/2026 (Today)</span></div>
-                        </div>
-                    </div>
-
-                    <!-- Two Side-by-Side GPS Punch Cards -->
-                    <div class="row g-3">
-                        
-                        <!-- CLOCK-IN GPS CARD -->
-                        <div class="col-12 col-md-6">
-                            <div class="gps-punch-box">
-                                <div class="gps-punch-title">CLOCK-IN</div>
-                                <ul class="list-unstyled small mb-3 text-secondary" style="line-height: 1.7;">
-                                    <li><strong>• Punch Time:</strong> <span id="detailInTime" class="text-dark fw-semibold">08:35 AM</span></li>
-                                    <li><strong>• GPS Coords:</strong> <span id="detailInCoords" class="text-dark">4.542109, 101.128741</span></li>
-                                    <li><strong>• Precision:</strong> <span id="detailInPrecision">+- 8 meters</span></li>
-                                    <li><strong>• Location:</strong> <span id="detailInLocation" class="text-dark fw-semibold">Pusing</span></li>
-                                    <li><strong>• Match State:</strong> <span id="detailInMatch" class="badge bg-success text-white">Within Radius</span></li>
-                                </ul>
-                                <a id="btnMapIn" href="#" target="_blank" class="btn btn-view-maps text-center">
-                                    <i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS
-                                </a>
-                            </div>
-                        </div>
-
-                        <!-- CLOCK-OUT GPS CARD -->
-                        <div class="col-12 col-md-6">
-                            <div class="gps-punch-box">
-                                <div class="gps-punch-title">CLOCK-OUT</div>
-                                <ul class="list-unstyled small mb-3 text-secondary" style="line-height: 1.7;">
-                                    <li><strong>• Punch Time:</strong> <span id="detailOutTime" class="text-dark fw-semibold">17:35 PM</span></li>
-                                    <li><strong>• GPS Coords:</strong> <span id="detailOutCoords" class="text-dark">4.542120, 101.128735</span></li>
-                                    <li><strong>• Precision:</strong> <span id="detailOutPrecision">+- 7 meters</span></li>
-                                    <li><strong>• Location:</strong> <span id="detailOutLocation" class="text-dark fw-semibold">Pusing</span></li>
-                                    <li><strong>• Match State:</strong> <span id="detailOutMatch" class="badge bg-success text-white">Within Radius</span></li>
-                                </ul>
-                                <a id="btnMapOut" href="#" target="_blank" class="btn btn-view-maps text-center">
-                                    <i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS
-                                </a>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
+          <!-- Staff Header Profile & Site Permission Status -->
+          <div class="mb-3">
+            <div class="fw-bold text-dark fs-6" id="detailStaffName">
+              Staff Name (KCA-000)
             </div>
+            <div class="d-flex align-items-center gap-2 mt-1">
+              <span class="fs-5" id="detailStaffIcon">👷</span>
+              <span class="fw-bold text-secondary small" id="detailStaffMode"
+                >Authorized Off-Site</span
+              >
+            </div>
+          </div>
+
+          <!-- Task Scope & Validity Details -->
+          <div
+            class="d-flex align-items-start gap-2 p-2 rounded-2 bg-light border mb-4"
+          >
+            <i class="bi bi-info-circle-fill text-dark fs-5 mt-1"></i>
+            <div class="small text-secondary" style="line-height: 1.45">
+              <div>
+                <strong>Task / Details:</strong>
+                <span id="detailTaskDescription"
+                  >Substation Breaker and Relay Inspection</span
+                >
+              </div>
+              <div>
+                <strong id="detailValidityLabel">Validity / Date:</strong>
+                <span id="detailValidityDate">09/10/2026 (Today)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two Side-by-Side GPS Punch Cards -->
+          <div class="row g-3">
+            <!-- CLOCK-IN GPS CARD -->
+            <div class="col-12 col-md-6">
+              <div class="gps-punch-box">
+                <div class="gps-punch-title">CLOCK-IN</div>
+                <ul
+                  class="list-unstyled small mb-3 text-secondary"
+                  style="line-height: 1.7"
+                >
+                  <li>
+                    <strong>• Punch Time:</strong>
+                    <span id="detailInTime" class="text-dark fw-semibold"
+                      >08:35 AM</span
+                    >
+                  </li>
+                  <li>
+                    <strong>• GPS Coords:</strong>
+                    <span id="detailInCoords" class="text-dark"
+                      >4.542109, 101.128741</span
+                    >
+                  </li>
+                  <li>
+                    <strong>• Precision:</strong>
+                    <span id="detailInPrecision">+- 8 meters</span>
+                  </li>
+                  <li>
+                    <strong>• Location:</strong>
+                    <span id="detailInLocation" class="text-dark fw-semibold"
+                      >Pusing</span
+                    >
+                  </li>
+                  <li>
+                    <strong>• Match State:</strong>
+                    <span id="detailInMatch" class="badge bg-success text-white"
+                      >Within Radius</span
+                    >
+                  </li>
+                </ul>
+                <a
+                  id="btnMapIn"
+                  href="#"
+                  target="_blank"
+                  class="btn btn-view-maps text-center"
+                >
+                  <i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS
+                </a>
+              </div>
+            </div>
+
+            <!-- CLOCK-OUT GPS CARD -->
+            <div class="col-12 col-md-6">
+              <div class="gps-punch-box">
+                <div class="gps-punch-title">CLOCK-OUT</div>
+                <ul
+                  class="list-unstyled small mb-3 text-secondary"
+                  style="line-height: 1.7"
+                >
+                  <li>
+                    <strong>• Punch Time:</strong>
+                    <span id="detailOutTime" class="text-dark fw-semibold"
+                      >17:35 PM</span
+                    >
+                  </li>
+                  <li>
+                    <strong>• GPS Coords:</strong>
+                    <span id="detailOutCoords" class="text-dark"
+                      >4.542120, 101.128735</span
+                    >
+                  </li>
+                  <li>
+                    <strong>• Precision:</strong>
+                    <span id="detailOutPrecision">+- 7 meters</span>
+                  </li>
+                  <li>
+                    <strong>• Location:</strong>
+                    <span id="detailOutLocation" class="text-dark fw-semibold"
+                      >Pusing</span
+                    >
+                  </li>
+                  <li>
+                    <strong>• Match State:</strong>
+                    <span
+                      id="detailOutMatch"
+                      class="badge bg-success text-white"
+                      >Within Radius</span
+                    >
+                  </li>
+                </ul>
+                <a
+                  id="btnMapOut"
+                  href="#"
+                  target="_blank"
+                  class="btn btn-view-maps text-center"
+                >
+                  <i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- =========================================================
          EXPORT PAYROLL TIMESHEET MODAL (WITH REAL CLIENT-SIDE CSV)
     ========================================================== -->
-    <div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="exportModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" style="max-width: 480px;">
-            <div class="modal-content rounded-4 border-0 shadow-lg p-3">
-                
-                <div class="modal-header border-0 pb-0">
-                    <h5 class="modal-title fw-bold" id="exportModalLabel" style="color: #4cae4c; font-family: var(--font-headings); font-size: 1.15rem;">
-                        EXPORT PAYROLL TIMESHEET
-                    </h5>
-                    <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div
+      class="modal fade"
+      id="exportModal"
+      tabindex="-1"
+      aria-labelledby="exportModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="exportModalLabel"
+              style="
+                color: #4cae4c;
+                font-family: var(--font-headings);
+                font-size: 1.15rem;
+              "
+            >
+              EXPORT PAYROLL TIMESHEET
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <form
+              id="exportTimesheetForm"
+              onsubmit="generateAndDownloadCSV(event)"
+            >
+              <!-- Period Selection -->
+              <div class="mb-4">
+                <label
+                  class="form-label small fw-bold text-dark text-uppercase mb-2"
+                  >Select Export Period</label
+                >
+
+                <!-- Option 1: Monthly (Month Calendar Picker) -->
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="periodMonthly"
+                    value="monthly"
+                    checked
+                    onchange="toggleExportInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="periodMonthly"
+                  >
+                    Full Monthly Payroll
+                  </label>
+                  <input
+                    type="month"
+                    id="selectMonthPayroll"
+                    class="form-control form-control-sm mt-1 border shadow-none small"
+                    value="2026-10"
+                  />
                 </div>
 
-                <div class="modal-body py-3">
-                    <form id="exportTimesheetForm" onsubmit="generateAndDownloadCSV(event)">
-                        
-                        <!-- Period Selection -->
-                        <div class="mb-4">
-                            <label class="form-label small fw-bold text-dark text-uppercase mb-2">Select Export Period</label>
-                            
-                            <!-- Option 1: Monthly -->
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="exportPeriod" id="periodMonthly" value="monthly" checked onchange="toggleExportInputs()">
-                                <label class="form-check-label small fw-bold text-dark" for="periodMonthly">
-                                    Full Monthly Payroll
-                                </label>
-                                <select id="selectMonthPayroll" class="form-select form-select-sm mt-1 border shadow-none small">
-                                    <option value="10-2026" selected>October 2026</option>
-                                    <option value="09-2026">September 2026</option>
-                                    <option value="08-2026">August 2026</option>
-                                </select>
-                            </div>
-
-                            <!-- Option 2: Custom Range -->
-                            <div class="form-check mb-2">
-                                <input class="form-check-input" type="radio" name="exportPeriod" id="periodCustom" value="custom" onchange="toggleExportInputs()">
-                                <label class="form-check-label small fw-bold text-dark" for="periodCustom">
-                                    Custom Date Range
-                                </label>
-                                <div class="row g-2 mt-1">
-                                    <div class="col-6">
-                                        <input type="date" id="exportStartDate" class="form-control form-control-sm border shadow-none small" value="2026-10-01" disabled>
-                                    </div>
-                                    <div class="col-6">
-                                        <input type="date" id="exportEndDate" class="form-control form-control-sm border shadow-none small" value="2026-10-09" disabled>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Option 3: Single Day -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="exportPeriod" id="periodSingle" value="single" onchange="toggleExportInputs()">
-                                <label class="form-check-label small fw-bold text-dark" for="periodSingle">
-                                    Single Day
-                                </label>
-                                <input type="date" id="exportSingleDate" class="form-control form-control-sm mt-1 border shadow-none small" value="2026-10-09" disabled>
-                            </div>
-                        </div>
-
-                        <!-- Report Type -->
-                        <div class="mb-4">
-                            <label class="form-label small fw-bold text-dark text-uppercase mb-2">Report Type</label>
-                            <div class="d-flex gap-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="reportType" id="typePayroll" value="payroll" checked>
-                                    <label class="form-check-label small fw-bold text-dark" for="typePayroll">
-                                        Payroll &amp; Salary
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="reportType" id="typeAttendance" value="attendance">
-                                    <label class="form-check-label small fw-bold text-dark" for="typeAttendance">
-                                        Attendance &amp; Hours
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Actions -->
-                        <div class="d-flex gap-2 justify-content-end">
-                            <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold" data-bs-dismiss="modal">
-                                CANCEL
-                            </button>
-                            <button type="submit" class="btn btn-success px-3 py-2 rounded-2 fw-bold" style="background-color: #4cae4c; border-color: #4cae4c;">
-                                EXPORT (.CSV)
-                            </button>
-                        </div>
-                    </form>
+                <!-- Option 2: Custom Range -->
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="periodCustom"
+                    value="custom"
+                    onchange="toggleExportInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="periodCustom"
+                  >
+                    Custom Date Range
+                  </label>
+                  <div class="row g-2 mt-1">
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportStartDate"
+                        class="form-control form-control-sm border shadow-none small"
+                        value="2026-10-01"
+                        disabled
+                      />
+                    </div>
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportEndDate"
+                        class="form-control form-control-sm border shadow-none small"
+                        value="2026-10-09"
+                        disabled
+                      />
+                    </div>
+                  </div>
                 </div>
 
-            </div>
+                <!-- Option 3: Single Day -->
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="periodSingle"
+                    value="single"
+                    onchange="toggleExportInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="periodSingle"
+                  >
+                    Single Day
+                  </label>
+                  <input
+                    type="date"
+                    id="exportSingleDate"
+                    class="form-control form-control-sm mt-1 border shadow-none small"
+                    value="2026-10-09"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <!-- Report Type -->
+              <div class="mb-4">
+                <label
+                  class="form-label small fw-bold text-dark text-uppercase mb-2"
+                  >Report Type</label
+                >
+                <div class="d-flex gap-4">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="reportType"
+                      id="typePayroll"
+                      value="payroll"
+                      checked
+                    />
+                    <label
+                      class="form-check-label small fw-bold text-dark"
+                      for="typePayroll"
+                    >
+                      Payroll &amp; Salary
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="reportType"
+                      id="typeAttendance"
+                      value="attendance"
+                    />
+                    <label
+                      class="form-check-label small fw-bold text-dark"
+                      for="typeAttendance"
+                    >
+                      Attendance &amp; Hours
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="d-flex gap-2 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success px-3 py-2 rounded-2 fw-bold"
+                  style="background-color: #4cae4c; border-color: #4cae4c"
+                >
+                  EXPORT (.CSV)
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Table List Attendance -->
+    <div
+      class="modal fade"
+      id="fullAttendanceModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <h5
+                class="modal-title fw-bold text-tnb-blue"
+                style="font-family: var(--font-headings)"
+              >
+                Master Attendance Directory
+              </h5>
+              <span class="text-muted small"
+                >Full log of all staff attendance records</span
+              >
+            </div>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <div
+              class="table-responsive"
+              style="max-height: 520px; overflow-y: auto"
+            >
+              <table
+                class="table table-bordered table-hover align-middle text-start mb-0 small"
+              >
+                <thead class="dispatch-table-head sticky-top text-center">
+                  <tr>
+                    <th class="text-start ps-3">Staff Name &amp; ID</th>
+                    <th>Date</th>
+                    <th>Clock In</th>
+                    <th>Clock Out</th>
+                    <th>Work Hours</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="fullAttendanceTableBody">
+                  <!-- JS inserts all rows here -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm px-4 rounded-3"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Alert Popup For Export-->
+    <div
+      class="modal fade"
+      id="statusAlertModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3 text-center">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body py-2 px-3">
+            <div id="statusAlertIcon" class="mb-3 fs-1 lh-1"></div>
+            <h5
+              class="fw-bold mb-2"
+              id="statusAlertTitle"
+              style="font-family: var(--font-headings)"
+            >
+              Notice
+            </h5>
+            <p
+              class="text-secondary small mb-4"
+              id="statusAlertMessage"
+              style="line-height: 1.5"
+            ></p>
+            <button
+              type="button"
+              class="btn w-100 fw-bold py-2 rounded-3 text-white"
+              data-bs-dismiss="modal"
+              style="background-color: var(--tnb-blue)"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Client-Side Engine -->
     <script>
-        // Baseline Master Attendance Records matching your mockup screenshots[cite: 16]
-        const INITIAL_ATTENDANCE_LOGS = [
-            {
-                id: "LOG-001",
-                staffId: "KCA-001",
-                name: "Azhar Rashid",
-                date: "09 Oct 2026",
-                clockInTime: "08:24 AM",
-                clockInLocation: "Main Office",
-                clockInCoords: "4.539040, 101.056012",
-                clockInPrecision: "+- 5 meters",
-                clockOutTime: "17:15 PM",
-                clockOutLocation: "Main Office",
-                clockOutCoords: "4.539045, 101.056018",
-                clockOutPrecision: "+- 6 meters",
-                workHours: "8.8 hrs",
-                otHours: "0.0 hrs",
-                statusKey: "main_office",
-                statusBadge: "Within Radius (Main Office)",
-                badgeColor: "success",
-                taskDetails: "HQ Electrical Panel Workshop Assembly",
-                validity: "Permanent Base (Lahat HQ)"
-            },
-            {
-                id: "LOG-002",
-                staffId: "KCA-002",
-                name: "Daniel Saad",
-                date: "09 Oct 2026",
-                clockInTime: "08:35 AM",
-                clockInLocation: "Batu Gajah (Off-Site)",
-                clockInCoords: "4.469120, 101.041830",
-                clockInPrecision: "+- 9 meters",
-                clockOutTime: "--:--",
-                clockOutLocation: "(On Duty)",
-                clockOutCoords: "4.469120, 101.041830",
-                clockOutPrecision: "+- 9 meters",
-                workHours: "In Progress",
-                otHours: "0.0 hrs",
-                statusKey: "offsite",
-                statusBadge: "Authorized Off-Site",
-                badgeColor: "primary",
-                taskDetails: "Batu Gajah 33kV Substation Breaker Retrofit",
-                validity: "09/10/2026 (Shift Active)"
-            },
-            {
-                id: "LOG-003",
-                staffId: "KCA-003",
-                name: "Mohd Syafiq",
-                date: "09 Oct 2026",
-                clockInTime: "08:35 AM",
-                clockInLocation: "Pusing (Off-Site)",
-                clockInCoords: "4.542109, 101.128741",
-                clockInPrecision: "+- 8 meters",
-                clockOutTime: "17:35 PM",
-                clockOutLocation: "(Pusing)",
-                clockOutCoords: "4.542120, 101.128735",
-                clockOutPrecision: "+- 7 meters",
-                workHours: "9.0 hrs",
-                otHours: "0.0 hrs",
-                statusKey: "site_verified",
-                statusBadge: "Within Radius (Pusing)",
-                badgeColor: "success",
-                taskDetails: "Substation Breaker and Relay Inspection",
-                validity: "09/10/2026 (Today)"
-            },
-            {
-                id: "LOG-004",
-                staffId: "KCA-004",
-                name: "Ahmad Razak",
-                date: "09 Oct 2026",
-                clockInTime: "08:15 AM",
-                clockInLocation: "Simpang Pulai",
-                clockInCoords: "4.531200, 101.139400",
-                clockInPrecision: "+- 6 meters",
-                clockOutTime: "19:45 PM",
-                clockOutLocation: "(Ipoh)",
-                clockOutCoords: "4.598200, 101.090100",
-                clockOutPrecision: "+- 10 meters",
-                workHours: "11.5 hrs",
-                otHours: "2.2 hrs",
-                statusKey: "left_early",
-                statusBadge: "Early Departure (Off-Site)",
-                badgeColor: "warning",
-                taskDetails: "Simpang Pulai Transformer Replacement & Commissioning",
-                validity: "09/10/2026 (Today)"
-            },
-            {
-                id: "LOG-005",
-                staffId: "KCA-008",
-                name: "Mohd Ridzuan",
-                date: "08 Oct 2026",
-                clockInTime: "17:00 PM",
-                clockInLocation: "Gopeng 33kV Line",
-                clockInCoords: "4.451000, 101.168000",
-                clockInPrecision: "+- 12 meters",
-                clockOutTime: "01:10 AM",
-                clockOutLocation: "(Next Day)",
-                clockOutCoords: "4.451050, 101.168020",
-                clockOutPrecision: "+- 11 meters",
-                workHours: "8.1 hrs",
-                otHours: "8.0 hrs",
-                statusKey: "site_verified",
-                statusBadge: "Midnight Rollover Verified",
-                badgeColor: "success",
-                taskDetails: "Emergency Transmission Line Breakdown Restoration",
-                validity: "08/10/2026 (Overnight Shift)"
-            },
-            {
-                id: "LOG-006",
-                staffId: "KCA-024",
-                name: "Khairul Anuar",
-                date: "08 Oct 2026",
-                clockInTime: "08:00 AM",
-                clockInLocation: "Ipoh PMU",
-                clockInCoords: "4.583000, 101.082000",
-                clockInPrecision: "+- 6 meters",
-                clockOutTime: "19:15 PM",
-                clockOutLocation: "(Ipoh PMU)",
-                clockOutCoords: "4.583010, 101.082010",
-                clockOutPrecision: "+- 5 meters",
-                workHours: "11.2 hrs",
-                otHours: "2.2 hrs",
-                statusKey: "site_verified",
-                statusBadge: "Within Radius (Ipoh)",
-                badgeColor: "success",
-                taskDetails: "Cable Termination and Hi-Pot Testing",
-                validity: "08/10/2026 (Today)"
-            }
+      // Baseline Master Attendance Records matching your mockup screenshots[cite: 16]
+      const INITIAL_ATTENDANCE_LOGS = [
+        {
+          id: "LOG-001",
+          staffId: "KCA-001",
+          name: "Azhar Rashid",
+          date: "2026-10-09",
+          isHQStaff: true,
+          clockInTime: "08:24 AM",
+          clockInLocation: "Main Office",
+          clockInCoords: "4.539040, 101.056012",
+          clockInPrecision: "+- 5 meters",
+          clockOutTime: "17:15 PM",
+          clockOutLocation: "(Main Office)",
+          clockOutCoords: "4.539045, 101.056018",
+          clockOutPrecision: "+- 6 meters",
+          workHours: "8.8 hrs",
+          otHours: "0.0 hrs",
+          statusKey: "completed_office",
+          statusBadge: "Completed (Main Office)",
+          badgeColor: "success",
+        },
+        {
+          id: "LOG-002",
+          staffId: "KCA-002",
+          name: "Daniel Saad",
+          date: "2026-10-09",
+          isHQStaff: false,
+          taskDetails: "Batu Gajah 33kV Substation Breaker Retrofit",
+          validity: "Project Shift",
+          clockInTime: "08:35 AM",
+          clockInLocation: "Batu Gajah (Site)",
+          clockInCoords: "4.469120, 101.041830",
+          clockInPrecision: "+- 8 meters",
+          clockOutTime: "--:--",
+          clockOutLocation: "(On Duty)",
+          clockOutCoords: "4.469120, 101.041830",
+          clockOutPrecision: "+- 8 meters",
+          workHours: "In Progress",
+          otHours: "0.0 hrs",
+          statusKey: "active",
+          statusBadge: "On Duty (Site: Batu Gajah)",
+          badgeColor: "primary",
+        },
+        {
+          id: "LOG-003",
+          staffId: "KCA-003",
+          name: "Mohd Syafiq",
+          date: "2026-10-09",
+          isHQStaff: false,
+          taskDetails: "Substation Breaker and Relay Inspection",
+          validity: "Today",
+          clockInTime: "08:35 AM",
+          clockInLocation: "Pusing (Site)",
+          clockInCoords: "4.542109, 101.128741",
+          clockInPrecision: "+- 8 meters",
+          clockOutTime: "17:35 PM",
+          clockOutLocation: "(Pusing)",
+          clockOutCoords: "4.542120, 101.128735",
+          clockOutPrecision: "+- 7 meters",
+          workHours: "9.0 hrs",
+          otHours: "0.0 hrs",
+          statusKey: "completed_site",
+          statusBadge: "Completed (Site: Pusing)",
+          badgeColor: "success",
+        },
+        {
+          id: "LOG-004",
+          staffId: "KCA-004",
+          name: "Ahmad Razak",
+          date: "2026-10-09",
+          isHQStaff: false,
+          taskDetails: "Simpang Pulai Transformer Replacement",
+          validity: "Today",
+          clockInTime: "08:15 AM",
+          clockInLocation: "Simpang Pulai",
+          clockInCoords: "4.531200, 101.139400",
+          clockInPrecision: "+- 6 meters",
+          clockOutTime: "19:45 PM",
+          clockOutLocation: "(Ipoh)",
+          clockOutCoords: "4.598200, 101.090100",
+          clockOutPrecision: "+- 10 meters",
+          workHours: "11.5 hrs",
+          otHours: "2.2 hrs",
+          statusKey: "left_early",
+          statusBadge: "Left Early (Ipoh PMU)",
+          badgeColor: "warning",
+        },
+        {
+          id: "LOG-005",
+          staffId: "KCA-006",
+          name: "Farhan Naim",
+          date: "2026-10-09",
+          isHQStaff: true,
+          clockInTime: "08:05 AM",
+          clockInLocation: "Main Office",
+          clockInCoords: "4.539040, 101.056012",
+          clockInPrecision: "+- 5 meters",
+          clockOutTime: "16:45 PM",
+          clockOutLocation: "(Outside Perimeter)",
+          clockOutCoords: "4.562100, 101.089200",
+          clockOutPrecision: "+- 14 meters",
+          workHours: "8.6 hrs",
+          otHours: "0.0 hrs",
+          statusKey: "outside_area",
+          statusBadge: "Outside Area (Unverified)",
+          badgeColor: "danger",
+        },
+      ];
+
+      let activeDateFilter = "today";
+      let activeStatusFilter = "all";
+      let specificDatePicked = "";
+
+      // 1. Initialize State
+      window.addEventListener("DOMContentLoaded", () => {
+        const existing = JSON.parse(
+          localStorage.getItem("kca_master_attendance_logs"),
+        );
+        if (!existing || existing.length < 5) {
+          localStorage.setItem(
+            "kca_master_attendance_logs",
+            JSON.stringify(INITIAL_ATTENDANCE_LOGS),
+          );
+        }
+        renderAttendanceTable();
+      });
+
+      // Helper: Convert YYYY-MM-DD (e.g. 2026-10-09) to Human Readable (09 Oct 2026)
+      function formatDisplayDate(isoDateStr) {
+        if (!isoDateStr) return "-";
+        const [y, m, d] = isoDateStr.split("-");
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
         ];
+        return `${d} ${months[parseInt(m, 10) - 1]} ${y}`;
+      }
 
-        let activeDateFilter = 'today';
-        let activeStatusFilter = 'all';
+      // 2. Render Desktop Table and Mobile Cards
+      function renderAttendanceTable() {
+        const logs =
+          JSON.parse(localStorage.getItem("kca_master_attendance_logs")) ||
+          INITIAL_ATTENDANCE_LOGS;
+        const desktopTbody = document.getElementById("attendanceTableBody");
+        const mobileContainer = document.getElementById(
+          "attendanceMobileContainer",
+        );
+        const searchQuery = document
+          .getElementById("logSearchInput")
+          .value.toLowerCase()
+          .trim();
 
-        // 1. Initialize State
-        window.addEventListener('DOMContentLoaded', () => {
-            const existing = JSON.parse(localStorage.getItem('kca_master_attendance_logs'));
-            if (!existing || existing.length < 5) {
-                localStorage.setItem('kca_master_attendance_logs', JSON.stringify(INITIAL_ATTENDANCE_LOGS));
-            }
-            renderAttendanceTable();
+        desktopTbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        const filtered = logs.filter((log) => {
+          // Date Filter
+          if (activeDateFilter === "today" && log.date !== "2026-10-09") {
+            return false;
+          }
+          if (activeDateFilter === "yesterday" && log.date !== "2026-10-08") {
+            return false;
+          }
+          if (
+            activeDateFilter === "specific" &&
+            log.date !== specificDatePicked
+          ) {
+            return false;
+          }
+
+          // Status Filter
+          if (activeStatusFilter !== "all") {
+            if (activeStatusFilter === "active" && log.statusKey !== "active")
+              return false;
+            if (
+              activeStatusFilter === "completed_office" &&
+              log.statusKey !== "completed_office"
+            )
+              return false;
+            if (
+              activeStatusFilter === "completed_site" &&
+              log.statusKey !== "completed_site"
+            )
+              return false;
+            if (
+              activeStatusFilter === "left_early" &&
+              log.statusKey !== "left_early"
+            )
+              return false;
+            if (
+              activeStatusFilter === "outside_area" &&
+              log.statusKey !== "outside_area"
+            )
+              return false;
+          }
+
+          // Search Filter
+          if (searchQuery) {
+            const matchText =
+              `${log.staffId} ${log.name} ${log.clockInLocation} ${log.clockOutLocation}`.toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
         });
 
-        // 2. Render Desktop Table and Mobile Cards
-        function renderAttendanceTable() {
-            const logs = JSON.parse(localStorage.getItem('kca_master_attendance_logs')) || INITIAL_ATTENDANCE_LOGS;
-            const desktopTbody = document.getElementById('attendanceTableBody');
-            const mobileContainer = document.getElementById('attendanceMobileContainer');
-            const searchQuery = document.getElementById('logSearchInput').value.toLowerCase().trim();
+        if (filtered.length === 0) {
+          desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted small">No attendance records found matching current filter.</td></tr>`;
+          mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No attendance records found matching current filter.</div>`;
+          return;
+        }
 
-            desktopTbody.innerHTML = '';
-            mobileContainer.innerHTML = '';
+        // Render Rows
+        filtered.forEach((log) => {
+          const isWarning = log.badgeColor === "warning";
+          const isPrimary = log.badgeColor === "primary";
 
-            const filtered = logs.filter(log => {
-                // Date Filter
-                if (activeDateFilter === 'today' && !log.date.includes('09 Oct')) return false;
-                if (activeDateFilter === 'yesterday' && !log.date.includes('08 Oct')) return false;
+          let badgeClass = "bg-success text-white";
+          if (log.badgeColor === "primary") {
+            badgeClass = "bg-primary-subtle text-primary border"; // Blue badge for On Duty
+          } else if (log.badgeColor === "warning") {
+            badgeClass = "bg-warning text-dark"; // Amber badge for Left Early
+          } else if (log.badgeColor === "danger") {
+            badgeClass = "bg-danger text-white"; // Red badge for Outside Area
+          }
 
-                // Status Filter
-                if (activeStatusFilter !== 'all' && log.statusKey !== activeStatusFilter) return false;
+          const workHoursDisplay =
+            log.otHours && log.otHours !== "0.0 hrs"
+              ? `<div>${log.workHours}</div><div class="small text-muted">(OT: ${log.otHours})</div>`
+              : `<div>${log.workHours}</div>`;
 
-                // Search Filter
-                if (searchQuery) {
-                    const matchText = `${log.staffId} ${log.name} ${log.clockInLocation} ${log.clockOutLocation}`.toLowerCase();
-                    if (!matchText.includes(searchQuery)) return false;
-                }
-                return true;
-            });
-
-            if (filtered.length === 0) {
-                desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted small">No attendance records found matching current filter.</td></tr>`;
-                mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No attendance records found matching current filter.</div>`;
-                return;
-            }
-
-            // Render Rows
-            filtered.forEach(log => {
-                const isWarning = log.badgeColor === 'warning';
-                const isPrimary = log.badgeColor === 'primary';
-                
-                let badgeClass = 'bg-success text-white';
-                if (isWarning) badgeClass = 'bg-warning text-dark';
-                else if (isPrimary) badgeClass = 'bg-primary-subtle text-primary border';
-
-                const workHoursDisplay = log.otHours && log.otHours !== '0.0 hrs' 
-                    ? `<div>${log.workHours}</div><div class="small text-muted">(OT: ${log.otHours})</div>`
-                    : `<div>${log.workHours}</div>`;
-
-                // Desktop Table Row[cite: 16]
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
+          // Desktop Table Row[cite: 16]
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
                     <td class="text-start ps-4">
                         <div class="fw-bold text-dark">${log.staffId}</div>
                         <div class="text-secondary small">${log.name}</div>
@@ -630,7 +1209,7 @@
                     <td class="small fw-bold text-dark">${workHoursDisplay}</td>
                     <td>
                         <span class="badge ${badgeClass} px-3 py-2 rounded-pill fw-bold" style="font-size: 0.8rem;">
-                            <i class="bi ${isWarning ? 'bi-exclamation-triangle-fill' : 'bi-circle-fill'} me-1" style="font-size: 0.65rem;"></i>
+                            <i class="bi ${isWarning ? "bi-exclamation-triangle-fill" : "bi-circle-fill"} me-1" style="font-size: 0.65rem;"></i>
                             ${log.statusBadge}
                         </span>
                     </td>
@@ -640,128 +1219,382 @@
                         </button>
                     </td>
                 `;
-                desktopTbody.appendChild(tr);
+          desktopTbody.appendChild(tr);
 
-                // Mobile Card Layout[cite: 19]
-                const card = document.createElement('div');
-                card.className = 'dispatch-mobile-card mb-3 p-3';
-                card.innerHTML = `
+          // Mobile Card Layout[cite: 19]
+          const card = document.createElement("div");
+          card.className = "dispatch-mobile-card mb-3 p-3";
+          card.innerHTML = `
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span class="badge ${badgeClass} px-2 py-1">${log.statusBadge}</span>
-                        <span class="small text-muted">${log.date}</span>
+                        <span class="small text-muted">${formatDisplayDate(log.date)}</span>
                     </div>
                     <div class="fw-bold text-dark fs-6 mb-2">${log.staffId} ${log.name}</div>
                     <div class="small mb-1"><strong>Clock In:</strong> ${log.clockInTime} (${log.clockInLocation})</div>
                     <div class="small mb-1"><strong>Clock Out:</strong> ${log.clockOutTime} ${log.clockOutLocation}</div>
-                    <div class="small mb-3"><strong>Work Hours:</strong> ${log.workHours} ${log.otHours !== '0.0 hrs' ? `(OT: ${log.otHours})` : ''}</div>
+                    <div class="small mb-3"><strong>Work Hours:</strong> ${log.workHours} ${log.otHours !== "0.0 hrs" ? `(OT: ${log.otHours})` : ""}</div>
                     <div>
                         <button type="button" onclick="openDetailModal('${log.id}')" class="btn btn-more-action w-100">
                             More Details &amp; GPS
                         </button>
                     </div>
                 `;
-                mobileContainer.appendChild(card);
-            });
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      // 3. Filter Setters
+      function setDatePreset(mode, labelText) {
+        activeDateFilter = mode;
+        specificDatePicked = "";
+        document.getElementById("selectedDateLabel").innerText = labelText;
+
+        // Clear the calendar input if a preset is clicked
+        const dateInput = document.getElementById("calendarDatePick");
+        if (dateInput) dateInput.value = "";
+
+        renderAttendanceTable();
+      }
+
+      function handleSpecificDate(dateValue) {
+        if (!dateValue) return;
+
+        activeDateFilter = "specific";
+        specificDatePicked = dateValue;
+
+        // Format e.g. "2026-10-04" -> "Date: 04 Oct 2026"
+        const [year, month, day] = dateValue.split("-");
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+        const formattedLabel = `Date: ${day} ${months[parseInt(month) - 1]} ${year}`;
+
+        document.getElementById("selectedDateLabel").innerText = formattedLabel;
+
+        // Close dropdown menu once a date is selected
+        const dropdownEl = document.getElementById("dateFilterDropdown");
+        const bsDropdown = bootstrap.Dropdown.getInstance(dropdownEl);
+        if (bsDropdown) bsDropdown.hide();
+
+        renderAttendanceTable();
+      }
+
+      function setStatusFilter(filterVal, label) {
+        activeStatusFilter = filterVal;
+        document.getElementById("selectedStatusLabel").innerText = label;
+        renderAttendanceTable();
+      }
+
+      function handleFilterSearch() {
+        renderAttendanceTable();
+      }
+
+      // 4. Open GPS Details Inspection Modal
+      function openDetailModal(logId) {
+        const logs =
+          JSON.parse(localStorage.getItem("kca_master_attendance_logs")) ||
+          INITIAL_ATTENDANCE_LOGS;
+        const log = logs.find((l) => l.id === logId);
+        if (!log) return;
+
+        // Staff Header Info
+        document.getElementById("detailStaffName").innerText =
+          `${log.name} (${log.staffId})`;
+        document.getElementById("detailStaffMode").innerText = log.statusBadge;
+
+        // Adaptive Details: Main Office vs Off-Site Site Staff
+        const iconEl = document.getElementById("detailStaffIcon");
+        const taskEl = document.getElementById("detailTaskDescription");
+        const valLabelEl = document.getElementById("detailValidityLabel");
+        const valDateEl = document.getElementById("detailValidityDate");
+
+        if (log.isHQStaff) {
+          iconEl.innerText = "🏢";
+          taskEl.innerText =
+            "Main Office Technical Operations / Workshop Fabrication Duty";
+          valLabelEl.innerText = "Assigned Boundary:";
+          valDateEl.innerText = "Main Office Perimeter (100m Geofence Radius)";
+        } else {
+          iconEl.innerText = "👷";
+          taskEl.innerText = log.taskDetails || "Electrical Site Duty";
+          valLabelEl.innerText = "Validity / Shift:";
+          valDateEl.innerText = `${formatDisplayDate(log.date)} - ${log.validity || "Project Shift"}`;
         }
 
-        // 3. Filter Setters
-        function setDateFilter(filterVal, label) {
-            activeDateFilter = filterVal;
-            document.getElementById('selectedDateLabel').innerText = label;
-            renderAttendanceTable();
+        // 3. Clock-In Card & Map Button
+        const btnMapIn = document.getElementById("btnMapIn");
+        const detailInMatch = document.getElementById("detailInMatch");
+        const hasClockedIn = log.clockInTime && log.clockInTime !== "--:--";
+
+        document.getElementById("detailInTime").innerText = log.clockInTime;
+        document.getElementById("detailInCoords").innerText =
+          log.clockInCoords || "--";
+        document.getElementById("detailInPrecision").innerText =
+          log.clockInPrecision || "--";
+        document.getElementById("detailInLocation").innerText =
+          log.clockInLocation || "--";
+
+        if (hasClockedIn) {
+          btnMapIn.href = `https://www.google.com/maps?q=${log.clockInCoords.replace(/\s+/g, "")}`;
+          btnMapIn.className = "btn btn-view-maps text-center";
+          btnMapIn.innerHTML =
+            '<i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS';
+          detailInMatch.className = "badge bg-success text-white";
+          detailInMatch.innerText = "Within Radius";
+        } else {
+          btnMapIn.removeAttribute("href");
+          btnMapIn.className = "btn-view-maps-disabled text-center";
+          btnMapIn.innerHTML =
+            '<i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS';
+          detailInMatch.className = "text-muted small fw-bold";
+          detailInMatch.innerText = "--";
         }
 
-        function setStatusFilter(filterVal, label) {
-            activeStatusFilter = filterVal;
-            document.getElementById('selectedStatusLabel').innerText = label;
-            renderAttendanceTable();
+        // 4. Clock-Out Card & Map Button
+        const btnMapOut = document.getElementById("btnMapOut");
+        const detailOutMatch = document.getElementById("detailOutMatch");
+        const hasClockedOut =
+          log.clockOutTime &&
+          log.clockOutTime !== "--:--" &&
+          log.clockOutCoords &&
+          log.clockOutCoords !== "--";
+
+        document.getElementById("detailOutTime").innerText = log.clockOutTime;
+        document.getElementById("detailOutCoords").innerText = hasClockedOut
+          ? log.clockOutCoords
+          : "--";
+        document.getElementById("detailOutPrecision").innerText = hasClockedOut
+          ? log.clockOutPrecision
+          : "--";
+        document.getElementById("detailOutLocation").innerText = hasClockedOut
+          ? log.clockOutLocation.replace(/[()]/g, "")
+          : "--";
+
+        // In openDetailModal(), under Clock-Out Card logic:
+        if (hasClockedOut) {
+          btnMapOut.href = `https://www.google.com/maps?q=${log.clockOutCoords.replace(/\s+/g, "")}`;
+          btnMapOut.className = "btn btn-view-maps text-center";
+          btnMapOut.innerHTML =
+            '<i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS';
+          btnMapOut.style.pointerEvents = "auto";
+
+          // Check if clocked out outside unauthorized area:
+          if (log.statusKey === "outside_area") {
+            detailOutMatch.className = "badge bg-danger text-white";
+            detailOutMatch.innerText = "Outside Perimeter";
+          } else {
+            detailOutMatch.className = "badge bg-success text-white";
+            detailOutMatch.innerText = "Within Radius";
+          }
         }
 
-        function handleFilterSearch() {
-            renderAttendanceTable();
+        // 1. Hide the full directory table modal first if it is open
+        const fullModalEl = document.getElementById("fullAttendanceModal");
+        if (fullModalEl) {
+          const fullModalInstance = bootstrap.Modal.getInstance(fullModalEl);
+          if (fullModalInstance) fullModalInstance.hide();
         }
 
-        // 4. Open GPS Details Inspection Modal[cite: 17]
-        function openDetailModal(logId) {
-            const logs = JSON.parse(localStorage.getItem('kca_master_attendance_logs')) || INITIAL_ATTENDANCE_LOGS;
-            const log = logs.find(l => l.id === logId);
-            if (!log) return;
+        // 2. Now open the detail popup cleanly in front
+        new bootstrap.Modal(
+          document.getElementById("statusDetailModal"),
+        ).show();
+      }
 
-            document.getElementById('detailStaffName').innerText = `${log.name} (${log.staffId})`;
-            document.getElementById('detailStaffMode').innerText = log.statusBadge;
-            document.getElementById('detailTaskDescription').innerText = log.taskDetails;
-            document.getElementById('detailValidityDate').innerText = `${log.date} - ${log.validity}`;
+      // 5. Toggle Export Inputs based on selected period
+      function toggleExportInputs() {
+        const isMonthly = document.getElementById("periodMonthly").checked;
+        const isCustom = document.getElementById("periodCustom").checked;
+        const isSingle = document.getElementById("periodSingle").checked;
 
-            // Clock-In Card
-            document.getElementById('detailInTime').innerText = log.clockInTime;
-            document.getElementById('detailInCoords').innerText = log.clockInCoords;
-            document.getElementById('detailInPrecision').innerText = log.clockInPrecision;
-            document.getElementById('detailInLocation').innerText = log.clockInLocation;
-            document.getElementById('btnMapIn').href = `https://www.google.com/maps?q=${log.clockInCoords.replace(/\s+/g, '')}`;
+        document.getElementById("selectMonthPayroll").disabled = !isMonthly;
+        document.getElementById("exportStartDate").disabled = !isCustom;
+        document.getElementById("exportEndDate").disabled = !isCustom;
+        document.getElementById("exportSingleDate").disabled = !isSingle;
+      }
 
-            // Clock-Out Card
-            document.getElementById('detailOutTime').innerText = log.clockOutTime;
-            document.getElementById('detailOutCoords').innerText = log.clockOutCoords;
-            document.getElementById('detailOutPrecision').innerText = log.clockOutPrecision;
-            document.getElementById('detailOutLocation').innerText = log.clockOutLocation.replace(/[()]/g, '');
-            document.getElementById('btnMapOut').href = `https://www.google.com/maps?q=${log.clockOutCoords.replace(/\s+/g, '')}`;
+      // In-App Popup Trigger
+      function showCustomPopup(type, title, message) {
+        const iconEl = document.getElementById("statusAlertIcon");
+        const titleEl = document.getElementById("statusAlertTitle");
+        const msgEl = document.getElementById("statusAlertMessage");
 
-            new bootstrap.Modal(document.getElementById('statusDetailModal')).show();
+        if (type === "success") {
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
+          titleEl.className = "fw-bold mb-2 text-success";
+        } else if (type === "warning") {
+          iconEl.innerHTML =
+            '<i class="bi bi-exclamation-triangle-fill text-warning"></i>';
+          titleEl.className = "fw-bold mb-2 text-warning";
+        } else {
+          iconEl.innerHTML =
+            '<i class="bi bi-info-circle-fill text-primary"></i>';
+          titleEl.className = "fw-bold mb-2 text-primary";
         }
 
-        // 5. Toggle Export Radio Input States[cite: 18]
-        function toggleExportInputs() {
-            const isMonthly = document.getElementById('periodMonthly').checked;
-            const isCustom = document.getElementById('periodCustom').checked;
-            const isSingle = document.getElementById('periodSingle').checked;
+        titleEl.innerText = title;
+        msgEl.innerHTML = message;
+        new bootstrap.Modal(document.getElementById("statusAlertModal")).show();
+      }
 
-            document.getElementById('selectMonthPayroll').disabled = !isMonthly;
-            document.getElementById('exportStartDate').disabled = !isCustom;
-            document.getElementById('exportEndDate').disabled = !isCustom;
-            document.getElementById('exportSingleDate').disabled = !isSingle;
+      // CSV Generator
+      function generateAndDownloadCSV(e) {
+        e.preventDefault();
+        const logs =
+          JSON.parse(localStorage.getItem("kca_master_attendance_logs")) ||
+          INITIAL_ATTENDANCE_LOGS;
+
+        const period = document.querySelector(
+          'input[name="exportPeriod"]:checked',
+        ).value;
+        const reportType = document.querySelector(
+          'input[name="reportType"]:checked',
+        ).value;
+
+        let filteredLogs = [];
+        let exportFileName = "";
+
+        // 1. Filter by Selected Period
+        if (period === "monthly") {
+          const selectedMonth =
+            document.getElementById("selectMonthPayroll").value; // e.g. "2026-10"
+          if (!selectedMonth) {
+            showCustomPopup(
+              "warning",
+              "Missing Selection",
+              "Please pick a month to export.",
+            );
+            return;
+          }
+          filteredLogs = logs.filter((log) =>
+            log.date.startsWith(selectedMonth),
+          );
+          exportFileName = `KCA_${reportType}_${selectedMonth}.csv`;
+        } else if (period === "custom") {
+          const start = document.getElementById("exportStartDate").value;
+          const end = document.getElementById("exportEndDate").value;
+          if (!start || !end) {
+            showCustomPopup(
+              "warning",
+              "Missing Dates",
+              "Please select both start and end dates.",
+            );
+            return;
+          }
+          filteredLogs = logs.filter(
+            (log) => log.date >= start && log.date <= end,
+          );
+          exportFileName = `KCA_${reportType}_${start}_to_${end}.csv`;
+        } else if (period === "single") {
+          const singleDate = document.getElementById("exportSingleDate").value;
+          if (!singleDate) {
+            showCustomPopup(
+              "warning",
+              "Missing Date",
+              "Please select a date to export.",
+            );
+            return;
+          }
+          filteredLogs = logs.filter((log) => log.date === singleDate);
+          exportFileName = `KCA_${reportType}_${singleDate}.csv`;
         }
 
-        // 6. Real Client-Side CSV Generator Engine[cite: 18]
-        function generateAndDownloadCSV(e) {
-            e.preventDefault();
-            const logs = JSON.parse(localStorage.getItem('kca_master_attendance_logs')) || INITIAL_ATTENDANCE_LOGS;
-
-            const period = document.querySelector('input[name="exportPeriod"]:checked').value;
-            const reportType = document.querySelector('input[name="reportType"]:checked').value;
-
-            // Build CSV Headers
-            let csvContent = "Staff ID,Staff Name,Date,Clock In,In Location,In Coordinates,Clock Out,Out Location,Out Coordinates,Work Hours,OT Hours,Status,Task Details\n";
-
-            logs.forEach(row => {
-                const cleanTask = `"${row.taskDetails.replace(/"/g, '""')}"`;
-                const cleanStatus = `"${row.statusBadge}"`;
-                const cleanInLoc = `"${row.clockInLocation}"`;
-                const cleanOutLoc = `"${row.clockOutLocation}"`;
-
-                csvContent += `${row.staffId},${row.name},${row.date},${row.clockInTime},${cleanInLoc},${row.clockInCoords},${row.clockOutTime},${cleanOutLoc},${row.clockOutCoords},${row.workHours},${row.otHours},${cleanStatus},${cleanTask}\n`;
-            });
-
-            // Trigger Browser File Download
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const downloadLink = document.createElement('a');
-            
-            const timestamp = new Date().toISOString().slice(0, 10);
-            downloadLink.href = url;
-            downloadLink.setAttribute('download', `KCA_Attendance_Timesheet_${reportType}_${timestamp}.csv`);
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
-            document.body.removeChild(downloadLink);
-
-            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
-            alert(`✅ Timesheet Exported Successfully!\nFile: KCA_Attendance_Timesheet_${reportType}_${timestamp}.csv`);
+        // 2. Protect against empty exports (e.g. picking last year or an unrecorded month)
+        if (filteredLogs.length === 0) {
+          showCustomPopup(
+            "warning",
+            "No Records Found",
+            "⚠️ No attendance records found for the selected period.Please select an active date range with logged shifts.",
+          );
+          return;
         }
 
-        function openFullLogsModal() {
-            // Quick trigger: switches to All Recorded Dates and All Status to view complete directory
-            setDateFilter('all', 'All Recorded Dates');
-            setStatusFilter('all', 'All Status');
-        }
+        // 3. Build CSV Content
+        let csvContent =
+          "Staff ID,Staff Name,Date,Clock In,In Location,Clock Out,Out Location,Work Hours,OT Hours,Status,Duty Details\n";
+
+        filteredLogs.forEach((row) => {
+          const cleanTask = `"${(row.taskDetails || (row.isHQStaff ? "Main Office Duty" : "Site Duty")).replace(/"/g, '""')}"`;
+          const cleanStatus = `"${row.statusBadge}"`;
+          const cleanInLoc = `"${row.clockInLocation}"`;
+          const cleanOutLoc = `"${row.clockOutLocation}"`;
+
+          csvContent += `${row.staffId},${row.name},${row.date},${row.clockInTime},${cleanInLoc},${row.clockOutTime},${cleanOutLoc},${row.workHours},${row.otHours},${cleanStatus},${cleanTask}\n`;
+        });
+
+        // 4. Trigger Download
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const downloadLink = document.createElement("a");
+
+        downloadLink.href = url;
+        downloadLink.setAttribute("download", exportFileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        bootstrap.Modal.getInstance(
+          document.getElementById("exportModal"),
+        ).hide();
+        showCustomPopup(
+          "success",
+          "Timesheet Exported!",
+          `File downloaded successfully:<br><strong>${exportFileName}</strong>`,
+        );
+      }
+
+      function openFullLogsModal() {
+        const logs =
+          JSON.parse(localStorage.getItem("kca_master_attendance_logs")) ||
+          INITIAL_ATTENDANCE_LOGS;
+        const fullTbody = document.getElementById("fullAttendanceTableBody");
+        fullTbody.innerHTML = "";
+
+        logs.forEach((log) => {
+          let badgeClass = "bg-success text-white";
+          if (log.badgeColor === "primary") {
+            badgeClass = "bg-primary-subtle text-primary border";
+          } else if (log.badgeColor === "warning") {
+            badgeClass = "bg-warning text-dark";
+          } else if (log.badgeColor === "danger") {
+            badgeClass = "bg-danger text-white";
+          }
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="fw-bold ps-3">${log.staffId} ${log.name}</td>
+            <td>${formatDisplayDate(log.date)}</td>
+            <td>${log.clockInTime} (${log.clockInLocation})</td>
+            <td>${log.clockOutTime} ${log.clockOutLocation}</td>
+            <td class="fw-bold">${log.workHours}</td>
+            <td><span class="badge ${badgeClass} px-2 py-1">${log.statusBadge}</span></td>
+            <td class="text-center">
+                <button type="button" onclick="openDetailModal('${log.id}')" class="btn btn-sm btn-more-action py-0 px-2 small">
+                    More
+                </button>
+            </td>
+        `;
+          fullTbody.appendChild(tr);
+        });
+
+        new bootstrap.Modal(
+          document.getElementById("fullAttendanceModal"),
+        ).show();
+      }
     </script>
-</body>
+  </body>
 </html>
