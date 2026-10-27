@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Us | Kejuruteraan Cahaya Abadi Sdn. Bhd.</title>
 
-    <!-- Google Fonts: Inter & Open Sans (Matches corporate-profile.html) -->
+    <!-- Google Fonts: Inter & Open Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -58,7 +58,6 @@
 
         <!-- Right Side: Links, Desktop Login + Persistent Hamburger -->
         <div class="d-flex align-items-center">
-          <!-- Desktop Links (Home & About Us) -->
           <ul
             class="navbar-nav d-none d-md-flex flex-row me-3 gap-4 align-items-center"
           >
@@ -78,9 +77,9 @@
             </li>
           </ul>
 
-          <!-- Desktop KCAConnect Login Button (Hidden on Mobile) -->
+          <!-- Desktop KCAConnect Login Button -->
           <a
-            href="login.html"
+            href="kcaconnect/login.html"
             class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold d-none d-md-inline-flex align-items-center gap-1 me-3"
             style="border-color: var(--tnb-blue); color: var(--tnb-blue)"
           >
@@ -161,10 +160,10 @@
           </li>
         </ul>
 
-        <!-- Mobile Only KCAConnect Login (Hidden on Desktop via d-md-none) -->
+        <!-- Mobile-Only Login -->
         <div class="d-md-none border-top pt-3 pb-2 mt-auto">
           <a
-            href="login.html"
+            href="kcaconnect/login.html"
             class="btn btn-kca-red w-100 py-2 d-flex align-items-center justify-content-center gap-2 rounded-3 shadow-sm fw-semibold text-white"
           >
             <i class="bi bi-box-arrow-in-right"></i> KCAConnect Login
@@ -173,7 +172,7 @@
       </div>
     </div>
 
-    <!-- Corporate Navy Hero Header (Animated) -->
+    <!-- Corporate Navy Hero Header -->
     <section
       class="bg-navy py-5 text-center text-white position-relative overflow-hidden"
     >
@@ -203,7 +202,7 @@
       ></div>
     </section>
 
-    <!-- Main Content Area: Side-by-Side Cards (Stacked on Mobile) -->
+    <!-- Main Content Area: Side-by-Side Cards -->
     <main class="flex-grow-1 py-5">
       <div class="container">
         <div class="row g-4 g-lg-5 justify-content-center align-items-stretch">
@@ -355,7 +354,7 @@
             </div>
           </div>
 
-          <!-- RIGHT CARD: Keep In Touch with Us (Form) -->
+          <!-- RIGHT CARD: Form Area -->
           <div
             class="col-12 col-lg-7"
             data-aos="fade-left"
@@ -366,13 +365,20 @@
               style="border-top: 4px solid var(--tnb-red-orange) !important"
             >
               <h4
-                class="fw-bold text-tnb-red mb-4"
+                class="fw-bold text-tnb-red mb-3"
                 style="font-family: var(--font-headings)"
               >
                 Keep In Touch with Us
               </h4>
 
-              <form action="#" method="POST" enctype="multipart/form-data">
+              <!-- Dynamic Alert Message Banner -->
+              <div
+                id="contactAlert"
+                class="alert d-none py-2 px-3 small fw-semibold text-center mb-3 rounded-2"
+                role="alert"
+              ></div>
+
+              <form id="contactForm" enctype="multipart/form-data">
                 <!-- Full Name & Email -->
                 <div class="row g-3 mb-3">
                   <div class="col-12 col-sm-6">
@@ -424,7 +430,7 @@
                       class="form-select rounded-2 border shadow-none"
                       required
                     >
-                      <option value="" disabled selected></option>
+                      <option value="" disabled selected>Select Category</option>
                       <option value="Project Inquiry">Project Inquiry</option>
                       <option value="Collaboration Proposal">
                         Collaboration Proposal
@@ -456,15 +462,15 @@
                   <div>
                     <label
                       class="form-label small fw-bold text-dark d-block mb-1"
-                      >Attach File</label
+                      >Attach File (Optional)</label
                     >
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
                       <input
                         type="file"
                         id="attachFileInput"
                         name="attachment"
                         class="d-none"
-                        accept=".pdf,.doc,.docx"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
                       />
                       <label
                         for="attachFileInput"
@@ -473,15 +479,16 @@
                       >
                         Choose File
                       </label>
-                      <span class="text-muted small fw-semibold"
-                        >Pdf/Doc/Docx (Max 10MB)</span
-                      >
+                      <span id="fileChosenLabel" class="text-muted small fw-semibold">
+                        Pdf/Doc/Docx (Max 10MB)
+                      </span>
                     </div>
                   </div>
 
                   <div>
                     <button
                       type="submit"
+                      id="btnSubmitInquiry"
                       class="btn btn-kca-red rounded-pill px-5 py-2 fw-bold text-uppercase shadow-sm"
                     >
                       SUBMIT
@@ -522,9 +529,66 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init({
-        duration: 800,
+        duration: 700,
         once: true,
-        offset: 80,
+        offset: 40,
+      });
+
+      // 1. Show selected filename when user picks a file
+      const fileInput = document.getElementById("attachFileInput");
+      const fileLabel = document.getElementById("fileChosenLabel");
+
+      fileInput.addEventListener("change", function () {
+        if (this.files && this.files.length > 0) {
+          const file = this.files[0];
+          const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+          fileLabel.innerHTML = `<span class="text-primary fw-bold"><i class="bi bi-paperclip"></i> ${file.name} (${fileSizeMB} MB)</span>`;
+        } else {
+          fileLabel.textContent = "Pdf/Doc/Docx (Max 10MB)";
+        }
+      });
+
+      // 2. Submit form to MySQL database via PHP
+      document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const form = this;
+        const alertBox = document.getElementById("contactAlert");
+        const submitBtn = document.getElementById("btnSubmitInquiry");
+
+        // Clear previous alert & show loading state
+        alertBox.className = "alert d-none py-2 px-3 small fw-semibold text-center mb-3 rounded-2";
+        alertBox.textContent = "";
+        submitBtn.disabled = true;
+        submitBtn.textContent = "SUBMITTING...";
+
+        const formData = new FormData(form);
+
+        fetch("php/submit_inquiry.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              alertBox.className = "alert alert-success py-2 px-3 small fw-semibold text-center mb-3 rounded-2";
+              alertBox.innerHTML = `<i class="bi bi-check-circle-fill me-1"></i> ${data.message} <strong>Ref: ${data.code}</strong>`;
+              form.reset();
+              fileLabel.textContent = "Pdf/Doc/Docx (Max 10MB)";
+            } else {
+              alertBox.className = "alert alert-danger py-2 px-3 small fw-semibold text-center mb-3 rounded-2";
+              alertBox.textContent = data.message || "Failed to submit. Please try again.";
+            }
+          })
+          .catch((err) => {
+            console.error("Submission Error:", err);
+            alertBox.className = "alert alert-danger py-2 px-3 small fw-semibold text-center mb-3 rounded-2";
+            alertBox.textContent = "Unable to connect to the server. Please try again or call our office.";
+          })
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "SUBMIT";
+          });
       });
     </script>
   </body>

@@ -23,32 +23,32 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
 
-    <!-- Main Style -->
-    <link rel="stylesheet" href="css/style.css" />
+    <!-- Main Style (Path goes up one level to css/) -->
+    <link rel="stylesheet" href="../css/style.css" />
 
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   </head>
   <body class="d-flex flex-column min-vh-100 bg-white">
-    <!-- Brand Accent Line  -->
+    <!-- Brand Accent Line -->
     <div class="brand-accent-bar"></div>
 
-    <!-- Portal Navigation Bar (Option A: Clean with Escape Route) -->
+    <!-- Portal Navigation Bar -->
     <nav class="navbar navbar-light bg-white py-2 shadow-sm sticky-top">
       <div class="container d-flex justify-content-between align-items-center">
-        <!-- Brand Logo -->
+        <!-- Brand Logo (Reloads login screen) -->
         <a class="navbar-brand d-flex align-items-center p-0" href="login.html">
           <img
-            src="img/KCAConnect.png"
+            src="../img/KCAConnect.png"
             alt="KCAConnect Logo"
             style="height: 44px"
-            onerror="this.src = 'img/logo.png'"
+            onerror="this.src = '../img/logo.png'"
           />
         </a>
 
-        <!-- Back to Public Site / website -->
+        <!-- Back to Public Site (Path goes up one level) -->
         <a
-          href="index.html"
+          href="../index.html"
           class="btn btn-sm btn-outline-kca-orange rounded-pill px-3 py-1 fw-semibold d-inline-flex align-items-center gap-1"
         >
           <i class="bi bi-arrow-left"></i> Back to Website
@@ -58,13 +58,13 @@
 
     <div class="brand-accent-bar"></div>
 
-    <!-- Main View: Crisp Background with Partitioned Form Area -->
+    <!-- Main View: Background with Partitioned Form Area -->
     <main
       class="login-wrapper flex-grow-1 d-flex flex-column justify-content-center"
     >
       <div class="container-fluid p-0">
         <div class="row g-0 align-items-center">
-          <!-- Left Column: Animates in from the Left -->
+          <!-- Left Column -->
           <div
             class="col-12 col-lg-6 ps-4 ps-md-5 pe-3 py-4 py-lg-5"
             data-aos="fade-right"
@@ -93,7 +93,7 @@
             </div>
           </div>
 
-          <!-- Right Column: Animates in from the Right -->
+          <!-- Right Column -->
           <div class="col-12 col-lg-6 login-partition">
             <div
               class="login-card"
@@ -131,7 +131,7 @@
                       id="passwordInput"
                       name="password"
                       class="login-input pe-5"
-                      placeholder="••••••••"
+                      placeholder="Enter your password"
                       required
                     />
                     <button
@@ -146,9 +146,17 @@
                   </div>
                 </div>
 
+                <!-- Login Error Alert Banner -->
+                <div
+                  id="loginAlert"
+                  class="alert alert-danger d-none py-2 px-3 small fw-semibold text-center mb-3 rounded-2"
+                  role="alert"
+                ></div>
+
                 <!-- Submit Button -->
                 <button
                   type="submit"
+                  id="btnSignIn"
                   class="btn btn-signin-navy w-100 mb-3 text-uppercase"
                 >
                   SIGN IN
@@ -159,7 +167,7 @@
                   <span class="text-secondary small fw-semibold">
                     Forgot Password?
                     <a
-                      href="contact.html"
+                      href="../contact.html"
                       class="text-dark fw-bold text-decoration-none"
                       >Contact Admin</a
                     >
@@ -190,6 +198,10 @@
         const passwordField = document.getElementById("passwordInput");
         const eyeIcon = document.getElementById("toggleEyeIcon");
 
+        // 1. Capture current value before switching type
+        const currentVal = passwordField.value;
+
+        // 2. Toggle between text and password
         if (passwordField.type === "password") {
           passwordField.type = "text";
           eyeIcon.classList.remove("bi-eye");
@@ -199,42 +211,68 @@
           eyeIcon.classList.remove("bi-eye-slash");
           eyeIcon.classList.add("bi-eye");
         }
+
+        // 3. Re-assign value so browser security doesn't clear it (hilang)
+        if (currentVal) {
+          passwordField.value = currentVal;
+        }
       }
     </script>
 
-    <!-- Role-Based Local Mock Routing (Admin vs Staff) -->
+    <!-- Real Database Authentication Script -->
     <script>
-      document.getElementById("loginForm").addEventListener("submit", function (e) {
-        e.preventDefault();
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-        const rawId = document.getElementById("staffIdInput").value.trim();
-        const idLower = rawId.toLowerCase();
+          const staffIdInput = document
+            .getElementById("staffIdInput")
+            .value.trim();
+          const passwordInput = document.getElementById("passwordInput").value;
+          const loginAlert = document.getElementById("loginAlert");
+          const btnSignIn = document.getElementById("btnSignIn");
 
-        // 1. Check for Admin role accounts
-        if (idLower === "admin" || idLower === "kca-adm" || idLower === "hisham") {
-          sessionStorage.setItem(
-            "kca_user",
-            JSON.stringify({
-              id: rawId.toUpperCase(),
-              name: "Hisham Mokhtar (Managing Director)",
-              role: "admin",
+          // Clear previous alerts & enter loading state
+          loginAlert.classList.add("d-none");
+          loginAlert.innerText = "";
+          btnSignIn.disabled = true;
+          btnSignIn.innerText = "SIGNING IN...";
+
+          const formData = new FormData();
+          formData.append("staff_id", staffIdInput);
+          formData.append("password", passwordInput);
+
+          // Path goes up one level to reach the php/ folder
+          fetch("../php/login.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                // Store logged-in user profile in session storage
+                sessionStorage.setItem("kca_user", JSON.stringify(data.user));
+
+                // Redirect to destination (both admin-dashboard.html and staff-attendance.html are in this same folder)
+                window.location.href = data.redirect;
+              } else {
+                loginAlert.innerText =
+                  data.message || "Invalid credentials. Please try again.";
+                loginAlert.classList.remove("d-none");
+                btnSignIn.disabled = false;
+                btnSignIn.innerText = "SIGN IN";
+              }
             })
-          );
-          window.location.href = "admin-dashboard.html";
-        } 
-        // 2. Default to Field Technical Staff role
-        else {
-          sessionStorage.setItem(
-            "kca_user",
-            JSON.stringify({
-              id: rawId.toUpperCase(),
-              name: "Field Technician",
-              role: "staff",
-            })
-          );
-          window.location.href = "staff-attendance.html";
-        }
-      });
+            .catch((error) => {
+              console.error("Login Error:", error);
+              loginAlert.innerText =
+                "Unable to connect to the authentication server. Please try again.";
+              loginAlert.classList.remove("d-none");
+              btnSignIn.disabled = false;
+              btnSignIn.innerText = "SIGN IN";
+            });
+        });
     </script>
   </body>
 </html>

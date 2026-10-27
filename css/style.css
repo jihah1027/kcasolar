@@ -18,14 +18,16 @@
   --font-body: "Open Sans", sans-serif;
 }
 
-/* =========================================================
-   2. GLOBAL LAYOUT & TYPOGRAPHY
-========================================================= */
-html,
+html {
+  overflow-x: clip;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
   font-family: var(--font-body);
   color: var(--kca-charcoal);
+  min-height: 100%;
 }
 
 h1,
@@ -122,12 +124,13 @@ h6,
   border-radius: 2px;
 }
 
-/* Hero Carousel */
 .hero-carousel,
-.carousel-inner,
-.carousel-item {
+.hero-carousel .carousel-inner,
+.hero-carousel .carousel-item {
   height: 80vh;
+  height: 80dvh;
   min-height: 500px;
+  touch-action: pan-y; /* Forces browser to prioritize vertical scrolling */
 }
 
 .carousel-image-overlay {
@@ -1411,9 +1414,27 @@ h6,
   border-top: 7px solid var(--tnb-red-orange, #f66530);
 }
 
-/* Hide offset border on mobile so no horizontal scroll */
 @media (max-width: 991.98px) {
   .dash-offset-border {
     display: none !important;
   }
+}
+
+[data-aos] {
+  transition-duration: 350ms !important;
+}
+
+/* 2. Reduce the physical displacement from 100px to a subtle 15px
+      so elements fade in cleanly WITHOUT fighting the scroll */
+[data-aos="fade-up"] {
+  transform: translate3d(0, 15px, 0) !important;
+}
+[data-aos="fade-down"] {
+  transform: translate3d(0, -15px, 0) !important;
+}
+[data-aos="fade-left"] {
+  transform: translate3d(15px, 0, 0) !important;
+}
+[data-aos="fade-right"] {
+  transform: translate3d(-15px, 0, 0) !important;
 }

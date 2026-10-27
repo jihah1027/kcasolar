@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kejuruteraan Cahaya Abadi Sdn. Bhd. | KCA</title>
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter & Open Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,15 +26,17 @@
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <!-- Custom CSS -->
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body class="d-flex flex-column min-vh-100">
- <!-- Brand Accent Line -->
+  <body class="d-flex flex-column min-vh-100 bg-white">
+    <!-- Brand Accent Line (TNB Blue / KCA Orange) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-2 custom-nav-shadow">
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white sticky-top py-2 custom-nav-shadow"
+    >
       <div class="container">
         <!-- Left Side: Logo & Company Name -->
         <a class="navbar-brand d-flex align-items-center p-0" href="index.html">
@@ -43,7 +45,7 @@
             alt="KCA Logo"
             style="height: 55px"
             class="me-2"
-            onerror="this.src='img/about_us.png'"
+            onerror="this.src = 'img/about_us.png'"
           />
           <div class="d-none d-sm-block lh-1">
             <span
@@ -56,7 +58,9 @@
 
         <!-- Right Side: Links, Desktop Login + Persistent Hamburger -->
         <div class="d-flex align-items-center">
-          <ul class="navbar-nav d-none d-md-flex flex-row me-3 gap-4 align-items-center">
+          <ul
+            class="navbar-nav d-none d-md-flex flex-row me-3 gap-4 align-items-center"
+          >
             <li class="nav-item">
               <a
                 class="nav-link active fw-bold text-tnb-blue active-nav-link"
@@ -75,9 +79,9 @@
 
           <!-- Desktop KCAConnect Button (Hidden on Mobile) -->
           <a
-            href="login.html"
+            href="kcaconnect/login.html"
             class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1 fw-semibold d-none d-md-inline-flex align-items-center gap-1 me-3"
-            style="border-color: var(--tnb-blue); color: var(--tnb-blue);"
+            style="border-color: var(--tnb-blue); color: var(--tnb-blue)"
           >
             <i class="bi bi-box-arrow-in-right"></i> Login
           </a>
@@ -111,7 +115,7 @@
             alt="KCA Logo"
             style="height: 40px"
             class="me-2"
-            onerror="this.src='img/about_us.png'"
+            onerror="this.src = 'img/about_us.png'"
           />
           <div class="lh-1">
             <span
@@ -131,29 +135,35 @@
       <div class="offcanvas-body d-flex flex-column justify-content-between">
         <ul class="navbar-nav flex-column gap-3 mt-3">
           <li class="nav-item">
-            <a class="nav-link fw-bold text-tnb-blue active" href="index.html">Home</a>
+            <a class="nav-link fw-bold text-tnb-blue active" href="index.html"
+              >Home</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="about.html">About Us</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="corporate-profile.html">Corporate Profile</a>
+            <a class="nav-link" href="corporate-profile.html"
+              >Corporate Profile</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="services.html">Our Services</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="projects.html">Projects &amp; Credentials</a>
+            <a class="nav-link" href="projects.html"
+              >Projects &amp; Credentials</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact Us</a>
           </li>
         </ul>
 
-        <!-- Mobile-Only KCAConnect Login (Hidden on Desktop) -->
+        <!-- Mobile-Only KCAConnect Login -->
         <div class="d-md-none border-top pt-3 pb-2 mt-auto">
           <a
-            href="login.html"
+            href="kcaconnect/login.html"
             class="btn btn-kca-red w-100 py-2 d-flex align-items-center justify-content-center gap-2 rounded-3 shadow-sm fw-semibold text-white"
           >
             <i class="bi bi-box-arrow-in-right"></i> KCAConnect Login
@@ -162,295 +172,458 @@
       </div>
     </div>
 
-    <!-- 1. Hero Section -->
-    <header
-      id="heroCarousel"
-      class="carousel slide hero-carousel"
-      data-bs-ride="carousel"
-      data-bs-interval="6000"
-    >
-      <div class="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide-to="0"
-          class="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#heroCarousel"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-      </div>
-
-      <div class="carousel-inner">
-        <!-- Slide 1 -->
-        <div class="carousel-item active bg-kca-charcoal">
-          <img
-            src="img/about_us.png"
-            class="d-block w-100 h-100 object-fit-cover"
-            alt="KCA Engineering"
-          />
-          <div class="carousel-image-overlay"></div>
-          <div
-            class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3"
-          >
-            <h1
-              class="fw-bold mb-3 display-4"
-              data-aos="fade-up"
-              data-aos-duration="1000"
-            >
-              Powering Malaysia's Infrastructure
-            </h1>
-            <p
-              class="mb-4 fs-5 text-center"
-              data-aos="fade-up"
-              data-aos-delay="200"
-              style="
-                max-width: 800px;
-                text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
-              "
-            >
-              Delivering high-quality electrical, mechanical, and solar PV
-              solutions supported by experienced technical expertise.
-            </p>
-            <div
-              class="d-flex gap-3 flex-wrap justify-content-center"
-              data-aos="fade-up"
-              data-aos-delay="400"
-            >
-              <a
-                href="corporate-profile.html"
-                class="btn btn-kca-red btn-lg px-4 rounded-pill shadow"
-                >View Corporate Profile</a
-              >
-              <a
-                href="#contact"
-                class="btn btn-outline-light btn-lg px-4 rounded-pill shadow"
-                >Get in Touch</a
-              >
-            </div>
-          </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item bg-navy">
-          <img
-            src="img/index_about.png"
-            class="d-block w-100 h-100 object-fit-cover"
-            alt="Electrical Systems"
-          />
-          <div class="carousel-image-overlay"></div>
-          <div
-            class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3"
-          >
-            <h1 class="fw-bold mb-3 display-4">Registered TNB Contractor</h1>
-            <p
-              class="mb-4 fs-5 text-center"
-              style="
-                max-width: 800px;
-                text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
-              "
-            >
-              Providing electrical and utility infrastructure services for
-              projects related to Tenaga Nasional Berhad (TNB).
-            </p>
-            <div>
-              <a
-                href="services.html"
-                class="btn btn-kca-red btn-lg px-4 px-md-5 rounded-pill shadow"
-                >Explore All Capabilities</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#heroCarousel"
-        data-bs-slide="prev"
+    <!-- Main Content Area -->
+    <main class="flex-grow-1">
+      <!-- =========================================================
+           1. HERO SECTION (CAROUSEL)
+      ========================================================= -->
+      <header
+        id="heroCarousel"
+        class="carousel slide hero-carousel"
+        data-bs-ride="carousel"
+        data-bs-interval="5000"
+        data-bs-touch="false"
       >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#heroCarousel"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </header>
-
-    <!-- 2. Core Highlights Section -->
-    <section class="py-5 border-bottom bg-white">
-      <div class="container py-3">
-        <div class="row g-4 text-center">
-          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
-            <h1 class="display-4 fw-bold text-tnb-blue mb-2 highlight-number">
-              2009
-            </h1>
-            <h5 class="fw-bold text-kca-charcoal">Established</h5>
-            <p class="text-muted small px-3">
-              Established in Malaysia with expertise in electrical engineering,
-              substation works, power systems and utility infrastructure
-              maintenance.
-            </p>
-          </div>
-          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
-            <h1 class="display-4 fw-bold text-tnb-red mb-2 highlight-number">
-              G7
-            </h1>
-            <h5 class="fw-bold text-kca-charcoal">CIDB Certified</h5>
-            <p class="text-muted small px-3">
-              Registered with the Construction Industry Development Board (CIDB)
-              with G7 certification.
-            </p>
-          </div>
-          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="300">
-            <h1 class="display-4 fw-bold text-tnb-blue mb-2 highlight-number">
-              TNB
-            </h1>
-            <h5 class="fw-bold text-kca-charcoal">Registered Vendor</h5>
-            <p class="text-muted small px-3">
-              Registered with Tenaga Nasional Berhad (TNB) for electrical and
-              energy infrastructure projects.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Services Snapshot Teaser -->
-    <section class="py-5 bg-light-pattern" id="services-teaser">
-      <div class="container py-4">
-        <div class="text-center mb-5" data-aos="fade-up">
-          <h2 class="fw-bold text-tnb-blue display-6">Our Capabilities</h2>
-          <div class="accent-line"></div>
-          <p class="text-muted mt-3 max-w-75 mx-auto">
-            Providing high-quality, fast, and flexible services to meet customer
-            needs.
-          </p>
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#heroCarousel"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
         </div>
 
-        <div class="row g-4 justify-content-center">
-          <!-- Electrical -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-            <div
-              class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white"
-            >
-              <div class="card-body text-center">
-                <i
-                  class="bi bi-lightning-charge-fill text-tnb-red-orange display-4 mb-3 d-block"
-                ></i>
-                <h5 class="text-tnb-blue fw-bold mb-3">Electrical Systems</h5>
-                <p class="text-muted small mb-0">
-                  Scheduled installation and maintenance of low-voltage
-                  electrical systems, including cabling, street lighting,
-                  overhead lines, and standby generator systems.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Solar -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-            <div
-              class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white"
-            >
-              <div class="card-body text-center">
-                <i
-                  class="bi bi-sun-fill text-tnb-red-orange display-4 mb-3 d-block"
-                ></i>
-                <h5 class="text-tnb-blue fw-bold mb-3">Solar PV Solutions</h5>
-                <p class="text-muted small mb-0">
-                  Installation and provision of solar systems, supported by
-                  KCA's RPVSP and SEDA-related certifications.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Building M&E -->
-          <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-            <div
-              class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white"
-            >
-              <div class="card-body text-center">
-                <i
-                  class="bi bi-buildings-fill text-tnb-red-orange display-4 mb-3 d-block"
-                ></i>
-                <h5 class="text-tnb-blue fw-bold mb-3">Building Management</h5>
-                <p class="text-muted small mb-0">
-                  Mechanical & Electrical (M&E) services, air conditioning and
-                  ventilation systems, building renovation, general maintenance,
-                  and area cleaning.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
-          <a
-            href="services.html"
-            class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-semibold shadow-sm"
-            >View All Services</a
-          >
-        </div>
-      </div>
-    </section>
-
-    <!-- 4. Featured Project Teaser -->
-    <section class="py-5 bg-white">
-      <div class="container py-5">
-        <div
-          class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden border"
-          data-aos="fade-up"
-        >
-          <!-- Left Image side -->
-          <div class="col-lg-5">
+        <div class="carousel-inner">
+          <!-- Slide 1 -->
+          <div class="carousel-item active bg-kca-charcoal">
             <img
-              src="img/project-kosma-solar-farm.png"
-              alt="KOSMA Solar Farm"
-              class="img-fluid w-100 h-100 object-fit-cover"
-              onerror="this.src = 'img/about_us.png'"
+              src="img/about_us.png"
+              class="d-block w-100 h-100 object-fit-cover"
+              alt="KCA Engineering"
             />
+            <div class="carousel-image-overlay"></div>
+            <div
+              class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3"
+            >
+              <h1
+                class="fw-bold mb-3 display-4"
+                data-aos="fade-up"
+                data-aos-duration="1000"
+              >
+                Powering Malaysia's Infrastructure
+              </h1>
+              <p
+                class="mb-4 fs-5 text-center"
+                data-aos="fade-up"
+                data-aos-delay="200"
+                style="
+                  max-width: 800px;
+                  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+                "
+              >
+                Delivering high-quality electrical, mechanical, and solar PV
+                solutions supported by statutory compliance and experienced
+                technical expertise.
+              </p>
+              <div
+                class="d-flex gap-3 flex-wrap justify-content-center"
+                data-aos="fade-up"
+                data-aos-delay="400"
+              >
+                <a
+                  href="corporate-profile.html"
+                  class="btn btn-kca-red btn-lg px-4 rounded-pill shadow"
+                  >View Corporate Profile</a
+                >
+                <a
+                  href="projects.html"
+                  class="btn btn-outline-light btn-lg px-4 rounded-pill shadow"
+                  >View All Credentials</a
+                >
+              </div>
+            </div>
           </div>
 
-          <!-- Right Text side -->
-          <div
-            class="col-lg-7 p-5 d-flex flex-column justify-content-center align-items-start"
-          >
-            <div>
-              <span class="badge badge-kca-orange mb-3 px-3 py-2 rounded-pill"
-                >Featured Project</span
+          <!-- Slide 2 -->
+          <div class="carousel-item bg-navy">
+            <img
+              src="img/index_about.png"
+              class="d-block w-100 h-100 object-fit-cover"
+              alt="Electrical Systems"
+            />
+            <div class="carousel-image-overlay"></div>
+            <div
+              class="carousel-caption d-flex flex-column justify-content-center align-items-center text-white px-3"
+            >
+              <h1 class="fw-bold mb-3 display-4">Registered TNB Contractor</h1>
+              <p
+                class="mb-4 fs-5 text-center"
+                style="
+                  max-width: 800px;
+                  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+                "
               >
-              <h2 class="fw-bold text-tnb-blue mb-3">KOSMA Solar Farm</h2>
-              <h5 class="text-tnb-red fw-bold mb-4">1MW PV & 4 MW BESS</h5>
-              <p class="text-muted mb-4">
-                A renewable energy project integrating a 1 Megawatt Photovoltaic
-                (PV) system with a 4 Megawatt Battery Energy Storage System
-                (BESS).
+                Providing electrical and utility infrastructure services for
+                projects related to Tenaga Nasional Berhad (TNB) and Telekom
+                Malaysia (TM).
               </p>
-              <a
-                href="projects.html"
-                class="btn btn-kca-red px-4 py-2 rounded-pill shadow-sm"
-                >View Project Credentials</a
-              >
+              <div>
+                <a
+                  href="services.html"
+                  class="btn btn-kca-red btn-lg px-4 px-md-5 rounded-pill shadow"
+                  >Explore All Capabilities</a
+                >
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- 5. Contact Footer -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#heroCarousel"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </header>
+
+      <!-- =========================================================
+         2. CORE HIGHLIGHTS & ACCREDITATIONS (AUTO-SLIDE CAROUSEL)
+    ========================================================= -->
+      <section class="py-4 border-bottom bg-white position-relative">
+        <div class="container py-2">
+          <div
+            id="highlightsCarousel"
+            class="carousel slide"
+            data-bs-ride="carousel"
+            data-bs-interval="4500"
+          >
+            <!-- Carousel Slides -->
+            <div class="carousel-inner pb-2">
+              <!-- Slide 1: Core Track Record -->
+              <div class="carousel-item active">
+                <div class="row g-4 text-center justify-content-center">
+                  <!-- 2009 -->
+                  <div class="col-md-4">
+                    <h1
+                      class="display-4 fw-bold text-tnb-blue mb-2 highlight-number"
+                    >
+                      2009
+                    </h1>
+                    <h5 class="fw-bold text-kca-charcoal">Established</h5>
+                    <p class="text-muted small px-3 mb-0">
+                      Serving Malaysia with extensive multi-disciplinary
+                      capabilities in electrical systems, substation works, and
+                      infrastructure engineering.
+                    </p>
+                  </div>
+
+                  <!-- CIDB G7 & SPKK -->
+                  <div class="col-md-4">
+                    <h1
+                      class="display-4 fw-bold text-tnb-red mb-2 highlight-number"
+                    >
+                      G7
+                    </h1>
+                    <h5 class="fw-bold text-kca-charcoal">
+                      CIDB Grade G7 &amp; SPKK
+                    </h5>
+                    <p class="text-muted small px-3 mb-0">
+                      Registered with CIDB Malaysia with Grade G7 and SPKK
+                      certification for unlimited tender capacity across public
+                      and private projects.
+                    </p>
+                  </div>
+
+                  <!-- TNB & TM -->
+                  <div class="col-md-4">
+                    <h1
+                      class="display-4 fw-bold text-tnb-blue mb-2 highlight-number"
+                    >
+                      TNB
+                    </h1>
+                    <h5 class="fw-bold text-kca-charcoal">Registered Vendor</h5>
+                    <p class="text-muted small px-3 mb-0">
+                      Registered utility contractor for Tenaga Nasional Berhad
+                      (TNB) and Telekom Malaysia (TM) for critical
+                      infrastructure works.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Energy & Government Accreditations -->
+              <div class="carousel-item">
+                <div class="row g-4 text-center justify-content-center">
+                  <!-- ST Class A -->
+                  <div class="col-md-4">
+                    <h1
+                      class="display-4 fw-bold text-tnb-blue mb-2 highlight-number"
+                    >
+                      Class A
+                    </h1>
+                    <h5 class="fw-bold text-kca-charcoal">
+                      Suruhanjaya Tenaga (ST)
+                    </h5>
+                    <p class="text-muted small px-3 mb-0">
+                      Certified Class A Electrical Contractor authorized for
+                      high- and low-voltage electrical installations,
+                      switchgear, and substation systems.
+                    </p>
+                  </div>
+
+                  <!-- SEDA Solar PV -->
+                  <div class="col-md-4">
+                    <h1
+                      class="display-4 fw-bold text-tnb-red mb-2 highlight-number"
+                    >
+                      SEDA
+                    </h1>
+                    <h5 class="fw-bold text-kca-charcoal">
+                      RPVSP &amp; RPVI Solar PV
+                    </h5>
+                    <p class="text-muted small px-3 mb-0">
+                      Accredited Registered Solar Photovoltaic Service Provider
+                      and Investor certified by the Sustainable Energy
+                      Development Authority.
+                    </p>
+                  </div>
+
+                  <!-- MOF Bumiputera -->
+                  <div class="col-md-4">
+                    <h1
+                      class="display-4 fw-bold text-tnb-blue mb-2 highlight-number"
+                    >
+                      MOF
+                    </h1>
+                    <h5 class="fw-bold text-kca-charcoal">Taraf Bumiputera</h5>
+                    <p class="text-muted small px-3 mb-0">
+                      Certified Bumiputera Contractor registered with
+                      Kementerian Kewangan Malaysia (MOF) and Pusat Khidmat
+                      Kontraktor (PKK / STB).
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide Indicators (Cleanly positioned right below the cards) -->
+            <div class="carousel-indicators position-relative mt-4 mb-0">
+              <button
+                type="button"
+                data-bs-target="#highlightsCarousel"
+                data-bs-slide-to="0"
+                class="active"
+                style="
+                  background-color: var(--tnb-blue);
+                  width: 28px;
+                  height: 4px;
+                  border-radius: 4px;
+                "
+                aria-current="true"
+                aria-label="Slide 1"
+              ></button>
+              <button
+                type="button"
+                data-bs-target="#highlightsCarousel"
+                data-bs-slide-to="1"
+                style="
+                  background-color: var(--tnb-red-orange);
+                  width: 28px;
+                  height: 4px;
+                  border-radius: 4px;
+                "
+                aria-label="Slide 2"
+              ></button>
+            </div>
+
+            <!-- Left / Right Arrow Controls -->
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#highlightsCarousel"
+              data-bs-slide="prev"
+              style="width: 40px"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+                style="filter: invert(1) grayscale(100%); opacity: 0.3"
+              ></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#highlightsCarousel"
+              data-bs-slide="next"
+              style="width: 40px"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+                style="filter: invert(1) grayscale(100%); opacity: 0.3"
+              ></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           3. SERVICES SNAPSHOT TEASER
+      ========================================================= -->
+      <section class="py-5 bg-light-pattern" id="services-teaser">
+        <div class="container py-4">
+          <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bold text-tnb-blue display-6">Our Capabilities</h2>
+            <div class="accent-line"></div>
+            <p class="text-muted mt-3 max-w-75 mx-auto">
+              Providing high-quality, fast, and flexible services to meet
+              customer needs.
+            </p>
+          </div>
+
+          <div class="row g-4 justify-content-center">
+            <!-- Electrical -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+              <div
+                class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white"
+              >
+                <div class="card-body text-center">
+                  <i
+                    class="bi bi-lightning-charge-fill text-tnb-red-orange display-4 mb-3 d-block"
+                  ></i>
+                  <h5 class="text-tnb-blue fw-bold mb-3">Electrical Systems</h5>
+                  <p class="text-muted small mb-0">
+                    Scheduled installation and maintenance of low-voltage
+                    electrical systems, including cabling, street lighting,
+                    overhead lines, and standby generator systems.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Solar -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+              <div
+                class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white"
+              >
+                <div class="card-body text-center">
+                  <i
+                    class="bi bi-sun-fill text-tnb-red-orange display-4 mb-3 d-block"
+                  ></i>
+                  <h5 class="text-tnb-blue fw-bold mb-3">Solar PV Solutions</h5>
+                  <p class="text-muted small mb-0">
+                    Installation and provision of solar systems, supported by
+                    KCA's RPVSP and SEDA-related certifications.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Building M&E -->
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+              <div
+                class="card h-100 border-0 shadow-sm p-4 rounded-4 service-card bg-white"
+              >
+                <div class="card-body text-center">
+                  <i
+                    class="bi bi-buildings-fill text-tnb-red-orange display-4 mb-3 d-block"
+                  ></i>
+                  <h5 class="text-tnb-blue fw-bold mb-3">
+                    Building Management
+                  </h5>
+                  <p class="text-muted small mb-0">
+                    Mechanical &amp; Electrical (M&amp;E) services, air
+                    conditioning and ventilation systems, building renovation,
+                    general maintenance, and area cleaning.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="400">
+            <a
+              href="services.html"
+              class="btn btn-outline-primary btn-lg rounded-pill px-4 fw-semibold shadow-sm"
+              >View All Services</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           4. FEATURED PROJECT TEASER
+      ========================================================= -->
+      <section class="py-5 bg-white">
+        <div class="container py-5">
+          <div
+            class="row g-0 bg-white rounded-4 shadow-sm overflow-hidden border"
+            data-aos="fade-up"
+          >
+            <!-- Left Image side -->
+            <div class="col-lg-5">
+              <img
+                src="img/project-kosma-solar-farm.png"
+                alt="KOSMA Solar Farm"
+                class="img-fluid w-100 h-100 object-fit-cover"
+                onerror="this.src = 'img/about_us.png'"
+              />
+            </div>
+
+            <!-- Right Text side -->
+            <div
+              class="col-lg-7 p-5 d-flex flex-column justify-content-center align-items-start"
+            >
+              <div>
+                <span class="badge badge-kca-orange mb-3 px-3 py-2 rounded-pill"
+                  >Featured Project</span
+                >
+                <h2 class="fw-bold text-tnb-blue mb-3">KOSMA Solar Farm</h2>
+                <h5 class="text-tnb-red fw-bold mb-4">
+                  1MW PV &amp; 4 MW BESS
+                </h5>
+                <p class="text-muted mb-4">
+                  A renewable energy project integrating a 1 Megawatt
+                  Photovoltaic (PV) system with a 4 Megawatt Battery Energy
+                  Storage System (BESS).
+                </p>
+                <a
+                  href="projects.html"
+                  class="btn btn-kca-red px-4 py-2 rounded-pill shadow-sm"
+                  >View Project Credentials</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================
+         5. CONTACT FOOTER
+    ========================================================= -->
     <footer id="contact" class="bg-navy py-5 mt-auto">
       <div class="container text-center text-white" data-aos="fade-up">
         <h5 class="fw-bold mb-3" style="font-family: var(--font-headings)">
@@ -477,10 +650,9 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init({
-        duration: 800,
-        once: false, // Allows repeat animations
-        mirror: true, // Animates elements out while scrolling past them
-        offset: 50,
+        duration: 700,
+        once: true,
+        offset: 40,
       });
     </script>
   </body>
