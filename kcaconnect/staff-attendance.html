@@ -455,7 +455,11 @@
                 >
                   CANCEL
                 </button>
-                <button type="submit" class="btn btn-modal-submit" id="btnSubmitOt">
+                <button
+                  type="submit"
+                  class="btn btn-modal-submit"
+                  id="btnSubmitOt"
+                >
                   SUBMIT
                 </button>
               </div>
@@ -511,7 +515,10 @@
                     <th>Status</th>
                   </tr>
                 </thead>
-                <tbody class="table-attendance-body" id="modalFullLogsTableBody">
+                <tbody
+                  class="table-attendance-body"
+                  id="modalFullLogsTableBody"
+                >
                   <!-- Dynamically populated via JS from DB -->
                 </tbody>
               </table>
@@ -547,8 +554,29 @@
       // 1. Live Real-Time Clock with Seconds & Accurate AM/PM
       function updateLiveClock() {
         const now = new Date();
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const days = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
 
         const dayName = days[now.getDay()];
         const monthName = months[now.getMonth()];
@@ -567,10 +595,12 @@
         if (clockEl) clockEl.innerText = clockString;
 
         const summaryDateEl = document.getElementById("summaryDateDisplay");
-        if (summaryDateEl) summaryDateEl.innerText = `${dayName}, ${dateNum} ${monthName} ${year}`;
+        if (summaryDateEl)
+          summaryDateEl.innerText = `${dayName}, ${dateNum} ${monthName} ${year}`;
 
         const modalDateEl = document.getElementById("modalDateDisplay");
-        if (modalDateEl) modalDateEl.innerText = `${dayName}, ${dateNum} ${monthName} ${year}`;
+        if (modalDateEl)
+          modalDateEl.innerText = `${dayName}, ${dateNum} ${monthName} ${year}`;
 
         updateWorkedHoursCounter();
       }
@@ -589,7 +619,8 @@
         const label = `${user.name} (${user.id})`;
         document.getElementById("staffDisplayName").innerText = label;
         document.getElementById("modalStaffIdDisplay").innerText = label;
-        document.getElementById("modalFullLogsStaffName").innerText = `Employee: ${label}`;
+        document.getElementById("modalFullLogsStaffName").innerText =
+          `Employee: ${label}`;
 
         // Load real punch state & 7-day history from MySQL database
         loadAttendanceStatus();
@@ -626,11 +657,7 @@
             }
 
             // 3. Today's OT status
-            if (data.today_ot) {
-              document.getElementById("summaryOTDisplay").innerText =
-                `${data.today_ot.ot_hours} hrs (${data.today_ot.status})`;
-              lockOtButton(data.today_ot.ot_hours);
-            }
+            updateOtUI(data.today_ot);
 
             // 4. Render rolling 7 days to dashboard & all days to modal
             renderDbLogs(data.history || []);
@@ -646,7 +673,7 @@
           showCustomPopup(
             "blocked",
             "GPS Not Supported",
-            "Geolocation is not supported by your browser."
+            "Geolocation is not supported by your browser.",
           );
           return;
         }
@@ -667,7 +694,7 @@
             LAHAT_HQ.lat,
             LAHAT_HQ.lng,
             userLat,
-            userLng
+            userLng,
           );
 
           // Case A: Within Main Office radius (100m)
@@ -685,7 +712,7 @@
               targetLat,
               targetLng,
               userLat,
-              userLng
+              userLng,
             );
 
             if (distanceSite <= radius) {
@@ -693,7 +720,7 @@
                 userLat,
                 userLng,
                 activeSitePermission.site_location,
-                "Site"
+                "Site",
               );
             } else {
               restoreBtn();
@@ -701,7 +728,7 @@
               showCustomPopup(
                 "blocked",
                 "OFF-SITE LOCATION MISMATCH",
-                `You are <strong>${awayMeters}m</strong> away from your authorized site: <strong>${activeSitePermission.site_location}</strong>.`
+                `You are <strong>${awayMeters}m</strong> away from your authorized site: <strong>${activeSitePermission.site_location}</strong>.`,
               );
             }
             return;
@@ -713,7 +740,7 @@
           showCustomPopup(
             "blocked",
             "PUNCH BLOCKED!",
-            `You are <strong>${awayMeters}m</strong> away from Main Office.<br><br>If you are on site duty, ask your Admin to grant Off-Site Permission in the Admin portal.`
+            `You are <strong>${awayMeters}m</strong> away from Main Office.<br><br>If you are on site duty, ask your Admin to grant Off-Site Permission in the Admin portal.`,
           );
         };
 
@@ -721,11 +748,14 @@
           restoreBtn();
           let message = "Please enable location on your device to clock in.";
           if (error.code === 1) {
-            message = "Location access was denied. Please allow location in your browser and device settings.";
+            message =
+              "Location access was denied. Please allow location in your browser and device settings.";
           } else if (error.code === 2) {
-            message = "Location unavailable. Make sure your Wi-Fi is turned on for positioning.";
+            message =
+              "Location unavailable. Make sure your Wi-Fi is turned on for positioning.";
           } else if (error.code === 3) {
-            message = "Location request timed out. Please click Clock-In again.";
+            message =
+              "Location request timed out. Please click Clock-In again.";
           }
           showCustomPopup("blocked", "GPS Signal Required", message);
         };
@@ -737,10 +767,10 @@
             navigator.geolocation.getCurrentPosition(
               onLocationSuccess,
               onLocationError,
-              { enableHighAccuracy: false, timeout: 8000 }
+              { enableHighAccuracy: false, timeout: 8000 },
             );
           },
-          { enableHighAccuracy: true, timeout: 4000 }
+          { enableHighAccuracy: true, timeout: 4000 },
         );
       }
 
@@ -764,7 +794,7 @@
               showCustomPopup(
                 "success",
                 "Clock-In Successful!",
-                `Punch recorded at <strong>${data.time_in}</strong>.<br>Location: <strong>${locationLabel}</strong>.`
+                `Punch recorded at <strong>${data.time_in}</strong>.<br>Location: <strong>${locationLabel}</strong>.`,
               );
               loadAttendanceStatus();
             } else {
@@ -776,65 +806,79 @@
             const btnIn = document.getElementById("btnClockIn");
             btnIn.disabled = false;
             btnIn.innerHTML = `<span class="badge rounded-circle p-1" style="background-color: #22c55e;"></span> CLOCK-IN`;
-            showCustomPopup("blocked", "Connection Error", "Unable to communicate with the server.");
+            showCustomPopup(
+              "blocked",
+              "Connection Error",
+              "Unable to communicate with the server.",
+            );
           });
       }
 
       // 4. Handle Clock-Out Action
       function handleClockOut() {
         const btnOut = document.getElementById("btnClockOut");
-        const originalOutHtml = btnOut.innerHTML;
         btnOut.disabled = true;
         btnOut.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> CLOCKING OUT...`;
 
         const restoreBtn = () => {
           btnOut.disabled = false;
-          btnOut.innerHTML = originalOutHtml;
+          btnOut.innerHTML = `<span class="badge rounded-circle p-1" style="background-color: #ef4444;"></span> CLOCK-OUT`;
         };
 
-        navigator.geolocation.getCurrentPosition(
-          (pos) => {
-            const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
-            const formData = new FormData();
-            formData.append("staff_id", user.id || "");
-            formData.append("lat", pos.coords.latitude);
-            formData.append("lng", pos.coords.longitude);
-            formData.append(
-              "location",
-              activeSitePermission
-                ? activeSitePermission.site_location
-                : "Main Office",
-            );
+        const doClockOut = (lat, lng) => {
+          const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const formData = new FormData();
+          formData.append("staff_id", user.id || "");
+          formData.append("lat", lat || "");
+          formData.append("lng", lng || "");
+          formData.append(
+            "location",
+            activeSitePermission
+              ? activeSitePermission.site_location
+              : "Main Office"
+          );
 
-            fetch("../php/attendance.php?action=clock_out", {
-              method: "POST",
-              body: formData,
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                if (data.success) {
-                  setClockedOutUI("", data.time_out, data.worked_hours);
-                  showCustomPopup(
-                    "info",
-                    "Clock-Out Complete",
-                    `Shift ended at <strong>${data.time_out}</strong>.<br>Total worked: <strong>${data.worked_hours} hrs</strong>.`
-                  );
-                  loadAttendanceStatus();
-                } else {
-                  restoreBtn();
-                  showCustomPopup("blocked", "Clock-Out Error", data.message);
-                }
-              })
-              .catch(() => {
+          fetch("../php/attendance.php?action=clock_out", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                setClockedOutUI("", data.time_out, data.worked_hours);
+                showCustomPopup(
+                  "info",
+                  "Clock-Out Complete",
+                  `Shift ended at <strong>${data.time_out}</strong>.<br>Total worked: <strong>${data.worked_hours} hrs</strong>.`
+                );
+                loadAttendanceStatus();
+              } else {
                 restoreBtn();
-                showCustomPopup("blocked", "Connection Error", "Failed to record clock-out.");
-              });
-          },
+                showCustomPopup("blocked", "Clock-Out Error", data.message);
+              }
+            })
+            .catch(() => {
+              restoreBtn();
+              showCustomPopup("blocked", "Connection Error", "Failed to record clock-out.");
+            });
+        };
+
+        if (!navigator.geolocation) {
+          doClockOut(null, null);
+          return;
+        }
+
+        // Fast GPS with fallback to prevent laptop hanging
+        navigator.geolocation.getCurrentPosition(
+          (pos) => doClockOut(pos.coords.latitude, pos.coords.longitude),
           () => {
-            restoreBtn();
-            showCustomPopup("blocked", "GPS Required", "Please allow location access to verify clock-out.");
+            navigator.geolocation.getCurrentPosition(
+              (pos) => doClockOut(pos.coords.latitude, pos.coords.longitude),
+              () => doClockOut(LAHAT_HQ.lat, LAHAT_HQ.lng),
+              { enableHighAccuracy: false, timeout: 4000 }
+            );
           },
-          { enableHighAccuracy: false, timeout: 8000 }
+          { enableHighAccuracy: true, timeout: 3000 }
         );
       }
 
@@ -885,14 +929,22 @@
               showCustomPopup(
                 "success",
                 "OT Request Submitted",
-                `Overtime request for <strong>${calculatedOT} hrs</strong> has been submitted to management for approval.`
+                `Overtime request for <strong>${calculatedOT} hrs</strong> has been submitted to management for approval.`,
               );
             } else {
-              showCustomPopup("blocked", "OT Error", data.message || "Failed to submit OT request.");
+              showCustomPopup(
+                "blocked",
+                "OT Error",
+                data.message || "Failed to submit OT request.",
+              );
             }
           })
           .catch(() => {
-            showCustomPopup("blocked", "OT Error", "Unable to connect to server.");
+            showCustomPopup(
+              "blocked",
+              "OT Error",
+              "Unable to connect to server.",
+            );
           });
       }
 
@@ -900,14 +952,61 @@
         document.getElementById("otEstimatedTime").value = timeValue;
       }
 
-      function lockOtButton(hours) {
+      function updateOtUI(todayOt) {
+        const summaryOtEl = document.getElementById("summaryOTDisplay");
         const otBtn = document.getElementById("btnRequestOt");
-        if (!otBtn) return;
-        otBtn.innerText = `⏳ OT PENDING (${hours} hrs)`;
-        otBtn.classList.remove("btn-request-ot");
-        otBtn.classList.add("btn-warning", "text-dark", "fw-bold");
-        otBtn.disabled = true;
-        otBtn.style.cursor = "not-allowed";
+        if (!summaryOtEl || !otBtn) return;
+
+        //Reset styling
+        otBtn.classList.remove(
+          "btn-warning",
+          "btn-success",
+          "btn-danger",
+          "text-dark",
+          "text-white",
+          "fw-bold",
+        );
+
+        //State 1: No OT request yet
+        if (!todayOt) {
+          summaryOtEl.innerHTML = `<span class="text-secondary fw-bold"> None (0.0 hrs)</span>`;
+          otBtn.className = "btn btn-request-ot w-100 text-uppercase";
+          otBtn.innerText = "REQUEST OT";
+          otBtn.disabled = false;
+          otBtn.style.cursor = "pointer";
+          return;
+        }
+
+        const otStatus = (todayOt.status || "pending").toLowerCase();
+        const otHours = parseFloat(todayOt.ot_hours || 0).toFixed(1);
+
+        //State 2: Pending OT request
+        if (otStatus === "pending") {
+          summaryOtEl.innerHTML = `<span class="badge bg-warning text-dark me-1">Pending</span> (${otHours} hrs)`;
+          otBtn.className =
+            "btn btn-warning text-dark fw-bold w-100 text-uppercase";
+          otBtn.innerText = `⏳ OT PENDING (${otHours} hrs)`;
+          otBtn.disabled = true;
+          otBtn.style.cursor = "not-allowed";
+        }
+        //State 3: Approved OT request
+        else if (otStatus === "approved") {
+          summaryOtEl.innerHTML = `<span class="badge bg-success text-white me-1">Approved</span> (${otHours} hrs)`;
+          otBtn.className =
+            "btn btn-success text-white fw-bold w-100 text-uppercase";
+          otBtn.innerText = `✅ OT APPROVED (${otHours} hrs)`;
+          otBtn.disabled = true;
+          otBtn.style.cursor = "not-allowed";
+        }
+        //State 4: Rejected OT request
+        else if (otStatus === "rejected") {
+          summaryOtEl.innerHTML = `<span class="badge bg-danger text-white me-1">Rejected</span> (${otHours} hrs)`;
+          otBtn.className =
+            "btn btn-danger text-white fw-bold w-100 text-uppercase";
+          otBtn.innerText = `❌ OT REJECTED (${otHours} hrs)`;
+          otBtn.disabled = true;
+          otBtn.style.cursor = "not-allowed";
+        }
       }
 
       // UI State Managers
@@ -922,8 +1021,10 @@
         btnOut.disabled = true;
         btnOut.classList.remove("active-punch");
 
-        document.getElementById("summaryPunchStatus").innerText = "Not Clocked In Yet";
-        document.getElementById("summaryPunchStatus").className = "text-dark fw-bold";
+        document.getElementById("summaryPunchStatus").innerText =
+          "Not Clocked In Yet";
+        document.getElementById("summaryPunchStatus").className =
+          "text-dark fw-bold";
         document.getElementById("summaryWorkedHours").innerText = "0.0 hrs";
       }
 
@@ -938,8 +1039,10 @@
         btnOut.disabled = false;
         btnOut.classList.add("active-punch");
 
-        document.getElementById("summaryPunchStatus").innerText = `Clocked In (${timeIn})`;
-        document.getElementById("summaryPunchStatus").className = "text-success fw-bold";
+        document.getElementById("summaryPunchStatus").innerText =
+          `Clocked In (${timeIn})`;
+        document.getElementById("summaryPunchStatus").className =
+          "text-success fw-bold";
 
         updateWorkedHoursCounter();
       }
@@ -954,8 +1057,10 @@
         const btnOut = document.getElementById("btnClockOut");
         btnOut.disabled = true;
         btnOut.classList.remove("active-punch");
+        btnOut.innerHTML = `<span class="badge rounded-circle p-1" style="background-color: #ef4444;"></span> CLOCKED-OUT`;
 
-        document.getElementById("summaryPunchStatus").innerText = `Completed (Out: ${timeOut})`;
+        const outDisplay = timeOut ? `(Out: ${timeOut})` : '';
+        document.getElementById("summaryPunchStatus").innerText = `Completed ${outDisplay}`;
         document.getElementById("summaryPunchStatus").className = "text-primary fw-bold";
         if (totalHours) {
           document.getElementById("summaryWorkedHours").innerText = `${totalHours} hrs`;
@@ -963,11 +1068,17 @@
       }
 
       function updateWorkedHoursCounter() {
-        if (!activeClockInTimeStr || !activeClockInTimeStr.includes(":")) return;
+        if (!activeClockInTimeStr || !activeClockInTimeStr.includes(":"))
+          return;
         const parts = activeClockInTimeStr.split(":");
         const now = new Date();
         const punchDate = new Date();
-        punchDate.setHours(parseInt(parts[0], 10), parseInt(parts[1], 10), 0, 0);
+        punchDate.setHours(
+          parseInt(parts[0], 10),
+          parseInt(parts[1], 10),
+          0,
+          0,
+        );
 
         const diffMs = now - punchDate;
         if (diffMs > 0) {
@@ -999,7 +1110,8 @@
         const btnEl = document.getElementById("modalAlertBtn");
 
         if (type === "success") {
-          iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
           titleEl.className = "fw-bold mb-2 text-success";
           btnEl.style.backgroundColor = "#0563c1";
         } else if (type === "blocked") {
@@ -1007,7 +1119,8 @@
           titleEl.className = "fw-bold mb-2 text-danger";
           btnEl.style.backgroundColor = "#e61e2b";
         } else {
-          iconEl.innerHTML = '<i class="bi bi-info-circle-fill text-primary"></i>';
+          iconEl.innerHTML =
+            '<i class="bi bi-info-circle-fill text-primary"></i>';
           titleEl.className = "fw-bold mb-2 text-primary";
           btnEl.style.backgroundColor = "#0563c1";
         }
@@ -1024,7 +1137,9 @@
         const el = document.getElementById(modalId);
         if (el) {
           el.addEventListener("hidden.bs.modal", function () {
-            document.querySelectorAll(".modal-backdrop").forEach((b) => b.remove());
+            document
+              .querySelectorAll(".modal-backdrop")
+              .forEach((b) => b.remove());
             document.body.classList.remove("modal-open");
             document.body.style.removeProperty("overflow");
             document.body.style.removeProperty("padding-right");
@@ -1037,8 +1152,7 @@
         window.location.href = "login.html";
       }
 
-      // Renders DB attendance records:
-      // - Dashboard Table: Rolling 7 days (logs.slice(0, 7))
+      // - Dashboard Table: Rolling 7 days 
       // - Modal Table: All database records
       function renderDbLogs(logs) {
         const desktopTbody = document.getElementById("desktopTableBody");
@@ -1052,12 +1166,30 @@
         if (modalTbody) modalTbody.innerHTML = "";
 
         if (!logs || logs.length === 0) {
-          const emptyRow = '<tr><td colspan="7" class="text-muted py-3">No attendance records found yet.</td></tr>';
+          const emptyRow =
+            '<tr><td colspan="7" class="text-muted py-3">No attendance records found yet.</td></tr>';
           desktopTbody.innerHTML = emptyRow;
-          mobileContainer.innerHTML = '<div class="text-muted text-center py-3">No records found.</div>';
+          mobileContainer.innerHTML =
+            '<div class="text-muted text-center py-3">No records found.</div>';
           if (modalTbody) modalTbody.innerHTML = emptyRow;
           return;
         }
+
+        // Helper function to generate clean status badges
+        const getOtBadge = (otHours, otStatus) => {
+          const hours = parseFloat(otHours || 0);
+          if (hours <= 0 && (!otStatus || otStatus === "none")) {
+            return `<span class="text-muted">None</span>`;
+          }
+          if (otStatus === "approved") {
+            return `<span class="badge bg-success-subtle text-success border">${hours.toFixed(1)} hrs (Accepted)</span>`;
+          }
+          if (otStatus === "rejected") {
+            return `<span class="badge bg-danger-subtle text-danger border">0.0 hrs (Rejected)</span>`;
+          }
+          // Default to Pending if hours exist
+          return `<span class="badge bg-warning-subtle text-warning-emphasis border">${hours.toFixed(1)} hrs (Pending)</span>`;
+        };
 
         // 1. Dashboard Table & Mobile: Top 7 days (Rolling window)
         const dashboardLogs = logs.slice(0, 7);
@@ -1069,6 +1201,7 @@
           const formattedDate = `${d}/${m}/${y}`;
           const timeIn = log.clock_in_time ? log.clock_in_time.substring(0, 5) : "--:--";
           const timeOut = log.clock_out_time ? log.clock_out_time.substring(0, 5) : "--:--";
+          const otBadgeHtml = getOtBadge(log.ot_hours, log.ot_status);
 
           const tr = document.createElement("tr");
           tr.innerHTML = `
@@ -1077,7 +1210,7 @@
             <td>${timeIn}</td>
             <td>${timeOut}</td>
             <td>${log.work_hours || "0.0"} hrs</td>
-            <td>${log.ot_hours || "0.0"} hrs</td>
+            <td>${otBadgeHtml}</td>
             <td><span class="badge ${log.status === "Office" ? "bg-success-subtle text-success border" : "bg-info-subtle text-dark border"}">${log.status}</span></td>
           `;
           desktopTbody.appendChild(tr);
@@ -1097,7 +1230,7 @@
               </div>
               <div class="d-flex mb-1">
                 <span class="fw-bold text-dark" style="width: 140px;">Overtime</span>
-                <span>: ${log.ot_hours || "0.0"} hrs</span>
+                <span>: ${otBadgeHtml}</span>
               </div>
               <div class="d-flex">
                 <span class="fw-bold text-dark" style="width: 140px;">Status</span>
@@ -1117,6 +1250,7 @@
             const formattedDate = `${d}/${m}/${y}`;
             const timeIn = log.clock_in_time ? log.clock_in_time.substring(0, 5) : "--:--";
             const timeOut = log.clock_out_time ? log.clock_out_time.substring(0, 5) : "--:--";
+            const otBadgeHtml = getOtBadge(log.ot_hours, log.ot_status);
 
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -1125,7 +1259,7 @@
               <td>${timeIn}</td>
               <td>${timeOut}</td>
               <td>${log.work_hours || "0.0"} hrs</td>
-              <td class="fw-bold ${parseFloat(log.ot_hours) > 0 ? "text-primary" : ""}">${log.ot_hours || "0.0"} hrs</td>
+              <td>${otBadgeHtml}</td>
               <td><span class="badge ${log.status === "Office" ? "bg-success-subtle text-success border" : "bg-info-subtle text-dark border"}">${log.status}</span></td>
             `;
             modalTbody.appendChild(tr);

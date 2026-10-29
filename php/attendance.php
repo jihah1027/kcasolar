@@ -49,13 +49,21 @@ try {
         } catch (Exception $e) {}
 
         // 4. Fetch last 7 days of attendance history
-        try {
+        try{
             $stmtHistory = $pdo->prepare("
-                SELECT work_date, clock_in_time, clock_out_time, work_hours, ot_hours, status 
-                FROM attendance_records 
-                WHERE staff_id = ? 
-                ORDER BY work_date DESC 
-                LIMIT 7
+            SELECT
+            a.work_date,
+            a.clock_in_time,
+            a.clock_out_time,
+            a.work_hours,
+            a.ot_hours,
+            a.status,
+            c.status AS ot_status
+            FROM attendance_records a
+            LEFT JOIN overtime_claims c ON a.staff_id = c.staff_id AND a.work_date = c.claim_date
+            WHERE a.staff_id = ?
+            ORDER BY a.work_date DESC
+            LIMIT 7
             ");
             $stmtHistory->execute([$staff_id]);
             $history = $stmtHistory->fetchAll(PDO::FETCH_ASSOC) ?: [];
@@ -178,6 +186,79 @@ try {
             "message" => "OT request submitted for review.",
             "claim_code" => $claimCode,
             "ot_hours" => $otHours
+        ]);
+        exit;
+    }
+
+    // 5. Admin: Fetch All Overtime Claims from MySQL Database
+if ($action === 'admin_get_ot') {
+        $stmt = $pdo->prepare("
+            SELECT 
+                c.id,
+                c.claim_code,
+                c.staff_id,
+                u.full_name AS staff_name,
+                c.claim_date,
+                c.ot_hours,
+                c.hourly_rate,
+                c.total_amount,
+                c.project_name,
+                c.reason,
+                c.status,
+                c.reviewed_by,
+                r.full_name AS reviewer_name,
+                DATE_FORMAT(c.reviewed_at, '%d/%m/%Y, %h:%i %p') AS formatted_reviewed_at,
+                a.clock_out_time,
+                a.clock_out_location,
+                a.clock_in_location AS att_location
+            FROM overtime_claims c
+            LEFT JOIN users u ON c.staff_id = u.staff_id
+            LEFT JOIN users r ON c.reviewed_by = r.staff_id
+            LEFT JOIN attendance_records a ON c.staff_id = a.staff_id AND c.claim_date = a.work_date
+            ORDER BY c.id DESC
+        ");
+        $stmt->execute();
+        $claims = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+
+        echo json_encode(["success" => true, "claims" => $claims]);
+        exit;
+    }
+
+    // 6. Admin: Review (Approve / Reject) Overtime Claim
+    if ($action === 'admin_review_ot') {
+        $claim_id = $_POST['claim_id'] ?? '';
+        $status = $_POST['status'] ?? 'approved';
+        $approved_hours = floatval($_POST['approved_hours'] ?? 0);
+        $admin_id = trim($_POST['admin_id'] ?? $staff_id);
+
+        $stmt = $pdo->prepare("SELECT * FROM overtime_claims WHERE id = ? LIMIT 1");
+        $stmt->execute([$claim_id]);
+        $claim = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$claim) {
+            echo json_encode(["success" => false, "message" => "Claim record not found in database."]);
+            exit;
+        }
+
+        $hourly_rate = floatval($claim['hourly_rate'] ?? 15.00);
+        $total_amount = ($status === 'approved') ? ($approved_hours * $hourly_rate) : 0.00;
+        $final_hours = ($status === 'approved') ? $approved_hours : 0.00;
+
+        // Update overtime_claims with the reviewing admin's ID and timestamp
+        $stmtUpdate = $pdo->prepare("
+            UPDATE overtime_claims 
+            SET status = ?, ot_hours = ?, total_amount = ?, reviewed_by = ?, reviewed_at = NOW() 
+            WHERE id = ?
+        ");
+        $stmtUpdate->execute([$status, $final_hours, $total_amount, $admin_id, $claim['id']]);
+
+        // Sync with attendance_records ot_hours
+        $stmtAtt = $pdo->prepare("UPDATE attendance_records SET ot_hours = ? WHERE staff_id = ? AND work_date = ?");
+        $stmtAtt->execute([$final_hours, $claim['staff_id'], $claim['claim_date']]);
+
+        echo json_encode([
+            "success" => true, 
+            "message" => "Claim successfully updated in database."
         ]);
         exit;
     }

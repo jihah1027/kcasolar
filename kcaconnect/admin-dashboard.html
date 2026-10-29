@@ -15,18 +15,18 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     
     <!-- Main Style -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Signature Brand Accent Line (Top) -->
+    <!-- Brand Accent Line (Top) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Admin Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
         <div class="container-fluid px-lg-5">
             <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
-                <img src="img/KCAConnect.png" alt="KCA Logo" style="height: 48px;" class="me-2" onerror="this.src='img/KCAConnect.png'">
+                <img src="../img/KCAConnect.png" alt="KCA Logo" style="height: 48px;" class="me-2" onerror="this.src='../img/KCAConnect.png'">
             </a>
 
             <!-- Right Controls -->
@@ -60,16 +60,29 @@
                                     <span>Attendance Logs</span>
                                 </a>
                             </li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-leave.html">
+                                    <i class="bi bi-calendar-check text-primary"></i>
+                                    <span>Leave Management (e-Leave)</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Red Logout Button -->
-                <a href="login.html" class="btn p-0 border-0" title="Sign Out">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b;">
-                        <i class="bi bi-box-arrow-right fs-5"></i>
-                    </div>
-                </a>
+                <!-- Admin Profile Name & Logout Button -->
+                <div class="d-flex align-items-center gap-3">
+                    <span class="fw-bold text-dark d-none d-sm-inline" id="adminDisplayName" style="font-size: 0.95rem;">
+                        Admin
+                    </span>
+
+                    <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0" title="Sign Out">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b;">
+                            <i class="bi bi-box-arrow-right fs-5"></i>
+                        </div>
+                    </button>
+                </div>
 
                 <!-- Mobile Hamburger Toggle -->
                 <button class="navbar-toggler border-0 shadow-none d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminDrawer">
@@ -79,7 +92,7 @@
         </div>
     </nav>
 
-    <!-- Signature Brand Accent Line (Bottom of Navbar) -->
+    <!-- Brand Accent Line (Bottom) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Mobile Offcanvas Menu -->
@@ -87,10 +100,7 @@
         <div class="brand-accent-bar" style="height: 3px;"></div>
         <div class="offcanvas-header border-bottom">
             <div class="d-flex align-items-center">
-                <img src="img/logo.png" alt="KCA Logo" style="height: 40px;" class="me-2" onerror="this.src='img/about_us.png'">
-                <div class="lh-1">
-                    <span class="fw-bold text-tnb-blue d-block" style="font-size: 0.85rem; font-family: var(--font-headings);">Kejuruteraan Cahaya Abadi</span>
-                </div>
+                <img src="../img/KCAConnect.png" alt="KCA Logo" style="height: 40px;" class="me-2" onerror="this.src='../img/logo.png'">
             </div>
             <button type="button" class="btn-close mb-auto mt-2 shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
@@ -123,33 +133,39 @@
                         <span>Attendance Logs</span>
                     </a>
                 </li>
+                <li>
+                    <a class="admin-drawer-link" href="admin-leave.html">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Leave Management</span>
+                    </a>
+                </li>
             </ul>
             <div class="pt-3 border-top">
-                <a href="login.html" class="admin-drawer-link text-danger">
-                    <i class="bi bi-box-arrow-right text-danger"></i>
+                <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start">
+                    <i class="bi bi-box-arrow-right text-danger me-2"></i>
                     <span>Sign Out</span>
-                </a>
+                </button>
             </div>
         </div>
     </div>
 
-   <!-- Main Workspace Container -->
+    <!-- Main Workspace Container -->
     <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
         
-        <!-- Header Welcome & Status -->
+        <!-- Header Status -->
         <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
             <div>
                 <h4 class="fw-bold mb-1 text-tnb-blue" style="font-family: var(--font-headings); font-size: 1.45rem;">
                     EXECUTIVE OVERVIEW
                 </h4>
-                <span class="text-muted small">Daily Operations &amp; Communications</span>
+                <span class="text-muted small">Daily Operations & Communications</span>
             </div>
             <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill small">
                 <i class="bi bi-broadcast me-1"></i> Operations Online
             </span>
         </div>
 
-        <!-- 1. TOP ROW: 4 HERO KPI METRIC CARDS -->
+        <!-- 1. TOP ROW: KPI METRIC CARDS -->
         <div class="row g-3 g-lg-4 mb-4">
             <!-- Card 1: Today's Attendance -->
             <div class="col-6 col-lg-3">
@@ -204,7 +220,7 @@
             </div>
         </div>
 
-        <!-- 2. BOTTOM ROW: 2 LIVE OPERATIONAL FEEDS (CLEAN CREST ONLY) -->
+        <!-- 2. BOTTOM ROW: LIVE OPERATIONAL FEEDS -->
         <div class="row g-4">
             
             <!-- LEFT FEED: Latest Attendance Logs (Blue Top Crest) -->
@@ -251,7 +267,7 @@
 
                     <div class="pt-3 border-top mt-3 text-center">
                         <a href="admin-inquiries.html" class="btn btn-sm btn-outline-secondary fw-semibold px-4 rounded-3">
-                            Manage All Inquiries &amp; Export
+                            Manage All Inquiries & Export
                         </a>
                     </div>
                 </div>
@@ -264,11 +280,37 @@
     <!-- Bootstrap 5 JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Client-Side Engine (Option B Data Aggregator) -->
+    <!-- Client-Side Engine -->
     <script>
         window.addEventListener('DOMContentLoaded', () => {
+            // 1. Session & Role Verification
+            const userSession = sessionStorage.getItem('kca_user');
+            if (!userSession) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const user = JSON.parse(userSession);
+            // If logged in as staff, redirect away from admin dashboard
+            if (user.role !== 'admin') {
+                window.location.href = 'staff-attendance.html';
+                return;
+            }
+
+            // Display Admin Name
+            const adminNameEl = document.getElementById('adminDisplayName');
+            if (adminNameEl) {
+                adminNameEl.innerText = `${user.name} (${user.id || 'ADMIN'})`;
+            }
+
+            // 2. Render Dashboard with safe fallback/dummy data
             renderDashboardOptionB();
         });
+
+        function logoutAdmin() {
+            sessionStorage.clear();
+            window.location.href = 'login.html';
+        }
 
         function renderDashboardOptionB() {
             // 1. Staff Dispatch Metrics (admin-staff.html)
@@ -298,74 +340,80 @@
                 document.getElementById('dashUnreadInqTotal').innerText = "0";
             }
 
-            // 4. Master Attendance Logs Feed
-            const attendanceList = JSON.parse(localStorage.getItem('kca_master_attendance_logs')) || [];
+            // 4. Master Attendance Logs Feed (Fallback dummy records if none yet)
+            const DEFAULT_DUMMY_LOGS = [
+                { staffId: "KCA-001", name: "Azhar Rashid", clockInTime: "08:14 AM", clockOutTime: "--:--", statusBadge: "Office (On Duty)", badgeColor: "primary" },
+                { staffId: "KCA-002", name: "Daniel Saad", clockInTime: "08:25 AM", clockOutTime: "--:--", statusBadge: "Site (Batu Gajah)", badgeColor: "warning" },
+                { staffId: "KCA-003", name: "Mohd Syafiq", clockInTime: "08:30 AM", clockOutTime: "--:--", statusBadge: "Site (Pusing)", badgeColor: "warning" },
+                { staffId: "KCA-004", name: "Ahmad Razak", clockInTime: "08:15 AM", clockOutTime: "17:30 PM", statusBadge: "Completed (HQ)", badgeColor: "success" }
+            ];
+
+            const storedLogs = JSON.parse(localStorage.getItem('kca_master_attendance_logs')) || [];
+            const displayLogs = storedLogs.length > 0 ? storedLogs : DEFAULT_DUMMY_LOGS;
+
             const attendanceFeedEl = document.getElementById('dashAttendanceFeedList');
             attendanceFeedEl.innerHTML = '';
+            document.getElementById('dashAttendanceTotal').innerText = displayLogs.length > 4 ? displayLogs.length : "40";
 
-            document.getElementById('dashAttendanceTotal').innerText = attendanceList.length > 0 ? attendanceList.length : "40";
+            displayLogs.slice(0, 5).forEach(log => {
+                let badgeClass = 'bg-success text-white';
+                if (log.badgeColor === 'primary') badgeClass = 'bg-primary-subtle text-primary border';
+                else if (log.badgeColor === 'warning') badgeClass = 'bg-warning text-dark';
+                else if (log.badgeColor === 'danger') badgeClass = 'bg-danger text-white';
 
-            const recentLogs = attendanceList.slice(0, 5);
-            if (recentLogs.length === 0) {
-                attendanceFeedEl.innerHTML = `<div class="text-muted small py-3 text-center">No attendance logged yet today.</div>`;
-            } else {
-                recentLogs.forEach(log => {
-                    let badgeClass = 'bg-success text-white';
-                    if (log.badgeColor === 'primary') badgeClass = 'bg-primary-subtle text-primary border';
-                    else if (log.badgeColor === 'warning') badgeClass = 'bg-warning text-dark';
-                    else if (log.badgeColor === 'danger') badgeClass = 'bg-danger text-white';
-
-                    const row = document.createElement('a');
-                    row.href = 'admin-attendance.html';
-                    row.className = 'feed-item-row';
-                    row.innerHTML = `
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="feed-item-avatar">${log.staffId.replace('KCA-', '')}</div>
-                            <div>
-                                <div class="fw-bold text-dark small">${log.name} (${log.staffId})</div>
-                                <div class="text-muted" style="font-size: 0.76rem;">In: ${log.clockInTime} • Out: ${log.clockOutTime}</div>
-                            </div>
+                const row = document.createElement('a');
+                row.href = 'admin-attendance.html';
+                row.className = 'feed-item-row';
+                row.innerHTML = `
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="feed-item-avatar">${log.staffId.replace('KCA-', '')}</div>
+                        <div>
+                            <div class="fw-bold text-dark small">${log.name} (${log.staffId})</div>
+                            <div class="text-muted" style="font-size: 0.76rem;">In: ${log.clockInTime} • Out: ${log.clockOutTime}</div>
                         </div>
-                        <span class="badge ${badgeClass} px-2 py-1 small rounded-pill" style="font-size: 0.75rem;">
-                            ${log.statusBadge}
-                        </span>
-                    `;
-                    attendanceFeedEl.appendChild(row);
-                });
-            }
+                    </div>
+                    <span class="badge ${badgeClass} px-2 py-1 small rounded-pill" style="font-size: 0.75rem;">
+                        ${log.statusBadge}
+                    </span>
+                `;
+                attendanceFeedEl.appendChild(row);
+            });
 
-            // 5. Recent Inquiries Feed
+            // 5. Recent Inquiries Feed (Fallback dummy inquiries)
+            const DEFAULT_DUMMY_INQ = [
+                { senderName: "Ir. Tan Kek Leong", category: "Project Inquiry", date: "Today, 10:20 AM", status: "review" },
+                { senderName: "Amirul Haziq Bin Razali", category: "Internship Query", date: "Yesterday", status: "new" }
+            ];
+
+            const storedInq = JSON.parse(localStorage.getItem('kca_inquiries_list')) || [];
+            const displayInq = storedInq.length > 0 ? storedInq : DEFAULT_DUMMY_INQ;
+
             const inqFeedEl = document.getElementById('dashInquiriesFeedList');
             inqFeedEl.innerHTML = '';
 
-            const recentInquiries = inqList.slice(0, 5);
-            if (recentInquiries.length === 0) {
-                inqFeedEl.innerHTML = `<div class="text-muted small py-3 text-center">No recent inquiries in inbox.</div>`;
-            } else {
-                recentInquiries.forEach(inq => {
-                    let statusBadge = '<span class="badge bg-warning-subtle text-warning-emphasis border">New</span>';
-                    if (inq.status === 'review') statusBadge = '<span class="badge bg-danger-subtle text-danger border">Under Review</span>';
-                    else if (inq.status === 'replied') statusBadge = '<span class="badge bg-success-subtle text-success border">Replied</span>';
-                    else if (inq.status === 'resolved') statusBadge = '<span class="badge bg-light text-muted border">Resolved</span>';
+            displayInq.slice(0, 5).forEach(inq => {
+                let statusBadge = '<span class="badge bg-warning-subtle text-warning-emphasis border">New</span>';
+                if (inq.status === 'review') statusBadge = '<span class="badge bg-danger-subtle text-danger border">Under Review</span>';
+                else if (inq.status === 'replied') statusBadge = '<span class="badge bg-success-subtle text-success border">Replied</span>';
+                else if (inq.status === 'resolved') statusBadge = '<span class="badge bg-light text-muted border">Resolved</span>';
 
-                    const row = document.createElement('a');
-                    row.href = 'admin-inquiries.html';
-                    row.className = 'feed-item-row';
-                    row.innerHTML = `
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="feed-item-avatar text-secondary">
-                                <i class="bi bi-person"></i>
-                            </div>
-                            <div>
-                                <div class="fw-bold text-dark small">${inq.senderName}</div>
-                                <div class="text-muted" style="font-size: 0.76rem;">${inq.category} • ${inq.date}</div>
-                            </div>
+                const row = document.createElement('a');
+                row.href = 'admin-inquiries.html';
+                row.className = 'feed-item-row';
+                row.innerHTML = `
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="feed-item-avatar text-secondary">
+                            <i class="bi bi-person"></i>
                         </div>
-                        ${statusBadge}
-                    `;
-                    inqFeedEl.appendChild(row);
-                });
-            }
+                        <div>
+                            <div class="fw-bold text-dark small">${inq.senderName}</div>
+                            <div class="text-muted" style="font-size: 0.76rem;">${inq.category} • ${inq.date}</div>
+                        </div>
+                    </div>
+                    ${statusBadge}
+                `;
+                inqFeedEl.appendChild(row);
+            });
         }
     </script>
 </body>
