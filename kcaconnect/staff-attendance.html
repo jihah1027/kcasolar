@@ -667,151 +667,94 @@
           );
       }
 
-      // 3. Handle Clock-In Action
+      // 3. Handle Clock-In Action (Smart Dual-Clearance: Office or Site)
       function handleClockIn() {
-        if (!navigator.geolocation) {
-          showCustomPopup(
-            "blocked",
-            "GPS Not Supported",
-            "Geolocation is not supported by your browser.",
-          );
-          return;
-        }
-
         const btnIn = document.getElementById("btnClockIn");
         btnIn.disabled = true;
-        btnIn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> LOCATING...`;
+        btnIn.innerHTML = `<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> CHECKING LOCATION...`;
 
         const restoreBtn = () => {
           btnIn.disabled = false;
           btnIn.innerHTML = `<span class="badge rounded-circle p-1" style="background-color: #22c55e;"></span> CLOCK-IN`;
         };
 
-        const onLocationSuccess = (position) => {
-          const userLat = position.coords.latitude;
-          const userLng = position.coords.longitude;
-          const distanceHQ = getDistanceMeters(
-            LAHAT_HQ.lat,
-            LAHAT_HQ.lng,
-            userLat,
-            userLng,
-          );
+        const doClockIn = (lat, lng) => {
+          // Distance to Lahat HQ using your real function getDistanceMeters()
+          const distToHQ = getDistanceMeters(lat, lng, LAHAT_HQ.lat, LAHAT_HQ.lng);
+          
+          let siteName = "Main Office";
+          let punchStatus = "Office";
 
-          // Case A: Within Main Office radius (100m)
-          if (distanceHQ <= LAHAT_HQ.radiusMeters) {
-            sendClockInToDb(userLat, userLng, "Main Office", "Office");
-            return;
+          // Scenario A: Worker is physically at Lahat HQ (within 100m)
+          // (Even if assigned to off-site, grabbing equipment logs as Office)
+          if (distToHQ <= 100) {
+            siteName = "Main Office";
+            punchStatus = "Office";
           }
-
-          // Case B: Off-site permission
-          if (activeSitePermission) {
-            const targetLat = parseFloat(activeSitePermission.latitude);
-            const targetLng = parseFloat(activeSitePermission.longitude);
-            const radius = parseInt(activeSitePermission.radius_meters) || 150;
-            const distanceSite = getDistanceMeters(
-              targetLat,
-              targetLng,
-              userLat,
-              userLng,
-            );
-
-            if (distanceSite <= radius) {
-              sendClockInToDb(
-                userLat,
-                userLng,
-                activeSitePermission.site_location,
-                "Site",
-              );
-            } else {
-              restoreBtn();
-              const awayMeters = Math.round(distanceSite);
-              showCustomPopup(
-                "blocked",
-                "OFF-SITE LOCATION MISMATCH",
-                `You are <strong>${awayMeters}m</strong> away from your authorized site: <strong>${activeSitePermission.site_location}</strong>.`,
-              );
-            }
-            return;
+          // Scenario B: Worker is outside HQ, but Admin granted Off-Site duty
+          else if (activeSitePermission) {
+            punchStatus = "Site";
+            siteName = activeSitePermission.site_location || "Authorized Site";
           }
-
-          // Case C: Outside Main Office and no off-site permission assigned
-          restoreBtn();
-          const awayMeters = Math.round(distanceHQ);
-          showCustomPopup(
-            "blocked",
-            "PUNCH BLOCKED!",
-            `You are <strong>${awayMeters}m</strong> away from Main Office.<br><br>If you are on site duty, ask your Admin to grant Off-Site Permission in the Admin portal.`,
-          );
-        };
-
-        const onLocationError = (error) => {
-          restoreBtn();
-          let message = "Please enable location on your device to clock in.";
-          if (error.code === 1) {
-            message =
-              "Location access was denied. Please allow location in your browser and device settings.";
-          } else if (error.code === 2) {
-            message =
-              "Location unavailable. Make sure your Wi-Fi is turned on for positioning.";
-          } else if (error.code === 3) {
-            message =
-              "Location request timed out. Please click Clock-In again.";
-          }
-          showCustomPopup("blocked", "GPS Signal Required", message);
-        };
-
-        // Satellite GPS for phones, fallback to Wi-Fi for laptops
-        navigator.geolocation.getCurrentPosition(
-          onLocationSuccess,
-          () => {
-            navigator.geolocation.getCurrentPosition(
-              onLocationSuccess,
-              onLocationError,
-              { enableHighAccuracy: false, timeout: 8000 },
-            );
-          },
-          { enableHighAccuracy: true, timeout: 4000 },
-        );
-      }
-
-      function sendClockInToDb(lat, lng, locationLabel, statusLabel) {
-        const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
-        const formData = new FormData();
-        formData.append("staff_id", user.id || "");
-        formData.append("lat", lat);
-        formData.append("lng", lng);
-        formData.append("location", locationLabel);
-        formData.append("status", statusLabel);
-
-        fetch("../php/attendance.php?action=clock_in", {
-          method: "POST",
-          body: formData,
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            if (data.success) {
-              setClockedInUI(data.time_in);
-              showCustomPopup(
-                "success",
-                "Clock-In Successful!",
-                `Punch recorded at <strong>${data.time_in}</strong>.<br>Location: <strong>${locationLabel}</strong>.`,
-              );
-              loadAttendanceStatus();
-            } else {
-              showCustomPopup("blocked", "Clock-In Notice", data.message);
-              loadAttendanceStatus();
-            }
-          })
-          .catch(() => {
-            const btnIn = document.getElementById("btnClockIn");
-            btnIn.disabled = false;
-            btnIn.innerHTML = `<span class="badge rounded-circle p-1" style="background-color: #22c55e;"></span> CLOCK-IN`;
+          // Scenario C: Worker is outside HQ and has NO permission -> Block!
+          else {
+            restoreBtn();
             showCustomPopup(
               "blocked",
-              "Connection Error",
-              "Unable to communicate with the server.",
+              "Punch Blocked",
+              `You are <strong>${Math.round(distToHQ)} meters</strong> away from Main Office.<br><br>If you are deployed to an external site, ask your Admin to grant Off-Site Permission.`
             );
-          });
+            return;
+          }
+
+          // Submit real device coordinates & verified location to MySQL
+          const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const formData = new FormData();
+          formData.append("staff_id", user.id || "");
+          formData.append("lat", lat || "");
+          formData.append("lng", lng || "");
+          formData.append("location", siteName);
+          formData.append("status", punchStatus);
+
+          fetch("../php/attendance.php?action=clock_in", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                setClockedInUI(data.time_in);
+                showCustomPopup(
+                  "success",
+                  "Clock-In Successful!",
+                  `Punch recorded at <strong>${data.time_in}</strong>.<br>Location: <strong>${data.location}</strong> (${punchStatus}).`
+                );
+                loadAttendanceStatus();
+              } else {
+                restoreBtn();
+                showCustomPopup("blocked", "Punch Failed", data.message);
+              }
+            })
+            .catch(() => {
+              restoreBtn();
+              showCustomPopup("blocked", "Connection Error", "Failed to connect to server.");
+            });
+        };
+
+        if (!navigator.geolocation) {
+          showCustomPopup("blocked", "GPS Required", "Geolocation is not supported by your browser.");
+          restoreBtn();
+          return;
+        }
+
+        navigator.geolocation.getCurrentPosition(
+          (pos) => doClockIn(pos.coords.latitude, pos.coords.longitude),
+          () => {
+            restoreBtn();
+            showCustomPopup("blocked", "GPS Blocked", "Please allow location access to clock in.");
+          },
+          { enableHighAccuracy: true, timeout: 5000 }
+        );
       }
 
       // 4. Handle Clock-Out Action
@@ -827,16 +770,21 @@
 
         const doClockOut = (lat, lng) => {
           const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          
+          // Determine location at clock-out
+          let outLocation = "Main Office";
+          if (lat && lng) {
+            const dist = getDistanceMeters(lat, lng, LAHAT_HQ.lat, LAHAT_HQ.lng);
+            if (dist > 100 && activeSitePermission) {
+              outLocation = activeSitePermission.site_location || "Authorized Site";
+            }
+          }
+
           const formData = new FormData();
           formData.append("staff_id", user.id || "");
           formData.append("lat", lat || "");
           formData.append("lng", lng || "");
-          formData.append(
-            "location",
-            activeSitePermission
-              ? activeSitePermission.site_location
-              : "Main Office"
-          );
+          formData.append("location", outLocation);
 
           fetch("../php/attendance.php?action=clock_out", {
             method: "POST",
@@ -868,27 +816,24 @@
           return;
         }
 
-        // Fast GPS with fallback to prevent laptop hanging
         navigator.geolocation.getCurrentPosition(
           (pos) => doClockOut(pos.coords.latitude, pos.coords.longitude),
-          () => {
-            navigator.geolocation.getCurrentPosition(
-              (pos) => doClockOut(pos.coords.latitude, pos.coords.longitude),
-              () => doClockOut(LAHAT_HQ.lat, LAHAT_HQ.lng),
-              { enableHighAccuracy: false, timeout: 4000 }
-            );
-          },
-          { enableHighAccuracy: true, timeout: 3000 }
+          () => doClockOut(null, null),
+          { enableHighAccuracy: false, timeout: 4000 }
         );
       }
 
       // 5. Handle Overtime Request Submit (Closes modal first so popup appears cleanly in front)
-      function handleOTSubmit(e) {
+        function handleOTSubmit(e) {
         e.preventDefault();
+        const btnSubmit = document.getElementById("btnSubmitOt");
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = "SUBMITTING...";
+
         const estTime = document.getElementById("otEstimatedTime").value;
         const task = document.getElementById("otTaskDetail").value.trim();
 
-        // Close form modal first
+        // Close modal first
         const otModalEl = document.getElementById("otModal");
         const otModalInstance = bootstrap.Modal.getInstance(otModalEl);
         if (otModalInstance) otModalInstance.hide();
@@ -922,10 +867,11 @@
         })
           .then((res) => res.json())
           .then((data) => {
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "SUBMIT";
+
             if (data.success) {
-              document.getElementById("summaryOTDisplay").innerText =
-                `${calculatedOT} hrs (Pending)`;
-              lockOtButton(calculatedOT);
+              loadAttendanceStatus(); // Cleanly reloads today's OT status from database
               showCustomPopup(
                 "success",
                 "OT Request Submitted",
@@ -934,12 +880,14 @@
             } else {
               showCustomPopup(
                 "blocked",
-                "OT Error",
+                "OT Request Notice",
                 data.message || "Failed to submit OT request.",
               );
             }
           })
           .catch(() => {
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "SUBMIT";
             showCustomPopup(
               "blocked",
               "OT Error",

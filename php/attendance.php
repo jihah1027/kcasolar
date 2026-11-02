@@ -6,7 +6,6 @@ header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'db.php';
 
-// Verify authentication (Session or passed staff_id)
 $staff_id = $_SESSION['staff_id'] ?? $_POST['staff_id'] ?? $_GET['staff_id'] ?? '';
 $staff_id = trim($staff_id);
 
@@ -20,50 +19,50 @@ $action = $_GET['action'] ?? $_POST['action'] ?? '';
 $today = date('Y-m-d');
 
 try {
-    // 1. Get Status & Recent 7-Day History on Page Load
+    // 1. Get Status & History
     if ($action === 'get_status') {
         $todayPunch = null;
         $activeSitePerm = null;
         $todayOt = null;
         $history = [];
 
-        // 1. Check today's punch in attendance_records
         try {
             $stmt = $pdo->prepare("SELECT * FROM attendance_records WHERE staff_id = ? AND work_date = ? LIMIT 1");
             $stmt->execute([$staff_id, $today]);
             $todayPunch = $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (Exception $e) {}
 
-        // 2. Check active site permission for today
         try {
-            $stmtPerm = $pdo->prepare("SELECT * FROM site_permissions WHERE staff_id = ? AND work_date = ? AND status = 'active' LIMIT 1");
+            $stmtPerm = $pdo->prepare("
+                SELECT * FROM site_permissions 
+                WHERE staff_id = ? AND work_date = ? AND status = 'active' 
+                ORDER BY id DESC LIMIT 1
+            ");
             $stmtPerm->execute([$staff_id, $today]);
             $activeSitePerm = $stmtPerm->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (Exception $e) {}
 
-        // 3. Check submitted OT for today
         try {
-            $stmtOt = $pdo->prepare("SELECT * FROM overtime_claims WHERE staff_id = ? AND claim_date = ? LIMIT 1");
+            $stmtOt = $pdo->prepare("SELECT * FROM overtime_claims WHERE staff_id = ? AND claim_date = ? ORDER BY id DESC LIMIT 1");
             $stmtOt->execute([$staff_id, $today]);
             $todayOt = $stmtOt->fetch(PDO::FETCH_ASSOC) ?: null;
         } catch (Exception $e) {}
 
-        // 4. Fetch last 7 days of attendance history
-        try{
+        try {
             $stmtHistory = $pdo->prepare("
-            SELECT
-            a.work_date,
-            a.clock_in_time,
-            a.clock_out_time,
-            a.work_hours,
-            a.ot_hours,
-            a.status,
-            c.status AS ot_status
-            FROM attendance_records a
-            LEFT JOIN overtime_claims c ON a.staff_id = c.staff_id AND a.work_date = c.claim_date
-            WHERE a.staff_id = ?
-            ORDER BY a.work_date DESC
-            LIMIT 7
+                SELECT 
+                    a.work_date, 
+                    a.clock_in_time, 
+                    a.clock_out_time, 
+                    a.work_hours, 
+                    a.ot_hours, 
+                    a.status,
+                    c.status AS ot_status
+                FROM attendance_records a
+                LEFT JOIN overtime_claims c ON a.staff_id = c.staff_id AND a.work_date = c.claim_date
+                WHERE a.staff_id = ? 
+                ORDER BY a.work_date DESC 
+                LIMIT 7
             ");
             $stmtHistory->execute([$staff_id]);
             $history = $stmtHistory->fetchAll(PDO::FETCH_ASSOC) ?: [];
@@ -79,7 +78,7 @@ try {
         exit;
     }
 
-    // 2. Clock-In Punch
+    // 2. Clock-In
     if ($action === 'clock_in') {
         $lat = $_POST['lat'] ?? null;
         $lng = $_POST['lng'] ?? null;
@@ -87,7 +86,6 @@ try {
         $status = trim($_POST['status'] ?? 'Active');
         $currentTime = date('H:i:s');
 
-        // Check if already clocked in today
         $stmtCheck = $pdo->prepare("SELECT id FROM attendance_records WHERE staff_id = ? AND work_date = ? LIMIT 1");
         $stmtCheck->execute([$staff_id, $today]);
         if ($stmtCheck->fetch()) {
@@ -95,7 +93,6 @@ try {
             exit;
         }
 
-        // Insert new clock-in
         $stmtInsert = $pdo->prepare("
             INSERT INTO attendance_records 
             (staff_id, work_date, clock_in_time, clock_in_lat, clock_in_lng, clock_in_location, status) 
@@ -112,14 +109,13 @@ try {
         exit;
     }
 
-    // 3. Clock-Out Punch
+    // 3. Clock-Out
     if ($action === 'clock_out') {
         $lat = $_POST['lat'] ?? null;
         $lng = $_POST['lng'] ?? null;
         $location = trim($_POST['location'] ?? 'Main Office');
         $currentTime = date('H:i:s');
 
-        // Fetch today's clock-in to calculate worked hours
         $stmt = $pdo->prepare("SELECT id, clock_in_time FROM attendance_records WHERE staff_id = ? AND work_date = ? LIMIT 1");
         $stmt->execute([$staff_id, $today]);
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -129,13 +125,10 @@ try {
             exit;
         }
 
-        // Calculate hours worked
         $timeIn = strtotime($record['clock_in_time']);
         $timeOut = strtotime($currentTime);
         $diffSeconds = max(0, $timeOut - $timeIn);
         $workedHours = round($diffSeconds / 3600, 2);
-
-        // Determine punch status
         $finalStatus = ($location === 'Main Office') ? 'Office' : 'Site';
 
         $stmtUpdate = $pdo->prepare("
@@ -154,7 +147,7 @@ try {
         exit;
     }
 
-    // 4. Submit Overtime (OT) Request
+    // 4. Submit Overtime (OT) Request with Duplicate Guard
     if ($action === 'submit_ot') {
         $otHours = floatval($_POST['ot_hours'] ?? 0);
         $reason = trim($_POST['reason'] ?? '');
@@ -166,10 +159,21 @@ try {
             exit;
         }
 
+        $stmtCheckOt = $pdo->prepare("SELECT id, status FROM overtime_claims WHERE staff_id = ? AND claim_date = ? LIMIT 1");
+        $stmtCheckOt->execute([$staff_id, $today]);
+        $existingClaim = $stmtCheckOt->fetch(PDO::FETCH_ASSOC);
+
+        if ($existingClaim) {
+            echo json_encode([
+                "success" => false, 
+                "message" => "You have already submitted an OT request for today (Status: " . ucfirst($existingClaim['status']) . ")."
+            ]);
+            exit;
+        }
+
         $hourlyRate = 15.00;
         $totalAmount = $otHours * $hourlyRate;
 
-        // Insert into overtime_claims
         $stmtOt = $pdo->prepare("
             INSERT INTO overtime_claims 
             (claim_code, staff_id, claim_date, ot_hours, hourly_rate, total_amount, project_name, reason, status) 
@@ -177,7 +181,6 @@ try {
         ");
         $stmtOt->execute([$claimCode, $staff_id, $today, $otHours, $hourlyRate, $totalAmount, $projectName, $reason]);
 
-        // Also update ot_hours on today's attendance record if present
         $stmtUpdateRecord = $pdo->prepare("UPDATE attendance_records SET ot_hours = ? WHERE staff_id = ? AND work_date = ?");
         $stmtUpdateRecord->execute([$otHours, $staff_id, $today]);
 
@@ -190,14 +193,15 @@ try {
         exit;
     }
 
-    // 5. Admin: Fetch All Overtime Claims from MySQL Database
-if ($action === 'admin_get_ot') {
+    // 5. Admin: Fetch All Overtime Claims (With claimer_role included)
+    if ($action === 'admin_get_ot') {
         $stmt = $pdo->prepare("
             SELECT 
                 c.id,
                 c.claim_code,
                 c.staff_id,
                 u.full_name AS staff_name,
+                u.role AS claimer_role,
                 c.claim_date,
                 c.ot_hours,
                 c.hourly_rate,
@@ -224,7 +228,7 @@ if ($action === 'admin_get_ot') {
         exit;
     }
 
-    // 6. Admin: Review (Approve / Reject) Overtime Claim
+    // 6. Admin: Review Overtime Claim (Hierarchy Guard Enforced)
     if ($action === 'admin_review_ot') {
         $claim_id = $_POST['claim_id'] ?? '';
         $status = $_POST['status'] ?? 'approved';
@@ -240,11 +244,29 @@ if ($action === 'admin_get_ot') {
             exit;
         }
 
+        $stmtClaimer = $pdo->prepare("SELECT role FROM users WHERE staff_id = ? LIMIT 1");
+        $stmtClaimer->execute([$claim['staff_id']]);
+        $claimer = $stmtClaimer->fetch(PDO::FETCH_ASSOC);
+        $claimerRole = $claimer['role'] ?? 'staff';
+
+        $stmtReviewer = $pdo->prepare("SELECT role FROM users WHERE staff_id = ? LIMIT 1");
+        $stmtReviewer->execute([$admin_id]);
+        $reviewer = $stmtReviewer->fetch(PDO::FETCH_ASSOC);
+        $reviewerRole = $reviewer['role'] ?? '';
+
+        // If claim belongs to an Admin, ONLY super_admin can approve/reject
+        if ($claimerRole === 'admin' && $reviewerRole !== 'super_admin') {
+            echo json_encode([
+                "success" => false, 
+                "message" => "Unauthorized. Only a Super Admin can approve or reject an Admin's overtime claim."
+            ]);
+            exit;
+        }
+
         $hourly_rate = floatval($claim['hourly_rate'] ?? 15.00);
         $total_amount = ($status === 'approved') ? ($approved_hours * $hourly_rate) : 0.00;
         $final_hours = ($status === 'approved') ? $approved_hours : 0.00;
 
-        // Update overtime_claims with the reviewing admin's ID and timestamp
         $stmtUpdate = $pdo->prepare("
             UPDATE overtime_claims 
             SET status = ?, ot_hours = ?, total_amount = ?, reviewed_by = ?, reviewed_at = NOW() 
@@ -252,13 +274,89 @@ if ($action === 'admin_get_ot') {
         ");
         $stmtUpdate->execute([$status, $final_hours, $total_amount, $admin_id, $claim['id']]);
 
-        // Sync with attendance_records ot_hours
         $stmtAtt = $pdo->prepare("UPDATE attendance_records SET ot_hours = ? WHERE staff_id = ? AND work_date = ?");
         $stmtAtt->execute([$final_hours, $claim['staff_id'], $claim['claim_date']]);
 
         echo json_encode([
             "success" => true, 
             "message" => "Claim successfully updated in database."
+        ]);
+        exit;
+    }
+
+    // 7. Dispatch List
+    if ($action === 'admin_get_dispatch') {
+        $stmt = $pdo->prepare("
+            SELECT 
+                u.staff_id,
+                u.full_name,
+                u.phone,
+                u.department,
+                p.id AS permission_id,
+                p.site_location AS destination,
+                p.project_name AS task_details,
+                p.work_date,
+                p.validity,
+                COALESCE(p.status, 'office') AS dispatch_status,
+                a.clock_in_time,
+                a.clock_out_time,
+                a.status AS punch_status
+            FROM users u
+            LEFT JOIN site_permissions p ON u.staff_id = p.staff_id 
+                AND p.work_date = ? 
+                AND p.status = 'active'
+            LEFT JOIN attendance_records a ON u.staff_id = a.staff_id 
+                AND a.work_date = ?
+            WHERE u.role = 'staff' AND u.status = 'active'
+            ORDER BY u.staff_id ASC
+        ");
+        $stmt->execute([$today, $today]);
+        $staffList = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+
+        echo json_encode(["success" => true, "staff" => $staffList]);
+        exit;
+    }
+
+    // 8. Save Dispatch
+    if ($action === 'admin_save_dispatch') {
+        $target_staff_id = trim($_POST['target_staff_id'] ?? '');
+        $destination = trim($_POST['destination'] ?? '');
+        $task_details = trim($_POST['task_details'] ?? '');
+        $work_date = trim($_POST['effective_date'] ?? $today);
+        $validity = trim($_POST['validity'] ?? 'Today (Exp 23:59 pm)');
+        $dispatch_action = $_POST['dispatch_action'] ?? 'grant';
+
+        if (empty($target_staff_id)) {
+            echo json_encode(["success" => false, "message" => "Target Staff ID is required."]);
+            exit;
+        }
+
+        if ($dispatch_action === 'revoke') {
+            $stmtRevoke = $pdo->prepare("UPDATE site_permissions SET status = 'revoked' WHERE staff_id = ? AND work_date = ?");
+            $stmtRevoke->execute([$target_staff_id, $work_date]);
+            echo json_encode(["success" => true, "message" => "Off-site permission revoked. Staff reverted to Main Office."]);
+            exit;
+        }
+
+        $stmtDeactivate = $pdo->prepare("UPDATE site_permissions SET status = 'expired' WHERE staff_id = ? AND work_date = ?");
+        $stmtDeactivate->execute([$target_staff_id, $work_date]);
+
+        $stmtInsert = $pdo->prepare("
+            INSERT INTO site_permissions 
+            (staff_id, project_name, site_location, work_date, validity, status) 
+            VALUES (?, ?, ?, ?, ?, 'active')
+        ");
+        $stmtInsert->execute([
+            $target_staff_id,
+            $task_details,
+            $destination,
+            $work_date,
+            $validity
+        ]);
+
+        echo json_encode([
+            "success" => true,
+            "message" => "Off-site permission successfully granted for " . $target_staff_id . "!"
         ]);
         exit;
     }

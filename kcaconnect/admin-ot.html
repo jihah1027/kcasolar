@@ -579,7 +579,7 @@
       let targetRejectClaimId = null;
 
       window.addEventListener("DOMContentLoaded", () => {
-        // 1. Session & Role Check
+        // 1. Session & Role Check: Allows both admin and super_admin
         const userSession = sessionStorage.getItem("kca_user");
         if (!userSession) {
           window.location.href = "login.html";
@@ -587,7 +587,7 @@
         }
 
         const user = JSON.parse(userSession);
-        if (user.role !== "admin") {
+        if (user.role !== "admin" && user.role !== "super_admin") {
           window.location.href = "staff-attendance.html";
           return;
         }
@@ -595,7 +595,8 @@
         // Display current active admin name
         const adminNameEl = document.getElementById("adminDisplayName");
         if (adminNameEl) {
-          adminNameEl.innerText = `${user.name} (${user.id || "ADMIN"})`;
+          const roleLabel = user.role === "super_admin" ? "Super Admin" : "Admin";
+          adminNameEl.innerText = `${user.name} (${user.id || roleLabel})`;
         }
 
         // 2. Fetch directly from MySQL database
@@ -690,18 +691,33 @@
         const clockOut = item.clock_out_time ? item.clock_out_time.substring(0, 5) : "--:--";
         const loc = item.clock_out_location || item.att_location || "HQ";
 
+        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const isSuperAdmin = currentUser.role === "super_admin";
+        const isClaimerAdmin = item.claimer_role === "admin";
+
         let actionsHtml = "";
         if (item.status === "pending") {
-          actionsHtml = `
-            <div class="d-flex flex-column gap-2" style="min-width: 130px;">
-              <button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-sm btn-primary fw-bold py-1 rounded-2" style="background-color: var(--tnb-blue); font-size: 0.82rem;">
-                Adjust & Approve
-              </button>
-              <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-sm btn-outline-danger fw-bold py-1 rounded-2" style="font-size: 0.82rem;">
-                Reject
-              </button>
-            </div>
-          `;
+          // If claim belongs to an Admin, only Super Admin sees approval buttons
+          if (isClaimerAdmin && !isSuperAdmin) {
+            actionsHtml = `
+              <div class="text-center">
+                <span class="badge bg-secondary-subtle text-secondary border px-2 py-1" style="font-size: 0.72rem;">
+                  <i class="bi bi-shield-lock me-1"></i>Super Admin Review Required
+                </span>
+              </div>
+            `;
+          } else {
+            actionsHtml = `
+              <div class="d-flex flex-column gap-2" style="min-width: 130px;">
+                <button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-sm btn-primary fw-bold py-1 rounded-2" style="background-color: var(--tnb-blue); font-size: 0.82rem;">
+                  Adjust & Approve
+                </button>
+                <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-sm btn-outline-danger fw-bold py-1 rounded-2" style="font-size: 0.82rem;">
+                  Reject
+                </button>
+              </div>
+            `;
+          }
         } else if (item.status === "approved") {
           const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
           actionsHtml = `
@@ -760,6 +776,10 @@
         const [y, m, d] = (item.claim_date || "").split("-");
         const formattedDate = (d && m && y) ? `${d}/${m}/${y}` : item.claim_date;
 
+        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const isSuperAdmin = currentUser.role === "super_admin";
+        const isClaimerAdmin = item.claimer_role === "admin";
+
         let auditMobileBox = "";
         if (item.status !== "pending") {
           const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
@@ -777,6 +797,20 @@
           `;
         }
 
+        let mobileActionBtns = "";
+        if (item.status === "pending") {
+          if (isClaimerAdmin && !isSuperAdmin) {
+            mobileActionBtns = `<span class="badge bg-secondary-subtle text-secondary border p-2 w-100 text-center"><i class="bi bi-shield-lock me-1"></i>Super Admin Review Required</span>`;
+          } else {
+            mobileActionBtns = `
+              <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-outline-danger btn-sm fw-bold flex-fill">Reject</button>
+              <button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-primary btn-sm fw-bold flex-fill" style="background-color: var(--tnb-blue);">Adjust & Approve</button>
+            `;
+          }
+        } else {
+          mobileActionBtns = `<span class="badge ${item.status === "approved" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"} border px-3 py-2 fw-bold w-100">${item.status.toUpperCase()}</span>`;
+        }
+
         return `
           <div class="d-flex justify-content-between align-items-center mb-2">
             <span class="badge ${item.status === 'approved' ? 'bg-success text-white' : (item.status === 'rejected' ? 'bg-danger text-white' : 'bg-warning text-dark')} px-2 py-1">
@@ -791,14 +825,7 @@
           <div class="small mb-2"><strong>Clocked Out:</strong> ${item.clock_out_time ? item.clock_out_time.substring(0, 5) : "--:--"}</div>
           ${auditMobileBox}
           <div class="d-flex gap-2">
-            ${
-              item.status === "pending"
-                ? `
-                <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-outline-danger btn-sm fw-bold flex-fill">Reject</button>
-                <button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-primary btn-sm fw-bold flex-fill" style="background-color: var(--tnb-blue);">Adjust & Approve</button>
-              `
-                : `<span class="badge ${item.status === "approved" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"} border px-3 py-2 fw-bold w-100">${item.status.toUpperCase()}</span>`
-            }
+            ${mobileActionBtns}
           </div>
         `;
       }
@@ -956,6 +983,8 @@
         }
 
         const filtered = realClaimsData.filter((c) => c.status === currentQueueFilter);
+        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const isSuperAdmin = currentUser.role === "super_admin";
 
         if (filtered.length === 0) {
           fullTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No ${currentQueueFilter} records in database.</td></tr>`;
@@ -967,7 +996,11 @@
 
             let auditCell = "";
             if (item.status === "pending") {
-              auditCell = `<button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-sm btn-primary py-0 px-2 small">Review</button>`;
+              if (item.claimer_role === "admin" && !isSuperAdmin) {
+                auditCell = `<span class="badge bg-secondary-subtle text-secondary border small">Super Admin Only</span>`;
+              } else {
+                auditCell = `<button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-sm btn-primary py-0 px-2 small">Review</button>`;
+              }
             } else {
               auditCell = `
                 <div>

@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Off-Site Dispatch | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Signature Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="admin-dashboard.html"
+        >
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </a>
+
+        <!-- Right Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
+            </a>
+
+            <!-- e-Attendance Dropdown Menu -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item active d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
+                    <i class="bi bi-geo-alt-fill text-tnb-red"></i>
+                    <span>Staff Off-Site</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
+                    <i class="bi bi-clock-history text-secondary"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-leave.html"
+                  >
+                    <i class="bi bi-calendar-check text-primary"></i>
+                    <span>Leave Management</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Active Admin Name & Logout Button -->
+          <div class="d-flex align-items-center gap-3">
+            <span
+              class="fw-bold text-dark d-none d-sm-inline"
+              id="adminDisplayName"
+              style="font-size: 0.95rem"
+            >
+              Admin
+            </span>
+
+            <button
+              type="button"
+              onclick="logoutAdmin()"
+              class="btn p-0 border-0"
+              title="Sign Out"
+            >
+              <div
+                class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 38px; height: 38px; background-color: #e61e2b"
+              >
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </div>
+            </button>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+            >
+              e-Attendance
+            </span>
+          </li>
+          <li>
+            <a class="admin-drawer-link active" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-leave.html">
+              <i class="bi bi-calendar-check"></i>
+              <span>Leave Management</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="pt-3 border-top">
+          <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
+          >
+            <i class="bi bi-box-arrow-right text-danger me-2"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      <h4 class="page-header-title">STAFF OFF-SITE</h4>
+
+      <div class="dispatch-frame-container">
+        <div class="dispatch-offset-border d-none d-lg-block"></div>
+
+        <!-- Main Card Container -->
+        <div class="dispatch-card position-relative">
+          <!-- Filters & Search Toolbar -->
+          <div
+            class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+          >
+            <!-- Filter Pills -->
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <button
+                type="button"
+                id="pillAll"
+                onclick="filterStaff('all')"
+                class="dispatch-pill-btn active-all"
+              >
+                All Staff (<span id="countAll">0</span>)
+              </button>
+              <button
+                type="button"
+                id="pillOffsite"
+                onclick="filterStaff('offsite')"
+                class="dispatch-pill-btn"
+              >
+                <i class="bi bi-geo-alt-fill text-danger me-1"></i> Off-Site
+                Authorized (<span id="countOffsite">0</span>)
+              </button>
+              <button
+                type="button"
+                id="pillOffice"
+                onclick="filterStaff('office')"
+                class="dispatch-pill-btn"
+              >
+                <i class="bi bi-building-fill text-warning me-1"></i> Main
+                Office (<span id="countOffice">0</span>)
+              </button>
+            </div>
+
+            <!-- Search Input -->
+            <div class="position-relative" style="width: 250px">
+              <input
+                type="text"
+                id="staffSearchInput"
+                onkeyup="handleSearch()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Search staff name or ID..."
+                style="font-family: var(--font-body)"
+              />
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
+            </div>
+          </div>
+
+          <!-- DESKTOP VIEW: Table Format -->
+          <div class="table-responsive d-none d-md-block">
+            <table class="table align-middle text-center mb-0">
+              <thead class="dispatch-table-head">
+                <tr>
+                  <th class="text-start ps-4">Name</th>
+                  <th>Punch Mode</th>
+                  <th>Location</th>
+                  <th>Contact</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody class="dispatch-table-body" id="staffTableBody">
+                <tr>
+                  <td colspan="5" class="text-center py-4 text-muted small">
+                    <div
+                      class="spinner-border spinner-border-sm me-2 text-primary"
+                    ></div>
+                    Querying technical staff from database...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- MOBILE VIEW: Stacked Cards -->
+          <div class="d-block d-md-none">
+            <h5
+              class="fw-bold text-danger mb-3"
+              style="font-size: 1.1rem; font-family: var(--font-headings)"
+            >
+              STAFF LIST
+            </h5>
+            <div id="staffMobileContainer">
+              <div class="text-center py-4 text-muted small">
+                Loading records...
+              </div>
+            </div>
+          </div>
+
+          <!-- Red Circle Button (Full Filtered Directory) -->
+          <button
+            type="button"
+            onclick="openFilteredDirectoryModal()"
+            class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+            title="View All Staff in Active Filter"
+          >
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- YOUR ORIGINAL MODAL (Clean 4-Field Design) -->
+    <div
+      class="modal fade"
+      id="permissionModal"
+      tabindex="-1"
+      aria-labelledby="permissionModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="permissionModalLabel"
+              style="color: #f66530; font-family: var(--font-headings)"
+            >
+              OFF-SITE PERMISSION
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <form id="permissionForm" onsubmit="saveStaffPermission(event)">
+              <input type="hidden" id="modalStaffId" />
+
+              <!-- Staff Name & ID Display -->
+              <div class="mb-3">
+                <span class="d-block small text-muted fw-bold"
+                  >Staff Name & ID</span
+                >
+                <span
+                  class="fw-bold text-dark fs-6"
+                  id="modalStaffNameDisplay"
+                  style="font-family: var(--font-headings)"
+                  >Ahmad Razak (KCA-004)</span
+                >
+              </div>
+
+              <!-- Location Input (Admin simply types anything they want) -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">
+                  Location<span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="modalLocationInput"
+                  class="form-control rounded-2 border shadow-none"
+                  placeholder="e.g. Simpang Pulai Substation / Ipoh PMU"
+                  required
+                  style="font-family: var(--font-body)"
+                />
+              </div>
+
+              <!-- Task/Details Textarea -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">
+                  Task/Details<span class="text-danger">*</span>
+                </label>
+                <textarea
+                  id="modalTaskInput"
+                  class="form-control rounded-2 border shadow-none"
+                  rows="3"
+                  placeholder="State task details or job scope..."
+                  required
+                  style="font-family: var(--font-body)"
+                ></textarea>
+              </div>
+
+              <!-- Date & Validity Row -->
+              <div class="row g-2 mb-4">
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1">
+                    Effective Date<span class="text-danger">*</span>
+                  </label>
+                  <input
+                    type="date"
+                    id="modalDateInput"
+                    class="form-control rounded-2 border shadow-none small"
+                    required
+                    style="font-family: var(--font-body)"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1">
+                    Validity<span class="text-danger">*</span>
+                  </label>
+                  <select
+                    id="modalValiditySelect"
+                    class="form-select shadow-none small"
+                    required
+                    style="font-family: var(--font-body)"
+                  >
+                    <option value="Today (Exp 23:59 pm)" selected>
+                      Today (Exp 23:59 pm)
+                    </option>
+                    <option value="2 Days (Project Shift)">
+                      2 Days (Project Shift)
+                    </option>
+                    <option value="1 Week (Outstation)">
+                      1 Week (Outstation)
+                    </option>
+                    <option value="Until Revoked">Until Revoked</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-2 justify-content-end">
+                <button
+                  type="button"
+                  id="btnRevokeAction"
+                  onclick="revokeStaffPermission()"
+                  class="btn btn-outline-danger px-3 rounded-2 fw-bold d-none"
+                  style="font-family: var(--font-headings)"
+                >
+                  Revoke Permission
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                  style="font-family: var(--font-headings)"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  id="btnSubmitPermission"
+                  class="btn btn-primary px-3 rounded-2 fw-bold"
+                  style="
+                    background-color: var(--tnb-blue);
+                    border-color: var(--tnb-blue);
+                    font-family: var(--font-headings);
+                  "
+                >
+                  Save Permission
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL FILTERED STAFF DIRECTORY MODAL -->
+    <div
+      class="modal fade"
+      id="fullStaffModal"
+      tabindex="-1"
+      aria-labelledby="fullStaffModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <h5
+                class="modal-title fw-bold text-tnb-blue"
+                id="fullStaffModalTitle"
+                style="font-family: var(--font-headings)"
+              >
+                All Staff Directory
+              </h5>
+              <span class="text-muted small" id="fullStaffModalSubtitle"
+                >Displaying filtered personnel</span
+              >
+            </div>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <div class="modal-body py-2">
+            <div
+              class="table-responsive"
+              style="max-height: 520px; overflow-y: auto"
+            >
+              <table
+                class="table table-bordered table-hover align-middle text-center mb-0 small"
+              >
+                <thead class="dispatch-table-head sticky-top">
+                  <tr>
+                    <th class="text-start ps-3">Name</th>
+                    <th>Punch Mode</th>
+                    <th>Location / Destination</th>
+                    <th>Contact</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody
+                  class="dispatch-table-body"
+                  id="fullDirectoryTableBody"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm px-4 rounded-3"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom In-App Alert / Confirmation Modal -->
+    <div
+      class="modal fade"
+      id="statusAlertModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body text-center py-2 px-4">
+            <div id="modalAlertIcon" class="mb-3 fs-1 lh-1"></div>
+            <h4
+              class="fw-bold mb-2"
+              id="modalAlertTitle"
+              style="font-family: var(--font-headings)"
+            >
+              Status Title
+            </h4>
+            <p
+              class="text-secondary small mb-4"
+              id="modalAlertMessage"
+              style="line-height: 1.5"
+            >
+              Status message details...
+            </p>
+            <div
+              class="d-flex gap-2 justify-content-center"
+              id="modalAlertActions"
+            >
+              <button
+                type="button"
+                class="btn w-100 fw-bold py-2 rounded-3 text-white"
+                id="modalAlertBtn"
+                data-bs-dismiss="modal"
+                style="background-color: var(--tnb-blue)"
+              >
+                OKAY
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine -->
+    <script>
+      let realStaffData = [];
+      let currentFilter = "all";
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const userSession = sessionStorage.getItem("kca_user");
+        if (!userSession) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = JSON.parse(userSession);
+        if (user.role !== "admin" && user.role !== "super_admin") {
+          window.location.href = "staff-attendance.html";
+          return;
+        }
+
+        const adminNameEl = document.getElementById("adminDisplayName");
+        if (adminNameEl)
+          adminNameEl.innerText = `${user.name} (${user.id || "ADMIN"})`;
+
+        // Default to today's date
+        document.getElementById("modalDateInput").value = new Date()
+          .toISOString()
+          .split("T")[0];
+
+        loadDispatchStaff();
+      });
+
+      function logoutAdmin() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      function loadDispatchStaff() {
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
+        const adminId = currentUser.id || "ADMIN";
+
+        fetch(
+          `../php/attendance.php?action=admin_get_dispatch&staff_id=${encodeURIComponent(adminId)}`,
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.staff) {
+              realStaffData = data.staff;
+            } else {
+              realStaffData = [];
+            }
+            renderStaffTable();
+          })
+          .catch((err) => {
+            console.error("Failed to load staff dispatch:", err);
+            document.getElementById("staffTableBody").innerHTML =
+              `<tr><td colspan="5" class="text-center py-4 text-danger small">Failed to load staff list from database.</td></tr>`;
+          });
+      }
+
+      function renderStaffTable() {
+        const tableBody = document.getElementById("staffTableBody");
+        const mobileContainer = document.getElementById("staffMobileContainer");
+        const searchQuery = document
+          .getElementById("staffSearchInput")
+          .value.toLowerCase()
+          .trim();
+
+        tableBody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        let offsiteCount = 0;
+        let officeCount = 0;
+
+        realStaffData.forEach((s) => {
+          if (s.dispatch_status === "active") offsiteCount++;
+          else officeCount++;
+        });
+
+        document.getElementById("countAll").innerText = realStaffData.length;
+        document.getElementById("countOffsite").innerText = offsiteCount;
+        document.getElementById("countOffice").innerText = officeCount;
+
+        const filtered = realStaffData.filter((staff) => {
+          if (currentFilter === "offsite" && staff.dispatch_status !== "active")
+            return false;
+          if (currentFilter === "office" && staff.dispatch_status === "active")
+            return false;
+
+          if (searchQuery) {
+            const matchText =
+              `${staff.staff_id} ${staff.full_name} ${staff.destination || ""}`.toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          tableBody.innerHTML = `<tr><td colspan="5" class="text-center py-4 text-muted small">No staff matching selected filter.</td></tr>`;
+          mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No staff matching selected filter.</div>`;
+          return;
+        }
+
+        filtered.forEach((staff) => {
+          const isOffsite = staff.dispatch_status === "active";
+
+          // Original Badge Styling from Image 2
+          const badgeHtml = isOffsite
+            ? `<span class="badge-offsite">Off-Site Authorized</span>`
+            : `<span class="badge-office">Main Office</span>`;
+
+          const destText = isOffsite ? staff.destination || "Site" : "Office";
+
+          // If staff has already clocked out today, indicate Shift Completed
+          let btnHtml = "";
+          if (staff.clock_out_time && staff.clock_out_time !== "--:--") {
+            btnHtml = `<button type="button" onclick="openPermissionModal('${staff.staff_id}')" class="btn btn-sm btn-outline-secondary py-1 px-2 rounded-2 fw-semibold" style="font-size: 0.8rem;">Shift Ended (Schedule)</button>`;
+          } else if (isOffsite) {
+            btnHtml = `<button type="button" onclick="openPermissionModal('${staff.staff_id}')" class="btn-change-site">Edit/Revoke</button>`;
+          } else {
+            btnHtml = `<button type="button" onclick="openPermissionModal('${staff.staff_id}')" class="btn-allow-site">Grant Access</button>`;
+          }
+
+          // Desktop Row
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-4 fw-bold text-dark">${staff.staff_id} ${staff.full_name}</td>
+            <td>${badgeHtml}</td>
+            <td>${destText}</td>
+            <td>${staff.phone || "N/A"}</td>
+            <td>${btnHtml}</td>
+          `;
+          tableBody.appendChild(tr);
+
+          // Mobile Card
+          const mobileCard = document.createElement("div");
+          mobileCard.className = "mb-3";
+          mobileCard.innerHTML = `
+            <div class="mb-1">${badgeHtml}</div>
+            <div class="dispatch-mobile-card position-relative p-3 bg-white rounded-3 border">
+              <div class="fw-bold text-dark fs-6 mb-1">${staff.staff_id} ${staff.full_name}</div>
+              <div class="small text-secondary mb-1"><strong>Contact :</strong> ${staff.phone || "N/A"}</div>
+              <div class="small text-secondary mb-3"><strong>Task/Destination :</strong> ${destText}</div>
+              <div>${btnHtml}</div>
+            </div>
+          `;
+          mobileContainer.appendChild(mobileCard);
+        });
+      }
+
+      function filterStaff(filterType) {
+        currentFilter = filterType;
+        document.getElementById("pillAll").className =
+          "dispatch-pill-btn" + (filterType === "all" ? " active-all" : "");
+        document.getElementById("pillOffsite").className =
+          "dispatch-pill-btn" +
+          (filterType === "offsite" ? " active-offsite" : "");
+        document.getElementById("pillOffice").className =
+          "dispatch-pill-btn" +
+          (filterType === "office" ? " active-office" : "");
+        renderStaffTable();
+      }
+
+      function handleSearch() {
+        renderStaffTable();
+      }
+
+      function openFilteredDirectoryModal() {
+        const titleEl = document.getElementById("fullStaffModalTitle");
+        const subtitleEl = document.getElementById("fullStaffModalSubtitle");
+
+        if (currentFilter === "offsite") {
+          const count = realStaffData.filter(
+            (s) => s.dispatch_status === "active",
+          ).length;
+          titleEl.innerText = `Off-Site Authorized Staff (${count} Personnel)`;
+          subtitleEl.innerText = "All technicians authorized for site duty";
+        } else if (currentFilter === "office") {
+          const count = realStaffData.filter(
+            (s) => s.dispatch_status !== "active",
+          ).length;
+          titleEl.innerText = `Main Office Staff (${count} Personnel)`;
+          subtitleEl.innerText = "All personnel bound to Lahat HQ perimeter";
+        } else {
+          titleEl.innerText = `All Staff Directory (${realStaffData.length} Personnel)`;
+          subtitleEl.innerText = "Full technical roster";
+        }
+
+        renderModalStaffTable();
+        new bootstrap.Modal(document.getElementById("fullStaffModal")).show();
+      }
+
+      function renderModalStaffTable() {
+        const fullTableBody = document.getElementById("fullDirectoryTableBody");
+        fullTableBody.innerHTML = "";
+
+        const filtered = realStaffData.filter((staff) => {
+          if (currentFilter === "offsite" && staff.dispatch_status !== "active")
+            return false;
+          if (currentFilter === "office" && staff.dispatch_status === "active")
+            return false;
+          return true;
+        });
+
+        filtered.forEach((staff) => {
+          const isOffsite = staff.dispatch_status === "active";
+          const badgeHtml = isOffsite
+            ? `<span class="badge-offsite">Off-Site Authorized</span>`
+            : `<span class="badge-office">Main Office</span>`;
+
+          const btnHtml = isOffsite
+            ? `<button type="button" onclick="openPermissionModal('${staff.staff_id}')" class="btn-change-site">Edit/Revoke</button>`
+            : `<button type="button" onclick="openPermissionModal('${staff.staff_id}')" class="btn-allow-site">Grant Access</button>`;
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-3 fw-bold text-dark">${staff.staff_id} ${staff.full_name}</td>
+            <td>${badgeHtml}</td>
+            <td>${isOffsite ? staff.destination : "Office"}</td>
+            <td>${staff.phone || "N/A"}</td>
+            <td>${btnHtml}</td>
+          `;
+          fullTableBody.appendChild(tr);
+        });
+      }
+
+      // 5. Open Permission Modal (Image 3 fields only)
+      function openPermissionModal(staffId) {
+        const staff = realStaffData.find((s) => s.staff_id === staffId);
+        if (!staff) return;
+
+        document.getElementById("modalStaffId").value = staff.staff_id;
+        document.getElementById("modalStaffNameDisplay").innerText =
+          `${staff.full_name} (${staff.staff_id})`;
+
+        const isOffsite = staff.dispatch_status === "active";
+        document.getElementById("modalLocationInput").value = isOffsite
+          ? staff.destination || ""
+          : "";
+        document.getElementById("modalTaskInput").value = isOffsite
+          ? staff.task_details || ""
+          : "";
+
+        // Default date to today
+        document.getElementById("modalDateInput").value = new Date()
+          .toISOString()
+          .split("T")[0];
+
+        const revokeBtn = document.getElementById("btnRevokeAction");
+        if (isOffsite) {
+          revokeBtn.classList.remove("d-none");
+        } else {
+          revokeBtn.classList.add("d-none");
+        }
+
+        const fullModalEl = document.getElementById("fullStaffModal");
+        const fullModal = bootstrap.Modal.getInstance(fullModalEl);
+        if (fullModal) fullModal.hide();
+
+        new bootstrap.Modal(document.getElementById("permissionModal")).show();
+      }
+
+      function showCustomPopup(
+        type,
+        title,
+        message,
+        isConfirm = false,
+        onConfirmCallback = null,
+      ) {
+        const iconEl = document.getElementById("modalAlertIcon");
+        const titleEl = document.getElementById("modalAlertTitle");
+        const msgEl = document.getElementById("modalAlertMessage");
+        const actionsEl = document.getElementById("modalAlertActions");
+
+        if (type === "success") {
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
+          titleEl.className = "fw-bold mb-2 text-success";
+        } else if (type === "warning") {
+          iconEl.innerHTML =
+            '<i class="bi bi-exclamation-triangle-fill text-warning"></i>';
+          titleEl.className = "fw-bold mb-2 text-warning";
+        } else {
+          iconEl.innerHTML =
+            '<i class="bi bi-info-circle-fill text-primary"></i>';
+          titleEl.className = "fw-bold mb-2 text-primary";
+        }
+
+        titleEl.innerText = title;
+        msgEl.innerHTML = message;
+
+        if (isConfirm) {
+          actionsEl.innerHTML = `
+            <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-3 fw-semibold flex-fill" data-bs-dismiss="modal">
+              Cancel
+            </button>
+            <button type="button" class="btn btn-danger px-3 py-2 rounded-3 fw-bold flex-fill" id="btnModalConfirmAction">
+              Yes, Revoke
+            </button>
+          `;
+          document.getElementById("btnModalConfirmAction").onclick = () => {
+            bootstrap.Modal.getInstance(
+              document.getElementById("statusAlertModal"),
+            ).hide();
+            if (onConfirmCallback) onConfirmCallback();
+          };
+        } else {
+          actionsEl.innerHTML = `
+            <button type="button" class="btn w-100 fw-bold py-2 rounded-3 text-white" data-bs-dismiss="modal" style="background-color: var(--tnb-blue);">
+              OKAY
+            </button>
+          `;
+        }
+
+        new bootstrap.Modal(document.getElementById("statusAlertModal")).show();
+      }
+
+      function saveStaffPermission(e) {
+        e.preventDefault();
+        const btnSubmit = document.getElementById("btnSubmitPermission");
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Saving...`;
+
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
+        const adminId = currentUser.id || "ADMIN";
+        const staffId = document.getElementById("modalStaffId").value;
+        const locationVal = document
+          .getElementById("modalLocationInput")
+          .value.trim();
+        const taskVal = document.getElementById("modalTaskInput").value.trim();
+        const dateVal = document.getElementById("modalDateInput").value;
+        const validityVal = document.getElementById(
+          "modalValiditySelect",
+        ).value;
+
+        const formData = new FormData();
+        formData.append("staff_id", adminId);
+        formData.append("target_staff_id", staffId);
+        formData.append("destination", locationVal);
+        formData.append("task_details", taskVal);
+        formData.append("effective_date", dateVal);
+        formData.append("validity", validityVal);
+        formData.append("latitude", "0.0");
+        formData.append("longitude", "0.0");
+        formData.append("radius_meters", "0");
+        formData.append("dispatch_action", "grant");
+
+        fetch("../php/attendance.php?action=admin_save_dispatch", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "Save Permission";
+
+            const modal = bootstrap.Modal.getInstance(
+              document.getElementById("permissionModal"),
+            );
+            if (modal) modal.hide();
+
+            if (data.success) {
+              loadDispatchStaff();
+              showCustomPopup(
+                "success",
+                "Permission Saved!",
+                `<strong>${staffId}</strong> is authorized for site duty at <strong>${locationVal}</strong>.`,
+              );
+            } else {
+              showCustomPopup(
+                "warning",
+                "Notice",
+                data.message || "Failed to save permission.",
+              );
+            }
+          })
+          .catch(() => {
+            btnSubmit.disabled = false;
+            btnSubmit.innerText = "Save Permission";
+            showCustomPopup(
+              "warning",
+              "Error",
+              "Connection failed. Please try again.",
+            );
+          });
+      }
+
+      function revokeStaffPermission() {
+        const staffId = document.getElementById("modalStaffId").value;
+
+        bootstrap.Modal.getInstance(
+          document.getElementById("permissionModal"),
+        ).hide();
+
+        showCustomPopup(
+          "warning",
+          "Revoke Permission?",
+          `Are you sure you want to revoke off-site permission for <strong>${staffId}</strong>? They will be reassigned back to Main Office.`,
+          true,
+          () => {
+            const currentUser = JSON.parse(
+              sessionStorage.getItem("kca_user") || "{}",
+            );
+            const adminId = currentUser.id || "ADMIN";
+
+            const formData = new FormData();
+            formData.append("staff_id", adminId);
+            formData.append("target_staff_id", staffId);
+            formData.append(
+              "effective_date",
+              document.getElementById("modalDateInput").value,
+            );
+            formData.append("dispatch_action", "revoke");
+
+            fetch("../php/attendance.php?action=admin_save_dispatch", {
+              method: "POST",
+              body: formData,
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                loadDispatchStaff();
+                showCustomPopup(
+                  "info",
+                  "Permission Revoked",
+                  `<strong>${staffId}</strong> has been reassigned to Main Office.`,
+                );
+              })
+              .catch(() =>
+                showCustomPopup(
+                  "warning",
+                  "Error",
+                  "Failed to revoke permission in database.",
+                ),
+              );
+          },
+        );
+      }
+
+      // Cleanup modal backdrops
+      ["permissionModal", "fullStaffModal", "statusAlertModal"].forEach(
+        (modalId) => {
+          const el = document.getElementById(modalId);
+          if (el) {
+            el.addEventListener("hidden.bs.modal", function () {
+              document
+                .querySelectorAll(".modal-backdrop")
+                .forEach((b) => b.remove());
+              document.body.classList.remove("modal-open");
+              document.body.style.removeProperty("overflow");
+              document.body.style.removeProperty("padding-right");
+            });
+          }
+        },
+      );
+    </script>
+  </body>
+</html>
