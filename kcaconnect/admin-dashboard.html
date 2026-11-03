@@ -291,16 +291,17 @@
             }
 
             const user = JSON.parse(userSession);
-            // If logged in as staff, redirect away from admin dashboard
-            if (user.role !== 'admin') {
+
+            if (user.role !== 'admin' && user.role !== 'super_admin') {
                 window.location.href = 'staff-attendance.html';
                 return;
             }
 
-            // Display Admin Name
+            // Display Admin Name & Role Label
             const adminNameEl = document.getElementById('adminDisplayName');
             if (adminNameEl) {
-                adminNameEl.innerText = `${user.name} (${user.id || 'ADMIN'})`;
+                const roleLabel = user.role === 'super_admin' ? 'Super Admin' : 'Admin';
+                adminNameEl.innerText = `${user.name} (${user.id || roleLabel})`;
             }
 
             // 2. Render Dashboard with safe fallback/dummy data

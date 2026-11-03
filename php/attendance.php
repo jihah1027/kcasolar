@@ -147,26 +147,30 @@ try {
         exit;
     }
 
-    // 4. Submit Overtime (OT) Request with Duplicate Guard
+    // 4. Submit Overtime (OT) Request with Duplicate Guard & Custom Date Support
     if ($action === 'submit_ot') {
         $otHours = floatval($_POST['ot_hours'] ?? 0);
         $reason = trim($_POST['reason'] ?? '');
         $projectName = trim($_POST['project_name'] ?? 'Daily Operations OT');
         $claimCode = 'OT-' . strtoupper(substr(md5(uniqid(rand(), true)), 0, 6));
 
+        // 1. Accepts custom date if submitted (admin modal), otherwise defaults to today (staff)
+        $claimDate = trim($_POST['claim_date'] ?? $today);
+
         if ($otHours <= 0 || empty($reason)) {
             echo json_encode(["success" => false, "message" => "Please provide valid OT hours and task reason."]);
             exit;
         }
 
+        // 2. Duplicate guard checks against $claimDate
         $stmtCheckOt = $pdo->prepare("SELECT id, status FROM overtime_claims WHERE staff_id = ? AND claim_date = ? LIMIT 1");
-        $stmtCheckOt->execute([$staff_id, $today]);
+        $stmtCheckOt->execute([$staff_id, $claimDate]);
         $existingClaim = $stmtCheckOt->fetch(PDO::FETCH_ASSOC);
 
         if ($existingClaim) {
             echo json_encode([
                 "success" => false, 
-                "message" => "You have already submitted an OT request for today (Status: " . ucfirst($existingClaim['status']) . ")."
+                "message" => "An OT claim for date {$claimDate} has already been submitted (Status: " . ucfirst($existingClaim['status']) . ")."
             ]);
             exit;
         }
@@ -174,15 +178,17 @@ try {
         $hourlyRate = 15.00;
         $totalAmount = $otHours * $hourlyRate;
 
+        // 3. Insert using $claimDate
         $stmtOt = $pdo->prepare("
             INSERT INTO overtime_claims 
             (claim_code, staff_id, claim_date, ot_hours, hourly_rate, total_amount, project_name, reason, status) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')
         ");
-        $stmtOt->execute([$claimCode, $staff_id, $today, $otHours, $hourlyRate, $totalAmount, $projectName, $reason]);
+        $stmtOt->execute([$claimCode, $staff_id, $claimDate, $otHours, $hourlyRate, $totalAmount, $projectName, $reason]);
 
+        // 4. Sync ot_hours to attendance_records using $claimDate
         $stmtUpdateRecord = $pdo->prepare("UPDATE attendance_records SET ot_hours = ? WHERE staff_id = ? AND work_date = ?");
-        $stmtUpdateRecord->execute([$otHours, $staff_id, $today]);
+        $stmtUpdateRecord->execute([$otHours, $staff_id, $claimDate]);
 
         echo json_encode([
             "success" => true,

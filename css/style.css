@@ -1438,3 +1438,56 @@ h6,
 [data-aos="fade-right"] {
   transform: translate3d(-15px, 0, 0) !important;
 }
+
+/* OT  Admin */
+.btn-kca-primary {
+  background: linear-gradient(135deg, var(--tnb-red-orange) 0%, #e61e2b 100%);
+  color: #ffffff !important;
+  border: none;
+  font-weight: 700;
+  font-size: 0.84rem;
+  font-family: var(--font-headings);
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 14px rgba(230, 30, 43, 0.25);
+  transition: all 0.2s ease;
+}
+
+.btn-kca-primary:hover {
+  background: linear-gradient(135deg, #ff7644 0%, #f12534 100%);
+  color: #ffffff !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(230, 30, 43, 0.35);
+}
+
+.btn-kca-secondary {
+  background-color: #ffffff;
+  color: var(--tnb-blue) !important;
+  border: 1.5px solid #dce5ef;
+  font-weight: 700;
+  font-size: 0.84rem;
+  font-family: var(--font-headings);
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.btn-kca-secondary:hover {
+  background-color: #f0f7fc;
+  border-color: var(--tnb-blue) !important;
+  color: var(--tnb-blue) !important;
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(5, 99, 193, 0.12);
+}
+
+.icon-spin-once {
+  animation: kcaSpin 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes kcaSpin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

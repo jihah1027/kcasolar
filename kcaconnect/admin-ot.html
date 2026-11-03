@@ -194,9 +194,29 @@
     <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <h4 class="page-header-title mb-0">OVERTIME APPROVAL</h4>
-        <button type="button" onclick="loadOtClaims()" class="btn btn-sm btn-outline-primary d-flex align-items-center gap-1 shadow-sm">
-          <i class="bi bi-arrow-clockwise"></i> Refresh DB
-        </button>
+        <div class="d-flex align-items-center gap-2">
+          <!-- Request OT: Shown only to regular admin (Farisha), hidden for Super Admin -->
+          <button
+            type="button"
+            id="btnAdminRequestOt"
+            onclick="openAdminOtModal()"
+            class="btn btn-kca-primary d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill d-none"
+          >
+            <i class="bi bi-plus-circle-fill"></i>
+            <span>Request OT</span>
+          </button>
+
+          <!-- Modern Refresh Button -->
+          <button
+            type="button"
+            id="btnRefreshOt"
+            onclick="refreshWithFeedback()"
+            class="btn btn-kca-secondary d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+          >
+            <i class="bi bi-arrow-clockwise" id="refreshIcon" style="font-size: 1rem;"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
       </div>
 
       <div class="ot-clean-card position-relative">
@@ -294,6 +314,87 @@
         </button>
       </div>
     </main>
+
+    <!-- ADMIN OT SUBMISSION MODAL (ALIGNED WITH STAFF ATTENDANCE MODAL) -->
+    <div class="modal fade" id="adminOtModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 460px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold text-tnb-red" style="font-family: var(--font-headings); font-size: 1.15rem;">
+              SUBMIT ADMIN OVERTIME
+            </h5>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-3">
+            <form id="adminOtForm" onsubmit="handleAdminOtSubmit(event)">
+              <!-- Admin Name & ID Badge (Matches Staff Attendance Modal) -->
+              <div class="mb-3">
+                <span class="d-block small text-dark fw-bold">Admin Name & ID</span>
+                <span class="text-secondary small fw-semibold" id="adminModalUserDisplay">Loading...</span>
+              </div>
+
+              <!-- Claim Date Input -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">Claim Date *</label>
+                <input type="date" id="adminOtDate" class="form-control rounded-2 border shadow-none small" required />
+              </div>
+
+              <!-- OT Hours Claimed with Quick Preset Buttons -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">OT Hours Claimed *</label>
+                <input
+                  type="number"
+                  step="0.5"
+                  min="0.5"
+                  max="12"
+                  id="adminOtHours"
+                  class="form-control rounded-2 border shadow-none small fw-bold text-primary mb-2"
+                  placeholder="e.g. 2.0"
+                  required
+                />
+
+                <!-- Quick Preset Click Buttons (Same as Staff Modal) -->
+                <div class="d-flex gap-2">
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(1)">
+                    +1h
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(2)">
+                    +2h
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(3)">
+                    +3h
+                  </button>
+                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(4)">
+                    +4h
+                  </button>
+                </div>
+              </div>
+
+              <!-- Project Scope -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">Project / Operation Scope</label>
+                <input type="text" id="adminOtProject" class="form-control rounded-2 border shadow-none small" value="Admin & Management Operations" required />
+              </div>
+
+              <!-- Duty Reason / Description -->
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-dark mb-1">Duty Reason / Description *</label>
+                <textarea id="adminOtReason" class="form-control rounded-2 border shadow-none small" rows="3" placeholder="State work reason (e.g. Urgent payroll review, tender preparation)..." required></textarea>
+              </div>
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary px-3 rounded-2 fw-semibold" data-bs-dismiss="modal">
+                  CANCEL
+                </button>
+                <button type="submit" id="btnSubmitAdminOt" class="btn btn-primary px-3 rounded-2 fw-bold" style="background-color: var(--tnb-blue); border-color: var(--tnb-blue);">
+                  SUBMIT OT
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ADJUST & APPROVE MODAL -->
     <div
@@ -597,6 +698,12 @@
         if (adminNameEl) {
           const roleLabel = user.role === "super_admin" ? "Super Admin" : "Admin";
           adminNameEl.innerText = `${user.name} (${user.id || roleLabel})`;
+        }
+
+        // Show "Request OT" button only for regular admin (not super_admin)
+        const btnAdminOt = document.getElementById("btnAdminRequestOt");
+        if (btnAdminOt && user.role === "admin") {
+          btnAdminOt.classList.remove("d-none");
         }
 
         // 2. Fetch directly from MySQL database
@@ -1049,7 +1156,7 @@
       }
 
       // Cleanup listeners for all modals to avoid backdrop freezes
-      ["adjustModal", "rejectModal", "fullOtModal", "statusAlertModal"].forEach((modalId) => {
+      ["adjustModal", "rejectModal", "fullOtModal", "statusAlertModal", "adminOtModal"].forEach((modalId) => {
         const el = document.getElementById(modalId);
         if (el) {
           el.addEventListener("hidden.bs.modal", function () {
@@ -1060,6 +1167,86 @@
           });
         }
       });
+
+      function refreshWithFeedback() {
+        const icon = document.getElementById("refreshIcon");
+        if (icon) {
+          icon.classList.remove("icon-spin-once");
+          void icon.offsetWidth; // Trigger reflow
+          icon.classList.add("icon-spin-once");
+        }
+        loadOtClaims();
+      }
+
+      function openAdminOtModal() {
+        document.getElementById("adminOtForm").reset();
+
+        // 1. Populate current Admin name & ID from session (matches Staff modal)
+        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const userDisplay = document.getElementById("adminModalUserDisplay");
+        if (userDisplay) {
+          userDisplay.innerText = `${currentUser.name || 'Admin'} (${currentUser.id || 'ADMIN'})`;
+        }
+
+        // 2. Default to today's date and pre-fill 2.0 hours
+        document.getElementById("adminOtDate").value = new Date().toISOString().split("T")[0];
+        document.getElementById("adminOtHours").value = "2.0";
+        document.getElementById("adminOtProject").value = "Admin & Management Operations";
+
+        new bootstrap.Modal(document.getElementById("adminOtModal")).show();
+      }
+
+      // Preset click handler for quick hours
+      function setAdminPresetHours(hours) {
+        document.getElementById("adminOtHours").value = parseFloat(hours).toFixed(1);
+      }
+
+      function handleAdminOtSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById("btnSubmitAdminOt");
+        btn.disabled = true;
+        btn.innerText = "SUBMITTING...";
+
+        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const adminId = currentUser.id || "ADMIN";
+        const claimDate = document.getElementById("adminOtDate").value;
+        const otHours = document.getElementById("adminOtHours").value;
+        const project = document.getElementById("adminOtProject").value.trim();
+        const reason = document.getElementById("adminOtReason").value.trim();
+
+        // Close modal first so alerts pop up without background lock (matches staff-attendance.html)
+        const modal = bootstrap.Modal.getInstance(document.getElementById("adminOtModal"));
+        if (modal) modal.hide();
+
+        const formData = new FormData();
+        formData.append("staff_id", adminId);
+        formData.append("claim_date", claimDate);
+        formData.append("ot_hours", otHours);
+        formData.append("project_name", project);
+        formData.append("reason", reason);
+
+        fetch("../php/attendance.php?action=submit_ot", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            btn.disabled = false;
+            btn.innerText = "SUBMIT OT";
+
+            if (data.success) {
+              showCustomPopup("success", "OT Claim Submitted", `Your claim for <strong>${otHours} hrs</strong> on <strong>${claimDate}</strong> has been submitted. It is routed to Super Admin for approval.`);
+              loadOtClaims();
+            } else {
+              showCustomPopup("info", "Notice", data.message || "Failed to submit OT claim.");
+            }
+          })
+          .catch(() => {
+            btn.disabled = false;
+            btn.innerText = "SUBMIT OT";
+            showCustomPopup("info", "Error", "Failed to communicate with database.");
+          });
+      }
     </script>
   </body>
 </html>
