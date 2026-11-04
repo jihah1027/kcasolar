@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Inquiries | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="admin-dashboard.html"
+        >
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = '../img/KCAConnect.png'"
+          />
+        </a>
+
+        <!-- Right Nav Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-bold text-tnb-blue"
+              style="
+                font-family: var(--font-headings);
+                border-bottom: 2px solid var(--tnb-red-orange);
+              "
+            >
+              Inquiries
+            </a>
+
+            <!-- e-Attendance Dropdown -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
+                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                    <span>Staff Off-Site Dispatch</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
+                    <i class="bi bi-clock-history text-secondary"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-leave.html"
+                  >
+                    <i class="bi bi-calendar-check text-primary"></i>
+                    <span>Leave Management (e-Leave)</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Active Admin Name & Logout Button -->
+          <div class="d-flex align-items-center gap-3">
+            <span
+              class="fw-bold text-dark d-none d-sm-inline"
+              id="adminDisplayName"
+              style="font-size: 0.95rem"
+            >
+              Admin
+            </span>
+
+            <button
+              type="button"
+              onclick="logoutAdmin()"
+              class="btn p-0 border-0"
+              title="Sign Out"
+            >
+              <div
+                class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 38px; height: 38px; background-color: #e61e2b"
+              >
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </div>
+            </button>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Connect Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = '../img/KCAConnect.png'"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link active" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+            >
+              e-Attendance
+            </span>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-leave.html">
+              <i class="bi bi-calendar-check"></i>
+              <span>Leave Management</span>
+            </a>
+          </li>
+        </ul>
+        <div class="pt-3 border-top">
+          <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
+          >
+            <i class="bi bi-box-arrow-right text-danger me-2"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      <!-- Header Title & Export Button -->
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+      >
+        <h4
+          class="fw-bold mb-0 text-tnb-blue"
+          style="
+            font-family: var(--font-headings);
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+          "
+        >
+          WEBSITE INQUIRIES
+        </h4>
+
+        <button
+          type="button"
+          class="btn btn-export-csv shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#exportInquiriesModal"
+        >
+          <i class="bi bi-file-earmark-spreadsheet-fill fs-5"></i>
+          <span>EXPORT INQUIRIES CSV</span>
+        </button>
+      </div>
+
+      <!-- Top 5 Interactive KPI Stat Cards (Clickable Filters) -->
+      <div class="row g-3 mb-4">
+        <!-- 1. Total Inquiries -->
+        <div class="col-6 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-total active-kpi"
+            id="kpiCardTotal"
+            onclick="filterByKpi('all')"
+          >
+            <div>
+              <div class="kpi-title text-white-50">Total Inquiries</div>
+              <div class="kpi-count text-white" id="countTotal">0</div>
+            </div>
+            <i class="bi bi-question-diamond-fill kpi-icon text-white-50"></i>
+          </div>
+        </div>
+
+        <!-- 2. New (Unread) -->
+        <div class="col-6 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-new"
+            id="kpiCardNew"
+            onclick="filterByKpi('new')"
+          >
+            <div>
+              <div class="kpi-title">New (Unread)</div>
+              <div class="kpi-count" id="countNew">0</div>
+            </div>
+            <i class="bi bi-bell-fill kpi-icon text-warning"></i>
+          </div>
+        </div>
+
+        <!-- 3. Under Review -->
+        <div class="col-4 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-review"
+            id="kpiCardReview"
+            onclick="filterByKpi('review')"
+          >
+            <div>
+              <div class="kpi-title">Under Review</div>
+              <div class="kpi-count" id="countReview">0</div>
+            </div>
+            <i class="bi bi-search kpi-icon text-danger"></i>
+          </div>
+        </div>
+
+        <!-- 4. Replied -->
+        <div class="col-4 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-replied"
+            id="kpiCardReplied"
+            onclick="filterByKpi('replied')"
+          >
+            <div>
+              <div class="kpi-title">Replied</div>
+              <div class="kpi-count" id="countReplied">0</div>
+            </div>
+            <i class="bi bi-chat-dots-fill kpi-icon text-success"></i>
+          </div>
+        </div>
+
+        <!-- 5. Resolved -->
+        <div class="col-4 col-lg">
+          <div
+            class="inquiry-kpi-card kpi-card-resolved"
+            id="kpiCardResolved"
+            onclick="filterByKpi('resolved')"
+          >
+            <div>
+              <div class="kpi-title">Resolved</div>
+              <div class="kpi-count" id="countResolved">0</div>
+            </div>
+            <i class="bi bi-check2-circle kpi-icon text-danger"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Inquiries Container -->
+      <div class="inquiry-clean-card">
+        <h5
+          class="fw-bold mb-3 text-danger"
+          style="font-family: var(--font-headings); font-size: 1.15rem"
+        >
+          INQUIRY CATEGORY
+        </h5>
+
+        <!-- Toolbar: Category Dropdown & Live Search -->
+        <div class="row g-3 align-items-center justify-content-between mb-4">
+          <!-- Category Dropdown Filter -->
+          <div class="col-12 col-md-auto">
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2"
+                type="button"
+                id="categoryDropdownBtn"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="min-width: 200px"
+              >
+                <span id="selectedCategoryLabel">All Categories</span>
+              </button>
+              <ul
+                class="dropdown-menu shadow-sm border rounded-3 p-2"
+                aria-labelledby="categoryDropdownBtn"
+                style="min-width: 230px"
+              >
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setCategoryFilter('all', 'All Categories')"
+                  >
+                    <i class="bi bi-circle-fill me-2 text-dark small"></i> All
+                    Categories
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter('Internship Query', 'Internship Query')
+                    "
+                  >
+                    <span class="cat-dot cat-dot-internship me-2"></span>
+                    Internship Query
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter('Project Inquiry', 'Project Inquiry')
+                    "
+                  >
+                    <span class="cat-dot cat-dot-project me-2"></span> Project
+                    Inquiry
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter(
+                        'Collaboration Proposal',
+                        'Collaboration Proposal',
+                      )
+                    "
+                  >
+                    <span class="cat-dot cat-dot-proposal me-2"></span>
+                    Collaboration Proposal
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="
+                      setCategoryFilter('General Question', 'General Question')
+                    "
+                  >
+                    <span class="cat-dot cat-dot-general me-2"></span> General
+                    Question
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Search Input Box -->
+          <div class="col-12 col-md-5 col-lg-4">
+            <div class="position-relative">
+              <input
+                type="text"
+                id="inquirySearchInput"
+                onkeyup="handleSearchChange()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Search sender, email, or message..."
+              />
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESKTOP VIEW: Inquiries Table -->
+        <div class="table-responsive d-none d-md-block">
+          <table class="table align-middle text-start mb-0 table-animated">
+            <thead class="dispatch-table-head text-center">
+              <tr>
+                <th class="text-start ps-4" style="width: 240px">Sender</th>
+                <th>Category</th>
+                <th>Attachment</th>
+                <th>Received</th>
+                <th>Status</th>
+                <th class="text-center" style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody class="dispatch-table-body" id="inquiriesTableBody">
+              <tr>
+                <td colspan="6" class="text-center py-4 text-muted small">
+                  <div
+                    class="spinner-border spinner-border-sm me-2 text-primary"
+                  ></div>
+                  Loading inquiries from database...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MOBILE VIEW: Stacked Cards -->
+        <div class="d-block d-md-none" id="inquiriesMobileContainer">
+          <div class="text-center py-4 text-muted small">
+            Loading records...
+          </div>
+        </div>
+
+        <!-- Red Circle Button (Opens Full Archive Modal) -->
+        <button
+          type="button"
+          onclick="openFullInquiriesModal()"
+          class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+          title="View Full Directory"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- SENDER PROFILE & STATUS INSPECTION MODAL -->
+    <div
+      class="modal fade"
+      id="inquiryDetailModal"
+      tabindex="-1"
+      aria-labelledby="inquiryDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered modal-lg"
+        style="max-width: 680px"
+      >
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold text-tnb-blue"
+              id="inquiryDetailModalLabel"
+              style="font-family: var(--font-headings); font-size: 1.15rem"
+            >
+              INQUIRY DETAILS
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <input type="hidden" id="currentInquiryId" />
+
+            <!-- Sender Contact Info Box (Plain Text - No External Links) -->
+            <div class="p-3 rounded-3 bg-light border mb-3">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
+                  <div class="d-flex align-items-center gap-2 mb-2">
+                    <i class="bi bi-person-fill text-warning fs-5"></i>
+                    <span class="fw-bold text-dark fs-6" id="modalSenderName"
+                      >--</span
+                    >
+                  </div>
+                  <div
+                    class="d-flex align-items-center gap-2 mb-2 text-dark small"
+                  >
+                    <i class="bi bi-telephone-fill text-danger"></i>
+                    <span class="fw-semibold" id="modalSenderPhone">--</span>
+                  </div>
+                  <div class="d-flex align-items-center gap-2 text-dark small">
+                    <i class="bi bi-envelope-at-fill text-primary"></i>
+                    <span class="fw-semibold" id="modalSenderEmail">--</span>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-6 small">
+                  <div class="mb-2">
+                    <span class="text-secondary fw-semibold">Category:</span>
+                    <span class="fw-bold text-dark ms-1" id="modalCategoryBadge"
+                      >--</span
+                    >
+                  </div>
+                  <div class="mb-2">
+                    <span class="text-secondary fw-semibold">Received:</span>
+                    <span class="text-dark ms-1" id="modalReceivedDate"
+                      >--</span
+                    >
+                  </div>
+                  <div>
+                    <span class="text-secondary fw-semibold">Status:</span>
+                    <span class="ms-1" id="modalCurrentStatusBadge">--</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Inquiry Description -->
+            <div class="mb-3">
+              <label
+                class="form-label small fw-bold text-tnb-blue text-uppercase mb-1"
+                style="letter-spacing: 0.5px"
+              >
+                Message
+              </label>
+              <div
+                class="p-3 rounded-3 bg-light border text-dark small"
+                id="modalDescription"
+                style="min-height: 80px; line-height: 1.6"
+              ></div>
+            </div>
+
+            <!-- Attached Document Box & Action Buttons -->
+            <div>
+              <label
+                class="form-label small fw-bold text-tnb-blue text-uppercase mb-1"
+                style="letter-spacing: 0.5px"
+              >
+                Attached Document
+              </label>
+              <div
+                class="d-flex flex-wrap align-items-center justify-content-between gap-3"
+              >
+                <!-- Attachment Pill -->
+                <div
+                  class="p-2 px-3 rounded-2 bg-light border d-flex align-items-center gap-2 flex-grow-1"
+                  style="max-width: 380px"
+                  id="modalAttachmentBox"
+                >
+                  <i
+                    class="bi bi-file-earmark-arrow-down-fill text-danger fs-5"
+                  ></i>
+                  <span
+                    class="small fw-semibold text-dark text-truncate"
+                    id="modalAttachmentName"
+                  >
+                    No attachment
+                  </span>
+                </div>
+
+                <!-- Pure Internal Status Actions -->
+                <div
+                  class="d-flex align-items-center gap-2 flex-wrap"
+                  id="modalActionButtons"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPORT INQUIRIES MODAL -->
+    <div
+      class="modal fade"
+      id="exportInquiriesModal"
+      tabindex="-1"
+      aria-labelledby="exportInquiriesModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 500px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="exportInquiriesModalLabel"
+              style="
+                color: #4cae4c;
+                font-family: var(--font-headings);
+                font-size: 1.15rem;
+              "
+            >
+              EXPORT INQUIRIES
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <form id="exportInquiriesForm" onsubmit="handleExportCSV(event)">
+              <div class="mb-3">
+                <label
+                  class="form-label small fw-bold text-dark text-uppercase mb-2"
+                  >Select Export Period</label
+                >
+
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="expPeriodMonthly"
+                    value="monthly"
+                    checked
+                    onchange="toggleExportPeriodInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="expPeriodMonthly"
+                    >Monthly</label
+                  >
+                  <input
+                    type="month"
+                    id="exportMonthSelect"
+                    class="form-control form-control-sm mt-1 border shadow-none small"
+                  />
+                </div>
+
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="expPeriodCustom"
+                    value="custom"
+                    onchange="toggleExportPeriodInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="expPeriodCustom"
+                    >Custom Date Range</label
+                  >
+                  <div class="row g-2 mt-1">
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportStartRange"
+                        class="form-control form-control-sm border shadow-none small"
+                        disabled
+                      />
+                    </div>
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportEndRange"
+                        class="form-control form-control-sm border shadow-none small"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="expPeriodAll"
+                    value="all"
+                    onchange="toggleExportPeriodInputs()"
+                  />
+                  <label
+                    class="form-check-label small fw-bold text-dark"
+                    for="expPeriodAll"
+                    >All Records</label
+                  >
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success px-4 py-2 rounded-2 fw-bold"
+                  style="background-color: #4cae4c; border-color: #4cae4c"
+                >
+                  EXPORT (.CSV)
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL INQUIRIES DIRECTORY MODAL -->
+    <div
+      class="modal fade"
+      id="fullInquiriesModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <h5
+                class="modal-title fw-bold text-tnb-blue"
+                style="font-family: var(--font-headings)"
+              >
+                All Inquiries Directory
+              </h5>
+              <span class="text-muted small"
+                >Complete log of all client communication records</span
+              >
+            </div>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <div
+              class="table-responsive"
+              style="max-height: 520px; overflow-y: auto"
+            >
+              <table
+                class="table table-bordered table-hover align-middle text-start mb-0 small"
+              >
+                <thead class="dispatch-table-head sticky-top text-center">
+                  <tr>
+                    <th class="text-start ps-3">Sender</th>
+                    <th>Category</th>
+                    <th>Attachment</th>
+                    <th>Received</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="fullInquiriesTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm px-4 rounded-3"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine -->
+    <script>
+      let inquiriesData = [];
+      let activeKpiFilter = "all";
+      let activeCategoryFilter = "all";
+
+      // 1. Session check & initial load
+      window.addEventListener("DOMContentLoaded", () => {
+        const userSession = sessionStorage.getItem("kca_user");
+        if (!userSession) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = JSON.parse(userSession);
+        if (user.role !== "admin" && user.role !== "super_admin") {
+          window.location.href = "staff-attendance.html";
+          return;
+        }
+
+        const adminNameEl = document.getElementById("adminDisplayName");
+        if (adminNameEl) {
+          const roleLabel =
+            user.role === "super_admin" ? "Super Admin" : "Admin";
+          adminNameEl.innerText = `${user.name} (${user.id || roleLabel})`;
+        }
+
+        const now = new Date();
+        const curMonthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        const monthInput = document.getElementById("exportMonthSelect");
+        if (monthInput) monthInput.value = curMonthStr;
+
+        loadInquiriesData();
+      });
+
+      function logoutAdmin() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      // 2. Fetch real inquiries from database
+      function loadInquiriesData() {
+        const desktopTbody = document.getElementById("inquiriesTableBody");
+        desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted small"><div class="spinner-border spinner-border-sm me-2 text-primary"></div> Loading inquiries from database...</td></tr>`;
+
+        fetch("../php/inquiries.php?action=get_inquiries")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.inquiries) {
+              inquiriesData = data.inquiries;
+            } else {
+              inquiriesData = [];
+            }
+            renderInquiriesUI();
+          })
+          .catch((err) => {
+            console.error("Database query failed:", err);
+            desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-danger small">Failed to load inquiries from server.</td></tr>`;
+          });
+      }
+
+      // 3. Render Table & KPI Cards
+      function renderInquiriesUI() {
+        const desktopTbody = document.getElementById("inquiriesTableBody");
+        const mobileContainer = document.getElementById(
+          "inquiriesMobileContainer",
+        );
+        const searchQuery = document
+          .getElementById("inquirySearchInput")
+          .value.toLowerCase()
+          .trim();
+
+        desktopTbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        // Calculate counts
+        let countTotal = inquiriesData.length;
+        let countNew = 0;
+        let countReview = 0;
+        let countReplied = 0;
+        let countResolved = 0;
+
+        inquiriesData.forEach((item) => {
+          if (item.status === "new") countNew++;
+          else if (item.status === "review") countReview++;
+          else if (item.status === "replied") countReplied++;
+          else if (item.status === "resolved") countResolved++;
+        });
+
+        document.getElementById("countTotal").innerText = countTotal;
+        document.getElementById("countNew").innerText = countNew;
+        document.getElementById("countReview").innerText = countReview;
+        document.getElementById("countReplied").innerText = countReplied;
+        document.getElementById("countResolved").innerText = countResolved;
+
+        // Apply active filters
+        const filtered = inquiriesData.filter((item) => {
+          if (activeKpiFilter !== "all" && item.status !== activeKpiFilter)
+            return false;
+          if (
+            activeCategoryFilter !== "all" &&
+            item.category !== activeCategoryFilter
+          )
+            return false;
+          if (searchQuery) {
+            const matchText =
+              `${item.sender_name} ${item.email} ${item.phone} ${item.category} ${item.description}`.toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted small">No inquiries found matching current filter.</td></tr>`;
+          mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No inquiries found matching current filter.</div>`;
+          return;
+        }
+
+        filtered.forEach((item) => {
+          const dateDisplay =
+            item.formatted_received_at || item.received_date || "-";
+
+          let attachmentHtml = `<span class="text-muted small">--</span>`;
+          if (item.attachment_name) {
+            attachmentHtml = `
+              <a href="../uploads/${encodeURIComponent(item.attachment_name)}" download="${item.attachment_name}" target="_blank" class="d-inline-flex align-items-center gap-1 text-decoration-none small fw-semibold" title="Download ${item.attachment_name}">
+                <i class="bi bi-file-earmark-arrow-down-fill text-danger"></i>
+                <span class="text-truncate" style="max-width: 140px">${item.attachment_name}</span>
+                <span class="text-muted" style="font-size: 0.72rem">(${item.attachment_size || "PDF"})</span>
+                </a>
+            `;
+          }
+
+          // Desktop Row
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-4">
+              <div class="fw-bold text-dark">${item.sender_name}</div>
+              <div class="small text-secondary">${item.phone || "No phone"}</div>
+              <div class="small text-muted">${item.email || "No email"}</div>
+            </td>
+            <td>
+              <span class="d-inline-flex align-items-center gap-1 fw-semibold text-dark small">
+                ${getCategoryDot(item.category)} ${item.category}
+              </span>
+            </td>
+            <td>${attachmentHtml}</td>
+            <td class="small fw-semibold text-dark">${dateDisplay}</td>
+            <td>${getStatusBadgeHtml(item.status)}</td>
+            <td class="text-center">
+              <button type="button" onclick="openInquiryModal(${item.id})" class="btn btn-more-action">
+                More
+              </button>
+            </td>
+          `;
+          desktopTbody.appendChild(tr);
+
+          // Mobile Card Layout
+          const card = document.createElement("div");
+          card.className = "dispatch-mobile-card mb-3 p-3";
+          card.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              ${getStatusBadgeHtml(item.status)}
+              <span class="small text-muted">${dateDisplay}</span>
+            </div>
+            <div class="fw-bold text-dark fs-6 mb-1">${item.sender_name}</div>
+            <div class="small text-secondary mb-1">${item.phone || "-"} • ${item.email || "-"}</div>
+            <div class="small mb-1"><strong>Category:</strong> ${item.category}</div>
+            <div class="small mb-3"><strong>Attachment:</strong> ${
+              item.attachment_name
+                ? `<a href="../uploads/${encodeURIComponent(item.attachment_name)}" download="${item.attachment_name}" target="_blank" class="text-primary text-decoration-none fw-semibold"><i class="bi bi-download me-1"></i>${item.attachment_name}</a>`
+                : "None"
+            }</div>
+            <button type="button" onclick="openInquiryModal(${item.id})" class="btn btn-more-action w-100">
+              More Details
+            </button>
+          `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      function getStatusBadgeHtml(status) {
+        if (status === "new") {
+          return `<span class="badge-inquiry-status badge-status-new"><span class="status-dot"></span> New / Unread</span>`;
+        } else if (status === "review") {
+          return `<span class="badge-inquiry-status badge-status-review"><span class="status-dot"></span> Under Review</span>`;
+        } else if (status === "replied") {
+          return `<span class="badge-inquiry-status badge-status-replied"><span class="status-dot"></span> Replied</span>`;
+        } else {
+          return `<span class="badge-inquiry-status badge-status-resolved"><span class="status-dot"></span> Resolved</span>`;
+        }
+      }
+
+      function getCategoryDot(category) {
+        if (category === "Internship Query")
+          return '<span class="cat-dot cat-dot-internship"></span>';
+        if (category === "Project Inquiry")
+          return '<span class="cat-dot cat-dot-project"></span>';
+        if (category === "Collaboration Proposal")
+          return '<span class="cat-dot cat-dot-proposal"></span>';
+        return '<span class="cat-dot cat-dot-general"></span>';
+      }
+
+      // 4. Quick-Filters
+      function filterByKpi(kpiType) {
+        activeKpiFilter = kpiType;
+        document
+          .querySelectorAll(".inquiry-kpi-card")
+          .forEach((el) => el.classList.remove("active-kpi"));
+
+        if (kpiType === "all")
+          document.getElementById("kpiCardTotal").classList.add("active-kpi");
+        else if (kpiType === "new")
+          document.getElementById("kpiCardNew").classList.add("active-kpi");
+        else if (kpiType === "review")
+          document.getElementById("kpiCardReview").classList.add("active-kpi");
+        else if (kpiType === "replied")
+          document.getElementById("kpiCardReplied").classList.add("active-kpi");
+        else if (kpiType === "resolved")
+          document
+            .getElementById("kpiCardResolved")
+            .classList.add("active-kpi");
+
+        renderInquiriesUI();
+      }
+
+      function setCategoryFilter(categoryVal, label) {
+        activeCategoryFilter = categoryVal;
+        document.getElementById("selectedCategoryLabel").innerText = label;
+        renderInquiriesUI();
+      }
+
+      function handleSearchChange() {
+        renderInquiriesUI();
+      }
+
+      // 5. Open Inspection Modal
+      function openInquiryModal(inquiryId) {
+        const item = inquiriesData.find(
+          (i) => Number(i.id) === Number(inquiryId),
+        );
+        if (!item) return;
+
+        document.getElementById("currentInquiryId").value = item.id;
+
+        // Auto transition: New -> Under Review
+        if (item.status === "new") {
+          updateDatabaseStatus(item.id, "review", false);
+          item.status = "review";
+          renderInquiriesUI();
+        }
+
+        // Contact info stays plain text
+        document.getElementById("modalSenderName").innerText = item.sender_name;
+        document.getElementById("modalSenderPhone").innerText =
+          item.phone || "N/A";
+        document.getElementById("modalSenderEmail").innerText =
+          item.email || "N/A";
+        document.getElementById("modalCategoryBadge").innerHTML =
+          `${getCategoryDot(item.category)} ${item.category}`;
+        document.getElementById("modalReceivedDate").innerText =
+          item.formatted_received_at || item.received_date || "-";
+        document.getElementById("modalCurrentStatusBadge").innerHTML =
+          getStatusBadgeHtml(item.status);
+        document.getElementById("modalDescription").innerText =
+          item.description || "No message content provided.";
+
+        // Attachment box
+        const attachBox = document.getElementById("modalAttachmentBox");
+        if (item.attachment_name) {
+          attachBox.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between w-100 gap-2">
+              <div class="d-flex align-items-center gap-2 text-truncate" style="max-width: 250px;">
+                <i class="bi bi-file-earmark-pdf-fill text-danger fs-5"></i>
+                <span class="small fw-semibold text-dark text-truncate" title="${item.attachment_name}">
+                  ${item.attachment_name} (${item.attachment_size || "PDF"})
+                </span>
+              </div>
+              <a href="../uploads/${encodeURIComponent(item.attachment_name)}" download="${item.attachment_name}" target="_blank" class="btn btn-sm btn-outline-danger py-1 px-3 rounded-2 fw-bold text-nowrap" style="font-size: 0.8rem;">
+                <i class="bi bi-download me-1"></i> Download
+              </a>
+            </div>
+          `;
+        } else {
+          attachBox.innerHTML = `
+            <i class="bi bi-file-earmark text-muted fs-5"></i>
+            <span class="small text-muted">No attachment provided</span>
+          `;
+        }
+
+        renderModalActions(item);
+
+        const fullModal = bootstrap.Modal.getInstance(
+          document.getElementById("fullInquiriesModal"),
+        );
+        if (fullModal) fullModal.hide();
+
+        new bootstrap.Modal(
+          document.getElementById("inquiryDetailModal"),
+        ).show();
+      }
+
+      // Action Buttons (Only Internal Workflows)
+      function renderModalActions(item) {
+        const btnContainer = document.getElementById("modalActionButtons");
+        btnContainer.innerHTML = "";
+
+        let statusBtns = "";
+        if (item.status === "review" || item.status === "new") {
+          statusBtns = `
+            <button type="button" onclick="updateInquiryStatus('replied')" class="btn btn-outline-primary btn-sm fw-bold px-3 py-2 rounded-2">
+              Mark as Replied
+            </button>
+            <button type="button" onclick="updateInquiryStatus('resolved')" class="btn btn-success fw-bold px-3 py-2 rounded-2" style="background-color: #4cae4c; border-color: #4cae4c;">
+              RESOLVE
+            </button>
+          `;
+        } else if (item.status === "replied") {
+          statusBtns = `
+            <button type="button" onclick="updateInquiryStatus('resolved')" class="btn btn-success fw-bold px-3 py-2 rounded-2" style="background-color: #4cae4c; border-color: #4cae4c;">
+              RESOLVE
+            </button>
+          `;
+        } else if (item.status === "resolved") {
+          statusBtns = `
+            <span class="badge bg-success-subtle text-success border px-2 py-2 fw-bold me-1">Case Resolved</span>
+            <button type="button" onclick="updateInquiryStatus('review')" class="btn btn-sm btn-outline-secondary rounded-2">
+              Reopen
+            </button>
+          `;
+        }
+
+        btnContainer.innerHTML = statusBtns;
+      }
+
+      function updateInquiryStatus(newStatus) {
+        const id = document.getElementById("currentInquiryId").value;
+        updateDatabaseStatus(id, newStatus, true);
+      }
+
+      function updateDatabaseStatus(id, newStatus, shouldCloseModal) {
+        const formData = new FormData();
+        formData.append("id", id);
+        formData.append("status", newStatus);
+
+        fetch("../php/inquiries.php?action=update_status", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              const item = inquiriesData.find(
+                (i) => Number(i.id) === Number(id),
+              );
+              if (item) item.status = newStatus;
+              renderInquiriesUI();
+
+              if (shouldCloseModal) {
+                const modal = bootstrap.Modal.getInstance(
+                  document.getElementById("inquiryDetailModal"),
+                );
+                if (modal) modal.hide();
+              }
+            }
+          })
+          .catch((err) => console.error("Failed to update status:", err));
+      }
+
+      // 6. Full Directory Modal
+      function openFullInquiriesModal() {
+        const fullTbody = document.getElementById("fullInquiriesTableBody");
+        fullTbody.innerHTML = "";
+
+        if (inquiriesData.length === 0) {
+          fullTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No inquiries found in database.</td></tr>`;
+        } else {
+          inquiriesData.forEach((item) => {
+            const dateDisplay =
+              item.formatted_received_at || item.received_date || "-";
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td class="fw-bold ps-3">${item.sender_name}<br><span class="text-secondary small fw-normal">${item.phone || "-"} • ${item.email || "-"}</span></td>
+              <td>${getCategoryDot(item.category)} ${item.category}</td>
+              <td>${item.attachment_name ? `<a href="../uploads/${encodeURIComponent(item.attachment_name)}" download="${item.attachment_name}" target="_blank" class="text-primary text-decoration-none fw-semibold"><i class="bi bi-download me-1"></i> Download</a>` : "--"}</td>
+              <td>${dateDisplay}</td>
+              <td>${getStatusBadgeHtml(item.status)}</td>
+              <td class="text-center">
+                <button type="button" onclick="openInquiryModal(${item.id})" class="btn btn-sm btn-more-action py-0 px-2 small">
+                  More
+                </button>
+              </td>
+            `;
+            fullTbody.appendChild(tr);
+          });
+        }
+
+        new bootstrap.Modal(
+          document.getElementById("fullInquiriesModal"),
+        ).show();
+      }
+
+      // 7. Toggle Export Inputs
+      function toggleExportPeriodInputs() {
+        const isMonthly = document.getElementById("expPeriodMonthly").checked;
+        const isCustom = document.getElementById("expPeriodCustom").checked;
+
+        document.getElementById("exportMonthSelect").disabled = !isMonthly;
+        document.getElementById("exportStartRange").disabled = !isCustom;
+        document.getElementById("exportEndRange").disabled = !isCustom;
+      }
+
+      // 8. CSV Exporter
+      function handleExportCSV(e) {
+        e.preventDefault();
+        const period = document.querySelector(
+          'input[name="exportPeriod"]:checked',
+        ).value;
+
+        let filtered = inquiriesData.filter((item) => {
+          if (period === "monthly") {
+            const monthVal = document.getElementById("exportMonthSelect").value;
+            if (
+              monthVal &&
+              item.received_date &&
+              !item.received_date.startsWith(monthVal)
+            )
+              return false;
+          } else if (period === "custom") {
+            const start = document.getElementById("exportStartRange").value;
+            const end = document.getElementById("exportEndRange").value;
+            if (
+              start &&
+              end &&
+              (item.received_date < start || item.received_date > end)
+            )
+              return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          alert("No inquiries found for the selected export period.");
+          return;
+        }
+
+        let csvContent =
+          "Inquiry Code,Sender Name,Phone,Email,Category,Date Received,Status,Attachment,Message\n";
+        filtered.forEach((row) => {
+          const cleanCode = `"${row.inquiry_code || ""}"`;
+          const cleanName = `"${(row.sender_name || "").replace(/"/g, '""')}"`;
+          const cleanPhone = `"${row.phone || ""}"`;
+          const cleanEmail = `"${row.email || ""}"`;
+          const cleanCat = `"${row.category || ""}"`;
+          const cleanDate = `"${row.formatted_received_at || row.received_date || ""}"`;
+          const cleanStatus = `"${row.status || ""}"`;
+          const cleanAttach = `"${row.attachment_name || "None"}"`;
+          const cleanMsg = `"${(row.description || "").replace(/"/g, '""')}"`;
+
+          csvContent += `${cleanCode},${cleanName},${cleanPhone},${cleanEmail},${cleanCat},${cleanDate},${cleanStatus},${cleanAttach},${cleanMsg}\n`;
+        });
+
+        const blob = new Blob([csvContent], {
+          type: "text/csv;charset=utf-8;",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        const timestamp = new Date().toISOString().slice(0, 10);
+        a.href = url;
+        a.setAttribute("download", `Website_Inquiries_${timestamp}.csv`);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        bootstrap.Modal.getInstance(
+          document.getElementById("exportInquiriesModal"),
+        ).hide();
+      }
+
+      // 9. Prevent modal backdrop lockups
+      [
+        "inquiryDetailModal",
+        "exportInquiriesModal",
+        "fullInquiriesModal",
+      ].forEach((modalId) => {
+        const el = document.getElementById(modalId);
+        if (el) {
+          el.addEventListener("hidden.bs.modal", function () {
+            document
+              .querySelectorAll(".modal-backdrop")
+              .forEach((b) => b.remove());
+            document.body.classList.remove("modal-open");
+            document.body.style.removeProperty("overflow");
+            document.body.style.removeProperty("padding-right");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

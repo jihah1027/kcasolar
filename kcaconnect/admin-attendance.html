@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendance Logs | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
+      <div class="container-fluid px-lg-5">
+        <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = '../img/KCAConnect.png'"
+          />
+        </a>
+
+        <!-- Right Nav Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
+            </a>
+
+            <!-- e-Attendance Dropdown -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html">
+                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                    <span>Staff Off-Site Dispatch</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-ot.html">
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item active d-flex align-items-center gap-2" href="admin-attendance.html">
+                    <i class="bi bi-clock-history text-tnb-red"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-leave.html">
+                    <i class="bi bi-calendar-check text-primary"></i>
+                    <span>Leave Management (e-Leave)</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Active Admin Name & Logout Button -->
+          <div class="d-flex align-items-center gap-3">
+            <span
+              class="fw-bold text-dark d-none d-sm-inline"
+              id="adminDisplayName"
+              style="font-size: 0.95rem"
+            >
+              Admin
+            </span>
+
+            <button
+              type="button"
+              onclick="logoutAdmin()"
+              class="btn p-0 border-0"
+              title="Sign Out"
+            >
+              <div
+                class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 38px; height: 38px; background-color: #e61e2b"
+              >
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </div>
+            </button>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = '../img/KCAConnect.png'"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+            >
+              e-Attendance
+            </span>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link active" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-leave.html">
+              <i class="bi bi-calendar-check"></i>
+              <span>Leave Management</span>
+            </a>
+          </li>
+        </ul>
+        <div class="pt-3 border-top">
+          <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
+          >
+            <i class="bi bi-box-arrow-right text-danger me-2"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <h4
+          class="fw-bold mb-0 text-tnb-red"
+          style="
+            font-family: var(--font-headings);
+            font-size: 1.35rem;
+            letter-spacing: 0.5px;
+          "
+        >
+          ATTENDANCE LOGS
+        </h4>
+
+        <!-- Export CSV Button -->
+        <button
+          type="button"
+          class="btn btn-export-csv shadow-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#exportModal"
+        >
+          <i class="bi bi-file-earmark-spreadsheet-fill fs-5"></i>
+          <span>EXPORT TIMESHEET CSV</span>
+        </button>
+      </div>
+
+      <!-- Solid Card Container -->
+      <div class="log-clean-card">
+        <!-- Filters & Search Toolbar -->
+        <div class="row g-3 align-items-center mb-4">
+          <!-- Date Filter Dropdown -->
+          <div class="col-12 col-md-auto">
+            <label class="form-label small fw-bold text-primary mb-1">Date</label>
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2"
+                type="button"
+                id="dateFilterDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span id="selectedDateLabel">All Recorded Dates</span>
+              </button>
+              <ul
+                class="dropdown-menu shadow-sm border rounded-3 p-2"
+                aria-labelledby="dateFilterDropdown"
+                style="min-width: 240px"
+              >
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('all', 'All Recorded Dates')"
+                  >
+                    All Recorded Dates
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('today', 'Today')"
+                  >
+                    Today
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('yesterday', 'Yesterday')"
+                  >
+                    Yesterday
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item py-2 fw-semibold"
+                    href="javascript:void(0)"
+                    onclick="setDatePreset('week', 'This Week (Past 7 Days)')"
+                  >
+                    This Week (Past 7 Days)
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider my-1" /></li>
+                <li class="px-2 py-1">
+                  <label
+                    class="form-label text-muted small mb-1"
+                    style="font-size: 0.75rem; font-weight: 600"
+                  >
+                    Pick Specific Date:
+                  </label>
+                  <input
+                    type="date"
+                    id="calendarDatePick"
+                    class="form-control form-control-sm border shadow-none"
+                    onchange="handleSpecificDate(this.value)"
+                  />
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Status Filter Dropdown -->
+          <div class="col-12 col-md-auto">
+            <label class="form-label small fw-bold text-primary mb-1">Status</label>
+            <div class="dropdown">
+              <button
+                class="btn btn-sm btn-white border rounded-2 px-3 dropdown-toggle fw-semibold text-secondary d-flex align-items-center gap-2"
+                type="button"
+                id="statusFilterDropdown"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span id="selectedStatusLabel">All Status</span>
+              </button>
+              <ul
+                class="dropdown-menu shadow-sm border rounded-3 p-2"
+                aria-labelledby="statusFilterDropdown"
+                style="min-width: 230px"
+              >
+                <li>
+                  <a class="dropdown-item py-2 fw-semibold" href="javascript:void(0)" onclick="setStatusFilter('all', 'All Status')">
+                    All Status
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item py-2 fw-semibold text-primary" href="javascript:void(0)" onclick="setStatusFilter('active', 'On Duty (Active Shifts)')">
+                    On Duty (Active Shifts)
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item py-2 fw-semibold text-success" href="javascript:void(0)" onclick="setStatusFilter('completed_office', 'Completed (Main Office)')">
+                    Completed (Main Office)
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item py-2 fw-semibold text-success" href="javascript:void(0)" onclick="setStatusFilter('completed_site', 'Completed (Site)')">
+                    Completed (Site)
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Search Input Box -->
+          <div class="col-12 col-md ms-md-auto" style="max-width: 320px">
+            <label class="form-label small fw-bold text-transparent mb-1 d-none d-md-block">Search</label>
+            <div class="position-relative">
+              <input
+                type="text"
+                id="logSearchInput"
+                onkeyup="handleFilterSearch()"
+                class="form-control form-control-sm border rounded-2 ps-4"
+                placeholder="Search staff name, ID, or location..."
+              />
+              <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- DESKTOP VIEW: Attendance Table -->
+        <div class="table-responsive d-none d-md-block">
+          <table class="table align-middle text-start mb-0 table-animated">
+            <thead class="dispatch-table-head text-center">
+              <tr>
+                <th class="text-start ps-4" style="width: 220px">Staff Details</th>
+                <th>Date</th>
+                <th>Clock In</th>
+                <th>Clock Out</th>
+                <th>Work Hours</th>
+                <th>Status</th>
+                <th class="text-center" style="width: 100px">Action</th>
+              </tr>
+            </thead>
+            <tbody class="dispatch-table-body" id="attendanceTableBody">
+              <tr>
+                <td colspan="7" class="text-center py-4 text-muted small">
+                  <div class="spinner-border spinner-border-sm me-2 text-primary"></div> Loading attendance records...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- MOBILE VIEW: Stacked Cards -->
+        <div class="d-block d-md-none" id="attendanceMobileContainer">
+          <div class="text-center py-4 text-muted small">Loading records...</div>
+        </div>
+
+        <!-- Red Circle Button (Opens Modal with All Logs) -->
+        <button
+          type="button"
+          onclick="openFullLogsModal()"
+          class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+          title="View Full Directory"
+        >
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+    </main>
+
+    <!-- ATTENDANCE STATUS & GPS INSPECTION MODAL -->
+    <div
+      class="modal fade"
+      id="statusDetailModal"
+      tabindex="-1"
+      aria-labelledby="statusDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 680px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="statusDetailModalLabel"
+              style="
+                color: #f66530;
+                font-family: var(--font-headings);
+                font-size: 1.25rem;
+              "
+            >
+              ATTENDANCE & GPS DETAILS
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <!-- Staff Header Profile -->
+          <div class="mb-3">
+            <div class="fw-bold text-dark fs-6" id="detailStaffName">Staff Name (KCA-000)</div>
+            <div class="d-flex align-items-center gap-2 mt-1">
+              <span class="fs-5" id="detailStaffIcon">👷</span>
+              <span class="fw-bold text-secondary small" id="detailStaffMode">Authorized Off-Site</span>
+            </div>
+          </div>
+
+          <!-- Task Scope & Validity Details -->
+          <div class="d-flex align-items-start gap-2 p-2 rounded-2 bg-light border mb-4">
+            <i class="bi bi-info-circle-fill text-dark fs-5 mt-1"></i>
+            <div class="small text-secondary" style="line-height: 1.45">
+              <div>
+                <strong>Task / Project Scope:</strong>
+                <span id="detailTaskDescription">Main Office Technical Operations</span>
+              </div>
+              <div>
+                <strong id="detailValidityLabel">Validity / Boundary:</strong>
+                <span id="detailValidityDate">Main Office Perimeter</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Two Side-by-Side GPS Punch Cards -->
+          <div class="row g-3">
+            <!-- CLOCK-IN GPS CARD -->
+            <div class="col-12 col-md-6">
+              <div class="gps-punch-box">
+                <div class="gps-punch-title">CLOCK-IN DETAILS</div>
+                <ul class="list-unstyled small mb-3 text-secondary" style="line-height: 1.7">
+                  <li><strong>• Punch Time:</strong> <span id="detailInTime" class="text-dark fw-semibold">--:--</span></li>
+                  <li><strong>• GPS Coords:</strong> <span id="detailInCoords" class="text-dark">--</span></li>
+                  <li><strong>• Precision:</strong> <span id="detailInPrecision">+- 5 meters</span></li>
+                  <li><strong>• Location:</strong> <span id="detailInLocation" class="text-dark fw-semibold">--</span></li>
+                </ul>
+                <a id="btnMapIn" href="#" target="_blank" class="btn btn-view-maps text-center">
+                  <i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS
+                </a>
+              </div>
+            </div>
+
+            <!-- CLOCK-OUT GPS CARD -->
+            <div class="col-12 col-md-6">
+              <div class="gps-punch-box">
+                <div class="gps-punch-title">CLOCK-OUT DETAILS</div>
+                <ul class="list-unstyled small mb-3 text-secondary" style="line-height: 1.7">
+                  <li><strong>• Punch Time:</strong> <span id="detailOutTime" class="text-dark fw-semibold">--:--</span></li>
+                  <li><strong>• GPS Coords:</strong> <span id="detailOutCoords" class="text-dark">--</span></li>
+                  <li><strong>• Precision:</strong> <span id="detailOutPrecision">+- 5 meters</span></li>
+                  <li><strong>• Location:</strong> <span id="detailOutLocation" class="text-dark fw-semibold">--</span></li>
+                </ul>
+                <a id="btnMapOut" href="#" target="_blank" class="btn btn-view-maps text-center">
+                  <i class="bi bi-geo-alt-fill me-1"></i> VIEW ON GOOGLE MAPS
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPORT PAYROLL TIMESHEET MODAL -->
+    <div
+      class="modal fade"
+      id="exportModal"
+      tabindex="-1"
+      aria-labelledby="exportModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold"
+              id="exportModalLabel"
+              style="
+                color: #4cae4c;
+                font-family: var(--font-headings);
+                font-size: 1.15rem;
+              "
+            >
+              EXPORT PAYROLL TIMESHEET
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <form id="exportTimesheetForm" onsubmit="generateAndDownloadCSV(event)">
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-dark text-uppercase mb-2">Select Export Period</label>
+
+                <!-- Monthly -->
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="periodMonthly"
+                    value="monthly"
+                    checked
+                    onchange="toggleExportInputs()"
+                  />
+                  <label class="form-check-label small fw-bold text-dark" for="periodMonthly">
+                    Full Monthly Payroll
+                  </label>
+                  <input
+                    type="month"
+                    id="selectMonthPayroll"
+                    class="form-control form-control-sm mt-1 border shadow-none small"
+                  />
+                </div>
+
+                <!-- Custom Range -->
+                <div class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="periodCustom"
+                    value="custom"
+                    onchange="toggleExportInputs()"
+                  />
+                  <label class="form-check-label small fw-bold text-dark" for="periodCustom">
+                    Custom Date Range
+                  </label>
+                  <div class="row g-2 mt-1">
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportStartDate"
+                        class="form-control form-control-sm border shadow-none small"
+                        disabled
+                      />
+                    </div>
+                    <div class="col-6">
+                      <input
+                        type="date"
+                        id="exportEndDate"
+                        class="form-control form-control-sm border shadow-none small"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Single Day -->
+                <div class="form-check">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="exportPeriod"
+                    id="periodSingle"
+                    value="single"
+                    onchange="toggleExportInputs()"
+                  />
+                  <label class="form-check-label small fw-bold text-dark" for="periodSingle">
+                    Single Day
+                  </label>
+                  <input
+                    type="date"
+                    id="exportSingleDate"
+                    class="form-control form-control-sm mt-1 border shadow-none small"
+                    disabled
+                  />
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-success px-3 py-2 rounded-2 fw-bold"
+                  style="background-color: #4cae4c; border-color: #4cae4c"
+                >
+                  EXPORT (.CSV)
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL DIRECTORY MODAL -->
+    <div
+      class="modal fade"
+      id="fullAttendanceModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <h5 class="modal-title fw-bold text-tnb-blue" style="font-family: var(--font-headings)">
+                Master Attendance Directory
+              </h5>
+              <span class="text-muted small">Full log of all staff attendance records from database</span>
+            </div>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <div class="table-responsive" style="max-height: 520px; overflow-y: auto">
+              <table class="table table-bordered table-hover align-middle text-start mb-0 small">
+                <thead class="dispatch-table-head sticky-top text-center">
+                  <tr>
+                    <th class="text-start ps-3">Staff Details</th>
+                    <th>Date</th>
+                    <th>Clock In</th>
+                    <th>Clock Out</th>
+                    <th>Work Hours</th>
+                    <th>Status</th>
+                    <th class="text-center">Action</th>
+                  </tr>
+                </thead>
+                <tbody id="fullAttendanceTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button
+              type="button"
+              class="btn btn-secondary btn-sm px-4 rounded-3"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine -->
+    <script>
+      let attendanceRecords = [];
+      let activeDateFilter = "all";
+      let activeStatusFilter = "all";
+      let specificDatePicked = "";
+
+      // 1. Session check & initial load
+      window.addEventListener("DOMContentLoaded", () => {
+        const userSession = sessionStorage.getItem("kca_user");
+        if (!userSession) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = JSON.parse(userSession);
+        if (user.role !== "admin" && user.role !== "super_admin") {
+          window.location.href = "staff-attendance.html";
+          return;
+        }
+
+        // Display active admin name
+        const adminNameEl = document.getElementById("adminDisplayName");
+        if (adminNameEl) {
+          const roleLabel = user.role === "super_admin" ? "Super Admin" : "Admin";
+          adminNameEl.innerText = `${user.name} (${user.id || roleLabel})`;
+        }
+
+        // Default export month input to current month
+        const now = new Date();
+        const curMonthStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+        const monthInput = document.getElementById("selectMonthPayroll");
+        if (monthInput) monthInput.value = curMonthStr;
+
+        loadAttendanceData();
+      });
+
+      function logoutAdmin() {
+        sessionStorage.clear();
+        window.location.href = "login.html";
+      }
+
+      // 2. Fetch live attendance from database
+      function loadAttendanceData() {
+        const desktopTbody = document.getElementById("attendanceTableBody");
+        desktopTbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted small"><div class="spinner-border spinner-border-sm me-2 text-primary"></div> Loading attendance records...</td></tr>`;
+
+        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const adminId = currentUser.id || "ADMIN";
+
+        fetch(`../php/attendance.php?action=get_admin_attendance&staff_id=${encodeURIComponent(adminId)}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.records) {
+              attendanceRecords = data.records;
+            } else {
+              attendanceRecords = [];
+            }
+            renderTable();
+          })
+          .catch((err) => {
+            console.error("Database query failed:", err);
+            desktopTbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-danger small">Failed to load attendance records.</td></tr>`;
+          });
+      }
+
+      // Format date helper (YYYY-MM-DD to DD/MM/YYYY)
+      function formatDate(isoDate) {
+        if (!isoDate) return "-";
+        const [y, m, d] = isoDate.split("-");
+        return `${d}/${m}/${y}`;
+      }
+
+      // 3. Render desktop table & mobile cards
+      function renderTable() {
+        const desktopTbody = document.getElementById("attendanceTableBody");
+        const mobileContainer = document.getElementById("attendanceMobileContainer");
+        const searchQuery = document.getElementById("logSearchInput").value.toLowerCase().trim();
+
+        desktopTbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        const todayStr = new Date().toISOString().split("T")[0];
+        const yesterdayObj = new Date();
+        yesterdayObj.setDate(yesterdayObj.getDate() - 1);
+        const yesterdayStr = yesterdayObj.toISOString().split("T")[0];
+
+        const filtered = attendanceRecords.filter((row) => {
+          // Date filter
+          if (activeDateFilter === "today" && row.work_date !== todayStr) return false;
+          if (activeDateFilter === "yesterday" && row.work_date !== yesterdayStr) return false;
+          if (activeDateFilter === "specific" && row.work_date !== specificDatePicked) return false;
+          if (activeDateFilter === "week") {
+            const logTime = new Date(row.work_date).getTime();
+            const sevenDaysAgo = new Date().getTime() - 7 * 24 * 60 * 60 * 1000;
+            if (logTime < sevenDaysAgo) return false;
+          }
+
+          // Status filter
+          const isClockedOut = row.clock_out_time !== null && row.clock_out_time !== "";
+          if (activeStatusFilter === "active" && isClockedOut) return false;
+          if (activeStatusFilter === "completed_office" && (!isClockedOut || row.punch_status !== "Office")) return false;
+          if (activeStatusFilter === "completed_site" && (!isClockedOut || row.punch_status !== "Site")) return false;
+
+          // Search filter
+          if (searchQuery) {
+            const matchText = `${row.staff_id} ${row.staff_name || ""} ${row.clock_in_location || ""} ${row.clock_out_location || ""}`.toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          desktopTbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted small">No attendance records found for this filter.</td></tr>`;
+          mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No attendance records found for this filter.</div>`;
+          return;
+        }
+
+        filtered.forEach((row) => {
+          const isClockedOut = row.clock_out_time !== null && row.clock_out_time !== "";
+          const clockIn = row.clock_in_time ? row.clock_in_time.substring(0, 5) : "--:--";
+          const clockOut = isClockedOut ? row.clock_out_time.substring(0, 5) : "--:--";
+          const inLoc = row.clock_in_location || "Office";
+          const outLoc = isClockedOut ? (row.clock_out_location || inLoc) : "(On Duty)";
+
+          let badgeText = "On Duty";
+          let badgeClass = "bg-primary-subtle text-primary border";
+
+          if (isClockedOut) {
+            badgeText = row.punch_status === "Site" ? `Completed (Site: ${inLoc})` : "Completed (Main Office)";
+            badgeClass = "bg-success text-white";
+          }
+
+          const otHoursNum = parseFloat(row.ot_hours || 0);
+          const workHoursDisplay = otHoursNum > 0
+            ? `<div>${row.work_hours || "0.00"} hrs</div><div class="small text-muted">(OT: ${otHoursNum.toFixed(1)} hrs)</div>`
+            : `<div>${row.work_hours || "0.00"} hrs</div>`;
+
+          // Desktop table row (7 columns matching the header)
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-4">
+              <div class="fw-bold text-dark">${row.staff_id}</div>
+              <div class="text-secondary small">${row.staff_name || "Employee"}</div>
+            </td>
+            <td><div class="small fw-bold text-dark">${formatDate(row.work_date)}</div></td>
+            <td>
+              <div class="fw-semibold text-dark small">${clockIn}</div>
+              <div class="small text-muted">${inLoc}</div>
+            </td>
+            <td>
+              <div class="fw-semibold text-dark small">${clockOut}</div>
+              <div class="small text-muted">${outLoc}</div>
+            </td>
+            <td class="small fw-bold text-dark text-center">${workHoursDisplay}</td>
+            <td class="text-center">
+              <span class="badge ${badgeClass} px-3 py-2 rounded-pill fw-bold" style="font-size: 0.8rem;">
+                ${badgeText}
+              </span>
+            </td>
+            <td class="text-center">
+              <button type="button" onclick="openGpsModal(${row.id})" class="btn btn-more-action">
+                More
+              </button>
+            </td>
+          `;
+          desktopTbody.appendChild(tr);
+
+          // Mobile card layout
+          const card = document.createElement("div");
+          card.className = "dispatch-mobile-card mb-3 p-3";
+          card.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge ${badgeClass} px-2 py-1">${badgeText}</span>
+              <span class="small text-muted">${formatDate(row.work_date)}</span>
+            </div>
+            <div class="fw-bold text-dark fs-6 mb-2">${row.staff_id} ${row.staff_name || ""}</div>
+            <div class="small mb-1"><strong>Clock In:</strong> ${clockIn} (${inLoc})</div>
+            <div class="small mb-1"><strong>Clock Out:</strong> ${clockOut} ${outLoc}</div>
+            <div class="small mb-3"><strong>Work Hours:</strong> ${row.work_hours || "0.00"} hrs ${otHoursNum > 0 ? `(OT: ${otHoursNum.toFixed(1)} hrs)` : ""}</div>
+            <div>
+              <button type="button" onclick="openGpsModal(${row.id})" class="btn btn-more-action w-100">
+                View Details & GPS
+              </button>
+            </div>
+          `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      // 4. Filter controls
+      function setDatePreset(mode, labelText) {
+        activeDateFilter = mode;
+        specificDatePicked = "";
+        document.getElementById("selectedDateLabel").innerText = labelText;
+
+        const dateInput = document.getElementById("calendarDatePick");
+        if (dateInput) dateInput.value = "";
+
+        renderTable();
+      }
+
+      function handleSpecificDate(dateValue) {
+        if (!dateValue) return;
+
+        activeDateFilter = "specific";
+        specificDatePicked = dateValue;
+
+        const [year, month, day] = dateValue.split("-");
+        document.getElementById("selectedDateLabel").innerText = `Date: ${day}/${month}/${year}`;
+
+        const dropdownEl = document.getElementById("dateFilterDropdown");
+        const bsDropdown = bootstrap.Dropdown.getInstance(dropdownEl);
+        if (bsDropdown) bsDropdown.hide();
+
+        renderTable();
+      }
+
+      function setStatusFilter(filterVal, label) {
+        activeStatusFilter = filterVal;
+        document.getElementById("selectedStatusLabel").innerText = label;
+        renderTable();
+      }
+
+      function handleFilterSearch() {
+        renderTable();
+      }
+
+      // 5. GPS Inspection Modal
+      function openGpsModal(recordId) {
+        const row = attendanceRecords.find((r) => Number(r.id) === Number(recordId));
+        if (!row) return;
+
+        document.getElementById("detailStaffName").innerText = `${row.staff_name || "Staff"} (${row.staff_id})`;
+        const isOffsite = row.punch_status === "Site" || row.clock_in_location !== "Main Office";
+        document.getElementById("detailStaffMode").innerText = isOffsite ? "Authorized Off-Site" : "Main Office";
+
+        const iconEl = document.getElementById("detailStaffIcon");
+        const taskEl = document.getElementById("detailTaskDescription");
+        const valLabelEl = document.getElementById("detailValidityLabel");
+        const valDateEl = document.getElementById("detailValidityDate");
+
+        if (!isOffsite) {
+          iconEl.innerText = "🏢";
+          taskEl.innerText = "Main Office Technical Operations / Workshop";
+          valLabelEl.innerText = "Assigned Boundary:";
+          valDateEl.innerText = "Main Office Perimeter (100m Geofence)";
+        } else {
+          iconEl.innerText = "👷";
+          taskEl.innerText = "External Project Site Duty";
+          valLabelEl.innerText = "Work Date:";
+          valDateEl.innerText = formatDate(row.work_date);
+        }
+
+        // Clock-in coordinates
+        const btnMapIn = document.getElementById("btnMapIn");
+        const inTime = row.clock_in_time ? row.clock_in_time.substring(0, 5) : "--:--";
+        document.getElementById("detailInTime").innerText = inTime;
+        document.getElementById("detailInLocation").innerText = row.clock_in_location || "--";
+
+        if (row.clock_in_lat && row.clock_in_lng) {
+          document.getElementById("detailInCoords").innerText = `${parseFloat(row.clock_in_lat).toFixed(6)}, ${parseFloat(row.clock_in_lng).toFixed(6)}`;
+          btnMapIn.href = `https://www.google.com/maps?q=${row.clock_in_lat},${row.clock_in_lng}`;
+          btnMapIn.className = "btn btn-view-maps text-center";
+          btnMapIn.style.pointerEvents = "auto";
+        } else {
+          document.getElementById("detailInCoords").innerText = "--";
+          btnMapIn.removeAttribute("href");
+          btnMapIn.className = "btn btn-view-maps-disabled text-center";
+          btnMapIn.style.pointerEvents = "none";
+        }
+
+        // Clock-out coordinates
+        const btnMapOut = document.getElementById("btnMapOut");
+        const isClockedOut = row.clock_out_time !== null && row.clock_out_time !== "";
+        const outTime = isClockedOut ? row.clock_out_time.substring(0, 5) : "--:--";
+        document.getElementById("detailOutTime").innerText = outTime;
+        document.getElementById("detailOutLocation").innerText = isClockedOut ? (row.clock_out_location || row.clock_in_location) : "--";
+
+        if (isClockedOut && row.clock_out_lat && row.clock_out_lng) {
+          document.getElementById("detailOutCoords").innerText = `${parseFloat(row.clock_out_lat).toFixed(6)}, ${parseFloat(row.clock_out_lng).toFixed(6)}`;
+          btnMapOut.href = `https://www.google.com/maps?q=${row.clock_out_lat},${row.clock_out_lng}`;
+          btnMapOut.className = "btn btn-view-maps text-center";
+          btnMapOut.style.pointerEvents = "auto";
+        } else {
+          document.getElementById("detailOutCoords").innerText = "--";
+          btnMapOut.removeAttribute("href");
+          btnMapOut.className = "btn btn-view-maps-disabled text-center";
+          btnMapOut.style.pointerEvents = "none";
+        }
+
+        // Hide full logs modal if open
+        const fullModalEl = document.getElementById("fullAttendanceModal");
+        if (fullModalEl) {
+          const fullInstance = bootstrap.Modal.getInstance(fullModalEl);
+          if (fullInstance) fullInstance.hide();
+        }
+
+        new bootstrap.Modal(document.getElementById("statusDetailModal")).show();
+      }
+
+      // 6. CSV Exporter
+      function toggleExportInputs() {
+        const isMonthly = document.getElementById("periodMonthly").checked;
+        const isCustom = document.getElementById("periodCustom").checked;
+        const isSingle = document.getElementById("periodSingle").checked;
+
+        document.getElementById("selectMonthPayroll").disabled = !isMonthly;
+        document.getElementById("exportStartDate").disabled = !isCustom;
+        document.getElementById("exportEndDate").disabled = !isCustom;
+        document.getElementById("exportSingleDate").disabled = !isSingle;
+      }
+
+      function generateAndDownloadCSV(e) {
+        e.preventDefault();
+        const records = attendanceRecords;
+        const period = document.querySelector('input[name="exportPeriod"]:checked').value;
+        let filtered = [];
+        let exportFileName = "";
+
+        if (period === "monthly") {
+          const selectedMonth = document.getElementById("selectMonthPayroll").value;
+          if (!selectedMonth) return;
+          filtered = records.filter((r) => r.work_date && r.work_date.startsWith(selectedMonth));
+          exportFileName = `Attendance_${selectedMonth}.csv`;
+        } else if (period === "custom") {
+          const start = document.getElementById("exportStartDate").value;
+          const end = document.getElementById("exportEndDate").value;
+          if (!start || !end) return;
+          filtered = records.filter((r) => r.work_date >= start && r.work_date <= end);
+          exportFileName = `Attendance_${start}_to_${end}.csv`;
+        } else if (period === "single") {
+          const singleDate = document.getElementById("exportSingleDate").value;
+          if (!singleDate) return;
+          filtered = records.filter((r) => r.work_date === singleDate);
+          exportFileName = `Attendance_${singleDate}.csv`;
+        }
+
+        if (filtered.length === 0) {
+          alert("No attendance records found for this period.");
+          return;
+        }
+
+        let csvContent = "Staff ID,Staff Name,Date,Clock In,Clock In Location,Clock Out,Clock Out Location,Work Hours,OT Hours,Status\n";
+
+        filtered.forEach((r) => {
+          const name = `"${(r.staff_name || "").replace(/"/g, '""')}"`;
+          const inLoc = `"${(r.clock_in_location || "").replace(/"/g, '""')}"`;
+          const outLoc = `"${(r.clock_out_location || "").replace(/"/g, '""')}"`;
+
+          csvContent += `${r.staff_id},${name},${r.work_date},${r.clock_in_time || "--"},${inLoc},${r.clock_out_time || "--"},${outLoc},${r.work_hours || "0.00"},${r.ot_hours || "0.00"},${r.punch_status || "Office"}\n`;
+        });
+
+        const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.setAttribute("download", exportFileName);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        bootstrap.Modal.getInstance(document.getElementById("exportModal")).hide();
+      }
+
+      // 7. Full Directory Modal
+      function openFullLogsModal() {
+        const fullTbody = document.getElementById("fullAttendanceTableBody");
+        fullTbody.innerHTML = "";
+
+        if (attendanceRecords.length === 0) {
+          fullTbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted">No attendance records in database.</td></tr>`;
+        } else {
+          attendanceRecords.forEach((row) => {
+            const isClockedOut = row.clock_out_time !== null && row.clock_out_time !== "";
+            const clockIn = row.clock_in_time ? row.clock_in_time.substring(0, 5) : "--:--";
+            const clockOut = isClockedOut ? row.clock_out_time.substring(0, 5) : "--:--";
+            const inLoc = row.clock_in_location || "Office";
+            const outLoc = isClockedOut ? (row.clock_out_location || inLoc) : "(On Duty)";
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td class="fw-bold ps-3">${row.staff_id} ${row.staff_name || ""}</td>
+              <td>${formatDate(row.work_date)}</td>
+              <td>${clockIn} (${inLoc})</td>
+              <td>${clockOut} ${outLoc}</td>
+              <td class="fw-bold">${row.work_hours || "0.00"} hrs</td>
+              <td><span class="badge ${isClockedOut ? "bg-success text-white" : "bg-primary-subtle text-primary border"} px-2 py-1">${row.punch_status || "Office"}</span></td>
+              <td class="text-center">
+                <button type="button" onclick="openGpsModal(${row.id})" class="btn btn-sm btn-more-action py-0 px-2 small">
+                  More
+                </button>
+              </td>
+            `;
+            fullTbody.appendChild(tr);
+          });
+        }
+
+        new bootstrap.Modal(document.getElementById("fullAttendanceModal")).show();
+      }
+
+      // 8. Prevent dark screen modal freezes
+      ["statusDetailModal", "exportModal", "fullAttendanceModal"].forEach((modalId) => {
+        const el = document.getElementById(modalId);
+        if (el) {
+          el.addEventListener("hidden.bs.modal", function () {
+            document.querySelectorAll(".modal-backdrop").forEach((b) => b.remove());
+            document.body.classList.remove("modal-open");
+            document.body.style.removeProperty("overflow");
+            document.body.style.removeProperty("padding-right");
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

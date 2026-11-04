@@ -367,6 +367,40 @@ try {
         exit;
     }
 
+    //Get all staff attendance records
+    if ($action === 'get_admin_attendance'){
+        $stmt = $pdo->prepare("
+            SELECT
+                a.id,
+                a.staff_id,
+                u.full_name AS staff_name,
+                u.department,
+                a.work_date,
+                a.clock_in_time,
+                a.clock_in_lat,
+                a.clock_in_lng,
+                a.clock_in_location,
+                a.clock_out_time,
+                a.clock_out_lat,
+                a.clock_out_lng,
+                a.clock_out_location,
+                a.work_hours,
+                a.ot_hours,
+                a.status AS punch_status
+            FROM attendance_records a
+            JOIN users u ON a.staff_id = u.staff_id
+            ORDER BY a.work_date DESC, a.clock_in_time DESC
+        ");
+        $stmt->execute();
+        $records = $stmt->fetchAll(PDO::FETCH_ASSOC) ?: [];
+
+        echo json_encode([
+            "success" => true, 
+            "records" => $records
+        ]);
+        exit;
+    }
+
     echo json_encode(["success" => false, "message" => "Invalid action specified."]);
 
 } catch (PDOException $e) {
