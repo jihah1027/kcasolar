@@ -1,0 +1,1622 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leave Management | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <!-- Brand Accent Line (Top) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Admin Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
+      <div class="container-fluid px-lg-5">
+        <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </a>
+
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
+            </a>
+
+            <!-- e-Attendance Dropdown -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html">
+                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                    <span>Staff Off-Site Dispatch</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-ot.html">
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-attendance.html">
+                    <i class="bi bi-clock-history text-secondary"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <a class="dropdown-item active d-flex align-items-center gap-2" href="admin-leave.html">
+                    <i class="bi bi-calendar-check text-tnb-red"></i>
+                    <span>Leave Management (e-Leave)</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Active Admin Name & Logout Button -->
+          <div class="d-flex align-items-center gap-3">
+            <span
+              class="fw-bold text-dark d-none d-sm-inline"
+              id="adminDisplayName"
+              style="font-size: 0.95rem;"
+            >
+              Admin
+            </span>
+
+            <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0" title="Sign Out">
+              <div
+                class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 38px; height: 38px; background-color: #e61e2b"
+              >
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </div>
+            </button>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Brand Accent Line (Bottom of Navbar) -->
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end admin-drawer" tabindex="-1" id="adminDrawer">
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Connect Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span class="text-uppercase text-muted fw-bold ps-2" style="font-size: 0.7rem; letter-spacing: 1px">
+              e-Attendance
+            </span>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link active" href="admin-leave.html">
+              <i class="bi bi-calendar-check"></i>
+              <span>Leave Management</span>
+            </a>
+          </li>
+        </ul>
+        <div class="pt-3 border-top">
+          <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start">
+            <i class="bi bi-box-arrow-right text-danger me-2"></i>
+            <span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      
+      <!-- Title & Action Header -->
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+          <h4
+            class="fw-bold text-tnb-blue mb-1"
+            style="font-family: var(--font-headings); font-size: 1.35rem"
+          >
+            LEAVE MANAGEMENT
+          </h4>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <!-- Apply Leave: Visible to regular Admins, hidden for Super Admin -->
+          <button
+            type="button"
+            id="btnAdminApplyLeave"
+            onclick="openAdminApplyModal()"
+            class="btn btn-kca-primary px-4 py-2 rounded-3 shadow-sm d-flex align-items-center gap-2 d-none"
+          >
+            <i class="bi bi-plus-circle-fill"></i> APPLY ADMIN LEAVE
+          </button>
+
+          <!-- Refresh Button -->
+          <button
+            type="button"
+            id="btnRefreshLeave"
+            onclick="refreshWithFeedback()"
+            class="btn btn-kca-secondary d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
+          >
+            <i class="bi bi-arrow-clockwise" id="refreshIcon" style="font-size: 1rem;"></i>
+            <span>Refresh</span>
+          </button>
+        </div>
+      </div>
+
+    <!-- PERSONAL BALANCE METER CARDS (Admin MC, EL, Unpaid Only) -->
+      <div class="row g-3 mb-4 mb-md-5" id="adminBalanceRow">
+        <!-- 1. Medical Leave (MC) -->
+        <div class="col-12 col-md-4">
+          <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">Medical Leave (MC)</div>
+                <h3 class="fw-bold mb-0 mt-1 text-danger" id="statAdminMC">--</h3>
+              </div>
+              <div class="icon-box bg-danger-subtle text-danger">
+                <i class="bi bi-hospital"></i>
+              </div>
+            </div>
+            <div class="text-muted small" id="statAdminMCSubtitle" style="font-size: 0.78rem;">
+              Quota: 14.0 Days
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Emergency Leave (EL) -->
+        <div class="col-12 col-md-4">
+          <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">Emergency Leave (EL)</div>
+                <h3 class="fw-bold mb-0 mt-1 text-tnb-red-orange" id="statAdminEL">--</h3>
+              </div>
+              <div class="icon-box bg-warning-subtle text-tnb-red-orange">
+                <i class="bi bi-lightning-charge"></i>
+              </div>
+            </div>
+            <div class="text-muted small" id="statAdminELSubtitle" style="font-size: 0.78rem;">
+              Quota: 3.0 Days / Year
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Unpaid Leave Taken -->
+        <div class="col-12 col-md-4">
+          <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">Unpaid Leave Taken</div>
+                <h3 class="fw-bold mb-0 mt-1 text-charcoal" id="statAdminUnpaid">0.0</h3>
+              </div>
+              <div class="icon-box bg-secondary-subtle text-secondary">
+                <i class="bi bi-cash-stack"></i>
+              </div>
+            </div>
+            <div class="text-muted small" style="font-size: 0.78rem;">
+              Cuti Tanpa Gaji (Accumulated)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1: LEAVE APPLICATIONS MANAGEMENT -->
+      <div class="card-frame-container mb-5">
+        <div class="card-offset-border frame-blue d-none d-lg-block"></div>
+        <div class="attendance-card position-relative">
+          <h4
+            class="fw-bold mb-3"
+            id="leaveQueueHeaderTitle"
+            style="color: #f66530; font-family: var(--font-headings); font-size: 1.25rem;"
+          >
+            PENDING LEAVE APPLICATIONS
+          </h4>
+
+          <!-- Toolbar: Search Box -->
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+            <div class="d-flex flex-wrap align-items-center gap-2">
+              <button
+                type="button"
+                id="pillPending"
+                onclick="setQueueFilter('pending')"
+                class="dispatch-pill-btn active-all"
+              >
+                Pending Review (<span id="countPending">0</span>)
+              </button>
+              <button
+                type="button"
+                id="pillApproved"
+                onclick="setQueueFilter('approved')"
+                class="dispatch-pill-btn"
+              >
+                Approved Claims (<span id="countApproved">0</span>)
+              </button>
+              <button
+                type="button"
+                id="pillRejected"
+                onclick="setQueueFilter('rejected')"
+                class="dispatch-pill-btn"
+              >
+                Rejected Claims (<span id="countRejected">0</span>)
+              </button>
+              <button
+                type="button"
+                id="pillMyRequests"
+                onclick="setQueueFilter('my_requests')"
+                class="dispatch-pill-btn"
+              >
+                My Applications (<span id="countMyRequests">0</span>)
+              </button>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <div class="position-relative" style="width: 250px">
+                <input
+                  type="text"
+                  id="leaveSearchInput"
+                  onkeyup="handleFilterSearch()"
+                  class="form-control form-control-sm border rounded-2 ps-4"
+                  placeholder="Search staff, ID, type..."
+                />
+                <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop Table -->
+          <div class="table-responsive d-none d-md-block">
+            <table class="table table-bordered table-hover align-middle text-center mb-0 small">
+              <thead class="table-attendance-header">
+                <tr>
+                  <th class="text-start ps-3">Staff Details</th>
+                  <th>Type</th>
+                  <th>Dates Requested</th>
+                  <th>Duration</th>
+                  <th>Balance / Deducted Bucket</th>
+                  <th>Attachment</th>
+                  <th>Status / Auditor</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody class="table-attendance-body" id="leaveDesktopTableBody">
+                <tr>
+                  <td colspan="8" class="text-center py-4 text-muted">
+                    <div class="spinner-border spinner-border-sm text-primary me-2"></div> Loading leave applications...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Cards -->
+          <div class="d-block d-md-none" id="leaveMobileCardsContainer">
+            <div class="text-center py-4 text-muted small">Loading records...</div>
+          </div>
+
+          <!-- Opens Directory -->
+          <button
+            type="button"
+            onclick="openFullLeaveModal()"
+            class="btn-red-circle position-absolute end-0 bottom-0 m-3 shadow"
+            title="View Full Directory"
+          >
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- SECTION 2: STAFF QUOTA SETTINGS -->
+      <div class="card-frame-container mb-4">
+        <div class="card-offset-border frame-orange d-none d-lg-block"></div>
+        <div class="attendance-card">
+          <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 border-bottom pb-2">
+            <div>
+              <h4 class="fw-bold text-tnb-red mb-0" style="font-family: var(--font-headings); font-size: 1.25rem;">
+                YEARLY QUOTA ENTITLEMENTS (<span id="quotaYearBadge">2026</span>)
+              </h4>
+              <span class="text-muted small">
+                Adjust individual ceilings for promotions (naik pangkat). Ceilings rollover automatically into every future year.
+              </span>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+              <input
+                type="text"
+                id="quotaSearchInput"
+                onkeyup="renderQuotaTable()"
+                class="form-control form-control-sm border rounded-2 ps-3"
+                placeholder="Search employee name or ID..."
+                style="width: 240px;"
+              />
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center mb-0 small">
+              <thead class="table-attendance-header">
+                <tr>
+                  <th class="text-start ps-3">Staff ID</th>
+                  <th>Employee Name</th>
+                  <th>Department & Role</th>
+                  <th>Annual (AL)</th>
+                  <th>Medical (MC)</th>
+                  <th>Emergency (EL)</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody class="table-attendance-body" id="quotaTableBody">
+                <tr>
+                  <td colspan="7" class="text-center py-4 text-muted">Loading employee quotas...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ADMIN APPLY LEAVE MODAL -->
+    <div class="modal fade" id="adminApplyModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold text-tnb-red" style="font-family: var(--font-headings); font-size: 1.15rem;">
+              SUBMIT ADMIN LEAVE
+            </h5>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-3">
+            <form id="adminApplyForm" onsubmit="handleAdminApplySubmit(event)">
+              <div class="mb-3">
+                <span class="d-block small text-dark fw-bold">Applicant (Admin)</span>
+                <span class="text-secondary small fw-semibold" id="adminModalUserDisplay">Loading...</span>
+              </div>
+
+              <div class="alert alert-warning py-2 px-3 small mb-3 rounded-2">
+                <i class="bi bi-shield-lock-fill me-1"></i>
+                Admin leave is verified strictly by <strong>Super Admin</strong>. Admins have 0 Annual Leave entitlement.
+              </div>
+
+              <!-- Leave Type -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">Leave Type *</label>
+                <select class="contact-form-control" id="adminLeaveType" name="leave_type" required onchange="handleAdminLeaveTypeChange()">
+                  <option value="mc" selected>Medical Leave (MC - 14 Days)</option>
+                  <option value="emergency">Emergency Leave (EL - 3 Days)</option>
+                  <option value="unpaid">Unpaid Leave (Cuti Tanpa Gaji)</option>
+                </select>
+              </div>
+
+              <!-- Dates -->
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1">Start Date *</label>
+                  <input type="date" id="adminStartDate" name="start_date" class="contact-form-control" required onchange="calculateAdminWorkingDays()" />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1">End Date *</label>
+                  <input type="date" id="adminEndDate" name="end_date" class="contact-form-control" required onchange="calculateAdminWorkingDays()" />
+                </div>
+              </div>
+
+              <div class="mb-3 d-flex justify-content-between align-items-center p-2 bg-light rounded-2 border">
+                <span class="small text-muted fw-semibold">Working Days:</span>
+                <span class="fw-bold text-primary" id="adminCalcDaysDisplay">1.0 Day(s)</span>
+                <input type="hidden" name="total_days" id="adminTotalDaysInput" value="1.0">
+              </div>
+
+              <!-- Attachment -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1" id="adminAttachLabel">
+                  Clinic Slip Attachment <span class="text-danger">*</span>
+                </label>
+                <input type="file" id="adminAttachInput" name="attachment" class="contact-form-control" accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required />
+                <div class="form-text small text-muted" id="adminAttachHelp">Compulsory for MC claims (12:30 PM cutoff for same-day claims).</div>
+              </div>
+
+              <!-- Reason -->
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-dark mb-1">Reason / Site Handover *</label>
+                <textarea id="adminReasonInput" name="reason" class="contact-form-control" rows="3" placeholder="Provide duty coverage / reason..." required></textarea>
+              </div>
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary px-3 rounded-2 fw-semibold" data-bs-dismiss="modal">
+                  CANCEL
+                </button>
+                <button type="submit" id="btnSubmitAdminApply" class="btn btn-kca-primary px-3 rounded-2 fw-bold">
+                  SUBMIT LEAVE
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REVIEW / APPROVAL / REJECT -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold" id="reviewModalTitle" style="color: #f66530; font-family: var(--font-headings); font-size: 1.15rem;">
+              REVIEW APPLICATION
+            </h5>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-3">
+            <form id="reviewActionForm" onsubmit="handleReviewSubmit(event)">
+              <input type="hidden" id="modalAppId" name="app_id" />
+              <input type="hidden" id="modalActionStatus" name="status" />
+
+              <div class="mb-2">
+                <span class="d-block small text-muted fw-bold">Applicant</span>
+                <span class="fw-bold text-dark fs-6" id="modalApplicantName">Staff Name</span>
+              </div>
+
+              <!-- Details -->
+              <div class="p-2 mb-3 rounded-2 bg-light border-start border-4 border-primary">
+                <div class="small text-secondary" id="modalRequestSummary" style="font-size: 0.82rem; line-height: 1.45;">
+                  Request details...
+                </div>
+                <div class="small text-dark mt-1 fst-italic" id="modalStaffReason">
+                  "Reason note..."
+                </div>
+              </div>
+
+              <!-- Dynamic Cascade Advisory -->
+              <div class="alert alert-warning py-2 px-3 small mb-3 rounded-2" id="cascadeWarningBox">
+                <i class="bi bi-info-circle-fill me-1"></i>
+                <span id="cascadeWarningText">Reviewing will process leave according to the cascade rule.</span>
+              </div>
+
+              <!-- Remarks -->
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-dark mb-1">
+                  Management Remarks / Reply <span class="text-muted fw-normal" id="replyOptionalTag">(Optional)</span>
+                </label>
+                <textarea
+                  id="modalAdminReply"
+                  name="admin_reply"
+                  class="contact-form-control"
+                  rows="3"
+                  placeholder="Provide remarks to appear on the employee's portal..."
+                ></textarea>
+              </div>
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary px-3 rounded-2 fw-semibold" data-bs-dismiss="modal">
+                  CANCEL
+                </button>
+                <button type="submit" id="btnConfirmDecision" class="btn btn-primary px-3 rounded-2 fw-bold" style="background-color: var(--tnb-blue); border-color: var(--tnb-blue);">
+                  CONFIRM DECISION
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LEAVE APPLICATION INSPECTION MODAL (MATCHES ADMIN-ATTENDANCE INSPECTION) -->
+    <div class="modal fade" id="leaveDetailModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 680px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold text-tnb-blue" style="font-family: var(--font-headings); font-size: 1.25rem;">
+              APPLICATION & AUDIT DETAILS
+            </h5>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body py-3">
+            <!-- Staff Header Profile -->
+            <div class="mb-3">
+              <div class="fw-bold text-dark fs-6" id="detailStaffName">Staff Name (KCA-000)</div>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <span class="badge bg-light text-dark border" id="detailDeptRole">Operations • Staff</span>
+                <span class="badge bg-primary text-uppercase" id="detailLeaveTypeBadge">ANNUAL LEAVE</span>
+              </div>
+            </div>
+
+            <!-- Application Scope Box -->
+            <div class="p-3 rounded-3 bg-light border mb-3">
+              <div class="row g-2 small">
+                <div class="col-6">
+                  <strong>Date Range:</strong> <span id="detailDates">--</span>
+                </div>
+                <div class="col-6">
+                  <strong>Total Duration:</strong> <span id="detailDuration" class="fw-bold text-primary">--</span>
+                </div>
+                <div class="col-12 mt-2">
+                  <strong>Applicant Reason:</strong>
+                  <div class="text-secondary fst-italic mt-1" id="detailReason">--</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Two Side-by-Side Verification -->
+            <div class="row g-3 mb-3">
+              <!-- ATTACHMENT CARD -->
+              <div class="col-12 col-md-6">
+                <div class="gps-punch-box">
+                  <div class="gps-punch-title">SUPPORTING ATTACHMENT</div>
+                  <div id="detailAttachmentContainer" class="py-2">
+                    <span class="text-muted small">No attachment provided.</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DEDUCTION AUDIT -->
+              <div class="col-12 col-md-6">
+                <div class="gps-punch-box">
+                  <div class="gps-punch-title">CASCADE AUDIT & STATUS</div>
+                  <ul class="list-unstyled small mb-2 text-secondary" style="line-height: 1.7">
+                    <li><strong>• Current Status:</strong> <span id="detailStatusBadge">--</span></li>
+                    <li><strong>• Deducted From:</strong> <span id="detailDeductedBucket" class="fw-bold text-dark">--</span></li>
+                    <li><strong>• Reviewer:</strong> <span id="detailReviewerName" class="text-dark fw-semibold">--</span></li>
+                    <li><strong>• Review Date:</strong> <span id="detailReviewDate">--</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- MANAGEMENT REMARKS NOTE -->
+            <div class="p-3 rounded-2 bg-light border">
+              <span class="small fw-bold text-dark d-block mb-1">Management Review Remarks:</span>
+              <div class="small text-secondary" id="detailAdminRemarks">No remarks recorded.</div>
+            </div>
+          </div>
+
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary btn-sm px-4 rounded-3" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTA ADJUSTMENT MODAL (Promotion / Naik Pangkat) -->
+    <div class="modal fade" id="quotaModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 440px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5 class="modal-title fw-bold text-tnb-blue" style="font-family: var(--font-headings); font-size: 1.15rem;">
+              ADJUST STAFF QUOTA
+            </h5>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-3">
+            <form id="updateQuotaForm" onsubmit="handleQuotaSubmit(event)">
+              <input type="hidden" id="quotaTargetStaffId" name="target_staff_id" />
+
+              <div class="mb-3">
+                <span class="d-block small text-muted fw-bold">Employee</span>
+                <span class="fw-bold text-dark fs-6" id="quotaTargetStaffName">Name (ID)</span>
+              </div>
+
+              <div class="mb-3" id="groupAnnualQuota">
+                <label class="form-label small fw-bold text-dark mb-1">Annual Leave (AL)</label>
+                <input type="number" step="0.5" id="inputAnnualTotal" name="annual_total" class="contact-form-control fw-bold text-primary" required />
+                <div class="form-text small text-muted" id="helpAnnualQuota">Standard staff baseline: 14.0 days.</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1">Medical Leave (MC)</label>
+                <input type="number" step="0.5" id="inputMCTotal" name="mc_total" class="contact-form-control fw-bold text-danger" required />
+                <div class="form-text small text-muted">Standard quota: 14.0 days.</div>
+              </div>
+
+              <div class="mb-4">
+                <label class="form-label small fw-bold text-dark mb-1">Emergency Leave (EL)</label>
+                <input type="number" step="0.5" id="inputEmergencyTotal" name="emergency_total" class="contact-form-control fw-bold text-warning-emphasis" required />
+                <div class="form-text small text-muted">Standard quota: 3.0 days per year.</div>
+              </div>
+
+              <div class="d-flex gap-2 justify-content-end">
+                <button type="button" class="btn btn-outline-secondary px-3 rounded-2 fw-semibold" data-bs-dismiss="modal">
+                  CANCEL
+                </button>
+                <button type="submit" id="btnSaveQuota" class="btn btn-kca-primary px-3 rounded-2 fw-bold">
+                  SAVE CHANGES
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FULL DIRECTORY ARCHIVE -->
+    <div class="modal fade" id="fullLeaveModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-bottom pb-2">
+            <div>
+              <h5 class="modal-title fw-bold text-tnb-blue" id="fullLeaveModalTitle" style="font-family: var(--font-headings)">
+                Master Leave Directory
+              </h5>
+              <span class="text-muted small" id="fullLeaveModalSubtitle">
+                All records in current filter tab
+              </span>
+            </div>
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-3">
+            <div class="table-responsive" style="max-height: 520px; overflow-y: auto">
+              <table class="table table-bordered table-hover align-middle text-start mb-0 small">
+                <thead class="table-attendance-header sticky-top text-center">
+                  <tr>
+                    <th class="text-start ps-3">Staff Details</th>
+                    <th>Type</th>
+                    <th>Dates</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Remarks</th>
+                  </tr>
+                </thead>
+                <tbody id="fullLeaveTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn btn-secondary btn-sm px-4 rounded-3" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DELETE CONFIRMATION -->
+     <div class="modal fade" id="deleteLeaveModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3 text-center">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-2 px-3">
+            <div class="mb-3">
+              <div
+                class="rounded-circle d-inline-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 58px; height: 58px; background-color: #e61e2b"
+              >
+                <i class="bi bi-trash3-fill fs-3"></i>
+              </div>
+            </div>
+            <h5 class="fw-bold mb-2 text-dark" style="font-family: var(--font-headings)">
+              Delete Leave Record?
+            </h5>
+            <p class="text-secondary small mb-4" id="deleteLeaveMessage" style="line-height: 1.5">
+              Are you sure you want to permanently remove this record?
+            </p>
+            <div class="d-flex gap-2 justify-content-center">
+              <button
+                type="button"
+                class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold flex-fill"
+                data-bs-dismiss="modal"
+              >
+                CANCEL
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger px-3 py-2 rounded-2 fw-bold flex-fill"
+                id="btnConfirmDeleteLeave"
+                style="background-color: #e61e2b"
+              >
+                DELETE
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATUS ALERT -->
+    <div class="modal fade" id="statusAlertModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 400px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3 text-center">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-2 px-3">
+            <div id="statusAlertIcon" class="mb-3 fs-1 lh-1"></div>
+            <h5 class="fw-bold mb-2" id="statusAlertTitle" style="font-family: var(--font-headings)">Notice</h5>
+            <p class="text-secondary small mb-4" id="statusAlertMessage" style="line-height: 1.5"></p>
+            <button type="button" class="btn w-100 fw-bold py-2 rounded-3 text-white" data-bs-dismiss="modal" style="background-color: var(--tnb-blue)">
+              OK, UNDERSTOOD
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Client-Side Engine -->
+    <script>
+      let realApplications = [];
+      let masterRoster = [];
+      let currentQueueFilter = "pending";
+      let activeYear = 2026;
+      let activeAdmin = null;
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user");
+        if (!rawUser) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        activeAdmin = JSON.parse(rawUser);
+        if (activeAdmin.role !== "admin" && activeAdmin.role !== "super_admin") {
+          window.location.href = "staff-attendance.html";
+          return;
+        }
+
+        const isSuperAdmin = activeAdmin.role === "super_admin";
+        const badgeLabel = isSuperAdmin ? "Super Admin" : (activeAdmin.id || activeAdmin.staff_id || "Admin");
+        const adminNameEl = document.getElementById("adminDisplayName");
+        if (adminNameEl) {
+          adminNameEl.innerText = `${activeAdmin.name || activeAdmin.full_name || 'Admin'} (${badgeLabel})`;
+        }
+
+        // Show "Apply Leave" only for regular admins (super_admin does not file applications)
+        const btnAdminApply = document.getElementById("btnAdminApplyLeave");
+        if (btnAdminApply && !isSuperAdmin) {
+          btnAdminApply.classList.remove("d-none");
+        }
+
+        // Hide personal leave balances & "My Applications" tab for Super Admin
+        if (isSuperAdmin) {
+          const balRow = document.getElementById("adminBalanceRow");
+          if (balRow) balRow.classList.add("d-none");
+
+          const myReqPill = document.getElementById("pillMyRequests");
+          if (myReqPill) myReqPill.classList.add("d-none");
+
+          const subtitleEl = document.getElementById("leavePageSubtitle");
+          if (subtitleEl) {
+            subtitleEl.innerText = "Monitor company leave applications, audit approvals, and configure employee quotas.";
+          }
+        } else {
+          loadAdminBalances();
+        }
+
+        const todayStr = new Date().toISOString().split("T")[0];
+        document.getElementById("adminStartDate").value = todayStr;
+        document.getElementById("adminEndDate").value = todayStr;
+
+        loadLeaveApplications();
+      });
+
+      function logoutAdmin() {
+        sessionStorage.clear();
+        localStorage.removeItem("kca_user");
+        window.location.href = "login.html";
+      }
+
+      function refreshWithFeedback() {
+        const icon = document.getElementById("refreshIcon");
+        if (icon) {
+          icon.classList.remove("icon-spin-once");
+          void icon.offsetWidth;
+          icon.classList.add("icon-spin-once");
+        }
+        loadAdminBalances();
+        loadLeaveApplications();
+      }
+
+      // 1. Fetch Logged-In Admin's Personal Balances
+      function loadAdminBalances() {
+        const adminStaffId = activeAdmin.id || activeAdmin.staff_id || "";
+        if (!adminStaffId) return;
+
+        fetch(`../php/leave.php?action=get_staff_leave&staff_id=${encodeURIComponent(adminStaffId)}`)
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) return;
+
+            const b = data.balances || {};
+            const ent = data.entitlement || {};
+
+            document.getElementById("statAdminMC").innerText = `${b.mc_left || 0} Days`;
+            document.getElementById("statAdminMCSubtitle").innerText = `Used ${ent.mc_used || 0} of ${ent.mc_total || 14} Days`;
+
+            document.getElementById("statAdminEL").innerText = `${b.emergency_left || 0} Days`;
+            document.getElementById("statAdminELSubtitle").innerText = `Used ${ent.emergency_used || 0} of ${ent.emergency_total || 3} Days`;
+
+            document.getElementById("statAdminUnpaid").innerText = `${b.unpaid_taken || 0} Days`;
+          })
+          .catch((err) => console.error("Could not fetch personal admin balances:", err));
+      }
+
+      // 2. Fetch Master Queue & Full Roster from Backend
+      function loadLeaveApplications() {
+        fetch("../php/leave.php?action=admin_get_leave_queue")
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) {
+              showCustomPopup("blocked", "Error", data.message || "Failed to load leave records.");
+              return;
+            }
+
+            activeYear = data.current_year || 2026;
+            document.getElementById("quotaYearBadge").innerText = activeYear;
+            realApplications = data.applications || [];
+            masterRoster = data.roster || [];
+
+            renderQueue();
+            renderQuotaTable();
+          })
+          .catch((err) => {
+            console.error("Database query failed:", err);
+            document.getElementById("leaveDesktopTableBody").innerHTML =
+              `<tr><td colspan="8" class="text-center py-4 text-danger small">Failed to connect to database.</td></tr>`;
+          });
+      }
+
+      // 3. Render Applications Queue
+      function renderQueue() {
+        const desktopTbody = document.getElementById("leaveDesktopTableBody");
+        const mobileContainer = document.getElementById("leaveMobileCardsContainer");
+        const searchQuery = document.getElementById("leaveSearchInput").value.toLowerCase().trim();
+
+        desktopTbody.innerHTML = "";
+        mobileContainer.innerHTML = "";
+
+        const myStaffId = activeAdmin.id || activeAdmin.staff_id || "";
+        let pendingCount = 0;
+        let approvedCount = 0;
+        let rejectedCount = 0;
+        let myRequestsCount = 0;
+
+        realApplications.forEach((a) => {
+          if (a.status === "pending") pendingCount++;
+          else if (a.status === "approved") approvedCount++;
+          else if (a.status === "rejected") rejectedCount++;
+
+          if (a.staff_id === myStaffId) myRequestsCount++;
+        });
+
+        document.getElementById("countPending").innerText = pendingCount;
+        document.getElementById("countApproved").innerText = approvedCount;
+        document.getElementById("countRejected").innerText = rejectedCount;
+        document.getElementById("countMyRequests").innerText = myRequestsCount;
+
+        const filtered = realApplications.filter((item) => {
+          if (currentQueueFilter === "my_requests") {
+            if (item.staff_id !== myStaffId) return false;
+          } else {
+            if (item.status !== currentQueueFilter) return false;
+          }
+
+          if (searchQuery) {
+            const matchText = `${item.staff_id} ${item.staff_name || ''} ${item.leave_type || ''} ${item.reason || ''} ${item.reviewer_name || ''} ${item.reviewed_by || ''}`.toLowerCase();
+            if (!matchText.includes(searchQuery)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          const emptyMsg = `<tr><td colspan="8" class="text-center py-4 text-muted small">No applications found under this view.</td></tr>`;
+          desktopTbody.innerHTML = emptyMsg;
+          mobileContainer.innerHTML = `<div class="text-center py-4 text-muted small">No applications found under this view.</div>`;
+          return;
+        }
+
+        const isSuperAdmin = activeAdmin.role === "super_admin";
+
+        filtered.forEach((item) => {
+          const [y, m, d] = (item.start_date || "").split("-");
+          const [ey, em, ed] = (item.end_date || "").split("-");
+          const dateRange = `${d}/${m} - ${ed}/${em}/${ey}`;
+
+          // Balance / Deduction display
+          let balanceDisplay = "";
+          if (item.status === "pending") {
+            if (item.leave_type === "mc") {
+              const left = Math.max(0, parseFloat(item.mc_total) - parseFloat(item.mc_used));
+              balanceDisplay = `<span class="badge bg-danger-subtle text-danger border">${left}d MC left</span>`;
+            } else if (item.leave_type === "emergency") {
+              const left = Math.max(0, parseFloat(item.emergency_total) - parseFloat(item.emergency_used));
+              balanceDisplay = `<span class="badge bg-warning-subtle text-warning-emphasis border">${left}d EL left</span>`;
+            } else if (item.leave_type === "annual") {
+              const left = Math.max(0, parseFloat(item.annual_total) - parseFloat(item.annual_used));
+              balanceDisplay = `<span class="badge bg-primary-subtle text-primary border">${left}d AL left</span>`;
+            } else {
+              balanceDisplay = `<span class="badge bg-secondary-subtle text-muted border">Unpaid</span>`;
+            }
+          } else {
+            if (item.deducted_from) {
+              const mapClass = {
+                mc: "badge-deduct-mc",
+                emergency: "badge-deduct-el",
+                annual: "badge-deduct-al",
+                unpaid: "badge-deduct-unpaid"
+              };
+              balanceDisplay = `<span class="${mapClass[item.deducted_from] || 'badge bg-secondary'}">${item.deducted_from.toUpperCase()}</span>`;
+            } else {
+              balanceDisplay = `<span class="badge bg-light text-muted border">0 Days (Cancelled)</span>`;
+            }
+          }
+
+          // Attachment link
+          let attachLink = `<span class="text-muted small">--</span>`;
+          if (item.attachment_name) {
+            attachLink = `
+              <a href="../uploads/leave/${encodeURIComponent(item.attachment_name)}" download="${item.attachment_name}" target="_blank" class="attachment-link">
+                <i class="bi bi-file-earmark-arrow-down-fill text-danger"></i>Slip
+              </a>
+            `;
+          }
+
+          // Applicant role
+          const isClaimerAdmin = item.applicant_role === "admin";
+          const roleBadge = isClaimerAdmin ? `<span class="badge bg-dark text-white ms-1" style="font-size: 0.68rem;">ADMIN</span>` : ``;
+
+          // Action column logic
+          let actionCell = "";
+          let statusAuditorCell = "";
+
+          if (item.status === "pending") {
+            statusAuditorCell = `<span class="badge bg-warning text-dark px-2 py-1">Pending Review</span>`;
+
+            // Admin leave verified by Super Admin
+            if (isClaimerAdmin && !isSuperAdmin) {
+              actionCell = `
+                <span class="badge bg-secondary-subtle text-secondary border px-2 py-1" style="font-size: 0.72rem;">
+                  <i class="bi bi-shield-lock me-1"></i>Super Admin Review
+                </span>
+              `;
+            } else {
+              actionCell = `
+                <div class="d-flex justify-content-center gap-1">
+                  <button type="button" onclick="openReviewModal(${item.id}, 'approved')" class="btn btn-sm btn-primary fw-bold py-1 px-2 rounded-2" style="background-color: var(--tnb-blue); font-size: 0.78rem;">
+                    Approve
+                  </button>
+                  <button type="button" onclick="openReviewModal(${item.id}, 'rejected')" class="btn btn-sm btn-outline-danger fw-bold py-1 px-2 rounded-2" style="font-size: 0.78rem;">
+                    Reject
+                  </button>
+                  <button type="button" onclick="openDeleteLeaveModal(${item.id})" class="btn btn-sm btn-outline-secondary py-1 px-2 rounded-2" title="Delete Record">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              `;
+            }
+          } else {
+            const reviewer = item.reviewer_name || item.reviewed_by || "Admin";
+            statusAuditorCell = `
+              <div>
+                <span class="badge ${item.status === 'approved' ? 'bg-success text-white' : 'bg-danger text-white'} px-2 py-1">
+                  ${item.status.toUpperCase()}
+                </span>
+                <div class="text-muted mt-1" style="font-size: 0.72rem;">
+                  <strong>${reviewer}</strong> • ${item.formatted_reviewed_at || "Recent"}
+                </div>
+              </div>
+            `;
+
+            const deleteBtnHtml = (isClaimerAdmin && !isSuperAdmin) ? "" : `
+              <button type="button" onclick="openDeleteLeaveModal(${item.id})" class="btn btn-sm btn-outline-danger py-1 px-2 rounded-2" title="Delete & Refund Quota">
+                <i class="bi bi-trash"></i>
+              </button>
+            `;
+
+            actionCell = `
+              <div class="d-flex justify-content-center gap-1">
+                <button type="button" onclick="openDetailModal(${item.id})" class="btn btn-sm btn-more-action py-1 px-2">
+                  More
+                </button>
+                ${deleteBtnHtml}
+              </div>
+            `;
+          }
+
+          // Desktop Row
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-3">
+              <div class="fw-bold text-dark">${item.staff_id} ${roleBadge}</div>
+              <div class="text-secondary small">${item.staff_name || "Employee"} • ${item.department || "Operations"}</div>
+            </td>
+            <td><span class="fw-semibold text-capitalize">${item.leave_type}</span></td>
+            <td><div class="small fw-bold text-dark">${dateRange}</div></td>
+            <td class="fw-bold text-center">${item.total_days} d</td>
+            <td class="text-center">${balanceDisplay}</td>
+            <td class="text-center">${attachLink}</td>
+            <td class="text-center">${statusAuditorCell}</td>
+            <td class="text-center">${actionCell}</td>
+          `;
+          desktopTbody.appendChild(tr);
+
+          // Mobile Card Layout
+          const card = document.createElement("div");
+          card.className = "dispatch-mobile-card mb-3 p-3";
+          card.innerHTML = `
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge ${item.status === 'approved' ? 'bg-success text-white' : (item.status === 'rejected' ? 'bg-danger text-white' : 'bg-warning text-dark')} px-2 py-1">
+                ${item.status.toUpperCase()}
+              </span>
+              <span class="badge bg-light text-secondary border text-capitalize">${item.leave_type}</span>
+            </div>
+            <div class="fw-bold text-dark fs-6 mb-1">${item.staff_id} - ${item.staff_name} ${roleBadge}</div>
+            <div class="small mb-1"><strong>Dates:</strong> ${dateRange} (${item.total_days} days)</div>
+            <div class="small mb-1"><strong>Bucket:</strong> ${balanceDisplay}</div>
+            <div class="small mb-2"><strong>Reason:</strong> ${item.reason}</div>
+            <div class="d-flex gap-2">${actionCell}</div>
+          `;
+          mobileContainer.appendChild(card);
+        });
+      }
+
+      function setQueueFilter(filterType) {
+        currentQueueFilter = filterType;
+        document.getElementById("pillPending").className = "dispatch-pill-btn" + (filterType === "pending" ? " active-all" : "");
+        document.getElementById("pillApproved").className = "dispatch-pill-btn" + (filterType === "approved" ? " active-all" : "");
+        document.getElementById("pillRejected").className = "dispatch-pill-btn" + (filterType === "rejected" ? " active-all" : "");
+        document.getElementById("pillMyRequests").className = "dispatch-pill-btn" + (filterType === "my_requests" ? " active-all" : "");
+
+        const headerTitle = document.getElementById("leaveQueueHeaderTitle");
+        if (filterType === "pending") headerTitle.innerText = "PENDING LEAVE APPLICATIONS";
+        else if (filterType === "approved") headerTitle.innerText = "APPROVED LEAVE ARCHIVE";
+        else if (filterType === "rejected") headerTitle.innerText = "REJECTED LEAVE ARCHIVE";
+        else headerTitle.innerText = "MY PERSONAL LEAVE APPLICATIONS";
+
+        renderQueue();
+      }
+
+      function handleFilterSearch() {
+        renderQueue();
+      }
+
+      // 4. Render Quota Settings Table (With Server Role Rule Checked on Client)
+      function renderQuotaTable() {
+        const tbody = document.getElementById("quotaTableBody");
+        const query = document.getElementById("quotaSearchInput").value.toLowerCase().trim();
+        tbody.innerHTML = "";
+
+        const isSuperAdmin = activeAdmin.role === "super_admin";
+
+        const filtered = masterRoster.filter((u) => {
+          if (query) {
+            const matchText = `${u.staff_id} ${u.staff_name || ''} ${u.department || ''}`.toLowerCase();
+            if (!matchText.includes(query)) return false;
+          }
+          return true;
+        });
+
+        if (filtered.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted small">No employee profiles found.</td></tr>`;
+          return;
+        }
+
+        filtered.forEach((u) => {
+          const isAdm = u.applicant_role === 'admin';
+          const roleBadge = isAdm ? `<span class="badge bg-dark text-white ms-1" style="font-size: 0.68rem;">ADMIN</span>` : `<span class="badge bg-light text-dark border ms-1" style="font-size: 0.68rem;">STAFF</span>`;
+
+          // Regular Admin cannot edit Admin quotas
+          let actionCell = "";
+          if (isAdm && !isSuperAdmin) {
+            actionCell = `
+              <span class="badge bg-secondary-subtle text-secondary border px-2 py-1 small" title="Only Super Admin can edit an Admin's quota">
+                <i class="bi bi-shield-lock me-1"></i>Super Admin Only
+              </span>
+            `;
+          } else {
+            actionCell = `
+              <button type="button" onclick="openQuotaModal('${u.staff_id}', '${u.staff_name}', '${u.applicant_role}', ${u.annual_total || 0}, ${u.mc_total || 14}, ${u.emergency_total || 3})" class="btn btn-sm btn-outline-primary py-1 px-2 rounded-2 fw-semibold" style="font-size: 0.8rem;">
+                <i class="bi bi-pencil-square me-1"></i>Edit
+              </button>
+            `;
+          }
+
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td class="text-start ps-3 fw-bold text-dark">${u.staff_id}</td>
+            <td class="text-start fw-semibold text-dark">${u.staff_name} ${roleBadge}</td>
+            <td class="text-center"><span class="small text-secondary">${u.department || "Operations"}</span></td>
+            <td class="fw-bold text-primary text-center">${u.annual_total || 0} d</td>
+            <td class="fw-bold text-danger text-center">${u.mc_total || 14} d</td>
+            <td class="fw-bold text-warning-emphasis text-center">${u.emergency_total || 3} d</td>
+            <td class="text-center">${actionCell}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // 5. Open Review Modal
+      function openReviewModal(appId, decision) {
+        const app = realApplications.find((a) => a.id == appId);
+        if (!app) return;
+
+        document.getElementById("modalAppId").value = appId;
+        document.getElementById("modalActionStatus").value = decision;
+        document.getElementById("modalApplicantName").innerText = `${app.staff_name} (${app.staff_id})`;
+        document.getElementById("modalRequestSummary").innerText = `${app.total_days} Day(s) of ${app.leave_type.toUpperCase()} (${formatDate(app.start_date)} - ${formatDate(app.end_date)})`;
+        document.getElementById("modalStaffReason").innerText = `"${app.reason}"`;
+
+        const title = document.getElementById("reviewModalTitle");
+        const btn = document.getElementById("btnConfirmDecision");
+        const warnBox = document.getElementById("cascadeWarningBox");
+        const warnText = document.getElementById("cascadeWarningText");
+        const replyOpt = document.getElementById("replyOptionalTag");
+        const replyInput = document.getElementById("modalAdminReply");
+
+        if (decision === "approved") {
+          title.innerText = "APPROVE LEAVE APPLICATION";
+          title.style.color = "#16a34a";
+          btn.className = "btn btn-success px-3 rounded-2 fw-bold";
+          btn.innerText = "CONFIRM APPROVAL";
+          warnBox.className = "alert alert-success py-2 px-3 small mb-3 rounded-2";
+          warnText.innerText = "Approving will deduct days according to the cascade rule.";
+          replyOpt.innerText = "(Optional)";
+          replyInput.placeholder = "e.g. Approved. Please handover site inspection duties...";
+        } else {
+          title.innerText = "REJECT LEAVE APPLICATION";
+          title.style.color = "#e61e2b";
+          btn.className = "btn btn-danger px-3 rounded-2 fw-bold";
+          btn.innerText = "CONFIRM REJECTION";
+          warnBox.className = "alert alert-danger py-2 px-3 small mb-3 rounded-2";
+          warnText.innerText = "For same-day absences, MC, and EL, rejecting cascades the day to Annual or Unpaid Leave.";
+          replyOpt.innerText = "(Required)";
+          replyInput.placeholder = "e.g. Substation shutdown scheduled. Please attend site...";
+        }
+
+        new bootstrap.Modal(document.getElementById("reviewModal")).show();
+      }
+
+      function handleReviewSubmit(e) {
+        e.preventDefault();
+        const decision = document.getElementById("modalActionStatus").value;
+        const reply = document.getElementById("modalAdminReply").value.trim();
+
+        if (decision === "rejected" && !reply) {
+          showCustomPopup("blocked", "Remarks Required", "Please provide a rejection note so the applicant understands the decision.");
+          return;
+        }
+
+        const btn = document.getElementById("btnConfirmDecision");
+        btn.disabled = true;
+
+        const formData = new FormData(document.getElementById("reviewActionForm"));
+        formData.append("action", "admin_review_leave");
+        formData.append("admin_id", activeAdmin.id || activeAdmin.staff_id || "");
+
+        fetch("../php/leave.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            btn.disabled = false;
+            const modal = bootstrap.Modal.getInstance(document.getElementById("reviewModal"));
+            if (modal) modal.hide();
+
+            if (data.success) {
+              showCustomPopup("success", "Decision Recorded", data.message);
+              loadLeaveApplications();
+              loadAdminBalances();
+            } else {
+              showCustomPopup("blocked", "Review Notice", data.message || "Failed to process review.");
+            }
+          })
+          .catch(() => {
+            btn.disabled = false;
+            showCustomPopup("blocked", "Server Error", "Server error occurred while reviewing.");
+          });
+      }
+
+      // 6. Open Inspection / Detail Modal
+      function openDetailModal(appId) {
+        const app = realApplications.find((a) => a.id == appId);
+        if (!app) return;
+
+        document.getElementById("detailStaffName").innerText = `${app.staff_name} (${app.staff_id})`;
+        document.getElementById("detailDeptRole").innerText = `${app.department || 'Operations'} • ${(app.applicant_role || 'staff').toUpperCase()}`;
+        document.getElementById("detailLeaveTypeBadge").innerText = `${app.leave_type.toUpperCase()} LEAVE`;
+
+        document.getElementById("detailDates").innerText = `${formatDate(app.start_date)} to ${formatDate(app.end_date)}`;
+        document.getElementById("detailDuration").innerText = `${app.total_days} Day(s)`;
+        document.getElementById("detailReason").innerText = `"${app.reason}"`;
+
+        // Attachment link
+        const attachBox = document.getElementById("detailAttachmentContainer");
+        if (app.attachment_name) {
+          attachBox.innerHTML = `
+            <div class="d-flex align-items-center justify-content-between p-2 bg-white rounded border">
+              <span class="small text-truncate" style="max-width: 180px;">
+                <i class="bi bi-file-earmark-pdf-fill text-danger me-1"></i>${app.attachment_name}
+              </span>
+              <a href="../uploads/leave/${encodeURIComponent(app.attachment_name)}" download="${app.attachment_name}" target="_blank" class="btn btn-sm btn-outline-danger py-0 px-2 fw-semibold">
+                Download
+              </a>
+            </div>
+          `;
+        } else {
+          attachBox.innerHTML = `<span class="text-muted small">No attachment uploaded.</span>`;
+        }
+
+        // Deduction & Audit Trail
+        const statusBadgeEl = document.getElementById("detailStatusBadge");
+        if (app.status === "approved") {
+          statusBadgeEl.innerHTML = `<span class="badge bg-success text-white">APPROVED</span>`;
+        } else {
+          statusBadgeEl.innerHTML = `<span class="badge bg-danger text-white">REJECTED</span>`;
+        }
+
+        document.getElementById("detailDeductedBucket").innerText = app.deducted_from ? app.deducted_from.toUpperCase() : "None (0 Days)";
+        document.getElementById("detailReviewerName").innerText = app.reviewer_name || app.reviewed_by || "--";
+        document.getElementById("detailReviewDate").innerText = app.formatted_reviewed_at || "Recent";
+        document.getElementById("detailAdminRemarks").innerText = app.admin_reply || "No remarks provided.";
+
+        new bootstrap.Modal(document.getElementById("leaveDetailModal")).show();
+      }
+
+      //Open Delete Confirmation Modal
+      function openDeleteLeaveModal(appId){
+        const app = realApplications.find((a) => Number(a.id) === Number(appId));
+        if (!app) return;
+
+        let refundNote = "This pending application will be permanently removed.";
+        if (app.deducted_from){
+          refundNote = `Since <strong>${app.total_days} day(s)</strong> were already taken from <strong>${app.deducted_from.toUpperCase()}</strong>, deleting this will automatically return those days back to <strong>${app.staff_name}</strong>'s balance.`;
+        }
+
+        document.getElementById("deleteLeaveMessage").innerHTML = `
+          Delete leave record <strong>${app.application_code}</strong> for <strong>${app.staff_name}</strong>?<br><br>
+          <span class="text-dark">${refundNote}</span>
+        `;
+
+        const btnConfirm = document.getElementById("btnConfirmDeleteLeave");
+        btnConfirm.onclick = () => {
+          btnConfirm.disabled = true;
+          btnConfirm.innerText = "DELETING...";
+
+          const formData = new FormData();
+          formData.append("action", "admin_delete_leave");
+          formData.append("app_id", appId);
+          formData.append("admin_id", activeAdmin.id || activeAdmin.staff_id || "");
+
+          fetch("../php/leave.php", {
+            method: "POST",
+            body: formData
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              btnConfirm.disabled = false;
+              btnConfirm.innerText = "DELETE";
+
+              const delModal = bootstrap.Modal.getInstance(document.getElementById("deleteLeaveModal"));
+              if (delModal) delModal.hide();
+
+              if (data.success) {
+                showCustomPopup("success", "Record Deleted", data.message);
+                loadLeaveApplications();
+                loadAdminBalances();
+              } else {
+                showCustomPopup("blocked", "Delete Blocked", data.message || "Could not delete record.");
+              }
+            })
+            .catch(() => {
+              btnConfirm.disabled = false;
+              btnConfirm.innerText = "DELETE";
+              showCustomPopup("blocked", "Server Error", "Unable to connect to server.");
+            });
+        };
+
+        new bootstrap.Modal(document.getElementById("deleteLeaveModal")).show();
+      }
+
+      // 8. Admin Leave Apply Handlers
+      function openAdminApplyModal() {
+        document.getElementById("adminApplyForm").reset();
+
+        const userDisplay = document.getElementById("adminModalUserDisplay");
+        if (userDisplay) {
+          userDisplay.innerText = `${activeAdmin.name || activeAdmin.full_name || 'Admin'} (${activeAdmin.id || activeAdmin.staff_id || 'ADMIN'})`;
+        }
+
+        const todayStr = new Date().toISOString().split("T")[0];
+        document.getElementById("adminStartDate").value = todayStr;
+        document.getElementById("adminEndDate").value = todayStr;
+        calculateAdminWorkingDays();
+
+        new bootstrap.Modal(document.getElementById("adminApplyModal")).show();
+      }
+
+      function handleAdminLeaveTypeChange() {
+        const type = document.getElementById("adminLeaveType").value;
+        const label = document.getElementById("adminAttachLabel");
+        const input = document.getElementById("adminAttachInput");
+        const help = document.getElementById("adminAttachHelp");
+
+        if (type === "mc") {
+          label.innerHTML = `Clinic Slip Attachment <span class="text-danger">*</span>`;
+          input.required = true;
+          help.innerText = "Compulsory for MC submissions (12:30 PM cutoff for same-day claims).";
+        } else {
+          label.innerHTML = `Supporting Document (Optional)`;
+          input.required = false;
+          help.innerText = "Optional justification memo or proof.";
+        }
+      }
+
+      function calculateAdminWorkingDays() {
+        const start = new Date(document.getElementById("adminStartDate").value);
+        const end = new Date(document.getElementById("adminEndDate").value);
+
+        if (isNaN(start) || isNaN(end) || end < start) {
+          document.getElementById("adminCalcDaysDisplay").innerText = "Invalid Dates";
+          return;
+        }
+
+        let count = 0;
+        let cur = new Date(start);
+        while (cur <= end) {
+          if (cur.getDay() !== 0) count++;
+          cur.setDate(cur.getDate() + 1);
+        }
+
+        const total = count === 0 ? 1.0 : count * 1.0;
+        document.getElementById("adminCalcDaysDisplay").innerText = `${total.toFixed(1)} Day(s)`;
+        document.getElementById("adminTotalDaysInput").value = total.toFixed(1);
+      }
+
+      function handleAdminApplySubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById("btnSubmitAdminApply");
+        btn.disabled = true;
+        btn.innerText = "SUBMITTING...";
+
+        const formData = new FormData(document.getElementById("adminApplyForm"));
+        formData.append("action", "apply_leave");
+        formData.append("staff_id", activeAdmin.id || activeAdmin.staff_id || "");
+
+        fetch("../php/leave.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            btn.disabled = false;
+            btn.innerText = "SUBMIT LEAVE";
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById("adminApplyModal"));
+            if (modal) modal.hide();
+
+            if (data.success) {
+              showCustomPopup("success", "Admin Leave Submitted", `${data.message}<br><br><span class="text-muted">Routed to Super Admin (Hisham/Nadi) for verification.</span>`);
+              loadLeaveApplications();
+              loadAdminBalances();
+            } else {
+              showCustomPopup("blocked", "Submission Notice", data.message || "Failed to submit leave.");
+            }
+          })
+          .catch(() => {
+            btn.disabled = false;
+            btn.innerText = "SUBMIT LEAVE";
+            showCustomPopup("blocked", "Server Error", "Unable to submit leave request.");
+          });
+      }
+
+      // 9. Quota Modal Handlers
+      function openQuotaModal(staffId, name, role, al, mc, el) {
+        document.getElementById("quotaTargetStaffId").value = staffId;
+        document.getElementById("quotaTargetStaffName").innerText = `${name} (${staffId}) • ${role.toUpperCase()}`;
+        document.getElementById("inputAnnualTotal").value = al;
+        document.getElementById("inputMCTotal").value = mc;
+        document.getElementById("inputEmergencyTotal").value = el;
+
+        // If target is admin, annual leave input is locked to 0
+        const alInput = document.getElementById("inputAnnualTotal");
+        const alHelp = document.getElementById("helpAnnualQuota");
+        if (role === 'admin') {
+          alInput.value = 0.0;
+          alInput.readOnly = true;
+          alHelp.innerText = "Admins have 0.0 Annual Leave entitlement.";
+        } else {
+          alInput.readOnly = false;
+          alHelp.innerText = "Standard staff baseline: 14.0 days.";
+        }
+
+        new bootstrap.Modal(document.getElementById("quotaModal")).show();
+      }
+
+      function handleQuotaSubmit(e) {
+        e.preventDefault();
+        const btn = document.getElementById("btnSaveQuota");
+        btn.disabled = true;
+
+        const formData = new FormData(document.getElementById("updateQuotaForm"));
+        formData.append("action", "admin_update_quota");
+        formData.append("admin_id", activeAdmin.id || activeAdmin.staff_id || "");
+
+        fetch("../php/leave.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            btn.disabled = false;
+            const modal = bootstrap.Modal.getInstance(document.getElementById("quotaModal"));
+            if (modal) modal.hide();
+
+            if (data.success) {
+              showCustomPopup("success", "Quota Updated", data.message);
+              loadLeaveApplications();
+            } else {
+              showCustomPopup("blocked", "Update Failed", data.message || "Failed to update quota.");
+            }
+          })
+          .catch(() => {
+            btn.disabled = false;
+            showCustomPopup("blocked", "Server Error", "Server error occurred while updating quota.");
+          });
+      }
+
+      // 10. Full Directory Archive
+      function openFullLeaveModal() {
+        const tbody = document.getElementById("fullLeaveTableBody");
+        const titleEl = document.getElementById("fullLeaveModalTitle");
+        const subEl = document.getElementById("fullLeaveModalSubtitle");
+
+        tbody.innerHTML = "";
+        titleEl.innerText = "Master Leave Archive";
+        subEl.innerText = "Complete archive of company leave applications";
+
+        if (realApplications.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted">No records found.</td></tr>`;
+        } else {
+          realApplications.forEach((r) => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td class="fw-bold ps-3">${r.staff_id} - ${r.staff_name}</td>
+              <td class="text-capitalize">${r.leave_type}</td>
+              <td>${formatDate(r.start_date)} - ${formatDate(r.end_date)}</td>
+              <td class="fw-bold text-center">${r.total_days} d</td>
+              <td class="text-center text-uppercase fw-semibold">${r.status}</td>
+              <td class="small text-muted">${r.admin_reply || '--'}</td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+
+        new bootstrap.Modal(document.getElementById("fullLeaveModal")).show();
+      }
+
+      // 11. Custom Status Popup & Modal 
+      function showCustomPopup(type, title, message) {
+        const iconEl = document.getElementById("statusAlertIcon");
+        const titleEl = document.getElementById("statusAlertTitle");
+        const msgEl = document.getElementById("statusAlertMessage");
+
+        if (type === "success") {
+          iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+          titleEl.className = "fw-bold mb-2 text-success";
+        } else if (type === "blocked") {
+          iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+          titleEl.className = "fw-bold mb-2 text-danger";
+        } else {
+          iconEl.innerHTML = '<i class="bi bi-info-circle-fill text-primary"></i>';
+          titleEl.className = "fw-bold mb-2 text-primary";
+        }
+
+        titleEl.innerText = title;
+        msgEl.innerHTML = message;
+        new bootstrap.Modal(document.getElementById("statusAlertModal")).show();
+      }
+
+      ["reviewModal", "quotaModal", "adminApplyModal", "leaveDetailModal", "fullLeaveModal", "deleteLeaveModal", "statusAlertModal"].forEach((modalId) => {
+        const el = document.getElementById(modalId);
+        if (el) {
+          el.addEventListener("hidden.bs.modal", function () {
+            document.querySelectorAll(".modal-backdrop").forEach((b) => b.remove());
+            document.body.classList.remove("modal-open");
+            document.body.style.removeProperty("overflow");
+            document.body.style.removeProperty("padding-right");
+          });
+        }
+      });
+
+      function formatDate(dateStr) {
+        if (!dateStr) return "--";
+        const parts = dateStr.split("-");
+        if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        return dateStr;
+      }
+    </script>
+  </body>
+</html>

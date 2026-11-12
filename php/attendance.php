@@ -367,7 +367,7 @@ try {
         exit;
     }
 
-    //Get all staff attendance records
+    // 9. Get all staff attendance records
     if ($action === 'get_admin_attendance'){
         $stmt = $pdo->prepare("
             SELECT
@@ -397,6 +397,78 @@ try {
         echo json_encode([
             "success" => true, 
             "records" => $records
+        ]);
+        exit;
+    }
+
+    // 10. Admin: Delete Single Attendance Record
+    if ($action === 'admin_delete_attendance') {
+        $record_id = intval($_POST['record_id'] ?? 0);
+        if (!$record_id) {
+            echo json_encode(["success" => false, "message" => "Attendance record ID is required."]);
+            exit;
+        }
+
+        $stmtCheck = $pdo->prepare("SELECT id FROM attendance_records WHERE id = ? LIMIT 1");
+        $stmtCheck->execute([$record_id]);
+        if (!$stmtCheck->fetch()) {
+            echo json_encode(["success" => false, "message" => "Attendance record not found."]);
+            exit;
+        }
+
+        $pdo->prepare("DELETE FROM attendance_records WHERE id = ?")->execute([$record_id]);
+
+        echo json_encode([
+            "success" => true,
+            "message" => "Attendance log deleted successfully."
+        ]);
+        exit;
+    }
+
+    // 11. Admin: Delete single OT claim (Reset Timesheet ot & Checks Role)
+    if ($action == 'admin_delete_ot') {
+        $claim_id = intval($_POST['claim_id'] ?? 0);
+        $admin_id = trim($_POST['admin_id'] ?? $staff_id);
+
+        if (!$claim_id) {
+            echo json_encode(["success" => false, "message" => "Overtime claim ID is required."]);
+            exit;
+        }
+
+        $stmt = $pdo->prepare("SELECT * FROM overtime_claims WHERE id = ? LIMIT 1");
+        $stmt->execute([$claim_id]);
+        $claim = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$claim) {
+            echo json_encode(["success" => false, "message" => "Overtime claim not found."]);
+            exit;
+        }
+
+        //Only Super Admin can delete Admin ot claim
+        $stmtClaimer = $pdo->prepare("SELECT role FROM users WHERE staff_id = ? LIMIT 1");
+        $stmtClaimer->execute([$claim['staff_id']]);
+        $claimerRole = $stmtClaimer->fetchColumn() ?: 'staff';
+
+        $stmtReviewer = $pdo->prepare("SELECT role FROM users WHERE staff_id = ? LIMIT 1");
+        $stmtReviewer->execute([$admin_id]);
+        $reviewerRole = $stmtReviewer->fetchColumn() ?: '';
+
+        if ($claimerRole === 'admin' && $reviewerRole !== 'super_admin') {
+            echo json_encode([
+                "success" => false,
+                "message" => "Only a Super Admin can delete an Admin's overtime claim."
+            ]);
+            exit;
+        }
+
+        //Remove claim and reset ot hours on that day attendance record to 0
+        $pdo->prepare("DELETE FROM overtime_claims WHERE id = ?")->execute([$claim_id]);
+        $pdo->prepare("UPDATE attendance_records SET ot_hours = 0.00 where staff_id = ? AND work_date = ?")
+        ->execute([$claim['staff_id'], $claim['claim_date']]);
+
+        echo json_encode([
+            "success" => true,
+            "message" => "Overtime claim deleted and timesheet OT hours reset to 0."
         ]);
         exit;
     }

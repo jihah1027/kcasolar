@@ -59,6 +59,50 @@ try {
         exit;
     }
 
+    // 3. Smart Delete Inquiry (Removes record + cleans up attached file)
+    if ($action === 'delete_inquiry') {
+        $id = intval($_POST['id'] ?? 0);
+        if (!$id) {
+            echo json_encode(["success" => false, "message" => "Invalid inquiry ID."]);
+            exit;
+        }
+
+        $stmt = $pdo->prepare("SELECT attachment_name, attachment_path FROM website_inquiries WHERE id = ? LIMIT 1");
+        $stmt->execute([$id]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$row) {
+            echo json_encode(["success" => false, "message" => "Inquiry record not found."]);
+            exit;
+        }
+
+        // Check both attachment_path and attachment_name in uploads/inquiries/ and uploads/
+        $filesToCheck = [];
+        if (!empty($row['attachment_path'])) {
+            $filesToCheck[] = __DIR__ . '/../' . ltrim($row['attachment_path'], './');
+            $filesToCheck[] = __DIR__ . '/../uploads/inquiries/' . basename($row['attachment_path']);
+            $filesToCheck[] = __DIR__ . '/../uploads/' . basename($row['attachment_path']);
+        }
+        if (!empty($row['attachment_name'])) {
+            $filesToCheck[] = __DIR__ . '/../uploads/inquiries/' . basename($row['attachment_name']);
+            $filesToCheck[] = __DIR__ . '/../uploads/' . basename($row['attachment_name']);
+        }
+
+        foreach (array_unique($filesToCheck) as $filePath) {
+            if (is_file($filePath)) {
+                @unlink($filePath);
+            }
+        }
+
+        $pdo->prepare("DELETE FROM website_inquiries WHERE id = ?")->execute([$id]);
+
+        echo json_encode([
+            "success" => true,
+            "message" => "Inquiry and attached file deleted permanently."
+        ]);
+        exit;
+    }
+
     echo json_encode(["success" => false, "message" => "Invalid action specified."]);
 } catch (PDOException $e) {
     http_response_code(500);

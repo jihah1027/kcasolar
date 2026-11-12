@@ -29,10 +29,11 @@ $inquiry_code = 'INQ-' . rand(1000, 9999);
 // 3. Handle File Upload (Optional)
 $attachment_name = null;
 $attachment_size = null;
+$attachment_path = null;
 
 if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ERR_OK) {
-    // Upload directory: root/uploads/
-    $upload_dir = __DIR__ . '/../uploads/';
+    // Upload directory: root/uploads/inquiries/
+    $upload_dir = __DIR__ . '/../uploads/inquiries/';
     if (!is_dir($upload_dir)) {
         mkdir($upload_dir, 0755, true);
     }
@@ -52,6 +53,7 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ER
 
         if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target_path)) {
             $attachment_name = $unique_filename;
+            $attachment_path = 'uploads/inquiries/' . $unique_filename;
             $attachment_size = round($_FILES['attachment']['size'] / (1024 * 1024), 2) . ' MB';
         }
     }
@@ -61,8 +63,8 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] === UPLOAD_ER
 try {
     $stmt = $pdo->prepare("
         INSERT INTO website_inquiries 
-        (inquiry_code, sender_name, phone, email, category, description, attachment_name, attachment_size, status, received_at) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())
+        (inquiry_code, sender_name, phone, email, category, description, attachment_name, attachment_path, attachment_size, status, received_at) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'new', NOW())
     ");
 
     $stmt->execute([
@@ -73,6 +75,7 @@ try {
         $category,
         $description,
         $attachment_name,
+        $attachment_path,
         $attachment_size
     ]);
 

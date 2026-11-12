@@ -638,9 +638,11 @@
         }
 
         const adminNameEl = document.getElementById("adminDisplayName");
-        if (adminNameEl)
-          adminNameEl.innerText = `${user.name} (${user.id || "ADMIN"})`;
-
+        if (adminNameEl) {
+          const badgeLabel = user.role === "super_admin" ? "Super Admin" : (user.id || "ADMIN");
+          adminNameEl.innerText = `${user.name} (${badgeLabel})`;
+        }
+        
         // Default to today's date
         document.getElementById("modalDateInput").value = new Date()
           .toISOString()

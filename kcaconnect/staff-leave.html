@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-Leave | KCAConnect</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <div class="brand-accent-bar"></div>
+
+    <!-- Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-md navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container d-flex justify-content-between align-items-center">
+        <!-- Logo -->
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="staff-attendance.html"
+        >
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCAConnect Logo"
+            style="height: 40px"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          class="navbar-toggler border-0 shadow-none d-md-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#staffNavbarNav"
+          aria-controls="staffNavbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="bi bi-list fs-2 text-dark"></i>
+        </button>
+
+        <!-- Navbar Links & Profile -->
+        <div class="collapse navbar-collapse" id="staffNavbarNav">
+          <ul class="navbar-nav mx-auto my-2 my-md-0 gap-1 gap-md-2">
+            <li class="nav-item">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue px-3 py-2 rounded-3"
+                href="staff-attendance.html"
+              >
+                <i class="bi bi-clock-history me-1"></i> Attendance
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active fw-bold text-tnb-blue px-3 py-2 rounded-3 bg-light"
+                href="staff-leave.html"
+              >
+                <i class="bi bi-calendar2-check me-1"></i> e-Leave
+              </a>
+            </li>
+          </ul>
+
+          <div
+            class="d-flex align-items-center justify-content-between justify-content-md-end gap-3 pt-2 pt-md-0 border-top border-md-0"
+          >
+            <span
+              class="fw-bold text-dark"
+              id="staffDisplayName"
+              style="font-size: 0.92rem"
+            >
+              Loading...
+            </span>
+
+            <button
+              type="button"
+              onclick="logoutStaff()"
+              class="btn p-0 border-0"
+              title="Sign Out"
+            >
+              <div
+                class="rounded-3 d-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 36px; height: 36px; background-color: #e61e2b"
+              >
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="brand-accent-bar"></div>
+
+    <!-- Main Container -->
+    <main class="container my-4 my-md-5 flex-grow-1">
+      <!-- Header Row: Title & Action Button -->
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3"
+      >
+        <div>
+          <h4
+            class="fw-bold text-tnb-blue mb-1"
+            style="font-family: var(--font-headings); font-size: 1.35rem"
+          >
+            LEAVE MANAGEMENT
+          </h4>
+          <p class="text-secondary small mb-0">
+            Track real-time leave balances, submit claims, and view approval
+            updates.
+          </p>
+        </div>
+        <button
+          class="btn btn-kca-primary px-4 py-2 rounded-3 shadow-sm d-flex align-items-center gap-2"
+          data-bs-toggle="modal"
+          data-bs-target="#applyLeaveModal"
+          id="btnOpenApply"
+        >
+          <i class="bi bi-plus-circle-fill"></i> APPLY FOR LEAVE
+        </button>
+      </div>
+
+      <!-- Balances Row -->
+      <div class="row g-3 mb-4 mb-md-5">
+        <!-- 1. Annual Leave (AL) -->
+        <div class="col-6 col-lg-3">
+          <div class="stat-card" id="cardAnnual">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">
+                  Annual Leave (AL)
+                </div>
+                <h3
+                  class="fw-bold mb-0 mt-1 text-tnb-blue"
+                  id="statALRemaining"
+                >
+                  --
+                </h3>
+              </div>
+              <div class="icon-box bg-primary-subtle text-tnb-blue">
+                <i class="bi bi-calendar-check"></i>
+              </div>
+            </div>
+            <div
+              class="text-muted small"
+              id="statALSubtitle"
+              style="font-size: 0.78rem"
+            >
+              Loading quota...
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Medical Leave (MC) -->
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">
+                  Medical Leave (MC)
+                </div>
+                <h3 class="fw-bold mb-0 mt-1 text-danger" id="statMCRemaining">
+                  --
+                </h3>
+              </div>
+              <div class="icon-box bg-danger-subtle text-danger">
+                <i class="bi bi-hospital"></i>
+              </div>
+            </div>
+            <div
+              class="text-muted small"
+              id="statMCSubtitle"
+              style="font-size: 0.78rem"
+            >
+              Quota: 14.0 Days
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Emergency Leave (EL) -->
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">
+                  Emergency Leave (EL)
+                </div>
+                <h3
+                  class="fw-bold mb-0 mt-1 text-tnb-red-orange"
+                  id="statELRemaining"
+                >
+                  --
+                </h3>
+              </div>
+              <div class="icon-box bg-warning-subtle text-tnb-red-orange">
+                <i class="bi bi-lightning-charge"></i>
+              </div>
+            </div>
+            <div
+              class="text-muted small"
+              id="statELSubtitle"
+              style="font-size: 0.78rem"
+            >
+              Quota: 3.0 Days / Year
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Unpaid Leave Taken -->
+        <div class="col-6 col-lg-3">
+          <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <div>
+                <div class="text-muted small fw-semibold">
+                  Unpaid Leave Taken
+                </div>
+                <h3
+                  class="fw-bold mb-0 mt-1 text-charcoal"
+                  id="statUnpaidTaken"
+                >
+                  0.0
+                </h3>
+              </div>
+              <div class="icon-box bg-secondary-subtle text-secondary">
+                <i class="bi bi-cash-stack"></i>
+              </div>
+            </div>
+            <div class="text-muted small" style="font-size: 0.78rem">
+              Cuti Tanpa Gaji (Accumulated)
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Application History -->
+      <div class="card-frame-container">
+        <div class="card-offset-border frame-blue d-none d-lg-block"></div>
+        <div class="attendance-card">
+          <div
+            class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2"
+          >
+            <h4
+              class="fw-bold text-tnb-blue mb-0"
+              style="font-family: var(--font-headings); font-size: 1.15rem"
+            >
+              MY LEAVE HISTORY
+            </h4>
+            <span
+              class="badge bg-light text-muted border small"
+              id="historyCount"
+              >0 Submissions</span
+            >
+          </div>
+
+          <div class="table-responsive">
+            <table
+              class="table table-bordered table-hover align-middle text-center mb-0 small"
+            >
+              <thead class="table-attendance-header">
+                <tr>
+                  <th>Ref Code</th>
+                  <th>Type</th>
+                  <th>Date Range</th>
+                  <th>Total Days</th>
+                  <th>Deducted From</th>
+                  <th>Attachment</th>
+                  <th>Status</th>
+                  <th>Review Remarks</th>
+                </tr>
+              </thead>
+              <tbody class="table-attendance-body" id="historyTableBody">
+                <tr>
+                  <td colspan="8" class="text-center py-4 text-muted">
+                    <div
+                      class="spinner-border spinner-border-sm text-primary me-2"
+                    ></div>
+                    Loading leave records...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal: Apply Leave -->
+    <div
+      class="modal fade"
+      id="applyLeaveModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 480px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0">
+            <h5
+              class="modal-title fw-bold text-tnb-red"
+              id="applyLeaveModalLabel"
+              style="font-family: var(--font-headings)"
+            >
+              SUBMIT LEAVE APPLICATION
+            </h5>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+
+          <form id="leaveApplicationForm">
+            <div class="modal-body py-3">
+              <!-- Policy Warning / Advisory Banner -->
+              <div
+                class="alert alert-info py-2 px-3 small mb-3 d-flex align-items-center gap-2 rounded-3"
+                id="policyAlert"
+              >
+                <i class="bi bi-info-circle-fill fs-5"></i>
+                <span id="policyAlertText"
+                  >Please select your leave category and valid calendar
+                  dates.</span
+                >
+              </div>
+
+              <!-- Leave Type Dropdown -->
+              <div class="mb-3">
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >Leave Type <span class="text-danger">*</span></label
+                >
+                <select
+                  class="contact-form-control"
+                  id="leaveType"
+                  name="leave_type"
+                  required
+                  onchange="handleLeaveTypeChange()"
+                >
+                  <option value="annual" selected>Annual Leave (AL)</option>
+                  <option value="mc">Medical Leave (MC)</option>
+                  <option value="emergency">
+                    Emergency Leave (EL - 3 Days)
+                  </option>
+                  <option value="unpaid">Unpaid Leave (Cuti Tanpa Gaji)</option>
+                </select>
+              </div>
+
+              <!-- Date Range Pickers -->
+              <div class="row g-2 mb-3">
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Start Date <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="contact-form-control"
+                    id="startDate"
+                    name="start_date"
+                    required
+                    onchange="calculateDays()"
+                  />
+                </div>
+                <div class="col-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >End Date <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="contact-form-control"
+                    id="endDate"
+                    name="end_date"
+                    required
+                    onchange="calculateDays()"
+                  />
+                </div>
+              </div>
+
+              <!-- Calculated Working Days Box -->
+              <div
+                class="mb-3 d-flex justify-content-between align-items-center p-2 px-3 bg-light rounded-3 border"
+              >
+                <span class="small text-muted fw-semibold"
+                  >Calculated Working Days:</span
+                >
+                <span class="fw-bold text-tnb-blue" id="calcDaysDisplay"
+                  >1.0 Day(s)</span
+                >
+                <input
+                  type="hidden"
+                  name="total_days"
+                  id="totalDaysInput"
+                  value="1.0"
+                />
+              </div>
+
+              <!-- Attachment Field -->
+              <div class="mb-3">
+                <label
+                  class="form-label small fw-bold text-dark mb-1"
+                  id="attachmentLabel"
+                >
+                  Supporting Attachment (PDF, JPG, PNG)
+                </label>
+                <input
+                  type="file"
+                  class="contact-form-control"
+                  id="attachmentInput"
+                  name="attachment"
+                  accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                  onchange="validateAttachmentRequirement()"
+                />
+                <div class="form-text small text-muted" id="attachmentHelpText">
+                  Optional for Annual Leave ≤ 2 days.
+                </div>
+              </div>
+
+              <!-- Reason / Handover Note -->
+              <div class="mb-2">
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >Reason / Handover Arrangement
+                  <span class="text-danger">*</span></label
+                >
+                <textarea
+                  class="contact-form-control"
+                  id="leaveReason"
+                  name="reason"
+                  rows="3"
+                  placeholder="Provide reason or site coverage handover..."
+                  required
+                ></textarea>
+              </div>
+            </div>
+
+            <div class="d-flex gap-3 justify-content-end pt-2 border-top">
+              <button
+                type="button"
+                class="btn btn-secondary btn-sm px-3 rounded-3"
+                data-bs-dismiss="modal"
+              >
+                CANCEL
+              </button>
+              <button
+                type="submit"
+                class="btn btn-kca-primary btn-sm px-4 rounded-3"
+                id="btnSubmitLeave"
+              >
+                SUBMIT
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Status Alert Modal -->
+    <div
+      class="modal fade"
+      id="statusAlertModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center py-2 px-4">
+            <div id="modalAlertIcon" class="mb-3 fs-1 lh-1"></div>
+            <h4
+              class="fw-bold mb-2"
+              id="modalAlertTitle"
+              style="font-family: var(--font-headings)"
+            >
+              Status
+            </h4>
+            <p
+              class="text-secondary small mb-4"
+              id="modalAlertMessage"
+              style="line-height: 1.5"
+            >
+              Status message details...
+            </p>
+            <button
+              type="button"
+              class="btn w-100 fw-bold py-2 rounded-3 text-white"
+              id="modalAlertBtn"
+              data-bs-dismiss="modal"
+              style="background-color: #0563c1"
+            >
+              OKAY
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      let currentUser = null;
+      let userRole = "staff";
+      let liveBalances = {
+        annual_left: 0,
+        mc_left: 0,
+        emergency_left: 0,
+        unpaid_taken: 0,
+      };
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const rawUser =
+          sessionStorage.getItem("kca_user") ||
+          localStorage.getItem("kca_user");
+        if (!rawUser) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = JSON.parse(rawUser);
+        const staffName = user.name || user.full_name || "Staff Member";
+        const staffId = user.id || user.staff_id || "KCA";
+        userRole = user.role || "staff";
+
+        currentUser = {
+          staff_id: staffId,
+          full_name: staffName,
+          role: userRole,
+        };
+
+        const label = `${staffName} (${staffId})`;
+        document.getElementById("staffDisplayName").innerText = label;
+
+        const today = new Date().toISOString().split("T")[0];
+        document.getElementById("startDate").value = today;
+        document.getElementById("endDate").value = today;
+
+        if (userRole === "admin") {
+          const alOption = document.querySelector(
+            "#leaveType option[value='annual']",
+          );
+          if (alOption) alOption.remove();
+          document.getElementById("cardAnnual").style.opacity = "0.45";
+          document.getElementById("statALSubtitle").innerText =
+            "Admins not entitled to AL";
+        }
+
+        if (userRole === "super_admin") {
+          const btn = document.getElementById("btnOpenApply");
+          btn.disabled = true;
+          btn.innerText = "SUPER ADMIN (EXEMPT)";
+        }
+
+        fetchLeaveData();
+      });
+
+      // 1. Fetch Balances & History
+      function fetchLeaveData() {
+        fetch(
+          `../php/leave.php?action=get_staff_leave&staff_id=${encodeURIComponent(currentUser.staff_id)}`,
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) {
+              showCustomPopup(
+                "blocked",
+                "Load Failed",
+                data.message || "Failed to load leave records.",
+              );
+              return;
+            }
+
+            liveBalances = data.balances;
+            const ent = data.entitlement;
+
+            document.getElementById("statALRemaining").innerText =
+              `${data.balances.annual_left} Days`;
+            if (userRole !== "admin") {
+              document.getElementById("statALSubtitle").innerText =
+                `Used ${ent.annual_used} of ${ent.annual_total} Days`;
+            }
+
+            document.getElementById("statMCRemaining").innerText =
+              `${data.balances.mc_left} Days`;
+            document.getElementById("statMCSubtitle").innerText =
+              `Used ${ent.mc_used} of ${ent.mc_total} Days`;
+
+            document.getElementById("statELRemaining").innerText =
+              `${data.balances.emergency_left} Days`;
+            document.getElementById("statELSubtitle").innerText =
+              `Used ${ent.emergency_used} of ${ent.emergency_total} Days`;
+
+            document.getElementById("statUnpaidTaken").innerText =
+              `${data.balances.unpaid_taken} Days`;
+
+            renderHistoryTable(data.history || []);
+          })
+          .catch((err) => {
+            console.error(err);
+            document.getElementById("historyTableBody").innerHTML = `
+              <tr><td colspan="8" class="text-center text-danger py-4">Unable to connect to leave server.</td></tr>
+            `;
+          });
+      }
+
+      // 2. Render History Table
+      function renderHistoryTable(records) {
+        document.getElementById("historyCount").innerText =
+          `${records.length} Submissions`;
+        const tbody = document.getElementById("historyTableBody");
+
+        if (records.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-muted">No leave applications recorded for this calendar year.</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = records
+          .map((r) => {
+            let badgeClass = "badge-pending";
+            let statusIcon = '<i class="bi bi-clock-history me-1"></i>';
+            if (r.status === "approved") {
+              badgeClass = "badge-approved";
+              statusIcon = '<i class="bi bi-check-circle me-1"></i>';
+            } else if (r.status === "rejected") {
+              badgeClass = "badge-rejected";
+              statusIcon = '<i class="bi bi-x-circle me-1"></i>';
+            }
+
+            let deductBadge = `<span class="badge bg-light text-muted border">--</span>`;
+            if (r.deducted_from) {
+              const mapClass = {
+                mc: "badge-deduct-mc",
+                emergency: "badge-deduct-el",
+                annual: "badge-deduct-al",
+                unpaid: "badge-deduct-unpaid",
+              };
+              deductBadge = `<span class="${mapClass[r.deducted_from] || "badge bg-secondary"}">${r.deducted_from.toUpperCase()}</span>`;
+            }
+
+            let attachLink = `<span class="text-muted small">--</span>`;
+            if (r.attachment_name) {
+              attachLink = `
+              <a href="../uploads/leave/${encodeURIComponent(r.attachment_name)}" download="${r.attachment_name}" target="_blank" class="attachment-link">
+                <i class="bi bi-file-earmark-arrow-down-fill text-danger"></i>Slip
+              </a>
+            `;
+            }
+
+            return `
+            <tr>
+              <td class="fw-bold text-dark">${r.application_code}</td>
+              <td><span class="fw-semibold text-capitalize">${r.leave_type}</span></td>
+              <td>${formatDate(r.start_date)} - ${formatDate(r.end_date)}</td>
+              <td class="fw-semibold">${r.total_days} d</td>
+              <td>${deductBadge}</td>
+              <td>${attachLink}</td>
+              <td>
+                <span class="badge ${badgeClass} px-2 py-1 rounded-pill">
+                  ${statusIcon}${r.status.toUpperCase()}
+                </span>
+              </td>
+              <td>
+                ${
+                  r.admin_reply
+                    ? `<span class="small text-dark fw-semibold" title="${r.admin_reply}"><i class="bi bi-chat-left-text me-1 text-tnb-blue"></i>${r.admin_reply}</span>`
+                    : `<span class="text-muted small">--</span>`
+                }
+              </td>
+            </tr>
+          `;
+          })
+          .join("");
+      }
+
+      // 3. Dynamic Policy & Attachment Handlers
+      function handleLeaveTypeChange() {
+        const type = document.getElementById("leaveType").value;
+        const alertBox = document.getElementById("policyAlert");
+        const alertText = document.getElementById("policyAlertText");
+        const attachLabel = document.getElementById("attachmentLabel");
+        const attachInput = document.getElementById("attachmentInput");
+        const attachHelp = document.getElementById("attachmentHelpText");
+
+        if (type === "mc") {
+          alertBox.className =
+            "alert alert-danger py-2 px-3 small mb-3 d-flex align-items-center gap-2 rounded-3";
+          alertText.innerHTML = `<strong>MC Policy:</strong> Attachment is <strong>mandatory</strong>. Submissions for today must be logged before <strong>12:30 PM</strong>.`;
+          attachLabel.innerHTML = `Doctor / Clinic Slip <span class="text-danger">*</span>`;
+          attachInput.required = true;
+          attachHelp.innerText =
+            "Mandatory: Upload medical certificate (PDF, JPG, PNG).";
+        } else if (type === "emergency") {
+          alertBox.className =
+            "alert alert-warning py-2 px-3 small mb-3 d-flex align-items-center gap-2 rounded-3";
+          alertText.innerHTML = `<strong>Emergency Policy:</strong> 3-day annual quota. If depleted or rejected, days cascade to Annual Leave, then Unpaid Leave.`;
+          attachLabel.innerHTML = `Supporting Document (Optional)`;
+          attachInput.required = false;
+          attachHelp.innerText =
+            "Optional proof or hospital memo if available.";
+        } else if (type === "annual") {
+          alertBox.className =
+            "alert alert-primary py-2 px-3 small mb-3 d-flex align-items-center gap-2 rounded-3";
+          alertText.innerHTML = `<strong>Annual Policy:</strong> If leave exceeds 2 days, supporting attachment is strictly required.`;
+          validateAttachmentRequirement();
+        } else {
+          alertBox.className =
+            "alert alert-secondary py-2 px-3 small mb-3 d-flex align-items-center gap-2 rounded-3";
+          alertText.innerHTML = `<strong>Unpaid Leave:</strong> Deducts directly as cuti tanpa gaji.`;
+          attachLabel.innerHTML = `Supporting Document (Optional)`;
+          attachInput.required = false;
+          attachHelp.innerText = "Optional justification attachment.";
+        }
+
+        calculateDays();
+      }
+
+      function calculateDays() {
+        const start = new Date(document.getElementById("startDate").value);
+        const end = new Date(document.getElementById("endDate").value);
+
+        if (isNaN(start) || isNaN(end) || end < start) {
+          document.getElementById("calcDaysDisplay").innerText =
+            "Invalid Dates";
+          return;
+        }
+
+        let count = 0;
+        let cur = new Date(start);
+        while (cur <= end) {
+          if (cur.getDay() !== 0) {
+            count++;
+          }
+          cur.setDate(cur.getDate() + 1);
+        }
+
+        const total = count === 0 ? 1.0 : count * 1.0;
+        document.getElementById("calcDaysDisplay").innerText =
+          `${total.toFixed(1)} Day(s)`;
+        document.getElementById("totalDaysInput").value = total.toFixed(1);
+
+        validateAttachmentRequirement();
+      }
+
+      function validateAttachmentRequirement() {
+        const type = document.getElementById("leaveType").value;
+        const days =
+          parseFloat(document.getElementById("totalDaysInput").value) || 1.0;
+        const attachLabel = document.getElementById("attachmentLabel");
+        const attachInput = document.getElementById("attachmentInput");
+        const attachHelp = document.getElementById("attachmentHelpText");
+
+        if (type === "mc") {
+          attachLabel.innerHTML = `Doctor / Clinic Slip <span class="text-danger">*</span>`;
+          attachInput.required = true;
+        } else if (type === "annual") {
+          if (days > 2.0) {
+            attachLabel.innerHTML = `Supporting Document <span class="text-danger">* (Required for > 2 days)</span>`;
+            attachInput.required = true;
+            attachHelp.innerText =
+              "Compulsory: Travel tickets, official notice, or invitation letter.";
+          } else {
+            attachLabel.innerHTML = `Supporting Document (Optional)`;
+            attachInput.required = false;
+            attachHelp.innerText = "Optional for leaves of 1 or 2 days.";
+          }
+        }
+      }
+
+      // 4. Form Submission
+      document
+        .getElementById("leaveApplicationForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const btn = document.getElementById("btnSubmitLeave");
+          const originalText = btn.innerHTML;
+          btn.disabled = true;
+          btn.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span>Submitting...`;
+
+          const formData = new FormData(this);
+          formData.append("action", "apply_leave");
+          formData.append("staff_id", currentUser.staff_id);
+
+          fetch("../php/leave.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.success) {
+                const applyModalEl = document.getElementById("applyLeaveModal");
+                const modalInst = bootstrap.Modal.getInstance(applyModalEl);
+                if (modalInst) modalInst.hide();
+
+                this.reset();
+                fetchLeaveData();
+                showCustomPopup(
+                  "success",
+                  "Application Submitted",
+                  data.message,
+                );
+              } else {
+                showCustomPopup(
+                  "blocked",
+                  "Submission Notice",
+                  data.message || "Failed to submit leave application.",
+                );
+              }
+            })
+            .catch((err) => {
+              console.error(err);
+              showCustomPopup(
+                "blocked",
+                "Server Error",
+                "Server communication error. Please try again.",
+              );
+            })
+            .finally(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalText;
+            });
+        });
+
+      // 5.  Status Popup
+      function showCustomPopup(type, title, message) {
+        const modalEl = document.getElementById("statusAlertModal");
+        const iconEl = document.getElementById("modalAlertIcon");
+        const titleEl = document.getElementById("modalAlertTitle");
+        const msgEl = document.getElementById("modalAlertMessage");
+        const btnEl = document.getElementById("modalAlertBtn");
+
+        if (type === "success") {
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
+          titleEl.className = "fw-bold mb-2 text-success";
+          btnEl.style.backgroundColor = "#0563c1";
+        } else if (type === "blocked") {
+          iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+          titleEl.className = "fw-bold mb-2 text-danger";
+          btnEl.style.backgroundColor = "#e61e2b";
+        } else {
+          iconEl.innerHTML =
+            '<i class="bi bi-info-circle-fill text-primary"></i>';
+          titleEl.className = "fw-bold mb-2 text-primary";
+          btnEl.style.backgroundColor = "#0563c1";
+        }
+
+        titleEl.innerText = title;
+        msgEl.innerHTML = message;
+
+        const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+        modalInstance.show();
+      }
+
+      ["statusAlertModal", "applyLeaveModal"].forEach((modalId) => {
+        const el = document.getElementById(modalId);
+        if (el) {
+          el.addEventListener("hidden.bs.modal", function () {
+            document
+              .querySelectorAll(".modal-backdrop")
+              .forEach((b) => b.remove());
+            document.body.classList.remove("modal-open");
+            document.body.style.removeProperty("overflow");
+            document.body.style.removeProperty("padding-right");
+          });
+        }
+      });
+
+      function formatDate(dateStr) {
+        if (!dateStr) return "--";
+        const parts = dateStr.split("-");
+        if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        return dateStr;
+      }
+
+      function logoutStaff() {
+        sessionStorage.clear();
+        localStorage.removeItem("kca_user");
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
+</html>

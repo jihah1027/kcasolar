@@ -626,6 +626,32 @@
       </div>
     </div>
 
+    <!-- DELETE OVERTIME CLAIM MODAL -->
+    <div class="modal fade" id="deleteOtModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3 text-center">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-2 px-3">
+            <div class="mb-3">
+              <div class="rounded-circle d-inline-flex align-items-center justify-content-center text-white shadow-sm" style="width: 58px; height: 58px; background-color: #e61e2b">
+                <i class="bi bi-trash3-fill fs-3"></i>
+              </div>
+            </div>
+            <h5 class="fw-bold mb-2 text-dark" style="font-family: var(--font-headings)">Delete Overtime Claim?</h5>
+            <p class="text-secondary small mb-4" id="deleteOtMessage" style="line-height: 1.5">
+              Are you sure you want to delete this overtime claim?
+            </p>
+            <div class="d-flex gap-2 justify-content-center">
+              <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold flex-fill" data-bs-dismiss="modal">CANCEL</button>
+              <button type="button" class="btn btn-danger px-3 py-2 rounded-2 fw-bold flex-fill" id="btnConfirmDeleteOt" style="background-color: #e61e2b">DELETE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Custom In-App Status Popup -->
     <div
       class="modal fade"
@@ -696,8 +722,8 @@
         // Display current active admin name
         const adminNameEl = document.getElementById("adminDisplayName");
         if (adminNameEl) {
-          const roleLabel = user.role === "super_admin" ? "Super Admin" : "Admin";
-          adminNameEl.innerText = `${user.name} (${user.id || roleLabel})`;
+          const badgeLabel = user.role === "super_admin" ? "Super Admin" : (user.id || "Admin");
+          adminNameEl.innerText = `${user.name} (${badgeLabel})`;
         }
 
         // Show "Request OT" button only for regular admin (not super_admin)
@@ -803,9 +829,10 @@
         const isClaimerAdmin = item.claimer_role === "admin";
 
         let actionsHtml = "";
+        const canManage = !(isClaimerAdmin && !isSuperAdmin);
+
         if (item.status === "pending") {
-          // If claim belongs to an Admin, only Super Admin sees approval buttons
-          if (isClaimerAdmin && !isSuperAdmin) {
+          if (!canManage) {
             actionsHtml = `
               <div class="text-center">
                 <span class="badge bg-secondary-subtle text-secondary border px-2 py-1" style="font-size: 0.72rem;">
@@ -819,36 +846,36 @@
                 <button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-sm btn-primary fw-bold py-1 rounded-2" style="background-color: var(--tnb-blue); font-size: 0.82rem;">
                   Adjust & Approve
                 </button>
-                <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-sm btn-outline-danger fw-bold py-1 rounded-2" style="font-size: 0.82rem;">
-                  Reject
-                </button>
+                <div class="d-flex gap-1">
+                  <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-sm btn-outline-danger fw-bold py-1 rounded-2 flex-fill" style="font-size: 0.82rem;">
+                    Reject
+                  </button>
+                  <button type="button" onclick="openDeleteOtModal('${item.id}')" class="btn btn-sm btn-outline-secondary py-1 px-2 rounded-2" title="Delete Claim">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
               </div>
             `;
           }
-        } else if (item.status === "approved") {
-          const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
-          actionsHtml = `
-            <div class="text-center">
-              <span class="badge bg-success-subtle text-success border px-2 py-1 fw-bold">
-                <i class="bi bi-check-circle-fill me-1"></i>Approved (${item.ot_hours} hrs)
-              </span>
-              <div class="mt-1" style="font-size: 0.72rem; line-height: 1.3;">
-                <strong class="text-dark d-block"><i class="bi bi-person-check-fill text-success"></i> ${reviewerLabel}</strong>
-                <span class="text-muted">${item.formatted_reviewed_at || "Recent"}</span>
-              </div>
-            </div>
-          `;
         } else {
+          const isApproved = item.status === "approved";
           const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
+          const deleteBtn = canManage ? `
+            <button type="button" onclick="openDeleteOtModal('${item.id}')" class="btn btn-sm btn-outline-danger py-0 px-2 rounded-2 mt-1" title="Delete Claim & Reset OT">
+              <i class="bi bi-trash"></i> Delete
+            </button>
+          ` : "";
+
           actionsHtml = `
             <div class="text-center">
-              <span class="badge bg-danger-subtle text-danger border px-2 py-1 fw-bold">
-                <i class="bi bi-x-circle-fill me-1"></i>Rejected (0.0 hrs)
+              <span class="badge ${isApproved ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'} border px-2 py-1 fw-bold">
+                <i class="bi ${isApproved ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1"></i>${isApproved ? `Approved (${item.ot_hours} hrs)` : 'Rejected (0.0 hrs)'}
               </span>
               <div class="mt-1" style="font-size: 0.72rem; line-height: 1.3;">
-                <strong class="text-dark d-block"><i class="bi bi-person-x-fill text-danger"></i> ${reviewerLabel}</strong>
+                <strong class="text-dark d-block"><i class="bi ${isApproved ? 'bi-person-check-fill text-success' : 'bi-person-x-fill text-danger'}"></i> ${reviewerLabel}</strong>
                 <span class="text-muted">${item.formatted_reviewed_at || "Recent"}</span>
               </div>
+              ${deleteBtn}
             </div>
           `;
         }
@@ -905,17 +932,26 @@
         }
 
         let mobileActionBtns = "";
+        const canManageMobile = !(isClaimerAdmin && !isSuperAdmin);
+
         if (item.status === "pending") {
-          if (isClaimerAdmin && !isSuperAdmin) {
+          if (!canManageMobile) {
             mobileActionBtns = `<span class="badge bg-secondary-subtle text-secondary border p-2 w-100 text-center"><i class="bi bi-shield-lock me-1"></i>Super Admin Review Required</span>`;
           } else {
             mobileActionBtns = `
               <button type="button" onclick="openRejectModal('${item.id}')" class="btn btn-outline-danger btn-sm fw-bold flex-fill">Reject</button>
               <button type="button" onclick="openAdjustModal('${item.id}')" class="btn btn-primary btn-sm fw-bold flex-fill" style="background-color: var(--tnb-blue);">Adjust & Approve</button>
+              <button type="button" onclick="openDeleteOtModal('${item.id}')" class="btn btn-outline-secondary btn-sm px-3" title="Delete Claim"><i class="bi bi-trash"></i></button>
             `;
           }
         } else {
-          mobileActionBtns = `<span class="badge ${item.status === "approved" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"} border px-3 py-2 fw-bold w-100">${item.status.toUpperCase()}</span>`;
+          const mobileDeleteBtn = canManageMobile
+            ? `<button type="button" onclick="openDeleteOtModal('${item.id}')" class="btn btn-outline-danger btn-sm px-3" title="Delete Claim"><i class="bi bi-trash"></i></button>`
+            : "";
+          mobileActionBtns = `
+            <span class="badge ${item.status === "approved" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"} border px-3 py-2 fw-bold flex-fill">${item.status.toUpperCase()}</span>
+            ${mobileDeleteBtn}
+          `;
         }
 
         return `
@@ -1071,6 +1107,57 @@
         new bootstrap.Modal(document.getElementById("rejectModal")).show();
       }
 
+      function openDeleteOtModal(claimId) {
+        const claim = realClaimsData.find((c) => String(c.id) === String(claimId));
+        if (!claim) return;
+
+        document.getElementById("deleteOtMessage").innerHTML = `
+          Delete OT claim (${claim.ot_hours} hrs) for <strong>${claim.staff_name || claim.staff_id}</strong> on <strong>${claim.claim_date}</strong>?<br><br>
+          <span class="text-dark">Payable overtime hours on that day's timesheet will be reset to 0.0 hrs.</span>
+        `;
+
+        const btnConfirm = document.getElementById("btnConfirmDeleteOt");
+        btnConfirm.onclick = () => {
+          btnConfirm.disabled = true;
+          btnConfirm.innerText = "DELETING...";
+
+          const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const adminId = currentUser.id || "ADMIN";
+
+          const formData = new FormData();
+          formData.append("staff_id", adminId);
+          formData.append("admin_id", adminId);
+          formData.append("claim_id", claimId);
+
+          fetch("../php/attendance.php?action=admin_delete_ot", {
+            method: "POST",
+            body: formData
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              btnConfirm.disabled = false;
+              btnConfirm.innerText = "DELETE";
+
+              const delModal = bootstrap.Modal.getInstance(document.getElementById("deleteOtModal"));
+              if (delModal) delModal.hide();
+
+              if (data.success) {
+                showCustomPopup("success", "OT Claim Deleted", data.message);
+                loadOtClaims();
+              } else {
+                showCustomPopup("info", "Notice", data.message || "Could not delete claim.");
+              }
+            })
+            .catch(() => {
+              btnConfirm.disabled = false;
+              btnConfirm.innerText = "DELETE";
+              showCustomPopup("info", "Error", "Unable to connect to server.");
+            });
+        };
+
+        new bootstrap.Modal(document.getElementById("deleteOtModal")).show();
+      }
+
       function openFullOtModal() {
         const fullTbody = document.getElementById("fullOtTableBody");
         fullTbody.innerHTML = "";
@@ -1156,7 +1243,7 @@
       }
 
       // Cleanup listeners for all modals to avoid backdrop freezes
-      ["adjustModal", "rejectModal", "fullOtModal", "statusAlertModal", "adminOtModal"].forEach((modalId) => {
+      ["adjustModal", "rejectModal", "fullOtModal", "statusAlertModal", "adminOtModal", "deleteOtModal"].forEach((modalId) => {
         const el = document.getElementById(modalId);
         if (el) {
           el.addEventListener("hidden.bs.modal", function () {

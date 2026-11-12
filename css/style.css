@@ -1491,3 +1491,186 @@ h6,
     transform: rotate(360deg);
   }
 }
+
+/*Leave*/ 
+.leave-clean-card {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(5, 99, 193, 0.12);
+  border-top: 8px solid var(--tnb-blue, #0563c1);
+  padding: 30px 24px;
+  position: relative;
+}
+
+.leave-clean-card.crest-orange {
+  border-top-color: var(--tnb-red-orange, #f66530);
+}
+
+/*  Balance Cards */
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(5, 99, 193, 0.08);
+}
+
+.stat-card .icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* Leave Table  */
+.table-container {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.table th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-family: var(--font-headings);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.table td {
+  padding: 1rem 1rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  color: var(--kca-charcoal);
+}
+
+/* Leave Status */
+.badge-pending {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  font-weight: 700;
+  border: 1px solid #fde68a;
+}
+
+.badge-approved {
+  background-color: #dcfce7 !important;
+  color: #166534 !important;
+  font-weight: 700;
+  border: 1px solid #bbf7d0;
+}
+
+.badge-rejected {
+  background-color: #fee2e2 !important;
+  color: #991b1b !important;
+  font-weight: 700;
+  border: 1px solid #fecaca;
+}
+
+/* Deduction */
+.badge-deduct-mc {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.badge-deduct-el {
+  background-color: #fef3c7;
+  color: #b45309;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.badge-deduct-al {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.badge-deduct-unpaid {
+  background-color: #334155;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Admin Action Buttons */
+.btn-leave-approve {
+  background-color: #16a34a;
+  color: #ffffff;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.btn-leave-approve:hover {
+  background-color: #15803d;
+  color: #ffffff;
+}
+
+.btn-leave-reject {
+  background-color: #ffffff;
+  color: #dc2626;
+  border: 1.5px solid #dc2626;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 5px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-leave-reject:hover {
+  background-color: #dc2626;
+  color: #ffffff;
+}
+
+.btn-edit-quota {
+  color: var(--tnb-blue);
+  border: 1.5px solid var(--tnb-blue);
+  background: transparent;
+  font-family: var(--font-headings);
+  font-weight: 700;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.btn-edit-quota:hover {
+  background-color: var(--tnb-blue);
+  color: #ffffff;
+}

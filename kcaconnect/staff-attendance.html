@@ -30,44 +30,67 @@
     <div class="brand-accent-bar"></div>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-light bg-white py-2 shadow-sm sticky-top">
+    <nav class="navbar navbar-expand-md navbar-light bg-white py-2 shadow-sm sticky-top">
       <div class="container d-flex justify-content-between align-items-center">
         <!-- Logo -->
-        <a
-          class="navbar-brand d-flex align-items-center p-0"
-          href="staff-attendance.html"
-        >
+        <a class="navbar-brand d-flex align-items-center p-0" href="staff-attendance.html">
           <img
             src="../img/KCAConnect.png"
             alt="KCAConnect Logo"
-            style="height: 42px"
+            style="height: 40px"
             onerror="this.src = '../img/logo.png'"
           />
         </a>
 
-        <!-- Staff Profile & Red Logout Button -->
-        <div class="d-flex align-items-center gap-3">
-          <span
-            class="fw-bold text-dark d-none d-sm-inline"
-            id="staffDisplayName"
-            style="font-size: 0.95rem"
-          >
-            Loading...
-          </span>
+        <!-- Mobile Menu Toggle Button -->
+        <button
+          class="navbar-toggler border-0 shadow-none d-md-none"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#staffNavbarNav"
+          aria-controls="staffNavbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <i class="bi bi-list fs-2 text-dark"></i>
+        </button>
 
-          <button
-            type="button"
-            onclick="logoutStaff()"
-            class="btn p-0 border-0"
-            title="Sign Out"
-          >
-            <div
-              class="rounded-3 d-flex align-items-center justify-content-center text-white shadow-sm"
-              style="width: 36px; height: 36px; background-color: #e61e2b"
+        <!-- Navbar Links & Profile -->
+        <div class="collapse navbar-collapse" id="staffNavbarNav">
+          <!-- Center Navigation Links -->
+          <ul class="navbar-nav mx-auto my-2 my-md-0 gap-1 gap-md-2">
+            <li class="nav-item">
+              <a class="nav-link active fw-bold text-tnb-blue px-3 py-2 rounded-3 bg-light" href="staff-attendance.html">
+                <i class="bi bi-clock-history me-1"></i> Attendance
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-semibold text-secondary hover-blue px-3 py-2 rounded-3" href="staff-leave.html">
+                <i class="bi bi-calendar2-check me-1"></i> e-Leave
+              </a>
+            </li>
+          </ul>
+
+          <!-- Right: Staff Profile & Logout Button -->
+          <div class="d-flex align-items-center justify-content-between justify-content-md-end gap-3 pt-2 pt-md-0 border-top border-md-0">
+            <span class="fw-bold text-dark" id="staffDisplayName" style="font-size: 0.92rem">
+              Loading...
+            </span>
+
+            <button
+              type="button"
+              onclick="logoutStaff()"
+              class="btn p-0 border-0"
+              title="Sign Out"
             >
-              <i class="bi bi-box-arrow-right fs-5"></i>
-            </div>
-          </button>
+              <div
+                class="rounded-3 d-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 36px; height: 36px; background-color: #e61e2b"
+              >
+                <i class="bi bi-box-arrow-right fs-5"></i>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </nav>
@@ -609,14 +632,17 @@
 
       // 2. Load History & Session Data on Page Load
       window.addEventListener("DOMContentLoaded", () => {
-        const userSession = sessionStorage.getItem("kca_user");
-        if (!userSession) {
+        const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user");
+        if (!rawUser) {
           window.location.href = "login.html";
           return;
         }
 
-        const user = JSON.parse(userSession);
-        const label = `${user.name} (${user.id})`;
+        const user = JSON.parse(rawUser);
+        const staffName = user.name || user.full_name || "Staff Member";
+        const staffId = user.id || user.staff_id || "KCA";
+        const label = `${staffName} (${staffId})`;
+
         document.getElementById("staffDisplayName").innerText = label;
         document.getElementById("modalStaffIdDisplay").innerText = label;
         document.getElementById("modalFullLogsStaffName").innerText =
@@ -627,9 +653,12 @@
       });
 
       function loadAttendanceStatus() {
-        const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user") || "{}";
+        const user = JSON.parse(rawUser);
+        const staffId = user.id || user.staff_id || "";
+
         fetch(
-          `../php/attendance.php?action=get_status&staff_id=${encodeURIComponent(user.id || "")}`,
+          `../php/attendance.php?action=get_status&staff_id=${encodeURIComponent(staffId)}`,
         )
           .then((res) => res.json())
           .then((data) => {
@@ -667,7 +696,7 @@
           );
       }
 
-      // 3. Handle Clock-In Action (Smart Dual-Clearance: Office or Site)
+      // 3. Handle Clock-In Action
       function handleClockIn() {
         const btnIn = document.getElementById("btnClockIn");
         btnIn.disabled = true;
@@ -679,25 +708,18 @@
         };
 
         const doClockIn = (lat, lng) => {
-          // Distance to Lahat HQ using your real function getDistanceMeters()
           const distToHQ = getDistanceMeters(lat, lng, LAHAT_HQ.lat, LAHAT_HQ.lng);
           
           let siteName = "Main Office";
           let punchStatus = "Office";
 
-          // Scenario A: Worker is physically at Lahat HQ (within 100m)
-          // (Even if assigned to off-site, grabbing equipment logs as Office)
           if (distToHQ <= 100) {
             siteName = "Main Office";
             punchStatus = "Office";
-          }
-          // Scenario B: Worker is outside HQ, but Admin granted Off-Site duty
-          else if (activeSitePermission) {
+          } else if (activeSitePermission) {
             punchStatus = "Site";
             siteName = activeSitePermission.site_location || "Authorized Site";
-          }
-          // Scenario C: Worker is outside HQ and has NO permission -> Block!
-          else {
+          } else {
             restoreBtn();
             showCustomPopup(
               "blocked",
@@ -707,10 +729,12 @@
             return;
           }
 
-          // Submit real device coordinates & verified location to MySQL
-          const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user") || "{}";
+          const user = JSON.parse(rawUser);
+          const staffId = user.id || user.staff_id || "";
+
           const formData = new FormData();
-          formData.append("staff_id", user.id || "");
+          formData.append("staff_id", staffId);
           formData.append("lat", lat || "");
           formData.append("lng", lng || "");
           formData.append("location", siteName);
@@ -769,9 +793,10 @@
         };
 
         const doClockOut = (lat, lng) => {
-          const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user") || "{}";
+          const user = JSON.parse(rawUser);
+          const staffId = user.id || user.staff_id || "";
           
-          // Determine location at clock-out
           let outLocation = "Main Office";
           if (lat && lng) {
             const dist = getDistanceMeters(lat, lng, LAHAT_HQ.lat, LAHAT_HQ.lng);
@@ -781,7 +806,7 @@
           }
 
           const formData = new FormData();
-          formData.append("staff_id", user.id || "");
+          formData.append("staff_id", staffId);
           formData.append("lat", lat || "");
           formData.append("lng", lng || "");
           formData.append("location", outLocation);
@@ -823,8 +848,8 @@
         );
       }
 
-      // 5. Handle Overtime Request Submit (Closes modal first so popup appears cleanly in front)
-        function handleOTSubmit(e) {
+      // 5. Handle Overtime Request Submit
+      function handleOTSubmit(e) {
         e.preventDefault();
         const btnSubmit = document.getElementById("btnSubmitOt");
         btnSubmit.disabled = true;
@@ -833,7 +858,6 @@
         const estTime = document.getElementById("otEstimatedTime").value;
         const task = document.getElementById("otTaskDetail").value.trim();
 
-        // Close modal first
         const otModalEl = document.getElementById("otModal");
         const otModalInstance = bootstrap.Modal.getInstance(otModalEl);
         if (otModalInstance) otModalInstance.hide();
@@ -849,9 +873,12 @@
 
         const calculatedOT = (otMinutes / 60).toFixed(1);
 
-        const user = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user") || "{}";
+        const user = JSON.parse(rawUser);
+        const staffId = user.id || user.staff_id || "";
+
         const formData = new FormData();
-        formData.append("staff_id", user.id || "");
+        formData.append("staff_id", staffId);
         formData.append("ot_hours", calculatedOT);
         formData.append("reason", task);
         formData.append(
@@ -871,7 +898,7 @@
             btnSubmit.innerText = "SUBMIT";
 
             if (data.success) {
-              loadAttendanceStatus(); // Cleanly reloads today's OT status from database
+              loadAttendanceStatus();
               showCustomPopup(
                 "success",
                 "OT Request Submitted",
@@ -905,7 +932,6 @@
         const otBtn = document.getElementById("btnRequestOt");
         if (!summaryOtEl || !otBtn) return;
 
-        //Reset styling
         otBtn.classList.remove(
           "btn-warning",
           "btn-success",
@@ -915,7 +941,6 @@
           "fw-bold",
         );
 
-        //State 1: No OT request yet
         if (!todayOt) {
           summaryOtEl.innerHTML = `<span class="text-secondary fw-bold"> None (0.0 hrs)</span>`;
           otBtn.className = "btn btn-request-ot w-100 text-uppercase";
@@ -928,7 +953,6 @@
         const otStatus = (todayOt.status || "pending").toLowerCase();
         const otHours = parseFloat(todayOt.ot_hours || 0).toFixed(1);
 
-        //State 2: Pending OT request
         if (otStatus === "pending") {
           summaryOtEl.innerHTML = `<span class="badge bg-warning text-dark me-1">Pending</span> (${otHours} hrs)`;
           otBtn.className =
@@ -936,18 +960,14 @@
           otBtn.innerText = `⏳ OT PENDING (${otHours} hrs)`;
           otBtn.disabled = true;
           otBtn.style.cursor = "not-allowed";
-        }
-        //State 3: Approved OT request
-        else if (otStatus === "approved") {
+        } else if (otStatus === "approved") {
           summaryOtEl.innerHTML = `<span class="badge bg-success text-white me-1">Approved</span> (${otHours} hrs)`;
           otBtn.className =
             "btn btn-success text-white fw-bold w-100 text-uppercase";
           otBtn.innerText = `✅ OT APPROVED (${otHours} hrs)`;
           otBtn.disabled = true;
           otBtn.style.cursor = "not-allowed";
-        }
-        //State 4: Rejected OT request
-        else if (otStatus === "rejected") {
+        } else if (otStatus === "rejected") {
           summaryOtEl.innerHTML = `<span class="badge bg-danger text-white me-1">Rejected</span> (${otHours} hrs)`;
           otBtn.className =
             "btn btn-danger text-white fw-bold w-100 text-uppercase";
@@ -1049,7 +1069,6 @@
         return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
       }
 
-      // Custom Modal Popup with Auto-Cleanup to prevent stuck backdrops
       function showCustomPopup(type, title, message) {
         const modalEl = document.getElementById("statusAlertModal");
         const iconEl = document.getElementById("modalAlertIcon");
@@ -1080,7 +1099,6 @@
         modalInstance.show();
       }
 
-      // Cleanup listeners for all modals to prevent dark screen freezes
       ["statusAlertModal", "otModal", "fullLogsModal"].forEach((modalId) => {
         const el = document.getElementById(modalId);
         if (el) {
@@ -1097,11 +1115,10 @@
 
       function logoutStaff() {
         sessionStorage.clear();
+        localStorage.removeItem("kca_user");
         window.location.href = "login.html";
       }
 
-      // - Dashboard Table: Rolling 7 days 
-      // - Modal Table: All database records
       function renderDbLogs(logs) {
         const desktopTbody = document.getElementById("desktopTableBody");
         const mobileContainer = document.getElementById("mobileCardsContainer");
@@ -1123,7 +1140,6 @@
           return;
         }
 
-        // Helper function to generate clean status badges
         const getOtBadge = (otHours, otStatus) => {
           const hours = parseFloat(otHours || 0);
           if (hours <= 0 && (!otStatus || otStatus === "none")) {
@@ -1135,11 +1151,9 @@
           if (otStatus === "rejected") {
             return `<span class="badge bg-danger-subtle text-danger border">0.0 hrs (Rejected)</span>`;
           }
-          // Default to Pending if hours exist
           return `<span class="badge bg-warning-subtle text-warning-emphasis border">${hours.toFixed(1)} hrs (Pending)</span>`;
         };
 
-        // 1. Dashboard Table & Mobile: Top 7 days (Rolling window)
         const dashboardLogs = logs.slice(0, 7);
 
         dashboardLogs.forEach((log, index) => {
@@ -1189,7 +1203,6 @@
           mobileContainer.appendChild(card);
         });
 
-        // 2. Full History Modal: All records from DB
         if (modalTbody) {
           logs.forEach((log) => {
             const [y, m, d] = log.work_date.split("-");
