@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile | KCAConnect Admin</title>
+
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
+    <div class="brand-accent-bar"></div>
+
+    <!-- Navigation Bar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="admin-dashboard.html"
+        >
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </a>
+
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
+            </a>
+            <div class="dropdown">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                    ><i class="bi bi-geo-alt-fill text-secondary"></i
+                    ><span>Staff Off-Site Dispatch</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                    ><i class="bi bi-check2-circle text-secondary"></i
+                    ><span>Overtime Approvals</span></a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                    ><i class="bi bi-clock-history text-secondary"></i
+                    ><span>Attendance Logs</span></a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-leave.html"
+                    ><i class="bi bi-calendar-check text-secondary"></i
+                    ><span>Leave Management (e-Leave)</span></a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Active Admin Name, Profile & Logout -->
+          <div class="d-flex align-items-center gap-3">
+            <a
+              href="admin-profile.html"
+              class="text-decoration-none d-none d-sm-inline"
+            >
+              <span
+                class="fw-bold text-dark"
+                id="adminDisplayName"
+                style="font-size: 0.95rem"
+                >Admin</span
+              >
+            </a>
+            <div class="d-flex gap-2">
+              <a
+                href="admin-profile.html"
+                class="btn p-0 border-0"
+                title="My Profile"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="
+                    width: 38px;
+                    height: 38px;
+                    background-color: var(--tnb-blue);
+                  "
+                >
+                  <i class="bi bi-person-fill fs-5"></i>
+                </div>
+              </a>
+              <button
+                type="button"
+                onclick="logoutAdmin()"
+                class="btn p-0 border-0"
+                title="Sign Out"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="width: 38px; height: 38px; background-color: #e61e2b"
+                >
+                  <i class="bi bi-box-arrow-right fs-5"></i>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="brand-accent-bar"></div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <img
+          src="../img/KCAConnect.png"
+          alt="KCA Logo"
+          style="height: 40px"
+          class="me-2"
+          onerror="this.src = '../img/logo.png'"
+        />
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+        ></button>
+      </div>
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html"
+              ><i class="bi bi-inbox-fill"></i><span>Inquiries</span></a
+            >
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+              >e-Attendance</span
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html"
+              ><i class="bi bi-geo-alt-fill"></i
+              ><span>Staff Off-Site Dispatch</span></a
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html"
+              ><i class="bi bi-check2-circle"></i
+              ><span>Overtime Approvals</span></a
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html"
+              ><i class="bi bi-clock-history"></i
+              ><span>Attendance Logs</span></a
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-leave.html"
+              ><i class="bi bi-calendar-check"></i
+              ><span>Leave Management</span></a
+            >
+          </li>
+        </ul>
+        <div class="pt-3 border-top">
+          <a
+            href="admin-profile.html"
+            class="admin-drawer-link text-primary d-block mb-3 text-decoration-none"
+          >
+            <i class="bi bi-person-fill text-primary me-2 fs-5"></i
+            ><span>My Profile</span>
+          </a>
+          <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
+          >
+            <i class="bi bi-box-arrow-right text-danger me-2 fs-5"></i
+            ><span>Sign Out</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Container -->
+    <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3"
+      >
+        <div>
+          <h4
+            class="fw-bold text-tnb-blue mb-1"
+            style="font-family: var(--font-headings); font-size: 1.35rem"
+          >
+            MY PROFILE (ADMINISTRATOR)
+          </h4>
+          <p class="text-secondary small mb-0">
+            Manage your executive contact information and account security.
+          </p>
+        </div>
+      </div>
+
+      <!-- Profile Form -->
+      <div class="row">
+        <div class="col-12 col-lg-9">
+          <div class="log-clean-card p-4 p-md-5">
+            <form id="profileForm">
+              <!-- Employment Details -->
+              <h5
+                class="fw-bold text-dark mb-3"
+                style="font-family: var(--font-headings); font-size: 1.1rem"
+              >
+                <i class="bi bi-briefcase-fill text-tnb-blue me-2"></i> SYSTEM
+                CREDENTIALS
+              </h5>
+
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Admin ID</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control bg-light fw-semibold text-muted border-0"
+                    id="staff_id"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Full Name <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control fw-semibold"
+                    name="full_name"
+                    id="full_name"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Department</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control bg-light fw-semibold text-muted border-0"
+                    id="department"
+                    readonly
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >System Role</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control bg-light fw-bold text-primary text-uppercase border-0"
+                    id="role"
+                    readonly
+                  />
+                </div>
+              </div>
+
+              <hr class="my-4 text-muted" />
+
+              <h5
+                class="fw-bold text-dark mb-3"
+                style="font-family: var(--font-headings); font-size: 1.1rem"
+              >
+                <i class="bi bi-shield-lock-fill text-tnb-red me-2"></i> CONTACT
+                & SECURITY
+              </h5>
+
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Email Address <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    id="email"
+                    placeholder="e.g. admin@kcasolar.com"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Phone Number</label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="phone"
+                    id="phone"
+                    placeholder="e.g. 012-3456789"
+                  />
+                </div>
+                <div class="col-12">
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Update Password</label
+                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="new_password"
+                    id="new_password"
+                    placeholder="Leave blank to keep your current password"
+                  />
+                  <div class="form-text small text-muted mt-1">
+                    Only fill this out if you want to change your login
+                    password.
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end pt-3 mt-2 border-top">
+                <button
+                  type="submit"
+                  class="btn btn-kca-primary px-5 py-2 rounded-3 fw-bold"
+                  id="btnSubmitProfile"
+                >
+                  SAVE CHANGES
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Status Alert  -->
+    <div
+      class="modal fade"
+      id="statusAlertModal"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
+        <div class="modal-content rounded-4 border-0 shadow-lg p-3">
+          <div class="modal-header border-0 pb-0 justify-content-end">
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body text-center py-2 px-4">
+            <div id="modalAlertIcon" class="mb-3 fs-1 lh-1"></div>
+            <h4
+              class="fw-bold mb-2"
+              id="modalAlertTitle"
+              style="font-family: var(--font-headings)"
+            >
+              Status
+            </h4>
+            <p
+              class="text-secondary small mb-4"
+              id="modalAlertMessage"
+              style="line-height: 1.5"
+            ></p>
+            <button
+              type="button"
+              class="btn w-100 fw-bold py-2 rounded-3 text-white"
+              id="modalAlertBtn"
+              data-bs-dismiss="modal"
+              style="background-color: #0563c1"
+            >
+              OKAY
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", () => {
+        const rawUser =
+          sessionStorage.getItem("kca_user") ||
+          localStorage.getItem("kca_user");
+        if (!rawUser) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        const user = JSON.parse(rawUser);
+        // Security Check: Only Admin and Super Admin can view this page
+        if (user.role !== "admin" && user.role !== "super_admin") {
+          window.location.href = "staff-attendance.html";
+          return;
+        }
+
+        const badgeLabel =
+          user.role === "super_admin" ? "Super Admin" : user.id || "Admin";
+        document.getElementById("adminDisplayName").innerText =
+          `${user.name} (${badgeLabel})`;
+
+        // Fetch Profile Data
+        fetch("php/get_profile.php")
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              document.getElementById("staff_id").value = data.user.staff_id;
+              document.getElementById("full_name").value = data.user.full_name;
+              document.getElementById("department").value =
+                data.user.department;
+              document.getElementById("role").value = data.user.role.replace(
+                "_",
+                " ",
+              );
+
+              document.getElementById("email").value = data.user.email;
+              document.getElementById("phone").value = data.user.phone;
+            } else {
+              showCustomPopup("blocked", "Load Failed", data.message);
+            }
+          })
+          .catch((error) =>
+            showCustomPopup(
+              "blocked",
+              "System Error",
+              "Unable to connect to the server.",
+            ),
+          );
+      });
+
+      // Form Submission
+      document
+        .getElementById("profileForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const btn = document.getElementById("btnSubmitProfile");
+          const originalText = btn.innerHTML;
+          btn.disabled = true;
+          btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>SAVING...`;
+
+          let formData = new FormData(this);
+
+          fetch("php/update_profile.php", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                showCustomPopup("success", "Profile Updated", data.message);
+                document.getElementById("new_password").value = ""; // Clear password input for security
+
+                // Update local session so the top-right name changes instantly without needing a logout
+                let currentUser = JSON.parse(
+                  sessionStorage.getItem("kca_user") ||
+                    localStorage.getItem("kca_user"),
+                );
+                currentUser.name = document.getElementById("full_name").value;
+                sessionStorage.setItem("kca_user", JSON.stringify(currentUser));
+
+                const badgeLabel =
+                  currentUser.role === "super_admin"
+                    ? "Super Admin"
+                    : currentUser.id || "Admin";
+                document.getElementById("adminDisplayName").innerText =
+                  `${currentUser.name} (${badgeLabel})`;
+              } else {
+                showCustomPopup("blocked", "Update Failed", data.message);
+              }
+            })
+            .catch((error) =>
+              showCustomPopup(
+                "blocked",
+                "System Error",
+                "Unable to save profile data.",
+              ),
+            )
+            .finally(() => {
+              btn.disabled = false;
+              btn.innerHTML = originalText;
+            });
+        });
+
+      function showCustomPopup(type, title, message) {
+        const modalEl = document.getElementById("statusAlertModal");
+        const iconEl = document.getElementById("modalAlertIcon");
+        const titleEl = document.getElementById("modalAlertTitle");
+        const msgEl = document.getElementById("modalAlertMessage");
+        const btnEl = document.getElementById("modalAlertBtn");
+
+        if (type === "success") {
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
+          titleEl.className = "fw-bold mb-2 text-success";
+          btnEl.style.backgroundColor = "#0563c1";
+        } else {
+          iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+          titleEl.className = "fw-bold mb-2 text-danger";
+          btnEl.style.backgroundColor = "#e61e2b";
+        }
+
+        titleEl.innerText = title;
+        msgEl.innerHTML = message;
+        new bootstrap.Modal(modalEl).show();
+      }
+
+      function logoutAdmin() {
+        sessionStorage.clear();
+        localStorage.removeItem("kca_user");
+        window.location.href = "login.html";
+      }
+    </script>
+  </body>
+</html>

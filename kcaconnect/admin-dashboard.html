@@ -1,328 +1,510 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Executive Dashboard | KCAConnect</title>
-    
-    <!-- Google Fonts: Inter & Open Sans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
-    <!-- Main Style -->
-    <link rel="stylesheet" href="../css/style.css">
-</head>
-<body class="bg-light d-flex flex-column min-vh-100">
 
+    <!-- Google Fonts: Inter & Open Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Main Style -->
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body class="bg-light d-flex flex-column min-vh-100">
     <!-- Brand Accent Line (Top) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Admin Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
-        <div class="container-fluid px-lg-5">
-            <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
-                <img src="../img/KCAConnect.png" alt="KCA Logo" style="height: 48px;" class="me-2" onerror="this.src='../img/logo.png'">
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
+      <div class="container-fluid px-lg-5">
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="admin-dashboard.html"
+        >
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 48px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
+        </a>
+
+        <!-- Right Controls -->
+        <div class="d-flex align-items-center gap-4">
+          <div class="d-none d-md-flex align-items-center gap-4">
+            <a
+              href="admin-inquiries.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              Inquiries
             </a>
 
-            <!-- Right Controls -->
-            <div class="d-flex align-items-center gap-4">
-                <div class="d-none d-md-flex align-items-center gap-4">
-                    <a href="admin-inquiries.html" class="nav-link fw-semibold text-secondary hover-blue" style="font-family: var(--font-headings);">
-                        Inquiries
-                    </a>
-
-                    <!-- e-Attendance Dropdown Menu -->
-                    <div class="dropdown">
-                        <a class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: var(--font-headings);">
-                            e-Attendance
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html">
-                                    <i class="bi bi-geo-alt-fill text-secondary"></i>
-                                    <span>Staff Off-Site Dispatch</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-ot.html">
-                                    <i class="bi bi-check2-circle text-secondary"></i>
-                                    <span>Overtime Approvals</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-attendance.html">
-                                    <i class="bi bi-clock-history text-secondary"></i>
-                                    <span>Attendance Logs</span>
-                                </a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center gap-2" href="admin-leave.html">
-                                    <i class="bi bi-calendar-check text-primary"></i>
-                                    <span>Leave Management (e-Leave)</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Admin Profile Name & Logout Button -->
-                <div class="d-flex align-items-center gap-3">
-                    <span class="fw-bold text-dark d-none d-sm-inline" id="adminDisplayName" style="font-size: 0.95rem;">
-                        Admin
-                    </span>
-
-                    <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0" title="Sign Out">
-                        <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b;">
-                            <i class="bi bi-box-arrow-right fs-5"></i>
-                        </div>
-                    </button>
-                </div>
-
-                <!-- Mobile Hamburger Toggle -->
-                <button class="navbar-toggler border-0 shadow-none d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminDrawer">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+            <!-- e-Attendance Dropdown Menu -->
+            <div class="dropdown">
+              <a
+                class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style="font-family: var(--font-headings)"
+              >
+                e-Attendance
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
+                    <i class="bi bi-geo-alt-fill text-secondary"></i>
+                    <span>Staff Off-Site Dispatch</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
+                    <i class="bi bi-check2-circle text-secondary"></i>
+                    <span>Overtime Approvals</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
+                    <i class="bi bi-clock-history text-secondary"></i>
+                    <span>Attendance Logs</span>
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-leave.html"
+                  >
+                    <i class="bi bi-calendar-check text-primary"></i>
+                    <span>Leave Management (e-Leave)</span>
+                  </a>
+                </li>
+              </ul>
             </div>
+          </div>
+
+          <!-- Active Admin Name, Profile & Logout Button -->
+          <div class="d-flex align-items-center gap-3">
+            <a
+              href="admin-profile.html"
+              class="text-decoration-none d-none d-sm-inline"
+            >
+              <span
+                class="fw-bold text-dark"
+                id="adminDisplayName"
+                style="font-size: 0.95rem"
+              >
+                Admin
+              </span>
+            </a>
+
+            <div class="d-flex gap-2">
+              <a
+                href="admin-profile.html"
+                class="btn p-0 border-0"
+                title="My Profile"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="
+                    width: 38px;
+                    height: 38px;
+                    background-color: var(--tnb-blue);
+                  "
+                >
+                  <i class="bi bi-person-fill fs-5"></i>
+                </div>
+              </a>
+
+              <button
+                type="button"
+                onclick="logoutAdmin()"
+                class="btn p-0 border-0"
+                title="Sign Out"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="width: 38px; height: 38px; background-color: #e61e2b"
+                >
+                  <i class="bi bi-box-arrow-right fs-5"></i>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Hamburger Toggle -->
+          <button
+            class="navbar-toggler border-0 shadow-none d-md-none"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#adminDrawer"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
+      </div>
     </nav>
 
     <!-- Brand Accent Line (Bottom) -->
     <div class="brand-accent-bar"></div>
 
     <!-- Mobile Offcanvas Menu -->
-    <div class="offcanvas offcanvas-end admin-drawer" tabindex="-1" id="adminDrawer">
-        <div class="brand-accent-bar" style="height: 3px;"></div>
-        <div class="offcanvas-header border-bottom">
-            <div class="d-flex align-items-center">
-                <img src="../img/KCAConnect.png" alt="KCA Logo" style="height: 40px;" class="me-2" onerror="this.src='../img/logo.png'">
-            </div>
-            <button type="button" class="btn-close mb-auto mt-2 shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
+      <div class="brand-accent-bar" style="height: 3px"></div>
+      <div class="offcanvas-header border-bottom">
+        <div class="d-flex align-items-center">
+          <img
+            src="../img/KCAConnect.png"
+            alt="KCA Logo"
+            style="height: 40px"
+            class="me-2"
+            onerror="this.src = '../img/logo.png'"
+          />
         </div>
-        <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
-            <ul class="admin-drawer-nav">
-                <li>
-                    <a class="admin-drawer-link" href="admin-inquiries.html">
-                        <i class="bi bi-inbox-fill"></i>
-                        <span>Inquiries</span>
-                    </a>
-                </li>
-                <li class="pt-3 pb-1 border-top mt-2">
-                    <span class="text-uppercase text-muted fw-bold ps-2" style="font-size: 0.7rem; letter-spacing: 1px;">e-Attendance</span>
-                </li>
-                <li>
-                    <a class="admin-drawer-link" href="admin-staff.html">
-                        <i class="bi bi-geo-alt-fill"></i>
-                        <span>Staff Off-Site Dispatch</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="admin-drawer-link" href="admin-ot.html">
-                        <i class="bi bi-check2-circle"></i>
-                        <span>Overtime Approvals</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="admin-drawer-link" href="admin-attendance.html">
-                        <i class="bi bi-clock-history"></i>
-                        <span>Attendance Logs</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="admin-drawer-link" href="admin-leave.html">
-                        <i class="bi bi-calendar-check"></i>
-                        <span>Leave Management</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="pt-3 border-top">
-                <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start">
-                    <i class="bi bi-box-arrow-right text-danger me-2"></i>
-                    <span>Sign Out</span>
-                </button>
-            </div>
+        <button
+          type="button"
+          class="btn-close mb-auto mt-2 shadow-none"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
+        <ul class="admin-drawer-nav">
+          <li>
+            <a class="admin-drawer-link" href="admin-inquiries.html">
+              <i class="bi bi-inbox-fill"></i>
+              <span>Inquiries</span>
+            </a>
+          </li>
+          <li class="pt-3 pb-1 border-top mt-2">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+              >e-Attendance</span
+            >
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-staff.html">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>Staff Off-Site Dispatch</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-ot.html">
+              <i class="bi bi-check2-circle"></i>
+              <span>Overtime Approvals</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-attendance.html">
+              <i class="bi bi-clock-history"></i>
+              <span>Attendance Logs</span>
+            </a>
+          </li>
+          <li>
+            <a class="admin-drawer-link" href="admin-leave.html">
+              <i class="bi bi-calendar-check"></i>
+              <span>Leave Management</span>
+            </a>
+          </li>
+        </ul>
+        <div class="pt-3 border-top">
+          <a
+            href="admin-profile.html"
+            class="admin-drawer-link text-dark d-block mb-3 text-decoration-none"
+          >
+            <i class="bi bi-person-fill text-primary me-2 fs-5"></i>
+            <span>My Profile</span>
+          </a>
+          <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
+          >
+            <i class="bi bi-box-arrow-right text-danger me-2 fs-5"></i>
+            <span>Sign Out</span>
+          </button>
         </div>
+      </div>
     </div>
 
     <!-- Main Workspace Container -->
     <main class="container-fluid px-lg-5 my-4 my-md-5 flex-grow-1">
-        
-        <!-- Header Status -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+      <!-- Header Status -->
+      <div
+        class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4"
+      >
+        <div>
+          <h4
+            class="fw-bold mb-1 text-tnb-blue"
+            style="font-family: var(--font-headings); font-size: 1.45rem"
+          >
+            EXECUTIVE OVERVIEW
+          </h4>
+          <span class="text-muted small" id="liveDateDisplay"
+            >Daily Operations & Attendance Pulse</span
+          >
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span
+            class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill small"
+          >
+            <i class="bi bi-broadcast me-1"></i> Operations Online
+          </span>
+          <button
+            type="button"
+            onclick="loadDashboardData()"
+            class="btn btn-sm btn-kca-secondary rounded-pill px-3 py-1"
+          >
+            <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+          </button>
+        </div>
+      </div>
+
+      <!-- 1. TOP ROW: 5 KPI METRIC CARDS -->
+      <div class="row g-3 g-lg-4 mb-4">
+        <!-- Card 1: Today's Attendance -->
+        <div class="col-6 col-lg">
+          <a href="admin-attendance.html" class="metric-hero-card">
             <div>
-                <h4 class="fw-bold mb-1 text-tnb-blue" style="font-family: var(--font-headings); font-size: 1.45rem;">
-                    EXECUTIVE OVERVIEW
-                </h4>
-                <span class="text-muted small" id="liveDateDisplay">Daily Operations & Attendance Pulse</span>
+              <div class="metric-icon-tile metric-tile-blue">
+                <i class="bi bi-calendar2-check-fill"></i>
+              </div>
+              <div class="metric-label-text">Clocked In Today</div>
             </div>
-            <div class="d-flex align-items-center gap-2">
-                <span class="badge bg-success bg-opacity-10 text-success fw-bold px-3 py-2 rounded-pill small">
-                    <i class="bi bi-broadcast me-1"></i> Operations Online
-                </span>
-                <button type="button" onclick="loadDashboardData()" class="btn btn-sm btn-kca-secondary rounded-pill px-3 py-1">
-                    <i class="bi bi-arrow-clockwise me-1"></i> Refresh
-                </button>
-            </div>
+            <div class="metric-number-display" id="dashAttendanceTotal">0</div>
+          </a>
         </div>
 
-        <!-- 1. TOP ROW: 5 KPI METRIC CARDS -->
-        <div class="row g-3 g-lg-4 mb-4">
-            <!-- Card 1: Today's Attendance -->
-            <div class="col-6 col-lg">
-                <a href="admin-attendance.html" class="metric-hero-card">
-                    <div>
-                        <div class="metric-icon-tile metric-tile-blue">
-                            <i class="bi bi-calendar2-check-fill"></i>
-                        </div>
-                        <div class="metric-label-text">Clocked In Today</div>
-                    </div>
-                    <div class="metric-number-display" id="dashAttendanceTotal">0</div>
-                </a>
+        <!-- Card 2: Staff On-Site -->
+        <div class="col-6 col-lg">
+          <a href="admin-staff.html" class="metric-hero-card">
+            <div>
+              <div class="metric-icon-tile metric-tile-orange">
+                <i class="bi bi-geo-alt-fill"></i>
+              </div>
+              <div class="metric-label-text">Staff On-Site</div>
             </div>
-
-            <!-- Card 2: Staff On-Site -->
-            <div class="col-6 col-lg">
-                <a href="admin-staff.html" class="metric-hero-card">
-                    <div>
-                        <div class="metric-icon-tile metric-tile-orange">
-                            <i class="bi bi-geo-alt-fill"></i>
-                        </div>
-                        <div class="metric-label-text">Staff On-Site</div>
-                    </div>
-                    <div class="metric-number-display text-warning-emphasis" id="dashOnSiteTotal">0</div>
-                </a>
+            <div
+              class="metric-number-display text-warning-emphasis"
+              id="dashOnSiteTotal"
+            >
+              0
             </div>
-
-            <!-- Card 3: Staff On Leave Today (NEW) -->
-            <div class="col-4 col-lg">
-                <a href="admin-leave.html" class="metric-hero-card">
-                    <div>
-                        <div class="metric-icon-tile metric-tile-red">
-                            <i class="bi bi-calendar2-x-fill"></i>
-                        </div>
-                        <div class="metric-label-text">On Leave Today</div>
-                    </div>
-                    <div class="metric-number-display text-danger" id="dashOnLeaveTotal">0</div>
-                </a>
-            </div>
-
-            <!-- Card 4: Pending Overtime -->
-            <div class="col-4 col-lg">
-                <a href="admin-ot.html" class="metric-hero-card">
-                    <div>
-                        <div class="metric-icon-tile metric-tile-amber">
-                            <i class="bi bi-clock-history"></i>
-                        </div>
-                        <div class="metric-label-text">Pending OT</div>
-                    </div>
-                    <div class="metric-number-display text-danger" id="dashPendingOTTotal">0</div>
-                </a>
-            </div>
-
-            <!-- Card 5: Unread Inquiries -->
-            <div class="col-4 col-lg">
-                <a href="admin-inquiries.html" class="metric-hero-card">
-                    <div>
-                        <div class="metric-icon-tile metric-tile-blue">
-                            <i class="bi bi-bell-fill"></i>
-                        </div>
-                        <div class="metric-label-text">Unread Inquiries</div>
-                    </div>
-                    <div class="metric-number-display" id="dashUnreadInqTotal">0</div>
-                </a>
-            </div>
+          </a>
         </div>
 
-        <!-- 2. MIDDLE ROW: TODAY'S ATTENDANCE & LEAVE PULSE -->
-        <div class="row g-4 mb-4">
-            <!-- Left Card: Present & Clocked-in Staff (Office & Site) -->
-            <div class="col-12 col-lg-6">
-                <div class="feed-widget-card crest-blue">
-                    <div>
-                        <div class="feed-widget-header">
-                            <h5 class="feed-widget-title">
-                                <i class="bi bi-person-check-fill me-2 text-tnb-blue"></i>Present & Clocked In Today
-                            </h5>
-                            <span class="badge bg-primary-subtle text-tnb-blue fw-bold" id="dashClockedBadge">0 Active</span>
-                        </div>
+        <!-- Card 3: Staff On Leave Today (NEW) -->
+        <div class="col-4 col-lg">
+          <a href="admin-leave.html" class="metric-hero-card">
+            <div>
+              <div class="metric-icon-tile metric-tile-red">
+                <i class="bi bi-calendar2-x-fill"></i>
+              </div>
+              <div class="metric-label-text">On Leave Today</div>
+            </div>
+            <div
+              class="metric-number-display text-danger"
+              id="dashOnLeaveTotal"
+            >
+              0
+            </div>
+          </a>
+        </div>
 
-                        <!-- Live Clock-in Feed List -->
-                        <div class="d-flex flex-column gap-2" id="dashClockedList" style="max-height: 280px; overflow-y: auto;">
-                            <div class="text-center text-muted small py-4">
-                                <div class="spinner-border spinner-border-sm text-primary me-2"></div> Querying today's roster...
-                            </div>
-                        </div>
-                    </div>
+        <!-- Card 4: Pending Overtime -->
+        <div class="col-4 col-lg">
+          <a href="admin-ot.html" class="metric-hero-card">
+            <div>
+              <div class="metric-icon-tile metric-tile-amber">
+                <i class="bi bi-clock-history"></i>
+              </div>
+              <div class="metric-label-text">Pending OT</div>
+            </div>
+            <div
+              class="metric-number-display text-danger"
+              id="dashPendingOTTotal"
+            >
+              0
+            </div>
+          </a>
+        </div>
 
-                    <div class="pt-3 border-top mt-3 text-center">
-                        <a href="admin-attendance.html" class="btn btn-sm btn-outline-primary fw-semibold px-4 rounded-3">
-                            Open Full Timesheet Ledger
-                        </a>
-                    </div>
+        <!-- Card 5: Unread Inquiries -->
+        <div class="col-4 col-lg">
+          <a href="admin-inquiries.html" class="metric-hero-card">
+            <div>
+              <div class="metric-icon-tile metric-tile-blue">
+                <i class="bi bi-bell-fill"></i>
+              </div>
+              <div class="metric-label-text">Unread Inquiries</div>
+            </div>
+            <div class="metric-number-display" id="dashUnreadInqTotal">0</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- 2. MIDDLE ROW: TODAY'S ATTENDANCE & LEAVE PULSE -->
+      <div class="row g-4 mb-4">
+        <!-- Left Card: Present & Clocked-in Staff (Office & Site) -->
+        <div class="col-12 col-lg-6">
+          <div class="feed-widget-card crest-blue">
+            <div>
+              <div class="feed-widget-header">
+                <h5 class="feed-widget-title">
+                  <i class="bi bi-person-check-fill me-2 text-tnb-blue"></i
+                  >Present & Clocked In Today
+                </h5>
+                <span
+                  class="badge bg-primary-subtle text-tnb-blue fw-bold"
+                  id="dashClockedBadge"
+                  >0 Active</span
+                >
+              </div>
+
+              <!-- Live Clock-in Feed List -->
+              <div
+                class="d-flex flex-column gap-2"
+                id="dashClockedList"
+                style="max-height: 280px; overflow-y: auto"
+              >
+                <div class="text-center text-muted small py-4">
+                  <div
+                    class="spinner-border spinner-border-sm text-primary me-2"
+                  ></div>
+                  Querying today's roster...
                 </div>
+              </div>
             </div>
 
-            <!-- Right Card: On Approved Leave Today -->
-            <div class="col-12 col-lg-6">
-                <div class="feed-widget-card crest-orange">
-                    <div>
-                        <div class="feed-widget-header">
-                            <h5 class="feed-widget-title">
-                                <i class="bi bi-calendar-x-fill me-2 text-tnb-red-orange"></i>On Approved Leave Today
-                            </h5>
-                            <span class="badge bg-danger-subtle text-danger fw-bold" id="dashLeaveBadge">0 Absent</span>
-                        </div>
-
-                        <!-- Live Leave Ledger List -->
-                        <div class="d-flex flex-column gap-2" id="dashOnLeaveList" style="max-height: 280px; overflow-y: auto;">
-                            <div class="text-center text-muted small py-4">
-                                <div class="spinner-border spinner-border-sm text-danger me-2"></div> Checking leave ledger...
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-top mt-3 text-center">
-                        <a href="admin-leave.html" class="btn btn-sm btn-outline-danger fw-semibold px-4 rounded-3">
-                            Manage Leave Approvals & Quotas
-                        </a>
-                    </div>
-                </div>
+            <div class="pt-3 border-top mt-3 text-center">
+              <a
+                href="admin-attendance.html"
+                class="btn btn-sm btn-outline-primary fw-semibold px-4 rounded-3"
+              >
+                Open Full Timesheet Ledger
+              </a>
             </div>
+          </div>
         </div>
 
-        <!-- 3. BOTTOM ROW: RECENT WEB INQUIRIES FEED -->
-        <div class="row g-4">
-            <div class="col-12">
-                <div class="feed-widget-card crest-orange">
-                    <div>
-                        <div class="feed-widget-header">
-                            <h5 class="feed-widget-title">
-                                <i class="bi bi-chat-left-text-fill me-2" style="color: var(--tnb-red-orange);"></i>Recent Client Communications & Inquiries
-                            </h5>
-                            <a href="admin-inquiries.html" class="feed-view-all-link">
-                                View Inbox <i class="bi bi-arrow-right"></i>
-                            </a>
-                        </div>
+        <!-- Right Card: On Approved Leave Today -->
+        <div class="col-12 col-lg-6">
+          <div class="feed-widget-card crest-orange">
+            <div>
+              <div class="feed-widget-header">
+                <h5 class="feed-widget-title">
+                  <i class="bi bi-calendar-x-fill me-2 text-tnb-red-orange"></i
+                  >On Approved Leave Today
+                </h5>
+                <span
+                  class="badge bg-danger-subtle text-danger fw-bold"
+                  id="dashLeaveBadge"
+                  >0 Absent</span
+                >
+              </div>
 
-                        <div class="d-flex flex-column gap-1" id="dashInquiriesFeedList">
-                            <div class="text-center text-muted small py-3">Loading recent inquiries...</div>
-                        </div>
-                    </div>
-
-                    <div class="pt-3 border-top mt-3 text-center">
-                        <a href="admin-inquiries.html" class="btn btn-sm btn-outline-secondary fw-semibold px-4 rounded-3">
-                            Manage All Inquiries & Export CSV
-                        </a>
-                    </div>
+              <!-- Live Leave Ledger List -->
+              <div
+                class="d-flex flex-column gap-2"
+                id="dashOnLeaveList"
+                style="max-height: 280px; overflow-y: auto"
+              >
+                <div class="text-center text-muted small py-4">
+                  <div
+                    class="spinner-border spinner-border-sm text-danger me-2"
+                  ></div>
+                  Checking leave ledger...
                 </div>
+              </div>
             </div>
-        </div>
 
+            <div class="pt-3 border-top mt-3 text-center">
+              <a
+                href="admin-leave.html"
+                class="btn btn-sm btn-outline-danger fw-semibold px-4 rounded-3"
+              >
+                Manage Leave Approvals & Quotas
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. BOTTOM ROW: RECENT WEB INQUIRIES FEED -->
+      <div class="row g-4">
+        <div class="col-12">
+          <div class="feed-widget-card crest-orange">
+            <div>
+              <div class="feed-widget-header">
+                <h5 class="feed-widget-title">
+                  <i
+                    class="bi bi-chat-left-text-fill me-2"
+                    style="color: var(--tnb-red-orange)"
+                  ></i
+                  >Recent Client Communications & Inquiries
+                </h5>
+                <a href="admin-inquiries.html" class="feed-view-all-link">
+                  View Inbox <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+
+              <div class="d-flex flex-column gap-1" id="dashInquiriesFeedList">
+                <div class="text-center text-muted small py-3">
+                  Loading recent inquiries...
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-top mt-3 text-center">
+              <a
+                href="admin-inquiries.html"
+                class="btn btn-sm btn-outline-secondary fw-semibold px-4 rounded-3"
+              >
+                Manage All Inquiries & Export CSV
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
     <!-- Bootstrap 5 JS Bundle -->
@@ -330,72 +512,89 @@
 
     <!-- Client-Side Engine -->
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const rawUser = sessionStorage.getItem('kca_user') || localStorage.getItem('kca_user');
-            if (!rawUser) {
-                window.location.href = 'login.html';
-                return;
-            }
-
-            const user = JSON.parse(rawUser);
-            if (user.role !== 'admin' && user.role !== 'super_admin') {
-                window.location.href = 'staff-attendance.html';
-                return;
-            }
-
-            const adminNameEl = document.getElementById('adminDisplayName');
-            if (adminNameEl) {
-                const badgeLabel = user.role === 'super_admin' ? 'Super Admin' : (user.id || 'Admin');
-                adminNameEl.innerText = `${user.name} (${badgeLabel})`;
-            }
-
-            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const todayFormatted = new Date().toLocaleDateString('en-US', dateOptions);
-            const liveDateEl = document.getElementById('liveDateDisplay');
-            if (liveDateEl) {
-                liveDateEl.innerText = `${todayFormatted} • Daily Operations & Attendance Pulse`;
-            }
-
-            loadDashboardData();
-        });
-
-        function logoutAdmin() {
-            sessionStorage.clear();
-            localStorage.removeItem('kca_user');
-            window.location.href = 'login.html';
+      window.addEventListener("DOMContentLoaded", () => {
+        const rawUser =
+          sessionStorage.getItem("kca_user") ||
+          localStorage.getItem("kca_user");
+        if (!rawUser) {
+          window.location.href = "login.html";
+          return;
         }
 
-        function loadDashboardData() {
-            loadOperationalPulse();
-            loadSecondaryMetrics();
+        const user = JSON.parse(rawUser);
+        if (user.role !== "admin" && user.role !== "super_admin") {
+          window.location.href = "staff-attendance.html";
+          return;
         }
 
-        // Live Attendance & Leave
-        function loadOperationalPulse() {
-            fetch('../php/leave.php?action=get_today_roster')
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.success) return;
+        const adminNameEl = document.getElementById("adminDisplayName");
+        if (adminNameEl) {
+          const badgeLabel =
+            user.role === "super_admin" ? "Super Admin" : user.id || "Admin";
+          adminNameEl.innerText = `${user.name} (${badgeLabel})`;
+        }
 
-                    // Render Clocked In Today
-                    const clockedIn = data.clocked_in || [];
-                    document.getElementById('dashAttendanceTotal').innerText = clockedIn.length;
-                    document.getElementById('dashClockedBadge').innerText = `${clockedIn.length} Active`;
+        const dateOptions = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const todayFormatted = new Date().toLocaleDateString(
+          "en-US",
+          dateOptions,
+        );
+        const liveDateEl = document.getElementById("liveDateDisplay");
+        if (liveDateEl) {
+          liveDateEl.innerText = `${todayFormatted} • Daily Operations & Attendance Pulse`;
+        }
 
-                    const clockedContainer = document.getElementById('dashClockedList');
-                    if (clockedIn.length === 0) {
-                        clockedContainer.innerHTML = `<div class="text-center text-muted small py-4">No staff members have clocked in yet today.</div>`;
-                    } else {
-                        clockedContainer.innerHTML = clockedIn.map(c => {
-                            const isSite = (c.punch_status || '').toLowerCase() === 'site';
-                            const badgeClass = isSite ? 'badge-offsite' : 'badge-office';
-                            const inTime = c.clock_in_time ? c.clock_in_time.substring(0, 5) : '--:--';
-                            const locationLabel = c.clock_in_location || 'Office';
+        loadDashboardData();
+      });
 
-                            return `
+      function logoutAdmin() {
+        sessionStorage.clear();
+        localStorage.removeItem("kca_user");
+        window.location.href = "login.html";
+      }
+
+      function loadDashboardData() {
+        loadOperationalPulse();
+        loadSecondaryMetrics();
+      }
+
+      // Live Attendance & Leave
+      function loadOperationalPulse() {
+        fetch("../php/leave.php?action=get_today_roster")
+          .then((res) => res.json())
+          .then((data) => {
+            if (!data.success) return;
+
+            // Render Clocked In Today
+            const clockedIn = data.clocked_in || [];
+            document.getElementById("dashAttendanceTotal").innerText =
+              clockedIn.length;
+            document.getElementById("dashClockedBadge").innerText =
+              `${clockedIn.length} Active`;
+
+            const clockedContainer = document.getElementById("dashClockedList");
+            if (clockedIn.length === 0) {
+              clockedContainer.innerHTML = `<div class="text-center text-muted small py-4">No staff members have clocked in yet today.</div>`;
+            } else {
+              clockedContainer.innerHTML = clockedIn
+                .map((c) => {
+                  const isSite =
+                    (c.punch_status || "").toLowerCase() === "site";
+                  const badgeClass = isSite ? "badge-offsite" : "badge-office";
+                  const inTime = c.clock_in_time
+                    ? c.clock_in_time.substring(0, 5)
+                    : "--:--";
+                  const locationLabel = c.clock_in_location || "Office";
+
+                  return `
                                 <div class="feed-item-row p-2 rounded border-bottom">
                                     <div class="d-flex align-items-center gap-2">
-                                        <div class="feed-item-avatar">${(c.full_name || 'U').charAt(0).toUpperCase()}</div>
+                                        <div class="feed-item-avatar">${(c.full_name || "U").charAt(0).toUpperCase()}</div>
                                         <div>
                                             <div class="fw-bold small text-dark">${c.full_name} (${c.staff_id})</div>
                                             <div class="text-muted small" style="font-size: 0.75rem;">
@@ -404,28 +603,34 @@
                                         </div>
                                     </div>
                                     <span class="badge ${badgeClass} text-uppercase" style="font-size: 0.72rem;">
-                                        ${c.punch_status || 'Office'}
+                                        ${c.punch_status || "Office"}
                                     </span>
                                 </div>
                             `;
-                        }).join('');
-                    }
+                })
+                .join("");
+            }
 
-                    // Render On Leave Today
-                    const onLeave = data.on_leave || [];
-                    document.getElementById('dashOnLeaveTotal').innerText = onLeave.length;
-                    document.getElementById('dashLeaveBadge').innerText = `${onLeave.length} Absent`;
+            // Render On Leave Today
+            const onLeave = data.on_leave || [];
+            document.getElementById("dashOnLeaveTotal").innerText =
+              onLeave.length;
+            document.getElementById("dashLeaveBadge").innerText =
+              `${onLeave.length} Absent`;
 
-                    const leaveContainer = document.getElementById('dashOnLeaveList');
-                    if (onLeave.length === 0) {
-                        leaveContainer.innerHTML = `<div class="text-center text-muted small py-4">No staff on approved leave today. All active on roster.</div>`;
-                    } else {
-                        leaveContainer.innerHTML = onLeave.map(l => {
-                            let typeBadgeClass = 'bg-danger text-white';
-                            if (l.leave_type === 'annual') typeBadgeClass = 'bg-primary text-white';
-                            else if (l.leave_type === 'emergency') typeBadgeClass = 'bg-warning text-dark';
+            const leaveContainer = document.getElementById("dashOnLeaveList");
+            if (onLeave.length === 0) {
+              leaveContainer.innerHTML = `<div class="text-center text-muted small py-4">No staff on approved leave today. All active on roster.</div>`;
+            } else {
+              leaveContainer.innerHTML = onLeave
+                .map((l) => {
+                  let typeBadgeClass = "bg-danger text-white";
+                  if (l.leave_type === "annual")
+                    typeBadgeClass = "bg-primary text-white";
+                  else if (l.leave_type === "emergency")
+                    typeBadgeClass = "bg-warning text-dark";
 
-                            return `
+                  return `
                                 <div class="feed-item-row p-2 rounded border-bottom">
                                     <div class="d-flex align-items-center gap-2">
                                         <div class="feed-item-avatar bg-danger-subtle text-danger">
@@ -434,7 +639,7 @@
                                         <div>
                                             <div class="fw-bold small text-dark">${l.full_name} (${l.staff_id})</div>
                                             <div class="text-muted small" style="font-size: 0.75rem;">
-                                                ${l.department || 'Operations'} • <span class="fst-italic">"${l.reason || 'Leave'}"</span>
+                                                ${l.department || "Operations"} • <span class="fst-italic">"${l.reason || "Leave"}"</span>
                                             </div>
                                         </div>
                                     </div>
@@ -443,63 +648,85 @@
                                     </span>
                                 </div>
                             `;
-                        }).join('');
-                    }
                 })
-                .catch(err => {
-                    console.error('Error fetching today operational pulse:', err);
-                    document.getElementById('dashClockedList').innerHTML = `<div class="text-center text-danger small py-3">Could not connect to roster.</div>`;
-                    document.getElementById('dashOnLeaveList').innerHTML = `<div class="text-center text-danger small py-3">Could not connect to roster.</div>`;
-                });
-        }
+                .join("");
+            }
+          })
+          .catch((err) => {
+            console.error("Error fetching today operational pulse:", err);
+            document.getElementById("dashClockedList").innerHTML =
+              `<div class="text-center text-danger small py-3">Could not connect to roster.</div>`;
+            document.getElementById("dashOnLeaveList").innerHTML =
+              `<div class="text-center text-danger small py-3">Could not connect to roster.</div>`;
+          });
+      }
 
-        // 2. Staff On-Site, Pending Overtime, and Inquiries
-        function loadSecondaryMetrics() {
-            // Staff Dispatch Active Off-site 
-            fetch('../php/attendance.php?action=admin_get_dispatch&staff_id=ADMIN')
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success && data.staff) {
-                        const offsiteCount = data.staff.filter(s => s.dispatch_status === 'active').length;
-                        document.getElementById('dashOnSiteTotal').innerText = offsiteCount;
-                    }
-                })
-                .catch(() => {});
+      // 2. Staff On-Site, Pending Overtime, and Inquiries
+      function loadSecondaryMetrics() {
+        // Staff Dispatch Active Off-site
+        fetch("../php/attendance.php?action=admin_get_dispatch&staff_id=ADMIN")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.staff) {
+              const offsiteCount = data.staff.filter(
+                (s) => s.dispatch_status === "active",
+              ).length;
+              document.getElementById("dashOnSiteTotal").innerText =
+                offsiteCount;
+            }
+          })
+          .catch(() => {});
 
-            // Pending Overtime Claims
-            fetch('../php/attendance.php?action=admin_get_ot&staff_id=ADMIN')
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success && data.claims) {
-                        const pendingOtCount = data.claims.filter(c => c.status === 'pending').length;
-                        document.getElementById('dashPendingOTTotal').innerText = pendingOtCount;
-                    }
-                })
-                .catch(() => {});
+        // Pending Overtime Claims
+        fetch("../php/attendance.php?action=admin_get_ot&staff_id=ADMIN")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.claims) {
+              const pendingOtCount = data.claims.filter(
+                (c) => c.status === "pending",
+              ).length;
+              document.getElementById("dashPendingOTTotal").innerText =
+                pendingOtCount;
+            }
+          })
+          .catch(() => {});
 
-            // Recent Website Inquiries
-            fetch('../php/inquiries.php?action=get_inquiries')
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success && data.inquiries) {
-                        const unreadCount = data.inquiries.filter(i => i.status === 'new').length;
-                        document.getElementById('dashUnreadInqTotal').innerText = unreadCount;
+        // Recent Website Inquiries
+        fetch("../php/inquiries.php?action=get_inquiries")
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success && data.inquiries) {
+              const unreadCount = data.inquiries.filter(
+                (i) => i.status === "new",
+              ).length;
+              document.getElementById("dashUnreadInqTotal").innerText =
+                unreadCount;
 
-                        const inqContainer = document.getElementById('dashInquiriesFeedList');
-                        const displayInq = data.inquiries.slice(0, 5);
+              const inqContainer = document.getElementById(
+                "dashInquiriesFeedList",
+              );
+              const displayInq = data.inquiries.slice(0, 5);
 
-                        if (displayInq.length === 0) {
-                            inqContainer.innerHTML = `<div class="text-center text-muted small py-3">No client inquiries found.</div>`;
-                            return;
-                        }
+              if (displayInq.length === 0) {
+                inqContainer.innerHTML = `<div class="text-center text-muted small py-3">No client inquiries found.</div>`;
+                return;
+              }
 
-                        inqContainer.innerHTML = displayInq.map(inq => {
-                            let statusBadge = '<span class="badge bg-warning-subtle text-warning-emphasis border">New</span>';
-                            if (inq.status === 'review') statusBadge = '<span class="badge bg-danger-subtle text-danger border">Under Review</span>';
-                            else if (inq.status === 'replied') statusBadge = '<span class="badge bg-success-subtle text-success border">Replied</span>';
-                            else if (inq.status === 'resolved') statusBadge = '<span class="badge bg-light text-muted border">Resolved</span>';
+              inqContainer.innerHTML = displayInq
+                .map((inq) => {
+                  let statusBadge =
+                    '<span class="badge bg-warning-subtle text-warning-emphasis border">New</span>';
+                  if (inq.status === "review")
+                    statusBadge =
+                      '<span class="badge bg-danger-subtle text-danger border">Under Review</span>';
+                  else if (inq.status === "replied")
+                    statusBadge =
+                      '<span class="badge bg-success-subtle text-success border">Replied</span>';
+                  else if (inq.status === "resolved")
+                    statusBadge =
+                      '<span class="badge bg-light text-muted border">Resolved</span>';
 
-                            return `
+                  return `
                                 <a href="admin-inquiries.html" class="feed-item-row">
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="feed-item-avatar text-secondary">
@@ -507,17 +734,18 @@
                                         </div>
                                         <div>
                                             <div class="fw-bold text-dark small">${inq.sender_name}</div>
-                                            <div class="text-muted" style="font-size: 0.76rem;">${inq.category} • ${inq.formatted_received_at || inq.received_date || 'Recent'}</div>
+                                            <div class="text-muted" style="font-size: 0.76rem;">${inq.category} • ${inq.formatted_received_at || inq.received_date || "Recent"}</div>
                                         </div>
                                     </div>
                                     ${statusBadge}
                                 </a>
                             `;
-                        }).join('');
-                    }
                 })
-                .catch(() => {});
-        }
+                .join("");
+            }
+          })
+          .catch(() => {});
+      }
     </script>
-</body>
+  </body>
 </html>

@@ -30,9 +30,14 @@
     <div class="brand-accent-bar"></div>
 
     <!-- Admin Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
+    <nav
+      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
       <div class="container-fluid px-lg-5">
-        <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="admin-dashboard.html"
+        >
           <img
             src="../img/KCAConnect.png"
             alt="KCA Logo"
@@ -63,28 +68,42 @@
               >
                 e-Attendance
               </a>
-              <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
+              <ul
+                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
+              >
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html">
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-staff.html"
+                  >
                     <i class="bi bi-geo-alt-fill text-secondary"></i>
                     <span>Staff Off-Site Dispatch</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item active d-flex align-items-center gap-2" href="admin-ot.html">
+                  <a
+                    class="dropdown-item active d-flex align-items-center gap-2"
+                    href="admin-ot.html"
+                  >
                     <i class="bi bi-check2-circle text-tnb-red"></i>
                     <span>Overtime Approvals</span>
                   </a>
                 </li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-attendance.html">
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-attendance.html"
+                  >
                     <i class="bi bi-clock-history text-secondary"></i>
                     <span>Attendance Logs</span>
                   </a>
                 </li>
-                <li><hr class="dropdown-divider"></li>
+                <li><hr class="dropdown-divider" /></li>
                 <li>
-                  <a class="dropdown-item d-flex align-items-center gap-2" href="admin-leave.html">
+                  <a
+                    class="dropdown-item d-flex align-items-center gap-2"
+                    href="admin-leave.html"
+                  >
                     <i class="bi bi-calendar-check text-primary"></i>
                     <span>Leave Management (e-Leave)</span>
                   </a>
@@ -93,20 +112,53 @@
             </div>
           </div>
 
-          <!-- Active Admin Name & Logout Button -->
+          <!-- Active Admin Name, Profile & Logout Button -->
           <div class="d-flex align-items-center gap-3">
-            <span class="fw-bold text-dark d-none d-sm-inline" id="adminDisplayName" style="font-size: 0.95rem;">
-              Admin
-            </span>
-
-            <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0" title="Sign Out">
-              <div
-                class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
-                style="width: 38px; height: 38px; background-color: #e61e2b"
+            <a
+              href="admin-profile.html"
+              class="text-decoration-none d-none d-sm-inline"
+            >
+              <span
+                class="fw-bold text-dark"
+                id="adminDisplayName"
+                style="font-size: 0.95rem"
               >
-                <i class="bi bi-box-arrow-right fs-5"></i>
-              </div>
-            </button>
+                Admin
+              </span>
+            </a>
+
+            <div class="d-flex gap-2">
+              <a
+                href="admin-profile.html"
+                class="btn p-0 border-0"
+                title="My Profile"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="
+                    width: 38px;
+                    height: 38px;
+                    background-color: var(--tnb-blue);
+                  "
+                >
+                  <i class="bi bi-person-fill fs-5"></i>
+                </div>
+              </a>
+
+              <button
+                type="button"
+                onclick="logoutAdmin()"
+                class="btn p-0 border-0"
+                title="Sign Out"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="width: 38px; height: 38px; background-color: #e61e2b"
+                >
+                  <i class="bi bi-box-arrow-right fs-5"></i>
+                </div>
+              </button>
+            </div>
           </div>
 
           <button
@@ -124,7 +176,11 @@
     <div class="brand-accent-bar"></div>
 
     <!-- Mobile Offcanvas Menu -->
-    <div class="offcanvas offcanvas-end admin-drawer" tabindex="-1" id="adminDrawer">
+    <div
+      class="offcanvas offcanvas-end admin-drawer"
+      tabindex="-1"
+      id="adminDrawer"
+    >
       <div class="brand-accent-bar" style="height: 3px"></div>
       <div class="offcanvas-header border-bottom">
         <div class="d-flex align-items-center">
@@ -143,7 +199,9 @@
           aria-label="Close"
         ></button>
       </div>
-      <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
+      <div
+        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
+      >
         <ul class="admin-drawer-nav">
           <li>
             <a class="admin-drawer-link" href="admin-inquiries.html">
@@ -152,7 +210,10 @@
             </a>
           </li>
           <li class="pt-3 pb-1 border-top mt-2">
-            <span class="text-uppercase text-muted fw-bold ps-2" style="font-size: 0.7rem; letter-spacing: 1px">
+            <span
+              class="text-uppercase text-muted fw-bold ps-2"
+              style="font-size: 0.7rem; letter-spacing: 1px"
+            >
               e-Attendance
             </span>
           </li>
@@ -182,7 +243,18 @@
           </li>
         </ul>
         <div class="pt-3 border-top">
-          <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start">
+          <a
+            href="admin-profile.html"
+            class="admin-drawer-link text-dark d-block mb-3 text-decoration-none"
+          >
+            <i class="bi bi-person-fill text-primary me-2 fs-5"></i>
+            <span>My Profile</span>
+          </a>
+          <button
+            type="button"
+            onclick="logoutAdmin()"
+            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
+          >
             <i class="bi bi-box-arrow-right text-danger me-2"></i>
             <span>Sign Out</span>
           </button>
@@ -213,7 +285,11 @@
             onclick="refreshWithFeedback()"
             class="btn btn-kca-secondary d-inline-flex align-items-center gap-2 px-3 py-2 rounded-pill"
           >
-            <i class="bi bi-arrow-clockwise" id="refreshIcon" style="font-size: 1rem;"></i>
+            <i
+              class="bi bi-arrow-clockwise"
+              id="refreshIcon"
+              style="font-size: 1rem"
+            ></i>
             <span>Refresh</span>
           </button>
         </div>
@@ -233,7 +309,9 @@
         </h4>
 
         <!-- Toolbar -->
-        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div
+          class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"
+        >
           <div class="d-flex flex-wrap align-items-center gap-2">
             <button
               type="button"
@@ -270,7 +348,9 @@
                 class="form-control form-control-sm border rounded-2 ps-4"
                 placeholder="Search staff, ID, project..."
               />
-              <i class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"></i>
+              <i
+                class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+              ></i>
             </div>
           </div>
         </div>
@@ -291,7 +371,10 @@
             <tbody class="dispatch-table-body" id="otDesktopTableBody">
               <tr>
                 <td colspan="6" class="text-center py-4 text-muted small">
-                  <div class="spinner-border spinner-border-sm me-2 text-primary"></div> Querying MySQL database...
+                  <div
+                    class="spinner-border spinner-border-sm me-2 text-primary"
+                  ></div>
+                  Querying MySQL database...
                 </td>
               </tr>
             </tbody>
@@ -300,7 +383,9 @@
 
         <!-- MOBILE VIEW: Stacked Cards -->
         <div class="d-block d-md-none" id="otMobileCardsContainer">
-          <div class="text-center py-4 text-muted small">Loading records...</div>
+          <div class="text-center py-4 text-muted small">
+            Loading records...
+          </div>
         </div>
 
         <!-- Red Circle Button (Opens Modal with All Rows in Active Filter) -->
@@ -320,28 +405,51 @@
       <div class="modal-dialog modal-dialog-centered" style="max-width: 460px">
         <div class="modal-content rounded-4 border-0 shadow-lg p-3">
           <div class="modal-header border-0 pb-0">
-            <h5 class="modal-title fw-bold text-tnb-red" style="font-family: var(--font-headings); font-size: 1.15rem;">
+            <h5
+              class="modal-title fw-bold text-tnb-red"
+              style="font-family: var(--font-headings); font-size: 1.15rem"
+            >
               SUBMIT ADMIN OVERTIME
             </h5>
-            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body py-3">
             <form id="adminOtForm" onsubmit="handleAdminOtSubmit(event)">
               <!-- Admin Name & ID Badge (Matches Staff Attendance Modal) -->
               <div class="mb-3">
-                <span class="d-block small text-dark fw-bold">Admin Name & ID</span>
-                <span class="text-secondary small fw-semibold" id="adminModalUserDisplay">Loading...</span>
+                <span class="d-block small text-dark fw-bold"
+                  >Admin Name & ID</span
+                >
+                <span
+                  class="text-secondary small fw-semibold"
+                  id="adminModalUserDisplay"
+                  >Loading...</span
+                >
               </div>
 
               <!-- Claim Date Input -->
               <div class="mb-3">
-                <label class="form-label small fw-bold text-dark mb-1">Claim Date *</label>
-                <input type="date" id="adminOtDate" class="form-control rounded-2 border shadow-none small" required />
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >Claim Date *</label
+                >
+                <input
+                  type="date"
+                  id="adminOtDate"
+                  class="form-control rounded-2 border shadow-none small"
+                  required
+                />
               </div>
 
               <!-- OT Hours Claimed with Quick Preset Buttons -->
               <div class="mb-3">
-                <label class="form-label small fw-bold text-dark mb-1">OT Hours Claimed *</label>
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >OT Hours Claimed *</label
+                >
                 <input
                   type="number"
                   step="0.5"
@@ -355,16 +463,32 @@
 
                 <!-- Quick Preset Click Buttons (Same as Staff Modal) -->
                 <div class="d-flex gap-2">
-                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(1)">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light border py-0 px-2 small"
+                    onclick="setAdminPresetHours(1)"
+                  >
                     +1h
                   </button>
-                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(2)">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light border py-0 px-2 small"
+                    onclick="setAdminPresetHours(2)"
+                  >
                     +2h
                   </button>
-                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(3)">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light border py-0 px-2 small"
+                    onclick="setAdminPresetHours(3)"
+                  >
                     +3h
                   </button>
-                  <button type="button" class="btn btn-sm btn-light border py-0 px-2 small" onclick="setAdminPresetHours(4)">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light border py-0 px-2 small"
+                    onclick="setAdminPresetHours(4)"
+                  >
                     +4h
                   </button>
                 </div>
@@ -372,21 +496,49 @@
 
               <!-- Project Scope -->
               <div class="mb-3">
-                <label class="form-label small fw-bold text-dark mb-1">Project / Operation Scope</label>
-                <input type="text" id="adminOtProject" class="form-control rounded-2 border shadow-none small" value="Admin & Management Operations" required />
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >Project / Operation Scope</label
+                >
+                <input
+                  type="text"
+                  id="adminOtProject"
+                  class="form-control rounded-2 border shadow-none small"
+                  value="Admin & Management Operations"
+                  required
+                />
               </div>
 
               <!-- Duty Reason / Description -->
               <div class="mb-4">
-                <label class="form-label small fw-bold text-dark mb-1">Duty Reason / Description *</label>
-                <textarea id="adminOtReason" class="form-control rounded-2 border shadow-none small" rows="3" placeholder="State work reason (e.g. Urgent payroll review, tender preparation)..." required></textarea>
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >Duty Reason / Description *</label
+                >
+                <textarea
+                  id="adminOtReason"
+                  class="form-control rounded-2 border shadow-none small"
+                  rows="3"
+                  placeholder="State work reason (e.g. Urgent payroll review, tender preparation)..."
+                  required
+                ></textarea>
               </div>
 
               <div class="d-flex gap-2 justify-content-end">
-                <button type="button" class="btn btn-outline-secondary px-3 rounded-2 fw-semibold" data-bs-dismiss="modal">
+                <button
+                  type="button"
+                  class="btn btn-outline-secondary px-3 rounded-2 fw-semibold"
+                  data-bs-dismiss="modal"
+                >
                   CANCEL
                 </button>
-                <button type="submit" id="btnSubmitAdminOt" class="btn btn-primary px-3 rounded-2 fw-bold" style="background-color: var(--tnb-blue); border-color: var(--tnb-blue);">
+                <button
+                  type="submit"
+                  id="btnSubmitAdminOt"
+                  class="btn btn-primary px-3 rounded-2 fw-bold"
+                  style="
+                    background-color: var(--tnb-blue);
+                    border-color: var(--tnb-blue);
+                  "
+                >
                   SUBMIT OT
                 </button>
               </div>
@@ -431,8 +583,12 @@
               <input type="hidden" id="adjustClaimId" />
 
               <div class="mb-2">
-                <span class="d-block small text-muted fw-bold">Staff Name & ID</span>
-                <span class="fw-bold text-dark fs-6" id="adjustStaffDisplay">Staff Name</span>
+                <span class="d-block small text-muted fw-bold"
+                  >Staff Name & ID</span
+                >
+                <span class="fw-bold text-dark fs-6" id="adjustStaffDisplay"
+                  >Staff Name</span
+                >
               </div>
 
               <!-- Verification Summary Banner -->
@@ -457,7 +613,9 @@
 
               <div class="row g-2 mb-3">
                 <div class="col-6">
-                  <label class="form-label small fw-bold text-dark mb-1">Requested Hours</label>
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Requested Hours</label
+                  >
                   <input
                     type="text"
                     id="adjustRequestedHours"
@@ -466,7 +624,9 @@
                   />
                 </div>
                 <div class="col-6">
-                  <label class="form-label small fw-bold text-dark mb-1">Approved Hours<span class="text-danger">*</span></label>
+                  <label class="form-label small fw-bold text-dark mb-1"
+                    >Approved Hours<span class="text-danger">*</span></label
+                  >
                   <input
                     type="number"
                     step="0.1"
@@ -480,7 +640,9 @@
               </div>
 
               <div class="mb-4">
-                <label class="form-label small fw-bold text-dark mb-1">Reviewing Admin Audit Note</label>
+                <label class="form-label small fw-bold text-dark mb-1"
+                  >Reviewing Admin Audit Note</label
+                >
                 <textarea
                   id="adjustAuditNote"
                   class="form-control rounded-2 border shadow-none small"
@@ -547,7 +709,8 @@
               id="rejectModalMessage"
               style="line-height: 1.5"
             >
-              Are you sure you want to reject this claim? Hours will be set to zero.
+              Are you sure you want to reject this claim? Hours will be set to
+              zero.
             </p>
             <div class="d-flex gap-2 justify-content-center">
               <button
@@ -597,8 +760,13 @@
           </div>
 
           <div class="modal-body py-3">
-            <div class="table-responsive" style="max-height: 520px; overflow-y: auto">
-              <table class="table table-bordered table-hover align-middle text-start mb-0 small">
+            <div
+              class="table-responsive"
+              style="max-height: 520px; overflow-y: auto"
+            >
+              <table
+                class="table table-bordered table-hover align-middle text-start mb-0 small"
+              >
                 <thead class="dispatch-table-head sticky-top text-center">
                   <tr>
                     <th class="text-start ps-3">Staff Details</th>
@@ -631,21 +799,51 @@
       <div class="modal-dialog modal-dialog-centered" style="max-width: 420px">
         <div class="modal-content rounded-4 border-0 shadow-lg p-3 text-center">
           <div class="modal-header border-0 pb-0 justify-content-end">
-            <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button
+              type="button"
+              class="btn-close shadow-none"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
           <div class="modal-body py-2 px-3">
             <div class="mb-3">
-              <div class="rounded-circle d-inline-flex align-items-center justify-content-center text-white shadow-sm" style="width: 58px; height: 58px; background-color: #e61e2b">
+              <div
+                class="rounded-circle d-inline-flex align-items-center justify-content-center text-white shadow-sm"
+                style="width: 58px; height: 58px; background-color: #e61e2b"
+              >
                 <i class="bi bi-trash3-fill fs-3"></i>
               </div>
             </div>
-            <h5 class="fw-bold mb-2 text-dark" style="font-family: var(--font-headings)">Delete Overtime Claim?</h5>
-            <p class="text-secondary small mb-4" id="deleteOtMessage" style="line-height: 1.5">
+            <h5
+              class="fw-bold mb-2 text-dark"
+              style="font-family: var(--font-headings)"
+            >
+              Delete Overtime Claim?
+            </h5>
+            <p
+              class="text-secondary small mb-4"
+              id="deleteOtMessage"
+              style="line-height: 1.5"
+            >
               Are you sure you want to delete this overtime claim?
             </p>
             <div class="d-flex gap-2 justify-content-center">
-              <button type="button" class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold flex-fill" data-bs-dismiss="modal">CANCEL</button>
-              <button type="button" class="btn btn-danger px-3 py-2 rounded-2 fw-bold flex-fill" id="btnConfirmDeleteOt" style="background-color: #e61e2b">DELETE</button>
+              <button
+                type="button"
+                class="btn btn-outline-secondary px-3 py-2 rounded-2 fw-semibold flex-fill"
+                data-bs-dismiss="modal"
+              >
+                CANCEL
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger px-3 py-2 rounded-2 fw-bold flex-fill"
+                id="btnConfirmDeleteOt"
+                style="background-color: #e61e2b"
+              >
+                DELETE
+              </button>
             </div>
           </div>
         </div>
@@ -722,7 +920,8 @@
         // Display current active admin name
         const adminNameEl = document.getElementById("adminDisplayName");
         if (adminNameEl) {
-          const badgeLabel = user.role === "super_admin" ? "Super Admin" : (user.id || "Admin");
+          const badgeLabel =
+            user.role === "super_admin" ? "Super Admin" : user.id || "Admin";
           adminNameEl.innerText = `${user.name} (${badgeLabel})`;
         }
 
@@ -746,10 +945,14 @@
         const desktopTbody = document.getElementById("otDesktopTableBody");
         desktopTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-muted small"><div class="spinner-border spinner-border-sm me-2 text-primary"></div> Querying MySQL database...</td></tr>`;
 
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const adminId = currentUser.id || "ADMIN";
 
-        fetch(`../php/attendance.php?action=admin_get_ot&staff_id=${encodeURIComponent(adminId)}`)
+        fetch(
+          `../php/attendance.php?action=admin_get_ot&staff_id=${encodeURIComponent(adminId)}`,
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.success && data.claims) {
@@ -767,8 +970,13 @@
 
       function renderOTQueue() {
         const desktopTbody = document.getElementById("otDesktopTableBody");
-        const mobileContainer = document.getElementById("otMobileCardsContainer");
-        const searchQuery = document.getElementById("otSearchInput").value.toLowerCase().trim();
+        const mobileContainer = document.getElementById(
+          "otMobileCardsContainer",
+        );
+        const searchQuery = document
+          .getElementById("otSearchInput")
+          .value.toLowerCase()
+          .trim();
 
         desktopTbody.innerHTML = "";
         mobileContainer.innerHTML = "";
@@ -791,7 +999,8 @@
           if (item.status !== currentQueueFilter) return false;
 
           if (searchQuery) {
-            const matchText = `${item.staff_id} ${item.staff_name || ''} ${item.project_name || ''} ${item.reason || ''} ${item.reviewer_name || ''} ${item.reviewed_by || ''}`.toLowerCase();
+            const matchText =
+              `${item.staff_id} ${item.staff_name || ""} ${item.project_name || ""} ${item.reason || ""} ${item.reviewer_name || ""} ${item.reviewed_by || ""}`.toLowerCase();
             if (!matchText.includes(searchQuery)) return false;
           }
           return true;
@@ -819,12 +1028,16 @@
 
       function buildTableRowHtml(item) {
         const [y, m, d] = (item.claim_date || "").split("-");
-        const formattedDate = (d && m && y) ? `${d}/${m}/${y}` : item.claim_date;
+        const formattedDate = d && m && y ? `${d}/${m}/${y}` : item.claim_date;
 
-        const clockOut = item.clock_out_time ? item.clock_out_time.substring(0, 5) : "--:--";
+        const clockOut = item.clock_out_time
+          ? item.clock_out_time.substring(0, 5)
+          : "--:--";
         const loc = item.clock_out_location || item.att_location || "HQ";
 
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const isSuperAdmin = currentUser.role === "super_admin";
         const isClaimerAdmin = item.claimer_role === "admin";
 
@@ -859,20 +1072,24 @@
           }
         } else {
           const isApproved = item.status === "approved";
-          const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
-          const deleteBtn = canManage ? `
+          const reviewerLabel = item.reviewer_name
+            ? `${item.reviewer_name} (${item.reviewed_by})`
+            : item.reviewed_by || "Admin";
+          const deleteBtn = canManage
+            ? `
             <button type="button" onclick="openDeleteOtModal('${item.id}')" class="btn btn-sm btn-outline-danger py-0 px-2 rounded-2 mt-1" title="Delete Claim & Reset OT">
               <i class="bi bi-trash"></i> Delete
             </button>
-          ` : "";
+          `
+            : "";
 
           actionsHtml = `
             <div class="text-center">
-              <span class="badge ${isApproved ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'} border px-2 py-1 fw-bold">
-                <i class="bi ${isApproved ? 'bi-check-circle-fill' : 'bi-x-circle-fill'} me-1"></i>${isApproved ? `Approved (${item.ot_hours} hrs)` : 'Rejected (0.0 hrs)'}
+              <span class="badge ${isApproved ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"} border px-2 py-1 fw-bold">
+                <i class="bi ${isApproved ? "bi-check-circle-fill" : "bi-x-circle-fill"} me-1"></i>${isApproved ? `Approved (${item.ot_hours} hrs)` : "Rejected (0.0 hrs)"}
               </span>
               <div class="mt-1" style="font-size: 0.72rem; line-height: 1.3;">
-                <strong class="text-dark d-block"><i class="bi ${isApproved ? 'bi-person-check-fill text-success' : 'bi-person-x-fill text-danger'}"></i> ${reviewerLabel}</strong>
+                <strong class="text-dark d-block"><i class="bi ${isApproved ? "bi-person-check-fill text-success" : "bi-person-x-fill text-danger"}"></i> ${reviewerLabel}</strong>
                 <span class="text-muted">${item.formatted_reviewed_at || "Recent"}</span>
               </div>
               ${deleteBtn}
@@ -898,8 +1115,8 @@
             <div class="small text-secondary" style="font-size: 0.75rem;">${loc}</div>
           </td>
           <td class="text-center">
-            <span class="badge ${item.status === 'approved' ? 'bg-success text-white' : (item.status === 'rejected' ? 'bg-danger text-white' : 'bg-warning text-dark')} px-2 py-1">
-              ${item.status === 'approved' ? item.ot_hours + ' hrs' : (item.status === 'rejected' ? '0.0 hrs' : item.ot_hours + ' hrs (Pending)')}
+            <span class="badge ${item.status === "approved" ? "bg-success text-white" : item.status === "rejected" ? "bg-danger text-white" : "bg-warning text-dark"} px-2 py-1">
+              ${item.status === "approved" ? item.ot_hours + " hrs" : item.status === "rejected" ? "0.0 hrs" : item.ot_hours + " hrs (Pending)"}
             </span>
           </td>
           <td class="text-center">${actionsHtml}</td>
@@ -908,15 +1125,19 @@
 
       function buildMobileCardHtml(item) {
         const [y, m, d] = (item.claim_date || "").split("-");
-        const formattedDate = (d && m && y) ? `${d}/${m}/${y}` : item.claim_date;
+        const formattedDate = d && m && y ? `${d}/${m}/${y}` : item.claim_date;
 
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const isSuperAdmin = currentUser.role === "super_admin";
         const isClaimerAdmin = item.claimer_role === "admin";
 
         let auditMobileBox = "";
         if (item.status !== "pending") {
-          const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
+          const reviewerLabel = item.reviewer_name
+            ? `${item.reviewer_name} (${item.reviewed_by})`
+            : item.reviewed_by || "Admin";
           auditMobileBox = `
             <div class="p-2 mb-2 bg-light rounded-2 border small" style="font-size: 0.75rem;">
               <div class="d-flex justify-content-between mb-1">
@@ -956,7 +1177,7 @@
 
         return `
           <div class="d-flex justify-content-between align-items-center mb-2">
-            <span class="badge ${item.status === 'approved' ? 'bg-success text-white' : (item.status === 'rejected' ? 'bg-danger text-white' : 'bg-warning text-dark')} px-2 py-1">
+            <span class="badge ${item.status === "approved" ? "bg-success text-white" : item.status === "rejected" ? "bg-danger text-white" : "bg-warning text-dark"} px-2 py-1">
               ${item.status.toUpperCase()}
             </span>
             <span class="badge bg-light text-secondary border">${item.project_name || "Operations"}</span>
@@ -975,14 +1196,21 @@
 
       function setQueueFilter(filterType) {
         currentQueueFilter = filterType;
-        document.getElementById("pillPending").className = "dispatch-pill-btn" + (filterType === "pending" ? " active-all" : "");
-        document.getElementById("pillApproved").className = "dispatch-pill-btn" + (filterType === "approved" ? " active-all" : "");
-        document.getElementById("pillRejected").className = "dispatch-pill-btn" + (filterType === "rejected" ? " active-all" : "");
+        document.getElementById("pillPending").className =
+          "dispatch-pill-btn" + (filterType === "pending" ? " active-all" : "");
+        document.getElementById("pillApproved").className =
+          "dispatch-pill-btn" +
+          (filterType === "approved" ? " active-all" : "");
+        document.getElementById("pillRejected").className =
+          "dispatch-pill-btn" +
+          (filterType === "rejected" ? " active-all" : "");
 
         const headerTitleEl = document.getElementById("otQueueHeaderTitle");
         if (headerTitleEl) {
-          if (filterType === "pending") headerTitleEl.innerText = "PENDING OT CLAIMS";
-          else if (filterType === "approved") headerTitleEl.innerText = "APPROVED OT CLAIMS";
+          if (filterType === "pending")
+            headerTitleEl.innerText = "PENDING OT CLAIMS";
+          else if (filterType === "approved")
+            headerTitleEl.innerText = "APPROVED OT CLAIMS";
           else headerTitleEl.innerText = "REJECTED OT CLAIMS";
         }
 
@@ -994,22 +1222,31 @@
       }
 
       function openAdjustModal(claimId) {
-        const claim = realClaimsData.find((c) => String(c.id) === String(claimId));
+        const claim = realClaimsData.find(
+          (c) => String(c.id) === String(claimId),
+        );
         if (!claim) return;
 
         document.getElementById("adjustClaimId").value = claim.id;
-        document.getElementById("adjustStaffDisplay").innerText = `${claim.staff_name || 'Staff'} (${claim.staff_id})`;
-        document.getElementById("adjustRequestedHours").value = `${claim.ot_hours} hrs`;
+        document.getElementById("adjustStaffDisplay").innerText =
+          `${claim.staff_name || "Staff"} (${claim.staff_id})`;
+        document.getElementById("adjustRequestedHours").value =
+          `${claim.ot_hours} hrs`;
         document.getElementById("adjustApprovedHours").value = claim.ot_hours;
 
-        const clockOut = claim.clock_out_time ? claim.clock_out_time.substring(0, 5) : "In Progress";
+        const clockOut = claim.clock_out_time
+          ? claim.clock_out_time.substring(0, 5)
+          : "In Progress";
         document.getElementById("adjustBannerDetails").innerHTML = `
           Punch Out: <strong>${clockOut}</strong> | Project: <strong>${claim.project_name || "General Operations"}</strong><br>
-          Reason: <em>"${claim.reason || 'N/A'}"</em>
+          Reason: <em>"${claim.reason || "N/A"}"</em>
         `;
-        document.getElementById("adjustAuditNote").value = "Verified on site and approved.";
+        document.getElementById("adjustAuditNote").value =
+          "Verified on site and approved.";
 
-        const fullModal = bootstrap.Modal.getInstance(document.getElementById("fullOtModal"));
+        const fullModal = bootstrap.Modal.getInstance(
+          document.getElementById("fullOtModal"),
+        );
         if (fullModal) fullModal.hide();
 
         new bootstrap.Modal(document.getElementById("adjustModal")).show();
@@ -1022,11 +1259,15 @@
         btnSubmit.innerHTML = `<span class="spinner-border spinner-border-sm me-1"></span> Saving...`;
 
         const claimId = document.getElementById("adjustClaimId").value;
-        const approvedHours = parseFloat(document.getElementById("adjustApprovedHours").value);
+        const approvedHours = parseFloat(
+          document.getElementById("adjustApprovedHours").value,
+        );
         const auditNote = document.getElementById("adjustAuditNote").value;
 
         // Active admin info from session
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const adminId = currentUser.id || "ADMIN";
 
         const formData = new FormData();
@@ -1046,25 +1287,41 @@
             btnSubmit.disabled = false;
             btnSubmit.innerText = "CONFIRM & APPROVE";
 
-            const adjustModal = bootstrap.Modal.getInstance(document.getElementById("adjustModal"));
+            const adjustModal = bootstrap.Modal.getInstance(
+              document.getElementById("adjustModal"),
+            );
             if (adjustModal) adjustModal.hide();
 
             if (data.success) {
-              showCustomPopup("success", "Overtime Approved!", `Approved <strong>${approvedHours} hrs</strong> by <strong>${currentUser.name || adminId}</strong>.`);
+              showCustomPopup(
+                "success",
+                "Overtime Approved!",
+                `Approved <strong>${approvedHours} hrs</strong> by <strong>${currentUser.name || adminId}</strong>.`,
+              );
               loadOtClaims(); // Reload from database
             } else {
-              showCustomPopup("info", "Notice", data.message || "Failed to update claim.");
+              showCustomPopup(
+                "info",
+                "Notice",
+                data.message || "Failed to update claim.",
+              );
             }
           })
           .catch(() => {
             btnSubmit.disabled = false;
             btnSubmit.innerText = "CONFIRM & APPROVE";
-            showCustomPopup("info", "Error", "Connection failed. Please try again.");
+            showCustomPopup(
+              "info",
+              "Error",
+              "Connection failed. Please try again.",
+            );
           });
       }
 
       function openRejectModal(claimId) {
-        const claim = realClaimsData.find((c) => String(c.id) === String(claimId));
+        const claim = realClaimsData.find(
+          (c) => String(c.id) === String(claimId),
+        );
         if (!claim) return;
 
         targetRejectClaimId = claimId;
@@ -1072,11 +1329,15 @@
           Are you sure you want to reject <strong>${claim.staff_name || claim.staff_id}</strong> claim?<br>Billable overtime hours will be recorded as 0.0 hrs in the database.
         `;
 
-        const fullModal = bootstrap.Modal.getInstance(document.getElementById("fullOtModal"));
+        const fullModal = bootstrap.Modal.getInstance(
+          document.getElementById("fullOtModal"),
+        );
         if (fullModal) fullModal.hide();
 
         document.getElementById("btnConfirmReject").onclick = () => {
-          const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const currentUser = JSON.parse(
+            sessionStorage.getItem("kca_user") || "{}",
+          );
           const adminId = currentUser.id || "ADMIN";
 
           const formData = new FormData();
@@ -1085,7 +1346,10 @@
           formData.append("claim_id", targetRejectClaimId);
           formData.append("status", "rejected");
           formData.append("approved_hours", 0);
-          formData.append("audit_note", "Rejected by administrator during review.");
+          formData.append(
+            "audit_note",
+            "Rejected by administrator during review.",
+          );
 
           fetch("../php/attendance.php?action=admin_review_ot", {
             method: "POST",
@@ -1093,14 +1357,24 @@
           })
             .then((res) => res.json())
             .then((data) => {
-              const rejectModal = bootstrap.Modal.getInstance(document.getElementById("rejectModal"));
+              const rejectModal = bootstrap.Modal.getInstance(
+                document.getElementById("rejectModal"),
+              );
               if (rejectModal) rejectModal.hide();
 
-              showCustomPopup("info", "Claim Rejected", `Claim marked as zero hours by <strong>${currentUser.name || adminId}</strong>.`);
+              showCustomPopup(
+                "info",
+                "Claim Rejected",
+                `Claim marked as zero hours by <strong>${currentUser.name || adminId}</strong>.`,
+              );
               loadOtClaims(); // Reload from database
             })
             .catch(() => {
-              showCustomPopup("info", "Error", "Failed to communicate with database.");
+              showCustomPopup(
+                "info",
+                "Error",
+                "Failed to communicate with database.",
+              );
             });
         };
 
@@ -1108,7 +1382,9 @@
       }
 
       function openDeleteOtModal(claimId) {
-        const claim = realClaimsData.find((c) => String(c.id) === String(claimId));
+        const claim = realClaimsData.find(
+          (c) => String(c.id) === String(claimId),
+        );
         if (!claim) return;
 
         document.getElementById("deleteOtMessage").innerHTML = `
@@ -1121,7 +1397,9 @@
           btnConfirm.disabled = true;
           btnConfirm.innerText = "DELETING...";
 
-          const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+          const currentUser = JSON.parse(
+            sessionStorage.getItem("kca_user") || "{}",
+          );
           const adminId = currentUser.id || "ADMIN";
 
           const formData = new FormData();
@@ -1131,21 +1409,27 @@
 
           fetch("../php/attendance.php?action=admin_delete_ot", {
             method: "POST",
-            body: formData
+            body: formData,
           })
             .then((res) => res.json())
             .then((data) => {
               btnConfirm.disabled = false;
               btnConfirm.innerText = "DELETE";
 
-              const delModal = bootstrap.Modal.getInstance(document.getElementById("deleteOtModal"));
+              const delModal = bootstrap.Modal.getInstance(
+                document.getElementById("deleteOtModal"),
+              );
               if (delModal) delModal.hide();
 
               if (data.success) {
                 showCustomPopup("success", "OT Claim Deleted", data.message);
                 loadOtClaims();
               } else {
-                showCustomPopup("info", "Notice", data.message || "Could not delete claim.");
+                showCustomPopup(
+                  "info",
+                  "Notice",
+                  data.message || "Could not delete claim.",
+                );
               }
             })
             .catch(() => {
@@ -1167,17 +1451,23 @@
 
         if (currentQueueFilter === "pending") {
           titleEl.innerText = "Pending Review Queue (Full Directory)";
-          subtitleEl.innerText = "All overtime claims awaiting administrative review in DB";
+          subtitleEl.innerText =
+            "All overtime claims awaiting administrative review in DB";
         } else if (currentQueueFilter === "approved") {
           titleEl.innerText = "Approved Overtime Archive";
-          subtitleEl.innerText = "All verified claims cleared for payroll in DB";
+          subtitleEl.innerText =
+            "All verified claims cleared for payroll in DB";
         } else {
           titleEl.innerText = "Rejected Overtime Archive";
           subtitleEl.innerText = "All rejected overtime claims in DB";
         }
 
-        const filtered = realClaimsData.filter((c) => c.status === currentQueueFilter);
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const filtered = realClaimsData.filter(
+          (c) => c.status === currentQueueFilter,
+        );
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const isSuperAdmin = currentUser.role === "super_admin";
 
         if (filtered.length === 0) {
@@ -1185,8 +1475,11 @@
         } else {
           filtered.forEach((item) => {
             const [y, m, d] = (item.claim_date || "").split("-");
-            const formattedDate = (d && m && y) ? `${d}/${m}/${y}` : item.claim_date;
-            const reviewerLabel = item.reviewer_name ? `${item.reviewer_name} (${item.reviewed_by})` : (item.reviewed_by || "Admin");
+            const formattedDate =
+              d && m && y ? `${d}/${m}/${y}` : item.claim_date;
+            const reviewerLabel = item.reviewer_name
+              ? `${item.reviewer_name} (${item.reviewed_by})`
+              : item.reviewed_by || "Admin";
 
             let auditCell = "";
             if (item.status === "pending") {
@@ -1198,7 +1491,7 @@
             } else {
               auditCell = `
                 <div>
-                  <span class="badge ${item.status === 'approved' ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'} border mb-1">
+                  <span class="badge ${item.status === "approved" ? "bg-success-subtle text-success" : "bg-danger-subtle text-danger"} border mb-1">
                     ${item.status.toUpperCase()}
                   </span>
                   <div class="text-muted" style="font-size: 0.72rem;">
@@ -1210,10 +1503,10 @@
 
             const tr = document.createElement("tr");
             tr.innerHTML = `
-              <td class="fw-bold ps-3">${item.staff_id} ${item.staff_name || ''}</td>
+              <td class="fw-bold ps-3">${item.staff_id} ${item.staff_name || ""}</td>
               <td>${formattedDate}</td>
-              <td>${item.ot_hours} hrs (${item.reason || 'N/A'})</td>
-              <td>${item.clock_out_time ? item.clock_out_time.substring(0, 5) : '--:--'}</td>
+              <td>${item.ot_hours} hrs (${item.reason || "N/A"})</td>
+              <td>${item.clock_out_time ? item.clock_out_time.substring(0, 5) : "--:--"}</td>
               <td class="fw-bold text-primary">${item.ot_hours} hrs</td>
               <td class="text-center">${auditCell}</td>
             `;
@@ -1230,10 +1523,12 @@
         const msgEl = document.getElementById("statusAlertMessage");
 
         if (type === "success") {
-          iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+          iconEl.innerHTML =
+            '<i class="bi bi-check-circle-fill text-success"></i>';
           titleEl.className = "fw-bold mb-2 text-success";
         } else {
-          iconEl.innerHTML = '<i class="bi bi-info-circle-fill text-primary"></i>';
+          iconEl.innerHTML =
+            '<i class="bi bi-info-circle-fill text-primary"></i>';
           titleEl.className = "fw-bold mb-2 text-primary";
         }
 
@@ -1243,11 +1538,20 @@
       }
 
       // Cleanup listeners for all modals to avoid backdrop freezes
-      ["adjustModal", "rejectModal", "fullOtModal", "statusAlertModal", "adminOtModal", "deleteOtModal"].forEach((modalId) => {
+      [
+        "adjustModal",
+        "rejectModal",
+        "fullOtModal",
+        "statusAlertModal",
+        "adminOtModal",
+        "deleteOtModal",
+      ].forEach((modalId) => {
         const el = document.getElementById(modalId);
         if (el) {
           el.addEventListener("hidden.bs.modal", function () {
-            document.querySelectorAll(".modal-backdrop").forEach((b) => b.remove());
+            document
+              .querySelectorAll(".modal-backdrop")
+              .forEach((b) => b.remove());
             document.body.classList.remove("modal-open");
             document.body.style.removeProperty("overflow");
             document.body.style.removeProperty("padding-right");
@@ -1269,23 +1573,29 @@
         document.getElementById("adminOtForm").reset();
 
         // 1. Populate current Admin name & ID from session (matches Staff modal)
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const userDisplay = document.getElementById("adminModalUserDisplay");
         if (userDisplay) {
-          userDisplay.innerText = `${currentUser.name || 'Admin'} (${currentUser.id || 'ADMIN'})`;
+          userDisplay.innerText = `${currentUser.name || "Admin"} (${currentUser.id || "ADMIN"})`;
         }
 
         // 2. Default to today's date and pre-fill 2.0 hours
-        document.getElementById("adminOtDate").value = new Date().toISOString().split("T")[0];
+        document.getElementById("adminOtDate").value = new Date()
+          .toISOString()
+          .split("T")[0];
         document.getElementById("adminOtHours").value = "2.0";
-        document.getElementById("adminOtProject").value = "Admin & Management Operations";
+        document.getElementById("adminOtProject").value =
+          "Admin & Management Operations";
 
         new bootstrap.Modal(document.getElementById("adminOtModal")).show();
       }
 
       // Preset click handler for quick hours
       function setAdminPresetHours(hours) {
-        document.getElementById("adminOtHours").value = parseFloat(hours).toFixed(1);
+        document.getElementById("adminOtHours").value =
+          parseFloat(hours).toFixed(1);
       }
 
       function handleAdminOtSubmit(e) {
@@ -1294,7 +1604,9 @@
         btn.disabled = true;
         btn.innerText = "SUBMITTING...";
 
-        const currentUser = JSON.parse(sessionStorage.getItem("kca_user") || "{}");
+        const currentUser = JSON.parse(
+          sessionStorage.getItem("kca_user") || "{}",
+        );
         const adminId = currentUser.id || "ADMIN";
         const claimDate = document.getElementById("adminOtDate").value;
         const otHours = document.getElementById("adminOtHours").value;
@@ -1302,7 +1614,9 @@
         const reason = document.getElementById("adminOtReason").value.trim();
 
         // Close modal first so alerts pop up without background lock (matches staff-attendance.html)
-        const modal = bootstrap.Modal.getInstance(document.getElementById("adminOtModal"));
+        const modal = bootstrap.Modal.getInstance(
+          document.getElementById("adminOtModal"),
+        );
         if (modal) modal.hide();
 
         const formData = new FormData();
@@ -1322,16 +1636,28 @@
             btn.innerText = "SUBMIT OT";
 
             if (data.success) {
-              showCustomPopup("success", "OT Claim Submitted", `Your claim for <strong>${otHours} hrs</strong> on <strong>${claimDate}</strong> has been submitted. It is routed to Super Admin for approval.`);
+              showCustomPopup(
+                "success",
+                "OT Claim Submitted",
+                `Your claim for <strong>${otHours} hrs</strong> on <strong>${claimDate}</strong> has been submitted. It is routed to Super Admin for approval.`,
+              );
               loadOtClaims();
             } else {
-              showCustomPopup("info", "Notice", data.message || "Failed to submit OT claim.");
+              showCustomPopup(
+                "info",
+                "Notice",
+                data.message || "Failed to submit OT claim.",
+              );
             }
           })
           .catch(() => {
             btn.disabled = false;
             btn.innerText = "SUBMIT OT";
-            showCustomPopup("info", "Error", "Failed to communicate with database.");
+            showCustomPopup(
+              "info",
+              "Error",
+              "Failed to communicate with database.",
+            );
           });
       }
     </script>
