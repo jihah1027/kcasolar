@@ -1674,3 +1674,21 @@ h6,
   background-color: var(--tnb-blue);
   color: #ffffff;
 }
+
+.badge-approved {
+  background-color: #d1fae5 !important; /* Soft green background */
+  color: #065f46 !important;            /* Dark green text */
+  font-weight: 600;
+}
+
+.badge-rejected {
+  background-color: #fee2e2 !important; /* Soft red background */
+  color: #991b1b !important;            /* Dark red text */
+  font-weight: 600;
+}
+
+.badge-pending {
+  background-color: #fef3c7 !important; /* Soft yellow background */
+  color: #92400e !important;            /* Dark amber text */
+  font-weight: 600;
+}

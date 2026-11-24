@@ -1,18 +1,13 @@
 <?php
-// php/login.php
-session_start();
-
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 
 require_once 'db.php';
 
+// Block GET requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode([
-        "success" => false, 
-        "message" => "Method not allowed. Please submit the login form."
-    ]);
+    echo json_encode(["success" => false, "message" => "Method not allowed."]);
     exit;
 }
 
@@ -26,10 +21,7 @@ if (empty($staff_id) || empty($password)) {
 }
 
 if (empty($staff_id) || empty($password)) {
-    echo json_encode([
-        "success" => false, 
-        "message" => "Please enter both Staff ID and Password."
-    ]);
+    echo json_encode(["success" => false, "message" => "Please enter both Staff ID and Password."]);
     exit;
 }
 
@@ -39,24 +31,17 @@ try {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if (!$user) {
-        echo json_encode([
-            "success" => false, 
-            "message" => "Account not found. Please check your Staff ID."
-        ]);
+        echo json_encode(["success" => false, "message" => "Account not found. Please check your Staff ID."]);
         exit;
     }
 
     if (isset($user['status']) && $user['status'] !== 'active') {
-        echo json_encode([
-            "success" => false, 
-            "message" => "This account is inactive. Please contact management."
-        ]);
+        echo json_encode(["success" => false, "message" => "This account is inactive. Please contact management."]);
         exit;
     }
 
-    // Verify Password & Auto-Migrate Plain Text to Bcrypt Hash
+    // Verify Password
     $isPasswordCorrect = false;
-
     if (password_verify($password, $user['password_hash'])) {
         $isPasswordCorrect = true;
     } elseif ($password === $user['password_hash']) {
@@ -67,18 +52,16 @@ try {
     }
 
     if (!$isPasswordCorrect) {
-        echo json_encode([
-            "success" => false, 
-            "message" => "Incorrect password. Please try again."
-        ]);
+        echo json_encode(["success" => false, "message" => "Incorrect password. Please try again."]);
         exit;
     }
 
-    $_SESSION['user_id']     = $user['id'];
-    $_SESSION['staff_id']    = $user['staff_id'];
-    $_SESSION['full_name']   = $user['full_name'];
-    $_SESSION['role']        = $user['role'];
-    $_SESSION['department']  = $user['department'] ?? '';
+    // Generate random token
+    $authToken = bin2hex(random_bytes(32));
+    
+    // Save the token in the db for user
+    $updateTokenStmt = $pdo->prepare("UPDATE users SET auth_token = ? WHERE id = ?");
+    $updateTokenStmt->execute([$authToken, $user['id']]);
 
     $redirectUrl = ($user['role'] === 'admin' || $user['role'] === 'super_admin') ? "admin-dashboard.html" : "staff-attendance.html";
 
@@ -86,6 +69,7 @@ try {
         "success" => true,
         "message" => "Login successful!",
         "redirect" => $redirectUrl,
+        "token" => $authToken, // Send the token to the frontend
         "user" => [
             "id"         => $user['staff_id'],
             "name"       => $user['full_name'],
@@ -98,9 +82,6 @@ try {
 
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode([
-        "success" => false, 
-        "message" => "Database connection error: " . $e->getMessage()
-    ]);
+    echo json_encode(["success" => false, "message" => "Database connection error: " . $e->getMessage()]);
 }
 ?>

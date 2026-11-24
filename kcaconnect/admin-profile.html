@@ -30,135 +30,56 @@
     <div class="brand-accent-bar"></div>
 
     <!-- Navigation Bar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top"
-    >
+    <nav class="navbar navbar-expand-lg navbar-light bg-white py-2 shadow-sm sticky-top">
       <div class="container-fluid px-lg-5">
-        <a
-          class="navbar-brand d-flex align-items-center p-0"
-          href="admin-dashboard.html"
-        >
-          <img
-            src="../img/KCAConnect.png"
-            alt="KCA Logo"
-            style="height: 48px"
-            class="me-2"
-            onerror="this.src = '../img/logo.png'"
-          />
+        <a class="navbar-brand d-flex align-items-center p-0" href="admin-dashboard.html">
+          <img src="../img/KCAConnect.png" alt="KCA Logo" style="height: 48px" class="me-2" onerror="this.src = '../img/logo.png'" />
         </a>
 
         <div class="d-flex align-items-center gap-4">
           <div class="d-none d-md-flex align-items-center gap-4">
-            <a
-              href="admin-inquiries.html"
-              class="nav-link fw-semibold text-secondary hover-blue"
-              style="font-family: var(--font-headings)"
-            >
+            <a href="admin-inquiries.html" class="nav-link fw-semibold text-secondary hover-blue" style="font-family: var(--font-headings)">
               Inquiries
             </a>
+            
+            <a href="admin-users.html" class="nav-link fw-semibold text-secondary hover-blue" style="font-family: var(--font-headings)">
+              User Management
+            </a>
+
             <div class="dropdown">
-              <a
-                class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-                style="font-family: var(--font-headings)"
-              >
+              <a class="nav-link fw-semibold text-secondary hover-blue dropdown-toggle d-flex align-items-center gap-1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: var(--font-headings)">
                 e-Attendance
               </a>
-              <ul
-                class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2"
-              >
-                <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2"
-                    href="admin-staff.html"
-                    ><i class="bi bi-geo-alt-fill text-secondary"></i
-                    ><span>Staff Off-Site Dispatch</span></a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2"
-                    href="admin-ot.html"
-                    ><i class="bi bi-check2-circle text-secondary"></i
-                    ><span>Overtime Approvals</span></a
-                  >
-                </li>
-                <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2"
-                    href="admin-attendance.html"
-                    ><i class="bi bi-clock-history text-secondary"></i
-                    ><span>Attendance Logs</span></a
-                  >
-                </li>
+              <ul class="dropdown-menu dropdown-menu-end admin-dropdown-menu mt-2">
+                <li><a class="dropdown-item d-flex align-items-center gap-2" href="admin-staff.html"><i class="bi bi-geo-alt-fill text-secondary"></i><span>Staff Off-Site Dispatch</span></a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2" href="admin-ot.html"><i class="bi bi-check2-circle text-secondary"></i><span>Overtime Approvals</span></a></li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2" href="admin-attendance.html"><i class="bi bi-clock-history text-secondary"></i><span>Attendance Logs</span></a></li>
                 <li><hr class="dropdown-divider" /></li>
-                <li>
-                  <a
-                    class="dropdown-item d-flex align-items-center gap-2"
-                    href="admin-leave.html"
-                    ><i class="bi bi-calendar-check text-secondary"></i
-                    ><span>Leave Management (e-Leave)</span></a
-                  >
-                </li>
+                <li><a class="dropdown-item d-flex align-items-center gap-2" href="admin-leave.html"><i class="bi bi-calendar-check text-secondary"></i><span>Leave Management (e-Leave)</span></a></li>
               </ul>
             </div>
           </div>
 
-          <!-- Active Admin Name, Profile & Logout -->
+          <!-- Admin Name, Profile & Logout -->
           <div class="d-flex align-items-center gap-3">
-            <a
-              href="admin-profile.html"
-              class="text-decoration-none d-none d-sm-inline"
-            >
-              <span
-                class="fw-bold text-dark"
-                id="adminDisplayName"
-                style="font-size: 0.95rem"
-                >Admin</span
-              >
+            <a href="admin-profile.html" class="text-decoration-none d-none d-sm-inline">
+              <span class="fw-bold text-dark" id="adminDisplayName" style="font-size: 0.95rem">Admin</span>
             </a>
             <div class="d-flex gap-2">
-              <a
-                href="admin-profile.html"
-                class="btn p-0 border-0"
-                title="My Profile"
-              >
-                <div
-                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
-                  style="
-                    width: 38px;
-                    height: 38px;
-                    background-color: var(--tnb-blue);
-                  "
-                >
+              <a href="admin-profile.html" class="btn p-0 border-0" title="My Profile">
+                <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: var(--tnb-blue);">
                   <i class="bi bi-person-fill fs-5"></i>
                 </div>
               </a>
-              <button
-                type="button"
-                onclick="logoutAdmin()"
-                class="btn p-0 border-0"
-                title="Sign Out"
-              >
-                <div
-                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
-                  style="width: 38px; height: 38px; background-color: #e61e2b"
-                >
+              <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0" title="Sign Out">
+                <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b">
                   <i class="bi bi-box-arrow-right fs-5"></i>
                 </div>
               </button>
             </div>
           </div>
 
-          <button
-            class="navbar-toggler border-0 shadow-none d-md-none"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#adminDrawer"
-          >
+          <button class="navbar-toggler border-0 shadow-none d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminDrawer">
             <span class="navbar-toggler-icon"></span>
           </button>
         </div>
@@ -168,82 +89,32 @@
     <div class="brand-accent-bar"></div>
 
     <!-- Mobile Offcanvas Menu -->
-    <div
-      class="offcanvas offcanvas-end admin-drawer"
-      tabindex="-1"
-      id="adminDrawer"
-    >
+    <div class="offcanvas offcanvas-end admin-drawer" tabindex="-1" id="adminDrawer">
       <div class="brand-accent-bar" style="height: 3px"></div>
       <div class="offcanvas-header border-bottom">
-        <img
-          src="../img/KCAConnect.png"
-          alt="KCA Logo"
-          style="height: 40px"
-          class="me-2"
-          onerror="this.src = '../img/logo.png'"
-        />
-        <button
-          type="button"
-          class="btn-close mb-auto mt-2 shadow-none"
-          data-bs-dismiss="offcanvas"
-        ></button>
+        <img src="../img/KCAConnect.png" alt="KCA Logo" style="height: 40px" class="me-2" onerror="this.src = '../img/logo.png'" />
+        <button type="button" class="btn-close mb-auto mt-2 shadow-none" data-bs-dismiss="offcanvas"></button>
       </div>
-      <div
-        class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between"
-      >
+      <div class="offcanvas-body px-3 py-3 d-flex flex-column justify-content-between">
         <ul class="admin-drawer-nav">
-          <li>
-            <a class="admin-drawer-link" href="admin-inquiries.html"
-              ><i class="bi bi-inbox-fill"></i><span>Inquiries</span></a
-            >
-          </li>
+          <li><a class="admin-drawer-link" href="admin-inquiries.html"><i class="bi bi-inbox-fill"></i><span>Inquiries</span></a></li>
+          
+          <li><a class="admin-drawer-link" href="admin-users.html"><i class="bi bi-people-fill"></i><span>User Management</span></a></li>
+          
           <li class="pt-3 pb-1 border-top mt-2">
-            <span
-              class="text-uppercase text-muted fw-bold ps-2"
-              style="font-size: 0.7rem; letter-spacing: 1px"
-              >e-Attendance</span
-            >
+            <span class="text-uppercase text-muted fw-bold ps-2" style="font-size: 0.7rem; letter-spacing: 1px">e-Attendance</span>
           </li>
-          <li>
-            <a class="admin-drawer-link" href="admin-staff.html"
-              ><i class="bi bi-geo-alt-fill"></i
-              ><span>Staff Off-Site Dispatch</span></a
-            >
-          </li>
-          <li>
-            <a class="admin-drawer-link" href="admin-ot.html"
-              ><i class="bi bi-check2-circle"></i
-              ><span>Overtime Approvals</span></a
-            >
-          </li>
-          <li>
-            <a class="admin-drawer-link" href="admin-attendance.html"
-              ><i class="bi bi-clock-history"></i
-              ><span>Attendance Logs</span></a
-            >
-          </li>
-          <li>
-            <a class="admin-drawer-link" href="admin-leave.html"
-              ><i class="bi bi-calendar-check"></i
-              ><span>Leave Management</span></a
-            >
-          </li>
+          <li><a class="admin-drawer-link" href="admin-staff.html"><i class="bi bi-geo-alt-fill"></i><span>Staff Off-Site Dispatch</span></a></li>
+          <li><a class="admin-drawer-link" href="admin-ot.html"><i class="bi bi-check2-circle"></i><span>Overtime Approvals</span></a></li>
+          <li><a class="admin-drawer-link" href="admin-attendance.html"><i class="bi bi-clock-history"></i><span>Attendance Logs</span></a></li>
+          <li><a class="admin-drawer-link" href="admin-leave.html"><i class="bi bi-calendar-check"></i><span>Leave Management</span></a></li>
         </ul>
         <div class="pt-3 border-top">
-          <a
-            href="admin-profile.html"
-            class="admin-drawer-link text-primary d-block mb-3 text-decoration-none"
-          >
-            <i class="bi bi-person-fill text-primary me-2 fs-5"></i
-            ><span>My Profile</span>
+          <a href="admin-profile.html" class="admin-drawer-link text-primary d-block mb-3 text-decoration-none">
+            <i class="bi bi-person-fill text-primary me-2 fs-5"></i><span>My Profile</span>
           </a>
-          <button
-            type="button"
-            onclick="logoutAdmin()"
-            class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start"
-          >
-            <i class="bi bi-box-arrow-right text-danger me-2 fs-5"></i
-            ><span>Sign Out</span>
+          <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0 admin-drawer-link text-danger w-100 text-start">
+            <i class="bi bi-box-arrow-right text-danger me-2 fs-5"></i><span>Sign Out</span>
           </button>
         </div>
       </div>
@@ -259,18 +130,17 @@
             class="fw-bold text-tnb-blue mb-1"
             style="font-family: var(--font-headings); font-size: 1.35rem"
           >
-            MY PROFILE (ADMINISTRATOR)
+            MY PROFILE
           </h4>
-          <p class="text-secondary small mb-0">
-            Manage your executive contact information and account security.
-          </p>
         </div>
       </div>
 
       <!-- Profile Form -->
-      <div class="row">
-        <div class="col-12 col-lg-9">
-          <div class="log-clean-card p-4 p-md-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+          <div class="card-frame-container">
+            <div class="card-offset-border frame-blue d-none d-lg-block"></div>
+            <div class="attendance-card p-4 p-md-5">
             <form id="profileForm">
               <!-- Employment Details -->
               <h5
@@ -448,10 +318,10 @@
 
     <script>
       window.addEventListener("DOMContentLoaded", () => {
-        const rawUser =
-          sessionStorage.getItem("kca_user") ||
-          localStorage.getItem("kca_user");
-        if (!rawUser) {
+        const rawUser = sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user");
+        const authToken = sessionStorage.getItem("kca_token");
+        
+        if (!rawUser || !authToken) {
           window.location.href = "login.html";
           return;
         }
@@ -463,25 +333,23 @@
           return;
         }
 
-        const badgeLabel =
-          user.role === "super_admin" ? "Super Admin" : user.id || "Admin";
-        document.getElementById("adminDisplayName").innerText =
-          `${user.name} (${badgeLabel})`;
+        const badgeLabel = user.role === "super_admin" ? "Super Admin" : user.id || "Admin";
+        document.getElementById("adminDisplayName").innerText = `${user.name} (${badgeLabel})`;
 
-        // Fetch Profile Data
-        fetch("php/get_profile.php")
+        // Fetch Profile Data using the Auth Token
+        fetch("../php/get_profile.php", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${authToken}`
+          }
+        })
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
               document.getElementById("staff_id").value = data.user.staff_id;
               document.getElementById("full_name").value = data.user.full_name;
-              document.getElementById("department").value =
-                data.user.department;
-              document.getElementById("role").value = data.user.role.replace(
-                "_",
-                " ",
-              );
-
+              document.getElementById("department").value = data.user.department;
+              document.getElementById("role").value = data.user.role.replace("_", " ");
               document.getElementById("email").value = data.user.email;
               document.getElementById("phone").value = data.user.phone;
             } else {
@@ -489,18 +357,12 @@
             }
           })
           .catch((error) =>
-            showCustomPopup(
-              "blocked",
-              "System Error",
-              "Unable to connect to the server.",
-            ),
+            showCustomPopup("blocked", "System Error", "Unable to connect to the server."),
           );
       });
 
       // Form Submission
-      document
-        .getElementById("profileForm")
-        .addEventListener("submit", function (e) {
+      document.getElementById("profileForm").addEventListener("submit", function (e) {
           e.preventDefault();
 
           const btn = document.getElementById("btnSubmitProfile");
@@ -509,9 +371,13 @@
           btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>SAVING...`;
 
           let formData = new FormData(this);
+          const authToken = sessionStorage.getItem("kca_token");
 
-          fetch("php/update_profile.php", {
+          fetch("../php/update_profile.php", {
             method: "POST",
+            headers: {
+              "Authorization": `Bearer ${authToken}`
+            },
             body: formData,
           })
             .then((response) => response.json())
@@ -522,28 +388,19 @@
 
                 // Update local session so the top-right name changes instantly without needing a logout
                 let currentUser = JSON.parse(
-                  sessionStorage.getItem("kca_user") ||
-                    localStorage.getItem("kca_user"),
+                  sessionStorage.getItem("kca_user") || localStorage.getItem("kca_user"),
                 );
                 currentUser.name = document.getElementById("full_name").value;
                 sessionStorage.setItem("kca_user", JSON.stringify(currentUser));
 
-                const badgeLabel =
-                  currentUser.role === "super_admin"
-                    ? "Super Admin"
-                    : currentUser.id || "Admin";
-                document.getElementById("adminDisplayName").innerText =
-                  `${currentUser.name} (${badgeLabel})`;
+                const badgeLabel = currentUser.role === "super_admin" ? "Super Admin" : currentUser.id || "Admin";
+                document.getElementById("adminDisplayName").innerText = `${currentUser.name} (${badgeLabel})`;
               } else {
                 showCustomPopup("blocked", "Update Failed", data.message);
               }
             })
             .catch((error) =>
-              showCustomPopup(
-                "blocked",
-                "System Error",
-                "Unable to save profile data.",
-              ),
+              showCustomPopup("blocked", "System Error", "Unable to save profile data."),
             )
             .finally(() => {
               btn.disabled = false;
@@ -559,8 +416,7 @@
         const btnEl = document.getElementById("modalAlertBtn");
 
         if (type === "success") {
-          iconEl.innerHTML =
-            '<i class="bi bi-check-circle-fill text-success"></i>';
+          iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
           titleEl.className = "fw-bold mb-2 text-success";
           btnEl.style.backgroundColor = "#0563c1";
         } else {
@@ -575,9 +431,17 @@
       }
 
       function logoutAdmin() {
-        sessionStorage.clear();
-        localStorage.removeItem("kca_user");
-        window.location.href = "login.html";
+        const authToken = sessionStorage.getItem("kca_token");
+        fetch("../php/logout.php", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${authToken}`
+          }
+        }).then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
     </script>
   </body>

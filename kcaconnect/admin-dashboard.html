@@ -59,6 +59,14 @@
               Inquiries
             </a>
 
+            <a
+              href="admin-users.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              User Management
+            </a>
+
             <!-- e-Attendance Dropdown Menu -->
             <div class="dropdown">
               <a
@@ -214,6 +222,14 @@
               <span>Inquiries</span>
             </a>
           </li>
+
+          <li>
+            <a class="admin-drawer-link" href="admin-users.html">
+              <i class="bi bi-people-fill"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+
           <li class="pt-3 pb-1 border-top mt-2">
             <span
               class="text-uppercase text-muted fw-bold ps-2"
@@ -332,7 +348,7 @@
           </a>
         </div>
 
-        <!-- Card 3: Staff On Leave Today (NEW) -->
+        <!-- Card 3: Staff On Leave Today -->
         <div class="col-4 col-lg">
           <a href="admin-leave.html" class="metric-hero-card">
             <div>
@@ -512,6 +528,12 @@
 
     <!-- Client-Side Engine -->
     <script>
+      // Helper for Token Authorization Headers
+      function getAuthHeaders() {
+        const token = sessionStorage.getItem("kca_token");
+        return token ? { Authorization: `Bearer ${token}` } : {};
+      }
+
       window.addEventListener("DOMContentLoaded", () => {
         const rawUser =
           sessionStorage.getItem("kca_user") ||
@@ -553,9 +575,15 @@
       });
 
       function logoutAdmin() {
-        sessionStorage.clear();
-        localStorage.removeItem("kca_user");
-        window.location.href = "login.html";
+        const token = sessionStorage.getItem("kca_token");
+        fetch("../php/logout.php", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` }
+        }).then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
 
       function loadDashboardData() {
@@ -565,7 +593,10 @@
 
       // Live Attendance & Leave
       function loadOperationalPulse() {
-        fetch("../php/leave.php?action=get_today_roster")
+        fetch("../php/leave.php?action=get_today_roster", {
+          headers: getAuthHeaders(),
+          cache: "no-store"
+        })
           .then((res) => res.json())
           .then((data) => {
             if (!data.success) return;
@@ -664,7 +695,10 @@
       // 2. Staff On-Site, Pending Overtime, and Inquiries
       function loadSecondaryMetrics() {
         // Staff Dispatch Active Off-site
-        fetch("../php/attendance.php?action=admin_get_dispatch&staff_id=ADMIN")
+        fetch("../php/attendance.php?action=admin_get_dispatch&staff_id=ADMIN", {
+          headers: getAuthHeaders(),
+          cache: "no-store"
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.success && data.staff) {
@@ -678,7 +712,10 @@
           .catch(() => {});
 
         // Pending Overtime Claims
-        fetch("../php/attendance.php?action=admin_get_ot&staff_id=ADMIN")
+        fetch("../php/attendance.php?action=admin_get_ot&staff_id=ADMIN", {
+          headers: getAuthHeaders(),
+          cache: "no-store"
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.success && data.claims) {
@@ -692,7 +729,10 @@
           .catch(() => {});
 
         // Recent Website Inquiries
-        fetch("../php/inquiries.php?action=get_inquiries")
+        fetch("../php/inquiries.php?action=get_inquiries", {
+          headers: getAuthHeaders(),
+          cache: "no-store"
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data.success && data.inquiries) {
@@ -727,7 +767,7 @@
                       '<span class="badge bg-light text-muted border">Resolved</span>';
 
                   return `
-                                <a href="admin-inquiries.html" class="feed-item-row">
+                                <a href="admin-inquiries.html" class="feed-item-row text-decoration-none">
                                     <div class="d-flex align-items-center gap-3">
                                         <div class="feed-item-avatar text-secondary">
                                             <i class="bi bi-person-fill"></i>

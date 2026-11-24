@@ -1,14 +1,40 @@
 <?php
-session_start();
 date_default_timezone_set('Asia/Kuala_Lumpur');
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: GET, POST");
+header("Access-Control-Allow-Headers: Authorization");
 
 require_once 'db.php';
 
-$action = $_GET['action'] ?? $_POST['action'] ?? '';
+// Extract Token from Headers (Bulletproof fallback for cPanel/Nginx/Apache)
+$headers = function_exists('getallheaders') ? getallheaders() : [];
+$authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
+$token = '';
+
+if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    $token = $matches[1];
+}
+
+// Reject if no token is found
+if (!$token) {
+    echo json_encode(["success" => false, "message" => "Unauthorized access. Missing authentication token."]);
+    exit;
+}
 
 try {
-    // 1. Fetch all inquiries from database
+    // Verify Token & Admin Privileges
+    $stmt = $pdo->prepare("SELECT role FROM users WHERE auth_token = ? LIMIT 1");
+    $stmt->execute([$token]);
+    $activeUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$activeUser || ($activeUser['role'] !== 'admin' && $activeUser['role'] !== 'super_admin')) {
+        echo json_encode(["success" => false, "message" => "Access denied. Administrative privileges required."]);
+        exit;
+    }
+
+    $action = $_GET['action'] ?? $_POST['action'] ?? '';
+
+    // Fetch all inquiries from database
     if ($action === 'get_inquiries') {
         $stmt = $pdo->prepare("
             SELECT 
@@ -38,7 +64,7 @@ try {
         exit;
     }
 
-    // 2. Update inquiry status
+    // Update inquiry status
     if ($action === 'update_status') {
         $id = intval($_POST['id'] ?? 0);
         $status = trim($_POST['status'] ?? '');
@@ -59,7 +85,7 @@ try {
         exit;
     }
 
-    // 3. Smart Delete Inquiry (Removes record + cleans up attached file)
+    // Smart Delete Inquiry (Removes record + cleans up attached file)
     if ($action === 'delete_inquiry') {
         $id = intval($_POST['id'] ?? 0);
         if (!$id) {

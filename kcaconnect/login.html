@@ -251,10 +251,11 @@
             .then((response) => response.json())
             .then((data) => {
               if (data.success) {
-                // Store logged-in user profile in session storage
+                // Store logged-in user profile AND the secure token in session storage
                 sessionStorage.setItem("kca_user", JSON.stringify(data.user));
+                sessionStorage.setItem("kca_token", data.token);
 
-                // Redirect to destination (both admin-dashboard.html and staff-attendance.html are in this same folder)
+                // Redirect to destination
                 window.location.href = data.redirect;
               } else {
                 loginAlert.innerText =

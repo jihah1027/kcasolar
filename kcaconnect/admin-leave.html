@@ -58,6 +58,14 @@
               Inquiries
             </a>
 
+            <a
+              href="admin-users.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              User Management
+            </a>
+
             <!-- e-Attendance Dropdown -->
             <div class="dropdown">
               <a
@@ -213,6 +221,14 @@
               <span>Inquiries</span>
             </a>
           </li>
+
+          <li>
+            <a class="admin-drawer-link" href="admin-users.html">
+              <i class="bi bi-people-fill"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+
           <li class="pt-3 pb-1 border-top mt-2">
             <span
               class="text-uppercase text-muted fw-bold ps-2"
@@ -512,36 +528,55 @@
         </div>
       </div>
 
-      <!-- SECTION 2: STAFF QUOTA SETTINGS -->
+      <!-- SECTION 2: STAFF LEAVE DIRECTORY & QUOTAS -->
       <div class="card-frame-container mb-4">
         <div class="card-offset-border frame-orange d-none d-lg-block"></div>
         <div class="attendance-card">
           <div
-            class="d-flex flex-wrap justify-content-between align-items-center mb-3 border-bottom pb-2"
+            class="d-flex flex-wrap justify-content-between align-items-end mb-3 border-bottom pb-3"
           >
             <div>
               <h4
-                class="fw-bold text-tnb-red mb-0"
+                class="fw-bold text-tnb-red mb-3"
                 style="font-family: var(--font-headings); font-size: 1.25rem"
               >
-                YEARLY QUOTA ENTITLEMENTS (<span id="quotaYearBadge">2026</span
-                >)
+                STAFF LEAVE DIRECTORY (<span id="quotaYearBadge">2026</span>)
               </h4>
-              <span class="text-muted small">
-                Adjust individual ceilings for promotions (naik pangkat).
-                Ceilings rollover automatically into every future year.
-              </span>
+
+              <!-- Tab Toggle Buttons -->
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <button
+                  type="button"
+                  id="pillViewBalances"
+                  onclick="setDirectoryFilter('balances')"
+                  class="dispatch-pill-btn active-all"
+                >
+                  <i class="bi bi-pie-chart-fill me-1"></i> Current Balances
+                </button>
+                <button
+                  type="button"
+                  id="pillViewQuotas"
+                  onclick="setDirectoryFilter('quotas')"
+                  class="dispatch-pill-btn"
+                >
+                  <i class="bi bi-gear-fill me-1"></i> Yearly Quotas (Settings)
+                </button>
+              </div>
             </div>
 
-            <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
-              <input
-                type="text"
-                id="quotaSearchInput"
-                onkeyup="renderQuotaTable()"
-                class="form-control form-control-sm border rounded-2 ps-3"
-                placeholder="Search employee name or ID..."
-                style="width: 240px"
-              />
+            <div class="d-flex align-items-center gap-2 mt-3 mt-md-0">
+              <div class="position-relative" style="width: 250px">
+                <input
+                  type="text"
+                  id="quotaSearchInput"
+                  onkeyup="renderQuotaTable()"
+                  class="form-control form-control-sm border rounded-2 ps-4"
+                  placeholder="Search staff name or ID..."
+                />
+                <i
+                  class="bi bi-search position-absolute start-0 top-50 translate-middle-y ps-2 text-muted small"
+                ></i>
+              </div>
             </div>
           </div>
 
@@ -549,21 +584,13 @@
             <table
               class="table table-bordered table-hover align-middle text-center mb-0 small"
             >
-              <thead class="table-attendance-header">
-                <tr>
-                  <th class="text-start ps-3">Staff ID</th>
-                  <th>Employee Name</th>
-                  <th>Department & Role</th>
-                  <th>Annual (AL)</th>
-                  <th>Medical (MC)</th>
-                  <th>Emergency (EL)</th>
-                  <th class="text-center">Action</th>
-                </tr>
+              <thead class="table-attendance-header" id="quotaTableHeader">
+                <!-- Dynamically injected via JS based on active tab -->
               </thead>
               <tbody class="table-attendance-body" id="quotaTableBody">
                 <tr>
                   <td colspan="7" class="text-center py-4 text-muted">
-                    Loading employee quotas...
+                    Loading employee data...
                   </td>
                 </tr>
               </tbody>
@@ -1275,8 +1302,15 @@
       let realApplications = [];
       let masterRoster = [];
       let currentQueueFilter = "pending";
+      let currentDirectoryView = "balances";
       let activeYear = 2026;
       let activeAdmin = null;
+
+      // Helper for Token Authorization Headers
+      function getAuthHeaders() {
+        const token = sessionStorage.getItem("kca_token");
+        return token ? { Authorization: `Bearer ${token}` } : {};
+      }
 
       window.addEventListener("DOMContentLoaded", () => {
         const rawUser =
@@ -1336,9 +1370,15 @@
       });
 
       function logoutAdmin() {
-        sessionStorage.clear();
-        localStorage.removeItem("kca_user");
-        window.location.href = "login.html";
+        const token = sessionStorage.getItem("kca_token");
+        fetch("../php/logout.php", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        }).then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
 
       function refreshWithFeedback() {
@@ -1358,7 +1398,12 @@
         if (!adminStaffId) return;
 
         fetch(
-          `../php/leave.php?action=get_staff_leave&staff_id=${encodeURIComponent(adminStaffId)}`,
+          `../php/leave.php?action=get_staff_leave&staff_id=${encodeURIComponent(adminStaffId)}&_t=${Date.now()}`,
+          {
+            method: "GET",
+            headers: getAuthHeaders(),
+            cache: "no-store",
+          },
         )
           .then((res) => res.json())
           .then((data) => {
@@ -1387,7 +1432,14 @@
 
       // 2. Fetch Master Queue & Full Roster from Backend
       function loadLeaveApplications() {
-        fetch("../php/leave.php?action=admin_get_leave_queue")
+        fetch(
+          `../php/leave.php?action=admin_get_leave_queue&_t=${Date.now()}`,
+          {
+            method: "GET",
+            headers: getAuthHeaders(),
+            cache: "no-store",
+          },
+        )
           .then((res) => res.json())
           .then((data) => {
             if (!data.success) {
@@ -1659,8 +1711,18 @@
         renderQueue();
       }
 
-      // 4. Render Quota Settings Table (With Server Role Rule Checked on Client)
+      // 4. Render Quota Settings & Balances Table
+      function setDirectoryFilter(view) {
+        currentDirectoryView = view;
+        document.getElementById("pillViewBalances").className =
+          "dispatch-pill-btn" + (view === "balances" ? " active-all" : "");
+        document.getElementById("pillViewQuotas").className =
+          "dispatch-pill-btn" + (view === "quotas" ? " active-all" : "");
+        renderQuotaTable();
+      }
+
       function renderQuotaTable() {
+        const thead = document.getElementById("quotaTableHeader");
         const tbody = document.getElementById("quotaTableBody");
         const query = document
           .getElementById("quotaSearchInput")
@@ -1679,43 +1741,109 @@
           return true;
         });
 
+        // 1. Render dynamic table headers based on active tab
+        if (currentDirectoryView === "balances") {
+          thead.innerHTML = `
+            <tr>
+              <th class="text-start ps-3">Staff ID</th>
+              <th class="text-start">Employee Name</th>
+              <th>Department & Role</th>
+              <th>Annual (AL) Left</th>
+              <th>Medical (MC) Left</th>
+              <th>Emergency (EL) Left</th>
+              <th>Unpaid Taken</th>
+            </tr>
+          `;
+        } else {
+          thead.innerHTML = `
+            <tr>
+              <th class="text-start ps-3">Staff ID</th>
+              <th class="text-start">Employee Name</th>
+              <th>Department & Role</th>
+              <th>AL Quota</th>
+              <th>MC Quota</th>
+              <th>EL Quota</th>
+              <th class="text-center">Action</th>
+            </tr>
+          `;
+        }
+
         if (filtered.length === 0) {
           tbody.innerHTML = `<tr><td colspan="7" class="text-center py-4 text-muted small">No employee profiles found.</td></tr>`;
           return;
         }
 
+        // 2. Render dynamic table rows
         filtered.forEach((u) => {
           const isAdm = u.applicant_role === "admin";
           const roleBadge = isAdm
             ? `<span class="badge bg-dark text-white ms-1" style="font-size: 0.68rem;">ADMIN</span>`
             : `<span class="badge bg-light text-dark border ms-1" style="font-size: 0.68rem;">STAFF</span>`;
 
-          // Regular Admin cannot edit Admin quotas
-          let actionCell = "";
-          if (isAdm && !isSuperAdmin) {
-            actionCell = `
-              <span class="badge bg-secondary-subtle text-secondary border px-2 py-1 small" title="Only Super Admin can edit an Admin's quota">
-                <i class="bi bi-shield-lock me-1"></i>Super Admin Only
-              </span>
+          const alTotal = parseFloat(u.annual_total || 0);
+          const alUsed = parseFloat(u.annual_used || 0);
+          const alLeft = Math.max(0, alTotal - alUsed);
+
+          const mcTotal = parseFloat(u.mc_total || 14);
+          const mcUsed = parseFloat(u.mc_used || 0);
+          const mcLeft = Math.max(0, mcTotal - mcUsed);
+
+          const elTotal = parseFloat(u.emergency_total || 3);
+          const elUsed = parseFloat(u.emergency_used || 0);
+          const elLeft = Math.max(0, elTotal - elUsed);
+
+          const unpaidUsed = parseFloat(u.unpaid_taken || 0);
+
+          const tr = document.createElement("tr");
+
+          if (currentDirectoryView === "balances") {
+            // View 1: Detailed Balances
+            tr.innerHTML = `
+              <td class="text-start ps-3 fw-bold text-dark">${u.staff_id}</td>
+              <td class="text-start fw-semibold text-dark">${u.staff_name} ${roleBadge}</td>
+              <td class="text-center"><span class="small text-secondary">${u.department || "Operations"}</span></td>
+              <td class="text-center">
+                <div class="fw-bold text-primary">${alLeft} d</div>
+                <div class="small text-muted" style="font-size: 0.72rem;">${alUsed} / ${alTotal} used</div>
+              </td>
+              <td class="text-center">
+                <div class="fw-bold text-danger">${mcLeft} d</div>
+                <div class="small text-muted" style="font-size: 0.72rem;">${mcUsed} / ${mcTotal} used</div>
+              </td>
+              <td class="text-center">
+                <div class="fw-bold text-warning-emphasis">${elLeft} d</div>
+                <div class="small text-muted" style="font-size: 0.72rem;">${elUsed} / ${elTotal} used</div>
+              </td>
+              <td class="text-center fw-bold text-secondary">${unpaidUsed} d</td>
             `;
           } else {
-            actionCell = `
-              <button type="button" onclick="openQuotaModal('${u.staff_id}', '${u.staff_name}', '${u.applicant_role}', ${u.annual_total || 0}, ${u.mc_total || 14}, ${u.emergency_total || 3})" class="btn btn-sm btn-outline-primary py-1 px-2 rounded-2 fw-semibold" style="font-size: 0.8rem;">
-                <i class="bi bi-pencil-square me-1"></i>Edit
-              </button>
+            // View 2: Edit Quota Settings
+            let actionCell = "";
+            if (isAdm && !isSuperAdmin) {
+              actionCell = `
+                <span class="badge bg-secondary-subtle text-secondary border px-2 py-1 small" title="Only Super Admin can edit an Admin's quota">
+                  <i class="bi bi-shield-lock me-1"></i>Super Admin Only
+                </span>
+              `;
+            } else {
+              actionCell = `
+                <button type="button" onclick="openQuotaModal('${u.staff_id}', '${u.staff_name}', '${u.applicant_role}', ${alTotal}, ${mcTotal}, ${elTotal})" class="btn btn-sm btn-outline-primary py-1 px-2 rounded-2 fw-semibold" style="font-size: 0.8rem;">
+                  <i class="bi bi-pencil-square me-1"></i>Edit Quota
+                </button>
+              `;
+            }
+
+            tr.innerHTML = `
+              <td class="text-start ps-3 fw-bold text-dark">${u.staff_id}</td>
+              <td class="text-start fw-semibold text-dark">${u.staff_name} ${roleBadge}</td>
+              <td class="text-center"><span class="small text-secondary">${u.department || "Operations"}</span></td>
+              <td class="fw-bold text-primary text-center">${alTotal} d</td>
+              <td class="fw-bold text-danger text-center">${mcTotal} d</td>
+              <td class="fw-bold text-warning-emphasis text-center">${elTotal} d</td>
+              <td class="text-center">${actionCell}</td>
             `;
           }
 
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td class="text-start ps-3 fw-bold text-dark">${u.staff_id}</td>
-            <td class="text-start fw-semibold text-dark">${u.staff_name} ${roleBadge}</td>
-            <td class="text-center"><span class="small text-secondary">${u.department || "Operations"}</span></td>
-            <td class="fw-bold text-primary text-center">${u.annual_total || 0} d</td>
-            <td class="fw-bold text-danger text-center">${u.mc_total || 14} d</td>
-            <td class="fw-bold text-warning-emphasis text-center">${u.emergency_total || 3} d</td>
-            <td class="text-center">${actionCell}</td>
-          `;
           tbody.appendChild(tr);
         });
       }
@@ -1798,6 +1926,7 @@
 
         fetch("../php/leave.php", {
           method: "POST",
+          headers: getAuthHeaders(),
           body: formData,
         })
           .then((res) => res.json())
@@ -1918,6 +2047,7 @@
 
           fetch("../php/leave.php", {
             method: "POST",
+            headers: getAuthHeaders(),
             body: formData,
           })
             .then((res) => res.json())
@@ -2031,6 +2161,7 @@
 
         fetch("../php/leave.php", {
           method: "POST",
+          headers: getAuthHeaders(),
           body: formData,
         })
           .then((res) => res.json())
@@ -2110,6 +2241,7 @@
 
         fetch("../php/leave.php", {
           method: "POST",
+          headers: getAuthHeaders(),
           body: formData,
         })
           .then((res) => res.json())

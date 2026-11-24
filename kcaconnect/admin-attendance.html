@@ -59,6 +59,14 @@
               Inquiries
             </a>
 
+            <a
+              href="admin-users.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              User Management
+            </a>
+
             <!-- e-Attendance Dropdown -->
             <div class="dropdown">
               <a
@@ -117,21 +125,47 @@
 
           <!-- Active Admin Name, Profile & Logout Button -->
           <div class="d-flex align-items-center gap-3">
-            <a href="admin-profile.html" class="text-decoration-none d-none d-sm-inline">
-              <span class="fw-bold text-dark" id="adminDisplayName" style="font-size: 0.95rem;">
+            <a
+              href="admin-profile.html"
+              class="text-decoration-none d-none d-sm-inline"
+            >
+              <span
+                class="fw-bold text-dark"
+                id="adminDisplayName"
+                style="font-size: 0.95rem"
+              >
                 Admin
               </span>
             </a>
 
             <div class="d-flex gap-2">
-              <a href="admin-profile.html" class="btn p-0 border-0" title="My Profile">
-                <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: var(--tnb-blue);">
+              <a
+                href="admin-profile.html"
+                class="btn p-0 border-0"
+                title="My Profile"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="
+                    width: 38px;
+                    height: 38px;
+                    background-color: var(--tnb-blue);
+                  "
+                >
                   <i class="bi bi-person-fill fs-5"></i>
                 </div>
               </a>
 
-              <button type="button" onclick="logoutAdmin()" class="btn p-0 border-0" title="Sign Out">
-                <div class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm" style="width: 38px; height: 38px; background-color: #e61e2b;">
+              <button
+                type="button"
+                onclick="logoutAdmin()"
+                class="btn p-0 border-0"
+                title="Sign Out"
+              >
+                <div
+                  class="rounded-circle d-flex align-items-center justify-content-center text-white shadow-sm"
+                  style="width: 38px; height: 38px; background-color: #e61e2b"
+                >
                   <i class="bi bi-box-arrow-right fs-5"></i>
                 </div>
               </button>
@@ -188,6 +222,14 @@
               <span>Inquiries</span>
             </a>
           </li>
+
+          <li>
+            <a class="admin-drawer-link" href="admin-users.html">
+              <i class="bi bi-people-fill"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+
           <li class="pt-3 pb-1 border-top mt-2">
             <span
               class="text-uppercase text-muted fw-bold ps-2"
@@ -222,7 +264,10 @@
           </li>
         </ul>
         <div class="pt-3 border-top">
-          <a href="admin-profile.html" class="admin-drawer-link text-dark d-block mb-3 text-decoration-none">
+          <a
+            href="admin-profile.html"
+            class="admin-drawer-link text-dark d-block mb-3 text-decoration-none"
+          >
             <i class="bi bi-person-fill text-primary me-2 fs-5"></i>
             <span>My Profile</span>
           </a>
@@ -994,8 +1039,11 @@
       });
 
       function logoutAdmin() {
-        sessionStorage.clear();
-        window.location.href = "login.html";
+        fetch("../php/login.php?action=logout").then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
 
       // 2. Fetch live attendance from database

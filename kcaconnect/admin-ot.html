@@ -57,6 +57,14 @@
               Inquiries
             </a>
 
+            <a
+              href="admin-users.html"
+              class="nav-link fw-semibold text-secondary hover-blue"
+              style="font-family: var(--font-headings)"
+            >
+              User Management
+            </a>
+
             <div class="dropdown">
               <a
                 class="nav-link fw-bold text-tnb-blue dropdown-toggle d-flex align-items-center gap-1"
@@ -209,6 +217,14 @@
               <span>Inquiries</span>
             </a>
           </li>
+
+          <li>
+            <a class="admin-drawer-link" href="admin-users.html">
+              <i class="bi bi-people-fill"></i>
+              <span>User Management</span>
+            </a>
+          </li>
+
           <li class="pt-3 pb-1 border-top mt-2">
             <span
               class="text-uppercase text-muted fw-bold ps-2"
@@ -936,8 +952,11 @@
       });
 
       function logoutAdmin() {
-        sessionStorage.clear();
-        window.location.href = "login.html";
+        fetch("../php/login.php?action=logout").then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
 
       // Fetch 100% Real Data from MySQL

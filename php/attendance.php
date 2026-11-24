@@ -1,13 +1,30 @@
 <?php
-// php/attendance.php
 session_start();
 date_default_timezone_set('Asia/Kuala_Lumpur');
 header("Content-Type: application/json; charset=UTF-8");
+header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 
 require_once 'db.php';
 
-$staff_id = $_SESSION['staff_id'] ?? $_POST['staff_id'] ?? $_GET['staff_id'] ?? '';
-$staff_id = trim($staff_id);
+// Support both Bearer tokens and standard PHP sessions/POST/GET seamlessly
+$headers = function_exists('getallheaders') ? getallheaders() : [];
+$authHeader = $headers['Authorization'] ?? $headers['authorization'] ?? $_SERVER['HTTP_AUTHORIZATION'] ?? $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] ?? '';
+$staff_id = '';
+
+if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    $token = $matches[1];
+    $stmtToken = $pdo->prepare("SELECT staff_id FROM users WHERE auth_token = ? LIMIT 1");
+    $stmtToken->execute([$token]);
+    $tokenUser = $stmtToken->fetch(PDO::FETCH_ASSOC);
+    if ($tokenUser) {
+        $staff_id = trim($tokenUser['staff_id']);
+    }
+}
+
+if (empty($staff_id)) {
+    $staff_id = $_SESSION['staff_id'] ?? $_POST['staff_id'] ?? $_GET['staff_id'] ?? '';
+    $staff_id = trim($staff_id);
+}
 
 if (empty($staff_id)) {
     http_response_code(401);
@@ -67,6 +84,28 @@ try {
             $stmtHistory->execute([$staff_id]);
             $history = $stmtHistory->fetchAll(PDO::FETCH_ASSOC) ?: [];
         } catch (Exception $e) {}
+
+        // Backend Safety Guard: Ensure today's active punch is always included in the history list
+        if ($todayPunch && !empty($todayPunch['clock_in_time'])) {
+            $foundToday = false;
+            foreach ($history as $h) {
+                if ($h['work_date'] === $today) {
+                    $foundToday = true;
+                    break;
+                }
+            }
+            if (!$foundToday) {
+                array_unshift($history, [
+                    "work_date" => $today,
+                    "clock_in_time" => $todayPunch['clock_in_time'],
+                    "clock_out_time" => $todayPunch['clock_out_time'] ?? null,
+                    "work_hours" => $todayPunch['work_hours'] ?? "0.0",
+                    "ot_hours" => $todayPunch['ot_hours'] ?? "0.0",
+                    "status" => $todayPunch['status'] ?? "Office",
+                    "ot_status" => null
+                ]);
+            }
+        }
 
         echo json_encode([
             "success" => true,
@@ -154,7 +193,6 @@ try {
         $projectName = trim($_POST['project_name'] ?? 'Daily Operations OT');
         $claimCode = 'OT-' . strtoupper(substr(md5(uniqid(rand(), true)), 0, 6));
 
-        // 1. Accepts custom date if submitted (admin modal), otherwise defaults to today (staff)
         $claimDate = trim($_POST['claim_date'] ?? $today);
 
         if ($otHours <= 0 || empty($reason)) {
@@ -162,7 +200,6 @@ try {
             exit;
         }
 
-        // 2. Duplicate guard checks against $claimDate
         $stmtCheckOt = $pdo->prepare("SELECT id, status FROM overtime_claims WHERE staff_id = ? AND claim_date = ? LIMIT 1");
         $stmtCheckOt->execute([$staff_id, $claimDate]);
         $existingClaim = $stmtCheckOt->fetch(PDO::FETCH_ASSOC);
@@ -178,7 +215,6 @@ try {
         $hourlyRate = 15.00;
         $totalAmount = $otHours * $hourlyRate;
 
-        // 3. Insert using $claimDate
         $stmtOt = $pdo->prepare("
             INSERT INTO overtime_claims 
             (claim_code, staff_id, claim_date, ot_hours, hourly_rate, total_amount, project_name, reason, status) 
@@ -186,7 +222,6 @@ try {
         ");
         $stmtOt->execute([$claimCode, $staff_id, $claimDate, $otHours, $hourlyRate, $totalAmount, $projectName, $reason]);
 
-        // 4. Sync ot_hours to attendance_records using $claimDate
         $stmtUpdateRecord = $pdo->prepare("UPDATE attendance_records SET ot_hours = ? WHERE staff_id = ? AND work_date = ?");
         $stmtUpdateRecord->execute([$otHours, $staff_id, $claimDate]);
 
@@ -199,7 +234,7 @@ try {
         exit;
     }
 
-    // 5. Admin: Fetch All Overtime Claims (With claimer_role included)
+    // 5. Admin: Fetch All Overtime Claims
     if ($action === 'admin_get_ot') {
         $stmt = $pdo->prepare("
             SELECT 
@@ -234,7 +269,7 @@ try {
         exit;
     }
 
-    // 6. Admin: Review Overtime Claim (Hierarchy Guard Enforced)
+    // 6. Admin: Review Overtime Claim
     if ($action === 'admin_review_ot') {
         $claim_id = $_POST['claim_id'] ?? '';
         $status = $_POST['status'] ?? 'approved';
@@ -260,7 +295,6 @@ try {
         $reviewer = $stmtReviewer->fetch(PDO::FETCH_ASSOC);
         $reviewerRole = $reviewer['role'] ?? '';
 
-        // If claim belongs to an Admin, ONLY super_admin can approve/reject
         if ($claimerRole === 'admin' && $reviewerRole !== 'super_admin') {
             echo json_encode([
                 "success" => false, 
@@ -425,7 +459,7 @@ try {
         exit;
     }
 
-    // 11. Admin: Delete single OT claim (Reset Timesheet ot & Checks Role)
+    // 11. Admin: Delete single OT claim
     if ($action == 'admin_delete_ot') {
         $claim_id = intval($_POST['claim_id'] ?? 0);
         $admin_id = trim($_POST['admin_id'] ?? $staff_id);
@@ -444,7 +478,6 @@ try {
             exit;
         }
 
-        //Only Super Admin can delete Admin ot claim
         $stmtClaimer = $pdo->prepare("SELECT role FROM users WHERE staff_id = ? LIMIT 1");
         $stmtClaimer->execute([$claim['staff_id']]);
         $claimerRole = $stmtClaimer->fetchColumn() ?: 'staff';
@@ -461,7 +494,6 @@ try {
             exit;
         }
 
-        //Remove claim and reset ot hours on that day attendance record to 0
         $pdo->prepare("DELETE FROM overtime_claims WHERE id = ?")->execute([$claim_id]);
         $pdo->prepare("UPDATE attendance_records SET ot_hours = 0.00 where staff_id = ? AND work_date = ?")
         ->execute([$claim['staff_id'], $claim['claim_date']]);

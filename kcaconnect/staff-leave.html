@@ -30,10 +30,15 @@
     <div class="brand-accent-bar"></div>
 
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-md navbar-light bg-white py-2 shadow-sm sticky-top">
+    <nav
+      class="navbar navbar-expand-md navbar-light bg-white py-2 shadow-sm sticky-top"
+    >
       <div class="container d-flex justify-content-between align-items-center">
         <!-- Logo -->
-        <a class="navbar-brand d-flex align-items-center p-0" href="staff-attendance.html">
+        <a
+          class="navbar-brand d-flex align-items-center p-0"
+          href="staff-attendance.html"
+        >
           <img
             src="../img/KCAConnect.png"
             alt="KCAConnect Logo"
@@ -534,6 +539,12 @@
         unpaid_taken: 0,
       };
 
+      // Helper for Token Authorization Headers
+      function getAuthHeaders() {
+        const token = sessionStorage.getItem("kca_token");
+        return token ? { Authorization: `Bearer ${token}` } : {};
+      }
+
       window.addEventListener("DOMContentLoaded", () => {
         const rawUser =
           sessionStorage.getItem("kca_user") ||
@@ -583,7 +594,12 @@
       // 1. Fetch Balances & History
       function fetchLeaveData() {
         fetch(
-          `../php/leave.php?action=get_staff_leave&staff_id=${encodeURIComponent(currentUser.staff_id)}`,
+          `../php/leave.php?action=get_staff_leave&staff_id=${encodeURIComponent(currentUser.staff_id)}&_t=${Date.now()}`,
+          {
+            method: "GET",
+            headers: getAuthHeaders(),
+            cache: "no-store",
+          },
         )
           .then((res) => res.json())
           .then((data) => {
@@ -601,20 +617,24 @@
 
             document.getElementById("statALRemaining").innerText =
               `${data.balances.annual_left} Days`;
-            if (userRole !== "admin") {
+            if (userRole !== "admin" && ent) {
               document.getElementById("statALSubtitle").innerText =
                 `Used ${ent.annual_used} of ${ent.annual_total} Days`;
             }
 
             document.getElementById("statMCRemaining").innerText =
               `${data.balances.mc_left} Days`;
-            document.getElementById("statMCSubtitle").innerText =
-              `Used ${ent.mc_used} of ${ent.mc_total} Days`;
+            if (ent) {
+              document.getElementById("statMCSubtitle").innerText =
+                `Used ${ent.mc_used} of ${ent.mc_total} Days`;
+            }
 
             document.getElementById("statELRemaining").innerText =
               `${data.balances.emergency_left} Days`;
-            document.getElementById("statELSubtitle").innerText =
-              `Used ${ent.emergency_used} of ${ent.emergency_total} Days`;
+            if (ent) {
+              document.getElementById("statELSubtitle").innerText =
+                `Used ${ent.emergency_used} of ${ent.emergency_total} Days`;
+            }
 
             document.getElementById("statUnpaidTaken").innerText =
               `${data.balances.unpaid_taken} Days`;
@@ -809,6 +829,7 @@
 
           fetch("../php/leave.php", {
             method: "POST",
+            headers: getAuthHeaders(),
             body: formData,
           })
             .then((res) => res.json())
@@ -847,32 +868,40 @@
             });
         });
 
-      // 5.  Status Popup
+      // 5. Safe Status Popup
       function showCustomPopup(type, title, message) {
         const modalEl = document.getElementById("statusAlertModal");
+        if (!modalEl) {
+          alert(title + "\n\n" + message.replace(/<[^>]*>/g, ""));
+          return;
+        }
+
         const iconEl = document.getElementById("modalAlertIcon");
         const titleEl = document.getElementById("modalAlertTitle");
         const msgEl = document.getElementById("modalAlertMessage");
         const btnEl = document.getElementById("modalAlertBtn");
 
-        if (type === "success") {
-          iconEl.innerHTML =
-            '<i class="bi bi-check-circle-fill text-success"></i>';
-          titleEl.className = "fw-bold mb-2 text-success";
-          btnEl.style.backgroundColor = "#0563c1";
-        } else if (type === "blocked") {
-          iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
-          titleEl.className = "fw-bold mb-2 text-danger";
-          btnEl.style.backgroundColor = "#e61e2b";
-        } else {
-          iconEl.innerHTML =
-            '<i class="bi bi-info-circle-fill text-primary"></i>';
-          titleEl.className = "fw-bold mb-2 text-primary";
-          btnEl.style.backgroundColor = "#0563c1";
+        if (iconEl) {
+          if (type === "success") {
+            iconEl.innerHTML =
+              '<i class="bi bi-check-circle-fill text-success"></i>';
+            if (titleEl) titleEl.className = "fw-bold mb-2 text-success";
+            if (btnEl) btnEl.style.backgroundColor = "#0563c1";
+          } else if (type === "blocked") {
+            iconEl.innerHTML =
+              '<i class="bi bi-x-circle-fill text-danger"></i>';
+            if (titleEl) titleEl.className = "fw-bold mb-2 text-danger";
+            if (btnEl) btnEl.style.backgroundColor = "#e61e2b";
+          } else {
+            iconEl.innerHTML =
+              '<i class="bi bi-info-circle-fill text-primary"></i>';
+            if (titleEl) titleEl.className = "fw-bold mb-2 text-primary";
+            if (btnEl) btnEl.style.backgroundColor = "#0563c1";
+          }
         }
 
-        titleEl.innerText = title;
-        msgEl.innerHTML = message;
+        if (titleEl) titleEl.innerText = title;
+        if (msgEl) msgEl.innerHTML = message;
 
         const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
         modalInstance.show();
@@ -900,9 +929,15 @@
       }
 
       function logoutStaff() {
-        sessionStorage.clear();
-        localStorage.removeItem("kca_user");
-        window.location.href = "login.html";
+        const token = sessionStorage.getItem("kca_token");
+        fetch("../php/logout.php", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        }).then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
     </script>
   </body>

@@ -578,6 +578,7 @@
 
       let activeSitePermission = null;
       let activeClockInTimeStr = null;
+      let cachedHistory = []; // Local cache to support instant UI rendering
 
       // 1. Live Real-Time Clock with Seconds & Accurate AM/PM
       function updateLiveClock() {
@@ -648,12 +649,15 @@
         const staffId = user.id || user.staff_id || "KCA";
         const label = `${staffName} (${staffId})`;
 
-        document.getElementById("staffDisplayName").innerText = label;
-        document.getElementById("modalStaffIdDisplay").innerText = label;
-        document.getElementById("modalFullLogsStaffName").innerText =
-          `Employee: ${label}`;
+        const nameEl = document.getElementById("staffDisplayName");
+        if (nameEl) nameEl.innerText = label;
+        
+        const modalIdEl = document.getElementById("modalStaffIdDisplay");
+        if (modalIdEl) modalIdEl.innerText = label;
+        
+        const logsNameEl = document.getElementById("modalFullLogsStaffName");
+        if (logsNameEl) logsNameEl.innerText = `Employee: ${label}`;
 
-        // Load real punch state & 7-day history from MySQL database
         loadAttendanceStatus();
       });
 
@@ -663,18 +667,16 @@
         const staffId = user.id || user.staff_id || "";
 
         fetch(
-          `../php/attendance.php?action=get_status&staff_id=${encodeURIComponent(staffId)}`,
+          `../php/attendance.php?action=get_status&staff_id=${encodeURIComponent(staffId)}&_t=${Date.now()}`
         )
           .then((res) => res.json())
           .then((data) => {
             if (!data.success) return;
 
-            // 1. Off-site permission
             if (data.site_permission) {
               activeSitePermission = data.site_permission;
             }
 
-            // 2. Today's punch state
             if (data.today_punch) {
               const p = data.today_punch;
               if (p.clock_in_time && !p.clock_out_time) {
@@ -690,11 +692,25 @@
               setNotClockedInUI();
             }
 
-            // 3. Today's OT status
             updateOtUI(data.today_ot);
 
-            // 4. Render rolling 7 days to dashboard & all days to modal
-            renderDbLogs(data.history || []);
+            cachedHistory = data.history || [];
+            if (data.today_punch && data.today_punch.clock_in_time) {
+              const todayDateStr = data.today_punch.work_date;
+              const existsInHistory = cachedHistory.some(h => h.work_date === todayDateStr);
+              if (!existsInHistory) {
+                cachedHistory.unshift({
+                  work_date: todayDateStr,
+                  clock_in_time: data.today_punch.clock_in_time,
+                  clock_out_time: data.today_punch.clock_out_time || null,
+                  work_hours: data.today_punch.work_hours || "0.0",
+                  ot_hours: data.today_punch.ot_hours || "0.0",
+                  status: data.today_punch.status || "Office"
+                });
+              }
+            }
+
+            renderDbLogs(cachedHistory);
           })
           .catch((err) =>
             console.error("Failed to load attendance status:", err),
@@ -758,7 +774,32 @@
                   "Clock-In Successful!",
                   `Punch recorded at <strong>${data.time_in}</strong>.<br>Location: <strong>${data.location}</strong> (${punchStatus}).`
                 );
-                loadAttendanceStatus();
+                
+                // --- IMMEDIATE UI TABLE RENDERING PATCH ---
+                const todayStr = new Date().toISOString().split("T")[0];
+                const newEntry = {
+                  work_date: todayStr,
+                  clock_in_time: data.time_in + ":00",
+                  clock_out_time: null,
+                  work_hours: "0.0",
+                  ot_hours: "0.0",
+                  status: punchStatus
+                };
+                
+                // Prepend or update today's entry in cached history instantly
+                const existingIndex = cachedHistory.findIndex(h => h.work_date === todayStr);
+                if (existingIndex >= 0) {
+                  cachedHistory[existingIndex].clock_in_time = data.time_in + ":00";
+                  cachedHistory[existingIndex].status = punchStatus;
+                } else {
+                  cachedHistory.unshift(newEntry);
+                }
+                renderDbLogs(cachedHistory);
+
+                // Background sync after 1 second
+                setTimeout(() => {
+                  loadAttendanceStatus();
+                }, 1000);
               } else {
                 restoreBtn();
                 showCustomPopup("blocked", "Punch Failed", data.message);
@@ -829,7 +870,19 @@
                   "Clock-Out Complete",
                   `Shift ended at <strong>${data.time_out}</strong>.<br>Total worked: <strong>${data.worked_hours} hrs</strong>.`
                 );
-                loadAttendanceStatus();
+                
+                // --- IMMEDIATE UI TABLE RENDERING PATCH ---
+                const todayStr = new Date().toISOString().split("T")[0];
+                const existing = cachedHistory.find(h => h.work_date === todayStr);
+                if (existing) {
+                  existing.clock_out_time = data.time_out + ":00";
+                  existing.work_hours = data.worked_hours;
+                }
+                renderDbLogs(cachedHistory);
+
+                setTimeout(() => {
+                  loadAttendanceStatus();
+                }, 1000);
               } else {
                 restoreBtn();
                 showCustomPopup("blocked", "Clock-Out Error", data.message);
@@ -1076,29 +1129,34 @@
 
       function showCustomPopup(type, title, message) {
         const modalEl = document.getElementById("statusAlertModal");
+        if (!modalEl) {
+          alert(title + "\n\n" + message.replace(/<[^>]*>/g, ''));
+          return;
+        }
+
         const iconEl = document.getElementById("modalAlertIcon");
         const titleEl = document.getElementById("modalAlertTitle");
         const msgEl = document.getElementById("modalAlertMessage");
         const btnEl = document.getElementById("modalAlertBtn");
 
-        if (type === "success") {
-          iconEl.innerHTML =
-            '<i class="bi bi-check-circle-fill text-success"></i>';
-          titleEl.className = "fw-bold mb-2 text-success";
-          btnEl.style.backgroundColor = "#0563c1";
-        } else if (type === "blocked") {
-          iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
-          titleEl.className = "fw-bold mb-2 text-danger";
-          btnEl.style.backgroundColor = "#e61e2b";
-        } else {
-          iconEl.innerHTML =
-            '<i class="bi bi-info-circle-fill text-primary"></i>';
-          titleEl.className = "fw-bold mb-2 text-primary";
-          btnEl.style.backgroundColor = "#0563c1";
+        if (iconEl) {
+          if (type === "success") {
+            iconEl.innerHTML = '<i class="bi bi-check-circle-fill text-success"></i>';
+            if (titleEl) titleEl.className = "fw-bold mb-2 text-success";
+            if (btnEl) btnEl.style.backgroundColor = "#0563c1";
+          } else if (type === "blocked") {
+            iconEl.innerHTML = '<i class="bi bi-x-circle-fill text-danger"></i>';
+            if (titleEl) titleEl.className = "fw-bold mb-2 text-danger";
+            if (btnEl) btnEl.style.backgroundColor = "#e61e2b";
+          } else {
+            iconEl.innerHTML = '<i class="bi bi-info-circle-fill text-primary"></i>';
+            if (titleEl) titleEl.className = "fw-bold mb-2 text-primary";
+            if (btnEl) btnEl.style.backgroundColor = "#0563c1";
+          }
         }
 
-        titleEl.innerText = title;
-        msgEl.innerHTML = message;
+        if (titleEl) titleEl.innerText = title;
+        if (msgEl) msgEl.innerHTML = message;
 
         const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
         modalInstance.show();
@@ -1119,9 +1177,11 @@
       });
 
       function logoutStaff() {
-        sessionStorage.clear();
-        localStorage.removeItem("kca_user");
-        window.location.href = "login.html";
+        fetch("../php/login.php?action=logout").then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
 
       function renderDbLogs(logs) {

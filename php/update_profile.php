@@ -1,55 +1,79 @@
 <?php
-session_start();
 header("Content-Type: application/json; charset=UTF-8");
+header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Headers: Authorization");
+
 require_once 'db.php';
 
-// Check if user log in and request is POST
-if (!isset($_SESSION['user_id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(["success" => false, "message" => "Unauthorized access."]);
-    exit;
+// Extract Token
+$headers = getallheaders();
+$authHeader = $headers['Authorization'] ?? '';
+$token = '';
+
+if (preg_match('/Bearer\s(\S+)/', $authHeader, $matches)) {
+    $token = $matches[1];
 }
 
-$user_id = $_SESSION['user_id'];
-$full_name = trim($_POST['full_name'] ?? '');
-$email = trim($_POST['email'] ?? '');
-$phone = trim($_POST['phone'] ?? '');
-$new_password = trim($_POST['new_password'] ?? '');
-
-if (empty($full_name)) {
-    echo json_encode(["success" => false, "message" => "Full Name cannot be empty."]);
+// Reject if no token is found
+if (!$token) {
+    echo json_encode(["success" => false, "message" => "Unauthorized access. Missing authentication token."]);
     exit;
 }
 
 try {
-    // 1. Check duplicate email
-    if ($email !== '') {
-        $checkStmt = $pdo->prepare("SELECT id FROM users WHERE email = ? AND id != ?");
-        $checkStmt->execute([$email, $user_id]);
-        if ($checkStmt->fetch()) {
-            echo json_encode(["success" => false, "message" => "This email address is already in use by another staff member."]);
-            exit;
-        }
+    // Verify Token and get the active user's ID
+    $stmt = $pdo->prepare("SELECT id FROM users WHERE auth_token = ? LIMIT 1");
+    $stmt->execute([$token]);
+    $activeUser = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$activeUser) {
+        echo json_encode(["success" => false, "message" => "Session expired or invalid. Please log in again."]);
+        exit;
     }
 
-    // 2. Perform update
+    $user_id = $activeUser['id'];
+
+    // Collect Form Data
+    $full_name = trim($_POST['full_name'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $new_password = $_POST['new_password'] ?? '';
+
+    // Basic Validation
+    if (empty($full_name) || empty($email)) {
+        echo json_encode(["success" => false, "message" => "Full Name and Email are required fields."]);
+        exit;
+    }
+
+    // Check if they are updating their password
     if (!empty($new_password)) {
-        // Hash new password + update all fields
-        $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
-        $updateStmt = $pdo->prepare("UPDATE users SET full_name = ?, email = ?, phone = ?, password_hash = ? WHERE id = ?");
-        $updateStmt->execute([$full_name, $email, $phone, $hashed_password, $user_id]);
+        // Hash the new password
+        $password_hash = password_hash($new_password, PASSWORD_BCRYPT);
+        
+        $updateStmt = $pdo->prepare("
+            UPDATE users 
+            SET full_name = ?, email = ?, phone = ?, password_hash = ? 
+            WHERE id = ?
+        ");
+        $updateStmt->execute([$full_name, $email, $phone, $password_hash, $user_id]);
     } else {
-        // Only update full_name, email and phone if password field was left blank
-        $updateStmt = $pdo->prepare("UPDATE users SET full_name = ?, email = ?, phone = ? WHERE id = ?");
+        // Update without touching the password
+        $updateStmt = $pdo->prepare("
+            UPDATE users 
+            SET full_name = ?, email = ?, phone = ? 
+            WHERE id = ?
+        ");
         $updateStmt->execute([$full_name, $email, $phone, $user_id]);
     }
 
-    // Update the session variable for the server-side as well
-    $_SESSION['full_name'] = $full_name;
-
-    echo json_encode(["success" => true, "message" => "Profile updated successfully!"]);
+    echo json_encode(["success" => true, "message" => "Your profile has been successfully updated!"]);
 
 } catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    // Catch duplicate email errors or generic DB errors
+    if ($e->getCode() == 23000) {
+        echo json_encode(["success" => false, "message" => "That email address is already in use by another account."]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Database error: " . $e->getMessage()]);
+    }
 }
 ?>

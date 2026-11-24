@@ -133,9 +133,6 @@
           >
             MY PROFILE
           </h4>
-          <p class="text-secondary small mb-0">
-            Manage your contact information and account security.
-          </p>
         </div>
       </div>
 
@@ -273,7 +270,7 @@
       </div>
     </main>
 
-    <!-- Status Alert Modal -->
+    <!-- Status Alert -->
     <div
       class="modal fade"
       id="statusAlertModal"
@@ -329,7 +326,9 @@
         const rawUser =
           sessionStorage.getItem("kca_user") ||
           localStorage.getItem("kca_user");
-        if (!rawUser) {
+        const authToken = sessionStorage.getItem("kca_token");
+
+        if (!rawUser || !authToken) {
           window.location.href = "login.html";
           return;
         }
@@ -341,20 +340,34 @@
         document.getElementById("staffDisplayName").innerText =
           `${staffName} (${staffId})`;
 
-        // 2. Fetch Profile Data (Fixed Path!)
-        fetch("../php/get_profile.php")
+        // 2. Fetch Profile Data (Using Auth Token & Auto-Sync)
+        fetch("../php/get_profile.php", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
           .then((response) => response.json())
           .then((data) => {
             if (data.success) {
+              if (
+                data.user.staff_id !== user.id &&
+                data.user.staff_id !== user.staff_id
+              ) {
+                user.id = data.user.staff_id;
+                user.staff_id = data.user.staff_id;
+                user.name = data.user.full_name;
+                user.role = data.user.role;
+                sessionStorage.setItem("kca_user", JSON.stringify(user));
+                document.getElementById("staffDisplayName").innerText =
+                  `${user.name} (${user.id})`;
+              }
+
               document.getElementById("staff_id").value = data.user.staff_id;
               document.getElementById("full_name").value = data.user.full_name;
               document.getElementById("department").value =
                 data.user.department;
-              document.getElementById("role").value = data.user.role.replace(
-                "_",
-                " ",
-              );
-
+              document.getElementById("role").value = data.user.role.replace("_", " ").replace(/\b\w/g, l => l.toUpperCase());
               document.getElementById("email").value = data.user.email;
               document.getElementById("phone").value = data.user.phone;
             } else {
@@ -374,7 +387,7 @@
           });
       });
 
-      // 3. Handle Form Submission
+      // 3. Handle Form Submission (Using Auth Token)
       document
         .getElementById("profileForm")
         .addEventListener("submit", function (e) {
@@ -386,10 +399,13 @@
           btn.innerHTML = `<span class="spinner-border spinner-border-sm me-2"></span>SAVING...`;
 
           let formData = new FormData(this);
+          const authToken = sessionStorage.getItem("kca_token");
 
-          // Fixed Path!
           fetch("../php/update_profile.php", {
             method: "POST",
+            headers: {
+              Authorization: `Bearer ${authToken}`,
+            },
             body: formData,
           })
             .then((response) => response.json())
@@ -466,10 +482,19 @@
           document.body.style.removeProperty("padding-right");
         });
 
+      // 6. Logout Logic (Using Auth Token)
       function logoutStaff() {
-        sessionStorage.clear();
-        localStorage.removeItem("kca_user");
-        window.location.href = "login.html";
+        const authToken = sessionStorage.getItem("kca_token");
+        fetch("../php/logout.php", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        }).then(() => {
+          sessionStorage.clear();
+          localStorage.removeItem("kca_user");
+          window.location.href = "login.html";
+        });
       }
     </script>
   </body>
